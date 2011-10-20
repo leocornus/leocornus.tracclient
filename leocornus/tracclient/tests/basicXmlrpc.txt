@@ -1,0 +1,31 @@
+===========================
+The Basic Trac xmlrpc calls
+===========================
+
+We will explain some basic XML-RPC apis in this document.
+
+It will also present as a sample for Python doctest test case.
+
+    >>> import xmlrpclib
+
+get the trac server
+
+    >>> server = xmlrpclib.ServerProxy('https://seanchen:kouling@egov.repositoryhosting.com/trac/egov_anduril/login/xmlrpc')
+
+Now, here are some basic system method.  The total number of methods are 83.
+
+    >>> methods = server.system.listMethods()
+    >>> len(methods)
+    83
+    >>> methods 
+    ['system.multicall', 'system.listMethods', 'system.methodHelp', 'system.methodSignature', 'system.getAPIVersion', 'ticket.query', 'ticket.getRecentChanges', 'ticket.getAvailableActions', 'ticket.getActions', 'ticket.get', 'ticket.create', 'ticket.update', 'ticket.delete', 'ticket.changeLog', 'ticket.listAttachments', 'ticket.getAttachment', 'ticket.putAttachment', 'ticket.deleteAttachment', 'ticket.getTicketFields', 'ticket.status.getAll', 'ticket.status.get', 'ticket.status.delete', 'ticket.status.create', 'ticket.status.update', 'ticket.component.getAll', 'ticket.component.get', 'ticket.component.delete', 'ticket.component.create', 'ticket.component.update', 'ticket.version.getAll', 'ticket.version.get', 'ticket.version.delete', 'ticket.version.create', 'ticket.version.update', 'ticket.milestone.getAll', 'ticket.milestone.get', 'ticket.milestone.delete', 'ticket.milestone.create', 'ticket.milestone.update', 'ticket.type.getAll', 'ticket.type.get', 'ticket.type.delete', 'ticket.type.create', 'ticket.type.update', 'ticket.resolution.getAll', 'ticket.resolution.get', 'ticket.resolution.delete', 'ticket.resolution.create', 'ticket.resolution.update', 'ticket.priority.getAll', 'ticket.priority.get', 'ticket.priority.delete', 'ticket.priority.create', 'ticket.priority.update', 'ticket.severity.getAll', 'ticket.severity.get', 'ticket.severity.delete', 'ticket.severity.create', 'ticket.severity.update', 'changeset.added', 'changeset.modified', 'changeset.processPreCommitMessage', 'changeset.processCommitMessage', 'wiki.getRecentChanges', 'wiki.getRPCVersionSupported', 'wiki.getPage', 'wiki.getPageVersion', 'wiki.getPageHTML', 'wiki.getPageHTMLVersion', 'wiki.getAllPages', 'wiki.getPageInfo', 'wiki.getPageInfoVersion', 'wiki.putPage', 'wiki.listAttachments', 'wiki.getAttachment', 'wiki.putAttachment', 'wiki.putAttachmentEx', 'wiki.deletePage', 'wiki.deleteAttachment', 'wiki.listLinks', 'wiki.wikiToHtml', 'search.getSearchFilters', 'search.performSearch']
+
+let's check how to query a ticket.  following is the method help info.
+
+    >>> server.system.methodHelp('ticket.query')
+    'array ticket.query(string qstr="status!=closed")\n\nPerform a ticket query, returning a list of ticket ID\'s.\nAll queries will use stored settings for maximum number of results per\npage and paging options. Use `max=n` to define number of results to\nreceive, and use `page=n` to page through larger result sets. Using\n`max=0` will turn off paging and return all results.'
+
+help message for create ticket.
+
+    >>> server.system.methodHelp('ticket.create')
+    'int ticket.create(string summary, string description, struct attributes={}, boolean notify=False)\n\nCreate a new ticket, returning the ticket ID. '
