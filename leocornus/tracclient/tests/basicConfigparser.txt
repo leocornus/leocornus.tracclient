@@ -1,0 +1,48 @@
+We need a config file to set up the connection to trac system.  The module
+ConfigParser is the tool in Python language to handle ini style configuration
+files.
+
+ConfigParser module has been renamed to configparser in Python 3.0 so we 
+better use the following to import it. 
+
+    >>> try:
+    ...     import configparser
+    ... except ImportError:
+    ...     import ConfigParser as configparser
+
+First of all, let's get ready some testing data in file (.testing.cfg) in 
+current user's home folder, we will use it for testing.
+
+    >>> import os
+    >>> testcfg_filename = '.testing.cfg'
+    >>> testcfg = open(os.path.expanduser('~/' + testcfg_filename), 'w')
+    >>> testcfg.write('''[testing]
+    ... key1 = abc
+    ... key2 = 123
+    ... ''')
+    >>> testcfg.close()
+
+Now, let's try to read the testing configuration 
+
+    >>> cfgparser = configparser.ConfigParser()
+    >>> files = cfgparser.read(os.path.expanduser('~/' + testcfg_filename))
+    >>> testcfg_filename in files[0]
+    True
+
+Testing the get option from the config file.
+
+    >>> cfgparser.get('testing', 'key1')
+    'abc'
+    >>> cfgparser.get('testing', 'key2')
+    '123'
+
+what if there is not such option in the config file.
+
+    >>> cfgparser.get('abc', 'testing')
+    Traceback (most recent call last):
+        ...
+    NoSectionError: No section: 'abc'
+    >>> cfgparser.get('testing', 'key3')
+    Traceback (most recent call last):
+        ...
+    NoOptionError: No option 'key3' in section: 'testing'
