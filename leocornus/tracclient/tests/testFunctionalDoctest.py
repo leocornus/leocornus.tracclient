@@ -19,4 +19,6 @@ def test_suite():
                               package='leocornus.tracclient'))
    suite.addTest(DocFileSuite('tests/basicConfigparser.txt',
                               package='leocornus.tracclient'))
+   suite.addTest(DocFileSuite('tests/basicScrapy.txt',
+                              package='leocornus.tracclient'))
    return suite

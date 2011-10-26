@@ -1,0 +1,11 @@
+Basic Function from Scrapy
+==========================
+
+We are trying to test the basic functions offered by Scrapy.
+
+Scrapy became the dependence of our module, we need add it in the
+install_requires in setup.py file.
+
+    >>> import scrapy
+
+

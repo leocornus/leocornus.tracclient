@@ -18,6 +18,7 @@ easy-to-use XML-RPC cleint to access Trac""",
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'scrapy'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
