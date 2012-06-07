@@ -1,7 +1,7 @@
 === WP Trac Client ===
 Contributors: sean.chen 
 Donate link:
-http://www.github.com/leocornus/leocornus.tracclient/trac-on-wordpress
+http://www.github.com/leocornus/leocornus.tracclient
 Tags: trac, ticket, xml-rpc, project management, agile, milestone, sprint
 Requires at least: 3.3.1
 Tested up to: 3.3.1
