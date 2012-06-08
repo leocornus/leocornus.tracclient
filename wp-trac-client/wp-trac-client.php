@@ -51,6 +51,26 @@ function zend_framework_register_autoload() {
     $autoloader = Zend_Loader_Autoloader::getInstance();
 }
 
+// load the tmplate tags function.
+require_once(MY_PLUGIN_PATH . '/tags.php');
+
+global $wptc_client;
+
+add_action('init', 'get_wptc_client');
+function get_wptc_client() {
+
+    $rpcurl = get_blog_option(get_current_blog_id(), 'wptc_rpcurl');
+    $username = get_blog_option(get_current_blog_id(), 'wptc_username');
+    $password = get_blog_option(get_current_blog_id(), 'wptc_password');
+    if ($rpcurl) {
+        require_once 'Zend/XmlRpc/Client.php';
+        $wptc_client = new Zend_XmlRpc_Client($rpcurl);
+        $wptc_client->getHttpClient()->setAuth($username, $password);
+    }
+
+    return $wptc_client;
+}
+
 // we need a admin page on dashboard for configuration.
 add_action('admin_menu', 'wptc_admin_init');
 /**

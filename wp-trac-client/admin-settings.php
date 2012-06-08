@@ -25,7 +25,7 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         $func = $_POST['wptc_function'];
         //$proxy = $client->getProxy('system');
         //$methods = $proxy->listMethods();
-        $testResult = $client->call($func, array());
+        $testResult = get_wptc_client()->call($func, array());
     }
    
 }
