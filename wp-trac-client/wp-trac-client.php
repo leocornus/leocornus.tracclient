@@ -53,10 +53,29 @@ function zend_framework_register_autoload() {
 
 // load the tmplate tags function.
 require_once(MY_PLUGIN_PATH . '/tags.php');
+// load ajax functions.
+require_once(MY_PLUGIN_PATH . '/ajax.php');
 
 global $wptc_client;
 
-add_action('init', 'get_wptc_client');
+/**
+ * register the dataTables JavaScript lib.
+ * DataTables depends on jQuery.  
+ * we assume jQuery is already loaded.
+ */
+add_action('init', 'register_resources');
+function register_resources() {
+
+    // plugins_url will check this is a ssl request or not.
+    wp_register_script('jquery.dataTables',
+                       plugins_url('wp-trac-client/js/jquery.dataTables.js'),
+                       array('jquery'), '1.9.1');
+    // using wp_enqueue_script to load this js lib where you need.
+    wp_register_style('jquery.dataTables',
+                      plugins_url('wp-trac-client/css/jquery.dataTables.css'));
+    // using wp_enqueue_style to load this css.
+}
+
 function get_wptc_client() {
 
     $rpcurl = get_blog_option(get_current_blog_id(), 'wptc_rpcurl');

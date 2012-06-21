@@ -94,9 +94,10 @@ if ($testResult) {
     </tbody></table>
   </form>
 
-  <p>Some temp Testing:</p>
+  <h3>Some temp Testing:</h3>
   <p>Current Blog ID: <?php echo get_current_blog_id() ?></p>
   <p>Current User ID: <?php echo get_current_user_id() ?></p>
   <p>Option blog name: <?php echo get_option('blogname') ?></p>
   <p>include path: <?php echo get_include_path() ?></p>
+  <p>PLUGIN URL: <?php echo plugins_url('wp-trac-client/js/jquery.dataTables.js'); ?> </p>
 </div>

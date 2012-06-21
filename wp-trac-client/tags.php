@@ -32,7 +32,8 @@ function wptc_get_tickets($milestone, $version=null, $max=25, $page=1) {
 }
 
 /**
- * the multicall version.
+ * the multicall version to return all tickets under the given 
+ * criteria.
  */
 function wptc_get_tickets_m($milestone, $version=null, $max=25, $page=1) {
 
@@ -73,4 +74,21 @@ function wptc_build_query($milestone, $version=null, $max=25, $page=1) {
     $queryStr = $queryStr . '&max=' . $max . '&page=' . $page;
 
     return $queryStr;
+}
+
+/**
+ * return all details about a ticket.
+ *
+ * @param $id the ticket id.
+ */
+function wptc_get_ticket($id) {
+
+    do_action('wptc_get_ticket');
+
+    // we only need the ticket proxy.
+    $proxy = get_wptc_client()->getProxy('ticket');
+    $ticket = $proxy->get($id);
+    $changeLog = $proxy->changeLog($id);
+
+    return apply_filters('wptc_get_ticket', $changeLog);
 }
