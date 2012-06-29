@@ -41,6 +41,7 @@ define('MY_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
 ini_set('display_errors', 1);
 add_action('plugins_loaded', 'zend_framework_init');
 function zend_framework_init() {
+    // add the lib folder into the include path.
     set_include_path(get_include_path() . PATH_SEPARATOR . MY_PLUGIN_PATH . '/lib' );
     define('WP_ZEND_FRAMEWORK', true);
     zend_framework_register_autoload();
@@ -74,10 +75,14 @@ function register_resources() {
     wp_register_style('jquery.dataTables',
                       plugins_url('wp-trac-client/css/jquery.dataTables.css'));
     // using wp_enqueue_style to load this css.
+    // jquery ui dialog style seens not automatically loaded.
+    wp_register_style('jquery-ui',
+                      'https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css');
 }
 
 function get_wptc_client() {
 
+    // get the settings from current blog
     $rpcurl = get_blog_option(get_current_blog_id(), 'wptc_rpcurl');
     $username = get_blog_option(get_current_blog_id(), 'wptc_username');
     $password = get_blog_option(get_current_blog_id(), 'wptc_password');

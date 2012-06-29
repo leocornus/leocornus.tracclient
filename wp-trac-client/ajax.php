@@ -30,7 +30,7 @@ function wptc_get_tickets_cb() {
     );
 
     // prepareing aaData
-    $tickets = wptc_get_tickets_m('OPSpedia v2.2.0', null, 10);
+    $tickets = wptc_get_tickets_m('OPSpedia v2.2.0', null, 20);
     foreach ($tickets as $ticket) {
 
         $id = $ticket[0][0];
@@ -38,11 +38,13 @@ function wptc_get_tickets_cb() {
         $modified = $ticket[0][2];
         $status = $ticket[0][3]['status'];
         $summary = $ticket[0][3]['summary'];
+        $owner = $ticket[0][3]['owner'];
         $priority = $ticket[0][3]['priority'];
 
         $row = array();
         $row[] = "<a href='http://www.google.com'>{$id}</a>";
         $row[] = $summary;
+        $row[] = $owner;
         $row[] = $priority;
         $row[] = $status;
 

@@ -23,11 +23,14 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         $client = new Zend_XmlRpc_Client($rpcurl);
         $client->getHttpClient()->setAuth($username, $password);
         $func = $_POST['wptc_function'];
+        // ";" will be used as the delimiter between function name and 
+        // parameters.
+        $func = explode(";", $func);
         //$proxy = $client->getProxy('system');
         //$methods = $proxy->listMethods();
-        $testResult = get_wptc_client()->call($func, array());
+        // the array_shift will remove the first item from the given array.
+        $testResult = get_wptc_client()->call(array_shift($func), $func);
     }
-   
 }
 ?>
 
@@ -73,7 +76,7 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
       <tr>
         <th>Trac XML-RPC Function: </th>
         <td><input type="text" id="wptc_function" name="wptc_function" 
-                   value="system.listMethods" size="88"/>
+                   value="" size="88"/>
         </td>
       </tr>
       <tr>
@@ -100,4 +103,23 @@ if ($testResult) {
   <p>Option blog name: <?php echo get_option('blogname') ?></p>
   <p>include path: <?php echo get_include_path() ?></p>
   <p>PLUGIN URL: <?php echo plugins_url('wp-trac-client/js/jquery.dataTables.js'); ?> </p>
+
+  <p>
+<?php
+$a = "123 abc cde";
+list($a1, $a2) = explode(" ", $a);
+var_dump($a1);
+var_dump($a2);
+$aa = explode(" ", $a);
+echo "<pre>";
+var_dump($aa);
+echo "</pre>";
+echo "<pre>shift out ";
+echo array_shift($aa);
+echo "</pre>";
+echo "<pre> again!";
+var_dump($aa);
+echo "</pre>";
+?></p>
+
 </div>
