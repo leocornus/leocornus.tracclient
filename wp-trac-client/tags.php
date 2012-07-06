@@ -55,7 +55,28 @@ function wptc_get_tickets_m($milestone, $version=null, $max=25, $page=1) {
     }
     // get the system proxy.
     $proxy = get_wptc_client()->getProxy('system');
-    $tickets = $proxy->multicall($signatures);
+    $tics = $proxy->multicall($signatures);
+    $tickets = array();
+    foreach ($tics as $ticket) {
+
+        $id = $ticket[0][0];
+        $created = $ticket[0][1];
+        $modified = $ticket[0][2];
+        $status = $ticket[0][3]['status'];
+        $summary = $ticket[0][3]['summary'];
+        $owner = $ticket[0][3]['owner'];
+        $priority = $ticket[0][3]['priority'];
+
+        $row = array();
+        $row[] = $id;
+        $row[] = $summary;
+        $row[] = $owner;
+        $row[] = $priority;
+        $row[] = $status;
+
+        // add to aaData.
+        $tickets[] = $row;
+    }
 
     return apply_filters('wptc_get_tickets_m', $tickets);
 }

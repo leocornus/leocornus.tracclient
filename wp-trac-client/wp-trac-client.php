@@ -109,7 +109,7 @@ function wptc_admin_init() {
                   'wp-trac-client/admin-settings.php', 
                   // the function name leave it empty to use the value in slug.
                   // this will also be the default option page.
-                  ''  
+                  ''
                  );
     // the general settings page.
     add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.

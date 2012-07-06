@@ -17,8 +17,8 @@ function wptc_get_versions_cb() {
 
 /**
  */
-add_action('wp_ajax_nopriv_tickets_list', 'wptc_get_tickets_cb');
-add_action('wp_ajax_tickets_list', 'wptc_get_tickets_cb');
+add_action('wp_ajax_nopriv_wptc_get_tickets_cb', 'wptc_get_tickets_cb');
+add_action('wp_ajax_wptc_get_tickets_cb', 'wptc_get_tickets_cb');
 function wptc_get_tickets_cb() {
 
     // get the query infomation from $_POST.
@@ -33,24 +33,28 @@ function wptc_get_tickets_cb() {
     $tickets = wptc_get_tickets_m('OPSpedia v2.2.0', null, 20);
     foreach ($tickets as $ticket) {
 
-        $id = $ticket[0][0];
-        $created = $ticket[0][1];
-        $modified = $ticket[0][2];
-        $status = $ticket[0][3]['status'];
-        $summary = $ticket[0][3]['summary'];
-        $owner = $ticket[0][3]['owner'];
-        $priority = $ticket[0][3]['priority'];
-
-        $row = array();
-        $row[] = "<a href='http://www.google.com'>{$id}</a>";
-        $row[] = $summary;
-        $row[] = $owner;
-        $row[] = $priority;
-        $row[] = $status;
+        $id = $ticket[0];
+        $ticket[0] = "<a href='#' id='ticket-{$id}' name='ticket-{$id}'>{$id}</a>";
 
         // add to aaData.
-        $output['aaData'][] = $row;
+        $output['aaData'][] = $ticket;
     }
+
+    echo json_encode($output);
+    exit;
+}
+
+/**
+ * get ticket details.
+ */
+add_action('wp_ajax_nopriv_wptc_get_ticket_cb', 'wptc_get_ticket_cb');
+add_action('wp_ajax_wptc_get_ticket_cb', 'wptc_get_ticket_cb');
+function wptc_get_ticket_cb() {
+
+    // get the ticket id from the $_POST.
+
+    $id = $_POST['id'];
+    $output = wptc_get_ticket($id);
 
     echo json_encode($output);
     exit;
