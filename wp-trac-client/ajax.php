@@ -22,15 +22,32 @@ add_action('wp_ajax_wptc_get_tickets_cb', 'wptc_get_tickets_cb');
 function wptc_get_tickets_cb() {
 
     // get the query infomation from $_POST.
+
+    // get paging infor.
+    if( isset( $_POST['iDisplayStart'] ) && isset($_POST['iDisplayLength']) ) { 
+        $start = intval($_POST['iDisplayStart']);
+        $max = intval($_POST['iDisplayLength']);
+        $pageNumber = $start / $max + 1;
+    } else {
+        $max = 10;
+        $pageNumber = 1;
+    }
+
+    $milestone = 'OPSpedia v2.2.0';
+    $version = null;
     // the output array follow DataTables format.
     // the contents will be save under name aaData as an array.
+    $amount = wptc_get_tickets_amount($milestone, $version);
     $output = array(
-        "iTotalRecords" => 500,
+        "sEcho" => intval($_POST['sEcho']),
+        "iTotalRecords" => $amount,
+        "iTotalDisplayRecords" => $amount,
         "aaData" => array()
     );
 
     // prepareing aaData
-    $tickets = wptc_get_tickets_m('OPSpedia v2.2.0', null, 20);
+    $tickets = wptc_get_tickets_m($milestone, $version, $max, $pageNumber);
+    //$tickets = wptc_get_tickets_m('OPSpedia v2.2.0');
     foreach ($tickets as $ticket) {
 
         $id = $ticket[0];

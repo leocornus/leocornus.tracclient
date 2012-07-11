@@ -37,6 +37,13 @@ jQuery(document).ready(function() {
     jQuery('#tickets').dataTable( {
         "bProcessing": true,
         "bServerSide": true,
+        // trun off the length change drop down.
+        "bLengthChange" : false,
+        // turn off filter.
+        "bFilter" : false,
+        // turn off sorting.
+        "bSort" : false,
+        "iDisplayLength" : 25,
         "sAjaxSource": "<?php echo admin_url('admin-ajax.php'); ?>",
         "sServerMethod" : "POST",
         "fnServerParams" : function (aoData) {
@@ -109,6 +116,8 @@ jQuery("a[name^='ticket-']").click(function() {
   <tfoot><th>ID</th><th>Summary</th><th>Owner</th><th>Priority</th><th>Status</th></tfoot>
   </table>
   </p>
+
+<p></p>
 
 <p><input type="button" onclick="javascript: showVersions()" name="versions" value="versions"/></p>
 

@@ -32,12 +32,25 @@ function wptc_get_tickets($milestone, $version=null, $max=25, $page=1) {
 }
 
 /**
+ * return the amount of tickets for the given criteria
+ */
+function wptc_get_tickets_amount($milestone, $version=null) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    // set the max to 0 will get all tickets.
+    $queryStr = wptc_build_query($milestone, $version, 0);
+    $ids = $proxy->query($queryStr);
+    return count($ids);
+}
+
+/**
  * the multicall version to return all tickets under the given 
  * criteria.
  */
 function wptc_get_tickets_m($milestone, $version=null, $max=25, $page=1) {
 
     do_action('wptc_get_tickets_m');
+
 
     // get the ticket proxy.
     $proxy = get_wptc_client()->getProxy('ticket');
