@@ -62,15 +62,19 @@ jQuery(document).ready(function() {
             href.on("click", function() {
                 var ticketId = jQuery(this).html();
                 //alert (ticketId);
+                // set the message on the blank page.
                 jQuery("#ticketDetail").html("<strong>Loading Ticket #" + ticketId + " ...</strong>");
                 // open the dialog first.
                 jQuery('#mydialog').dialog("open");
 
+                // get ready the post data.
                 var data = {
+                    // the call back action.
                     "action" : "wptc_get_ticket_cb",
                     "id" : ticketId,
                 };
 
+                // send the AJAX request.
                 jQuery.post("<?php echo admin_url('admin-ajax.php'); ?>", data, function(response) {
                     //alert(response);
                     jQuery("#ticketDetail").html('<strong>Here is ticket: <br/>' + response + '</strong>');
@@ -140,6 +144,7 @@ function showVersions() {
 <p><button id="testDialog" onclick="javascript: ticketDetails(12)">Test Dialog</button><br/>
 </p>
 
+<?php // the dialog to show details about a ticket. ?>
 <div id="mydialog" title="For Testing">
   <h3>Ticket Summary</h3>
   <div id="ticketDetail">

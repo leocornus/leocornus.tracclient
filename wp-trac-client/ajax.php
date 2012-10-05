@@ -2,6 +2,7 @@
 
 /**
  * the ajax wrappers for the trac functions
+ * The _cb suffix stands for Call Back
  */
 
 add_action('wp_ajax_ticket_versions', 'wptc_get_versions_cb');

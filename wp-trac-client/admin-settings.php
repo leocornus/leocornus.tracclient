@@ -25,6 +25,9 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         $func = $_POST['wptc_function'];
         // ";" will be used as the delimiter between function name and 
         // parameters.
+        // For example, 
+        // the following will return the details info for ticket #12
+        // ticket.get;12
         $func = explode(";", $func);
         //$proxy = $client->getProxy('system');
         //$methods = $proxy->listMethods();
