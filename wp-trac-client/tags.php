@@ -123,6 +123,7 @@ function wptc_get_ticket($id) {
     $proxy = get_wptc_client()->getProxy('ticket');
     $ticket = $proxy->get($id);
     $changeLog = $proxy->changeLog($id);
-
+   
+    
     return apply_filters('wptc_get_ticket', $changeLog);
 }
