@@ -1,6 +1,7 @@
 <?php
 /*
  * Template Name: Trac Tickets
+ * Description: a page templage to show a list of tickets.
  */
 ?>
 
@@ -64,9 +65,10 @@ jQuery(document).ready(function() {
             var href = jQuery('a', column);
             var id = href.html();
             //alert('id=' + id);
+            href.attr("href", "ticket?id=" + id);
             // this is the event handler way, we can pass
             // some data to the handler function.
-            href.on("click", {ticketId: id}, ticketDetails);
+            href.on("clickB", {ticketId: id}, ticketDetails);
             href.on("clickA", function() {
                 var ticketId = jQuery(this).html();
                 //alert (ticketId);

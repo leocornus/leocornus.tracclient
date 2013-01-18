@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Trac Client
+ * Template Name: Trac Client 0.1
  */
 ?>
 
@@ -14,11 +14,17 @@ wp_enqueue_style('jquery-ui');
 
 <script type="text/javascript" charset="utf-8">
 <!--
+
+/**
+ * call back function to load details info for a ticket.
+ * ticket id will pass through the event.
+ */
 function ticketDetails(event) {
 
     var ticketId = event.data.ticketId;
-    alert(ticketId);
-    jQuery("#ticketDetail").html("<strong>Loading</strong>");
+    //alert(ticketId);
+    jQuery("#ticketDetail").html("<strong>Loading #" + ticketId + " ...</strong>");
+    jQuery('#mydialog').dialog("open");
 
     var data = {
         "action" : "wptc_get_ticket_cb",
@@ -26,8 +32,10 @@ function ticketDetails(event) {
     };
 
     jQuery.post('wp-admin/admin-ajax.php', data, function(response) {
-
-        alert (response);
+ 
+        // the response is in JSON format, parse it to objects.
+        res = JSON.parse(response);
+        alert ('Object Count: ' + res.length);
 
         jQuery("#ticketDetail").html('<strong>Here is ticket: <br/>' + response + '</strong>');
     });
@@ -43,7 +51,7 @@ jQuery(document).ready(function() {
         "bFilter" : false,
         // turn off sorting.
         "bSort" : false,
-        "iDisplayLength" : 25,
+        "iDisplayLength" : 15,
         "sAjaxSource": "<?php echo admin_url('admin-ajax.php'); ?>",
         "sServerMethod" : "POST",
         "fnServerParams" : function (aoData) {
@@ -58,8 +66,8 @@ jQuery(document).ready(function() {
             //alert('id=' + id);
             // this is the event handler way, we can pass
             // some data to the handler function.
-            href.on("clickA", {ticketId: id}, ticketDetails);
-            href.on("click", function() {
+            href.on("click", {ticketId: id}, ticketDetails);
+            href.on("clickA", function() {
                 var ticketId = jQuery(this).html();
                 //alert (ticketId);
                 // set the message on the blank page.
@@ -107,7 +115,7 @@ jQuery("a[name^='ticket-']").click(function() {
 -->
 </script>
 
-  <h2>Just a testing</h2>
+  <h2>Just a testing from </h2>
 
   <p>
   <table cellpadding="0" cellspacing="0" border="0" id="tickets">

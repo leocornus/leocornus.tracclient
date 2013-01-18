@@ -54,10 +54,14 @@ function zend_framework_register_autoload() {
 
 // load the tmplate tags function.
 require_once(MY_PLUGIN_PATH . '/tags.php');
+require_once(MY_PLUGIN_PATH . '/widgets.php');
 // load ajax functions.
 require_once(MY_PLUGIN_PATH . '/ajax.php');
+// load the WikiRenderer lib with trac wiki rule.
+require_once(MY_PLUGIN_PATH . '/wikirenderer/WikiRenderer.lib.php');
+require_once(MY_PLUGIN_PATH . '/wikirenderer/rules/trac_to_xhtml.php');
 
-global $wptc_client;
+//global $wptc_client;
 
 /**
  * register the dataTables JavaScript lib.
@@ -74,6 +78,9 @@ function register_resources() {
     // using wp_enqueue_script to load this js lib where you need.
     wp_register_style('jquery.dataTables',
                       plugins_url('wp-trac-client/css/jquery.dataTables.css'));
+    // the style for a trac-ticket.
+    wp_register_style('wptc-trac-ticket',
+                      plugins_url('wp-trac-client/css/trac_ticket.css'));
     // using wp_enqueue_style to load this css.
     // jquery ui dialog style seens not automatically loaded.
     wp_register_style('jquery-ui',
@@ -116,6 +123,12 @@ function wptc_admin_init() {
                      'Trac Client General Settings', 'General Settings',
                      'manage_options', 
                      'wp-trac-client/admin-settings.php'
+                    );
+    // the template management page.
+    add_submenu_page('wp-trac-client/admin-settings.php',
+                     'Trac Client Templates', 'Templates',
+                     'manage_options',
+                     'wp-trac-client/admin-templates.php'
                     );
     // some management work here.
     add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.

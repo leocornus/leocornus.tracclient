@@ -1,4 +1,5 @@
 === WP Trac Client ===
+
 Contributors: sean.chen 
 Donate link:
 http://www.github.com/leocornus/leocornus.tracclient
@@ -27,6 +28,10 @@ wp-trac-client also provides a set of WordPress page templates,
 which user can copy and paste to a theme folder and 
 apply to a set of pages.
 Then you can start use Trac to manage your project.
+
+== License ==
+
+GPL2
 
 == Installation ==
 

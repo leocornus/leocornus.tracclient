@@ -122,8 +122,22 @@ function wptc_get_ticket($id) {
     // we only need the ticket proxy.
     $proxy = get_wptc_client()->getProxy('ticket');
     $ticket = $proxy->get($id);
+    $ticket = $ticket[3];
+    $ticket['id'] = $id;
+    // we will use separate function for ticket changelog
+    //$changeLog = $proxy->changeLog($id);
+    //$ticket_details = array_merge($ticket, $changeLog);
+
+    return apply_filters('wptc_get_ticket', $ticket);
+}
+
+/**
+ * return all hangelogs for a ticket.
+ */
+function wptc_get_ticket_changelog($id) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
     $changeLog = $proxy->changeLog($id);
-   
-    
-    return apply_filters('wptc_get_ticket', $changeLog);
+
+    return apply_filters('wptc_get_ticket_changelog', $changeLog);
 }
