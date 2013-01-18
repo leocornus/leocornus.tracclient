@@ -1,0 +1,5 @@
+This is a copy from project WikiRenderer
+http://wikirenderer.jelix.org/
+
+We will use the WikiRenderer lib to parse trac wiki markup
+to XHTML format.
