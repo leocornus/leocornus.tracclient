@@ -121,9 +121,11 @@ function wptc_get_ticket($id) {
 
     // we only need the ticket proxy.
     $proxy = get_wptc_client()->getProxy('ticket');
-    $ticket = $proxy->get($id);
-    $ticket = $ticket[3];
+    $raw = $proxy->get($id);
+    $ticket = $raw[3];
     $ticket['id'] = $id;
+    $ticket['created'] = $raw[1];
+    $ticket['modified'] = $raw[2];
     // we will use separate function for ticket changelog
     //$changeLog = $proxy->changeLog($id);
     //$ticket_details = array_merge($ticket, $changeLog);
@@ -139,5 +141,69 @@ function wptc_get_ticket_changelog($id) {
     $proxy = get_wptc_client()->getProxy('ticket');
     $changeLog = $proxy->changeLog($id);
 
-    return apply_filters('wptc_get_ticket_changelog', $changeLog);
+    return apply_filters('wptc_get_ticket_changelog', 
+                         $changeLog);
+}
+
+/**
+ * retrun all metadata values specified by the given
+ * meta name.
+ *
+ * @param $metaName the name of this metadata, 
+ *        it could be: type, milestone, versions,
+ *        component, priority.
+ */
+function wptc_get_ticket_metas($metaName) {
+
+    $proxy = get_wptc_client()->getProxy('ticket.'. $metaName);
+    $metas = $proxy->getAll();
+    return $metas;
+}
+
+/**
+ * return all ticket types.
+ */
+function wptc_get_ticket_types() {
+
+    $types = wptc_get_ticket_metas('type');
+    return apply_filters('wptc_get_ticket_types', $types);
+}
+
+/**
+ * return all ticket priority.
+ */
+function wptc_get_ticket_priorities() {
+
+    $prios = wptc_get_ticket_metas('priority');
+    return apply_filters('wptc_get_ticket_priorities', $prios);
+}
+
+/**
+ * return all ticket milestone.
+ */
+function wptc_get_ticket_milestones() {
+
+    $stones = wptc_get_ticket_metas('milestone');
+    return apply_filters('wptc_get_ticket_milestones', 
+                         $stones);
+}
+
+/**
+ * retrun all ticket components.
+ */
+function wptc_get_ticket_components() {
+
+    $comps = wptc_get_ticket_metas('component');
+    return apply_filters('wptc_get_ticket_components',
+                         $comps);
+}
+
+/**
+ * return all ticket versions.
+ */
+function wptc_get_ticket_versions() {
+
+    $versions = wptc_get_ticket_metas('version');
+    return apply_filters('wptc_get_ticket_versions', 
+                         $versions);
 }
