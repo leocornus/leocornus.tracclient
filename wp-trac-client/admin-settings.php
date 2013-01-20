@@ -1,5 +1,7 @@
 <?php
 
+$DEBUG = False;
+
 if (isset($_POST['wptc_settings_form_submit']) &&
     $_POST['wptc_settings_form_submit'] == 'Y') {
 
@@ -102,29 +104,33 @@ if ($testResult) {
     </tbody></table>
   </form>
 
-  <h3>Some temp Testing:</h3>
-  <p>Current Blog ID: <?php echo get_current_blog_id() ?></p>
-  <p>Current User ID: <?php echo get_current_user_id() ?></p>
-  <p>Option blog name: <?php echo get_option('blogname') ?></p>
-  <p>include path: <?php echo get_include_path() ?></p>
-  <p>PLUGIN URL: <?php echo plugins_url('wp-trac-client/js/jquery.dataTables.js'); ?> </p>
+<?php if ($DEBUG) {
+    // some testing code.
+?>
+    <h3>Some temp Testing:</h3>
+    <p>Current Blog ID: <?php echo get_current_blog_id() ?></p>
+    <p>Current User ID: <?php echo get_current_user_id() ?></p>
+    <p>Option blog name: <?php echo get_option('blogname') ?></p>
+    <p>include path: <?php echo get_include_path() ?></p>
+    <p>PLUGIN URL: <?php echo plugins_url('wp-trac-client/js/jquery.dataTables.js'); ?> </p>
 
-  <p>
-<?php
-$a = "123 abc cde";
-list($a1, $a2) = explode(" ", $a);
-var_dump($a1);
-var_dump($a2);
-$aa = explode(" ", $a);
-echo "<pre>";
-var_dump($aa);
-echo "</pre>";
-echo "<pre>shift out ";
-echo array_shift($aa);
-echo "</pre>";
-echo "<pre> again!";
-var_dump(wptc_get_ticket_types());
-echo "</pre>";
-?></p>
+    <p>
+    <?php
+    $a = "123 abc cde";
+    list($a1, $a2) = explode(" ", $a);
+    var_dump($a1);
+    var_dump($a2);
+    $aa = explode(" ", $a);
+    echo "<pre>";
+    var_dump($aa);
+    echo "</pre>";
+    echo "<pre>shift out ";
+    echo array_shift($aa);
+    echo "</pre>";
+    echo "<pre> again!";
+    var_dump(wptc_get_ticket_types());
+    echo "</pre>";
+    ?></p>
+<?php } ?>
 
 </div>
