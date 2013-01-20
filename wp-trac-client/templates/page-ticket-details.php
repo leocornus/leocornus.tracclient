@@ -21,12 +21,11 @@ if ($DEBUG) {
 }
 ?>
 
-<div id="content" class="column-wapper">
   <div id="left_column">
     <div id='sprint-nav' class='leftnav'>
       <div class='photocap nav_top grey'>&nbsp;</div>
       <h2 class='widgettitle'>Sprint Navigation</h2>
-      <?php wptc_sprint_nav()?>
+      <?php wptc_widget_sprint_nav()?>
     </div>
   </div>
 
@@ -36,6 +35,7 @@ if ($DEBUG) {
     <?php echo wptc_widget_ticket_changelog($ticket_id); ?>
 
 <?php
+// debug message...
 if ($DEBUG) {
     $parent_post = get_page($post->post_parent);
     echo <<<EOT
@@ -51,6 +51,5 @@ EOT;
 }
 ?>
   </div>
-</div> <!-- // END content -->
 
 <?php get_footer(); ?>
