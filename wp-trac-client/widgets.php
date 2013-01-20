@@ -18,6 +18,78 @@ function wptc_widget_parse_content($wiki) {
 }
 
 /**
+ * genarate time since for the given time.
+ * the given time is on UTC/GMT, that is
+ * the centre time zone.  it has no offset.
+ * trac is save time in UTC format.
+ */
+function wptc_widget_time_age($time) {
+
+    $date = new DateTime($time, new DateTimeZone('UTC'));
+    $interval = $date->diff(new DateTime('now'));
+    $totalDays = $interval->days;
+    $minutes = $interval->m;
+    $hours = $interval->h;
+    $days = $interval->d;
+    $years = $interval->y;
+    $months = $interval->m;
+
+    if ($totalDays >= 42) {
+        // older than 6 weeks, show month only 
+        $age = $years * 12 + $months + 1;
+        $age = $age . ' months';
+    } else if ($totalDays >= 14) {
+        // older than 2 weeks, show weeks only
+        $weeks = $totalDays / 7;
+        $age = $weeks . ' weeks';
+    } else if ($totalDays > 0) {
+        $age = $totalDays . ' days';
+    } else if ($hours > 0) {
+        $age = $hours . ' hours';
+    } else if ($minutes > 0) {
+        $age = $minutes . ' minutes';
+    } else {
+        $age = $interval->s . ' seconds';
+    }
+
+    $fullAge = 
+        $interval->format('%y years, %m months, %d days, %h hours and %i minutes');
+
+    $ret = <<<EOT
+<a title="$fullAge">$age</a>
+EOT;
+
+    return $ret;
+}
+
+/**
+ * preparing the options for select tag.
+ * this could be used by type, milestone, version,
+ * priority dropdown
+ */
+function wptc_widget_options_html($options, $selected,
+                                  $showAsGroup=false) {
+
+    $ret = "";
+
+    foreach ($options as $option) {
+        if($option === $slelected) {
+            $opt = <<<EOT
+<option value="{$option}" selected="selected">{$option}</option>
+EOT;
+        } else {
+            $opt = <<<EOT
+<option value="{$option}">{$option}</option>
+EOT;
+        }
+
+        $ret = $ret . $opt;
+    }
+
+    return apply_filters('wptc_widget_options_html', $ret);
+}
+
+/**
  * prepare the field change maeesage.  default format for
  * a field change is from trac project and looks like 
  * following:
@@ -52,7 +124,7 @@ EOT;
 /**
  * preparing the sprint navigation bar.
  */
-function wptc_sprint_nav() {
+function wptc_widget_sprint_nav() {
 
     echo <<<EOT
     <ul>
@@ -78,7 +150,9 @@ function wptc_widget_user_href($userName) {
     if (empty($wpUser)) {
         // could not find the user in wordpress database,
         // just return the user name.
-        $href = $userName;
+        $href = <<<EOT
+<a title="$userName">$userName</a>
+EOT;
     } else {
         $href = <<<EOT
 <a href="{$server_url}/members/{$wpUser->user_login}/profile"
@@ -89,6 +163,121 @@ EOT;
     }
 
     return apply_filters('wptc_widget_user_href', $href);
+}
+
+/**
+ * preparing the ticket properties update/creation form.
+ */
+function wptc_widget_ticket_props_table($ticket) {
+
+    // preparing options for select tag
+    $ticket_type_options = 
+        wptc_widget_options_html(wptc_get_ticket_types(),
+                                 $ticket['type']);
+    $ticket_priority_options = 
+        wptc_widget_options_html(wptc_get_ticket_priorities(),
+                                 $ticket['property']);
+    $ticket_milestone_options = 
+        wptc_widget_options_html(wptc_get_ticket_milestones(),
+                                 $ticket['milestone']);
+    $ticket_component_options = 
+        wptc_widget_options_html(wptc_get_ticket_components(),
+                                 $ticket['component']);
+    $ticket_version_options = 
+        wptc_widget_options_html(wptc_get_ticket_versions(),
+                                 $ticket['version']);
+
+    $propsTable = <<<EOT
+<table><tbody>
+  <tr>
+    <th><label for="field-summary">Summary:</label></th>
+    <td class="fullrow" colspan="3">
+      <input type="text" id="field-summary" name="field_summary" 
+             value="{$ticket['summary']}" size="70">
+    </td>
+  </tr>
+  <tr>
+    <th><label for="field-reporter">Reporter:</label></th>
+    <td class="fullrow" colspan="3">
+      <input type="text" id="field-reporter" 
+             name="field_reporter" 
+             value="{$ticket['reporter']}" size="70">
+    </td>
+  </tr>
+  <tr>
+    <th><label for="field-description">Description:</label></th>
+    <td class="fullrow" colspan="3">
+      <fieldset class="iefix">
+        <label for="field-description" id="field-description-help">You may use
+          <a tabindex="42" href="/trac/egov_opspedia-search/wiki/WikiFormatting">WikiFormatting</a> here.</label>
+        <div class="trac-resizable"><div>
+          <textarea id="field-description" name="field_description" class="wikitext trac-resizable" rows="10" cols="68">
+          {$ticket['description']}
+          </textarea>
+          <div class="trac-grip" style="margin-left: 2px; margin-right: -2px;">
+          </div>
+        </div></div>
+      </fieldset>
+    </td>
+  </tr>
+  <tr>
+    <th class="col1">
+      <label for="field-type">Type:</label>
+    </th>
+    <td class="col1">
+      <select id="field-type" name="field_type">
+        {$ticket_type_options}
+      </select>
+    </td>
+    <th class="col2">
+      <label for="field-priority">Priority:</label>
+    </th>
+    <td class="col2">
+      <select id="field-priority" name="field_priority">
+        {$ticket_priority_options}
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th class="col1">
+      <label for="field-milestone">Milestone:</label>
+    </th>
+    <td class="col1">
+      <select id="field-milestone" name="field_milestone">
+        {$ticket_milestone_options}
+      </select>
+    </td>
+    <th class="col2">
+      <label for="field-component">Component:</label>
+    </th>
+    <td class="col2">
+      <select id="field-component" name="field_component">
+        {$ticket_component_options}
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th class="col1">
+      <label for="field-version">Version:</label>
+    </th>
+    <td class="col1">
+      <select id="field-version" name="field_version">
+        {$ticket_version_options}
+      </select>
+    </td>
+    <th class="col2">
+      <label for="field-keywords">Keywords:</label>
+    </th>
+    <td class="col2">
+      <input type="text" id="field-keywords" name="field_keywords" 
+             value="{$ticket['keywords']}">
+    </td>
+  </tr>
+</tbody></table>
+EOT;
+
+    return apply_filters('wptc_widget_ticket_props_table', 
+                         $propsTable);
 }
 
 /**
@@ -109,6 +298,11 @@ function wptc_widget_ticket_info($ticketId) {
     // preparing the descriptions.
     $ticket_description = 
         wptc_widget_parse_content($ticket['description']);
+
+    $ticket_openedAge = 
+        wptc_widget_time_age($ticket['created']);
+    $ticket_modifiedAge = 
+        wptc_widget_time_age($ticket['modified']);
 
     $ticketInfo = <<<EOT
 <h1 id="ticket-title">
@@ -260,7 +454,7 @@ function wptc_widget_ticket_changelog($ticketId) {
     //$ticketChange[] 
     foreach ($changes as $change_time => $change) {
         // preparing the fields.
-        $change_age = $change_time;
+        $change_age = wptc_widget_time_age($change_time);
         $change_author_href = 
             wptc_widget_user_href($change['author']);
         // check fields is exist or not.
