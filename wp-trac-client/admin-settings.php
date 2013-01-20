@@ -71,7 +71,9 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
   </form>
 
   <h2>Quick Test</h2>
-  <p>A quick test to make sure the connection is good...</p>
+  <p>A quick test to make sure the connection is good...
+     A trac XML-RPC function is something like 
+     <strong>ticket.type.getAll</strong>.</p>
 
   <form name="wptc_quicktest_form" method="post">
     <input type="hidden" name="wptc_quicktest_form_submit" value="Y"/>
@@ -121,7 +123,7 @@ echo "<pre>shift out ";
 echo array_shift($aa);
 echo "</pre>";
 echo "<pre> again!";
-var_dump($aa);
+var_dump(wptc_get_ticket_types());
 echo "</pre>";
 ?></p>
 
