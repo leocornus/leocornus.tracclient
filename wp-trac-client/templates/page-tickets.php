@@ -57,7 +57,8 @@ jQuery(document).ready(function() {
         "sServerMethod" : "POST",
         "fnServerParams" : function (aoData) {
             aoData.push(
-                {"name" : "action", "value" : "wptc_get_tickets_cb"}
+                {"name" : "action", 
+                 "value" : "wptc_get_tickets_cb"}
             );
         },
         "fnRowCallback" : function (nRow, aData, iDisplayIndex) {
@@ -105,10 +106,6 @@ jQuery(document).ready(function() {
         }
     });
 
-    jQuery("#testDialog").button().click(function() {
-        jQuery("#mydialog").dialog("open");
-        return false;
-    });
 } );
 
 jQuery("a[name^='ticket-']").click(function() {
@@ -116,6 +113,17 @@ jQuery("a[name^='ticket-']").click(function() {
 });
 -->
 </script>
+
+  <div id="left_column">
+    <div class='leftnav'>
+      <div id='sprint-nav' class="widget">
+        <h2 class='widgettitle'>Sprint Navigation</h2>
+        <?php wptc_widget_sprint_nav()?>
+      </div>
+    </div>
+  </div>
+
+  <div id="right_column">
 
   <h2>Just a testing from </h2>
 
@@ -232,6 +240,8 @@ function showVersions() {
 //var_dump(wptc_get_ticket(525));
 ?>
   </pre>
+
+  </div> <?php // END right_column ?>
 
 <?php //get_sidebar(); ?>
 <?php get_footer(); ?>

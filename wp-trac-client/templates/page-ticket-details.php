@@ -22,13 +22,14 @@ if ($DEBUG) {
 ?>
 
   <div id="left_column">
-    <div id='sprint-nav' class='leftnav'>
-      <div class='photocap nav_top grey'>&nbsp;</div>
+    <div class='leftnav'>
+      <div class='widget'>
       <h2 class='widgettitle'>Sprint Navigation</h2>
       <?php wptc_widget_sprint_nav()?>
+      </div>
     </div>
   </div>
-
+ 
   <div id="right_column">
 
     <?php echo wptc_widget_ticket_info($ticket_id); ?>

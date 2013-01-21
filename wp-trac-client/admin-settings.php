@@ -131,6 +131,8 @@ if ($testResult) {
     var_dump(wptc_get_ticket_types());
     echo "</pre>";
     ?></p>
-<?php } ?>
+<?php 
+    // end debuging.
+} ?>
 
 </div>
