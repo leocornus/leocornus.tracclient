@@ -1,6 +1,6 @@
 <?php
 
-$DEBUG = False;
+$DEBUG = True;
 
 if (isset($_POST['wptc_settings_form_submit']) &&
     $_POST['wptc_settings_form_submit'] == 'Y') {
@@ -109,6 +109,7 @@ if ($testResult) {
 ?>
     <h3>Some temp Testing:</h3>
     <p>Current Blog ID: <?php echo get_current_blog_id() ?></p>
+    <p>Current Blog Path: <?php echo $current_blog->path ?></p>
     <p>Current User ID: <?php echo get_current_user_id() ?></p>
     <p>Option blog name: <?php echo get_option('blogname') ?></p>
     <p>include path: <?php echo get_include_path() ?></p>
@@ -128,7 +129,7 @@ if ($testResult) {
     echo array_shift($aa);
     echo "</pre>";
     echo "<pre> again!";
-    var_dump(wptc_get_ticket_types());
+    var_dump(wptc_widget_version_nav());
     echo "</pre>";
     ?></p>
 <?php 
