@@ -51,12 +51,38 @@ function wptc_get_tickets_m($milestone, $version=null, $max=25, $page=1) {
 
     do_action('wptc_get_tickets_m');
 
-
     // get the ticket proxy.
     $proxy = get_wptc_client()->getProxy('ticket');
     $queryStr = wptc_build_query($milestone, $version, $max, $page);
 
     $ids = $proxy->query($queryStr);
+    $tickets = wptc_get_tickets_list_m($ids);
+
+    return apply_filters('wptc_get_tickets_m', $tickets);
+}
+
+/**
+ * return a list of tickets by version.
+ */
+function wptc_get_tickets_by_version($version) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    // query by version order by prority
+    $queryStr = 'version=' . $version .
+                '&order=priority&desc=0';
+    $ids = $proxy->query($queryStr);
+
+    $tickets = wptc_get_tickets_list_m($ids);
+    return apply_filters('wptc_get_tickets_by_version', 
+                         $tickets);
+}
+
+/**
+ * using multi-call to get ticket info for a list of 
+ * ids.
+ */
+function wptc_get_tickets_list_m($ids) {
+
     // preparing the signature.
     $signatures = array();
     foreach ($ids as $id) {
@@ -69,29 +95,24 @@ function wptc_get_tickets_m($milestone, $version=null, $max=25, $page=1) {
     // get the system proxy.
     $proxy = get_wptc_client()->getProxy('system');
     $tics = $proxy->multicall($signatures);
+
     $tickets = array();
     foreach ($tics as $ticket) {
 
-        $id = $ticket[0][0];
-        $created = $ticket[0][1];
-        $modified = $ticket[0][2];
-        $status = $ticket[0][3]['status'];
-        $summary = $ticket[0][3]['summary'];
-        $owner = $ticket[0][3]['owner'];
-        $priority = $ticket[0][3]['priority'];
-
-        $row = array();
-        $row[] = $id;
-        $row[] = $summary;
-        $row[] = $owner;
-        $row[] = $priority;
-        $row[] = $status;
+        $row = $ticket[0][3];
+        $row['id'] = $ticket[0][0];
+        $row['created'] = $ticket[0][1];
+        $row['modified'] = $ticket[0][2];
+        //$status = $ticket[0][3]['status'];
+        //$summary = $ticket[0][3]['summary'];
+        //$owner = $ticket[0][3]['owner'];
+        //$priority = $ticket[0][3]['priority'];
 
         // add to aaData.
         $tickets[] = $row;
     }
 
-    return apply_filters('wptc_get_tickets_m', $tickets);
+    return $tickets;
 }
 
 /**
@@ -206,4 +227,16 @@ function wptc_get_ticket_versions() {
     $versions = wptc_get_ticket_metas('version');
     return apply_filters('wptc_get_ticket_versions', 
                          $versions);
+}
+
+/**
+ * return the default ticket version.
+ */
+function wptc_get_ticket_default_version() {
+
+    // using the first version for now.
+    $default = wptc_get_ticket_versions();
+    $default = $default[0];
+    return apply_filters('wptc_get_ticket_default_version',
+                         $default);
 }
