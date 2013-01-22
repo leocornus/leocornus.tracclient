@@ -40,7 +40,7 @@ function wptc_widget_time_age($time) {
         $age = $age . ' months';
     } else if ($totalDays >= 14) {
         // older than 2 weeks, show weeks only
-        $weeks = $totalDays / 7;
+        $weeks = (int)($totalDays / 7);
         $age = $weeks . ' weeks';
     } else if ($totalDays > 0) {
         $age = $totalDays . ' days';
@@ -124,19 +124,33 @@ EOT;
 /**
  * preparing the sprint navigation bar.
  */
-function wptc_widget_sprint_nav() {
+function wptc_widget_version_nav() {
 
-    echo <<<EOT
-    <ul>
-      <li>MileStone
-        <ul>
-          <li>Sprint 1</li>
-          <li>Sprint 2</li>
-        </ul>
-      </li>
-    </ul>
-    </div>
+    // using the global variables.
+    global $post, $current_blog;
+
+    $versions = wptc_get_ticket_versions();
+    $blog_path = $current_blog->path;
+    $page_slug = $post->post_parent ? 
+        get_page($post->post_parent)->post_name :
+        $post->post_name;
+
+    $versionHrefs = array();
+    foreach($versions as $version) {
+        $versionHrefs[] = <<<EOT
+<li><a href="{$blog_path}{$page_slug}?version={$version}">$version</a>
+</li>
 EOT;
+    }
+
+    $vHrefs = implode('', $versionHrefs);
+    $ret =  <<<EOT
+    <ul>
+      $vHrefs
+    </ul>
+EOT;
+
+    return apply_filters('wptc_widget_version_nav', $ret);
 }
 
 /**
@@ -163,6 +177,79 @@ EOT;
     }
 
     return apply_filters('wptc_widget_user_href', $href);
+}
+
+/**
+ * preparing the ticket list
+ */
+function wptc_widget_tickets_list($version, $subpageSlug='ticket') {
+
+    $tickets = wptc_get_tickets_by_version($version);
+
+    $ticketTr = array();
+    $index = 1;
+    foreach($tickets as $ticket) {
+
+        $ticket_owner_href = 
+            wptc_widget_user_href($ticket['owner']);
+        if($index % 2) {
+            $evenOrOdd = "odd";
+        } else {
+            $evenOrOdd = "even";
+        }
+        $index = $index + 1;
+
+        // TODO: get from priority object.
+        $prioId = 3;
+
+        $ticketTr[] = <<<EOT
+<tr class="{$evenOrOdd} prio{$prioId}">
+  <td class="id">
+    <a href="{$subpageSlug}?id={$ticket['id']}" 
+       title="View Ticket">
+      #{$ticket['id']}
+    </a></td>
+  <td class="summary">
+    <a href="{$subpageSlug}?id={$ticket['id']}" 
+       title="View Ticket">
+      {$ticket['summary']}
+    </a></td>
+  <td class="status">
+    {$ticket['status']}
+  </td>
+  <td class="owner">
+    {$ticket_owner_href}
+  </td>
+  <td class="priority">
+    {$ticket['priority']}
+  </td>
+  <td class="type">
+    {$ticket['type']}
+  </td>
+</tr>
+EOT;
+    }
+
+    $ticketTrs = implode('', $ticketTr);
+    $list = <<<EOT
+<div>
+<table width="100%" class="listing tickets">
+  <tbody>
+  <tr class="trac-columns">
+    <th class="id">Id</th>
+    <th class="summary">Summary</th>
+    <th class="status">Status</th>
+    <th class="owner">Owner</th>
+    <th class="priority">Priority</th>
+    <th class="type">Type</th>
+  </tr>
+  {$ticketTrs}
+  </tbody>
+</table>
+</div>
+EOT;
+
+    return apply_filters('wptc_widget_tickets_list', $list);
 }
 
 /**
