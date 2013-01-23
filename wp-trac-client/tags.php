@@ -167,6 +167,17 @@ function wptc_get_ticket_changelog($id) {
 }
 
 /**
+ * return all available actions for the given ticket.
+ */
+function wptc_get_ticket_actions($id) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    $actions = $proxy->getActions($id);
+
+    return apply_filters('wptc_get_ticket_actions', $actions);
+}
+
+/**
  * retrun all metadata values specified by the given
  * meta name.
  *
@@ -239,4 +250,13 @@ function wptc_get_ticket_default_version() {
     $default = $default[0];
     return apply_filters('wptc_get_ticket_default_version',
                          $default);
+}
+
+/**
+ * update the ticket .
+ */
+function wptc_update_ticket($id, $comment='', $attributes,
+    $author) {
+
+    
 }

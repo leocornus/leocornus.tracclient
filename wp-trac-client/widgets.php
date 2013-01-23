@@ -71,18 +71,15 @@ function wptc_widget_options_html($options, $selected,
                                   $showAsGroup=false) {
 
     $ret = "";
-
     foreach ($options as $option) {
-        if($option === $slelected) {
-            $opt = <<<EOT
-<option value="{$option}" selected="selected">{$option}</option>
-EOT;
-        } else {
-            $opt = <<<EOT
-<option value="{$option}">{$option}</option>
-EOT;
+        $sel = "";
+        if($option === $selected) {
+            $sel = "selected=\"selected\"";
         }
 
+        $opt = <<<EOT
+<option value="{$option}" {$sel}>{$option}</option>
+EOT;
         $ret = $ret . $opt;
     }
 
@@ -255,7 +252,7 @@ EOT;
 /**
  * preparing the ticket properties update/creation form.
  */
-function wptc_widget_ticket_props_table($ticket) {
+function wptc_widget_ticket_fieldset($ticket) {
 
     // preparing options for select tag
     $ticket_type_options = 
@@ -275,6 +272,8 @@ function wptc_widget_ticket_props_table($ticket) {
                                  $ticket['version']);
 
     $propsTable = <<<EOT
+<fieldset id="properties">
+<legend>Ticket Properties</legend>
 <table><tbody>
   <tr>
     <th><label for="field-summary">Summary:</label></th>
@@ -361,27 +360,149 @@ function wptc_widget_ticket_props_table($ticket) {
     </td>
   </tr>
 </tbody></table>
+</fieldset>
 EOT;
 
-    return apply_filters('wptc_widget_ticket_props_table', 
+    return apply_filters('wptc_widget_ticket_fieldset', 
                          $propsTable);
+}
+
+/**
+ * preparing the fieldset for action form.
+ * available actions,
+ * current status
+ * current ownder
+ */
+function wptc_widget_action_fieldset($actions, $status) {
+
+    $actionDivs = array();
+    foreach($actions as $action) {
+        // each action has the following format:
+        // [action, label, hints, [input_fields]]
+
+        // now we handle actions one by one
+        $the_action = "";
+        $action_checked = '';
+        switch($action[0]) {
+            case "leave":
+                // leave as current status.
+                $the_action = "as " . $status;
+                // leave as should alway be the default 
+                // checked option.
+                $action_checked = 'checked="checked"';
+                break;
+            case "reopen":
+                // nothing here.
+                $the_action = "";
+                break;
+            case "accept":
+                // nothing here.
+                $the_action = "";
+                break;
+            case "resolve":
+                $the_action = wptc_widget_action_resolve($action);
+                break;
+            case "reassign":
+                $the_action = wptc_widget_action_reassign($action);
+                break;
+        }
+
+        // each action is a radio button.
+        $actionDivs[] = <<<EOT
+<div>
+  <input type="radio" name="action" id="action_{$action[0]}"
+         value="{$action[0]}" {$action_checked}>
+  <label for="action_{$action[0]}">{$action[1]}</label>
+  {$the_action}
+  <span class="hint">{$action[2]}</span>
+</div>
+EOT;
+    }
+
+    $divs = implode('', $actionDivs);
+    $ret = <<<EOT
+<fieldset id="action">
+  <legend>Action</legend>
+  {$divs}
+</fieldsed>
+EOT;
+
+    return apply_filters('wptc_widget_action_fieldset', $ret);
+}
+
+/**
+ * preparing the resolve action fields.
+ */
+function wptc_widget_action_resolve($action) {
+
+    $fields = $action[3][0];
+    $options = wptc_widget_options_html($fields[2], $fields[1]);
+    // the resolve is a select element.
+    // it will be disabled untile the radio button is selected.
+    $select = <<<EOT
+as 
+<select name="{$fields[0]}" id="{$fields[0]}" disabled="">
+  {$options}
+</select>
+EOT;
+
+    return apply_filters('wptc_widget_action_resolve', $select);
+}
+
+/**
+ * preparing the ressign action.
+ */
+function wptc_widget_action_reassign($action) {
+
+    $fields = $action[3][0];
+    $options = wptc_widget_options_html($fields[2], $fields[1]);
+    // the resolve is a select element.
+    // it will be disabled untile the radio button is selected.
+    $select = <<<EOT
+to  
+<select name="{$fields[0]}" id="{$fields[0]}" disabled="">
+  {$options}
+</select>
+EOT;
+
+    return apply_filters('wptc_widget_action_reassign', $select);
+}
+
+/**
+ * preparing the comment fieldset.
+ */
+function wptc_widget_comment_fieldset() {
+
+    $fieldset = <<<EOT
+<fieldset class="iefix">
+  <label for="comment">You may use
+    <a tabindex="42" href="/trac/egov_opspedia-search/wiki/WikiFormatting">WikiFormatting</a>
+    here.</label>
+  <div class="wikitoolbar"><a href="#" id="strong" title="Bold text: '''Example'''" tabindex="400"></a><a href="#" id="em" title="Italic text: ''Example''" tabindex="400"></a><a href="#" id="heading" title="Heading: == Example ==" tabindex="400"></a><a href="#" id="link" title="Link: [http://www.example.com/ Example]" tabindex="400"></a><a href="#" id="code" title="Code block: {{{ example }}}" tabindex="400"></a><a href="#" id="hr" title="Horizontal rule: ----" tabindex="400"></a><a href="#" id="np" title="New paragraph" tabindex="400"></a><a href="#" id="br" title="Line break: [[BR]]" tabindex="400"></a><a href="#" id="img" title="Image: [[Image()]]" tabindex="400"></a></div><div class="trac-resizable"><div><textarea id="comment" name="comment" class="wikitext trac-resizable" rows="10" cols="78"></textarea><div class="trac-grip" style="margin-left: -1px; margin-right: 1px;"></div></div></div>
+</fieldset>
+EOT;
+
+    return apply_filters('wptc_widget_comment_fieldset', $fieldset);
 }
 
 /**
  * preparing the details info for a ticket
  */
-function wptc_widget_ticket_info($ticketId) {
+function wptc_widget_ticket_info($ticket) {
 
-    $ticket = wptc_get_ticket($ticketId);
     // the type and status for this ticket.
-    $ticket_type_status = $ticket['status'] . " " . $ticket['type'];
+    $ticket_type_status = $ticket['status'] . " " . 
+                          $ticket['type'];
     if ($ticket['resolution']) {
-        $ticket_type_status = $ticket_type_status . ": " . $ticket['resolution'];
+        $ticket_type_status = $ticket_type_status . ": " . 
+                              $ticket['resolution'];
     }
     // get details info for the reportor 
     // assume the username is the same as WordPress login_name
-    $ticket_reporter_href = wptc_widget_user_href($ticket['reporter']);
-    $ticket_owner_href = wptc_widget_user_href($ticket['owner']);
+    $ticket_reporter_href = 
+        wptc_widget_user_href($ticket['reporter']);
+    $ticket_owner_href = 
+        wptc_widget_user_href($ticket['owner']);
     // preparing the descriptions.
     $ticket_description = 
         wptc_widget_parse_content($ticket['description']);
@@ -478,9 +599,7 @@ EOT;
 /**
  * preparting the change history for a ticket.
  */
-function wptc_widget_ticket_changelog($ticketId) {
-
-    $changelog = wptc_get_ticket_changelog($ticketId);
+function wptc_widget_ticket_changelog($changelog) {
 
     $changes = array();
     // reformat the change log to the following format.
@@ -580,4 +699,41 @@ EOT;
 EOT;
 
     return apply_filters('wptc_widget_ticket_changelog', $ticketChangelog);
+}
+
+/**
+ * entry point for ticket details page.
+ */
+function wptc_widget_ticket_details($ticket_id) {
+
+   // one call to get ticket, changelog, and actions.
+   $ticket = wptc_get_ticket($ticket_id);
+   $changelog = wptc_get_ticket_changelog($ticket_id);
+   $actions = wptc_get_ticket_actions($ticket_id);
+
+   echo wptc_widget_ticket_info($ticket);
+   echo <<<EOT
+<div class="field">
+<h2 id="trac-add-comment">
+  <a id="edit" onfocus="$('#comment').get(0).focus()">Add a comment</a>
+</h2>
+<form method="post">
+<div id="commentaction">
+EOT;
+
+   echo wptc_widget_comment_fieldset();
+   echo wptc_widget_action_fieldset($actions, $ticket['status']);
+
+   echo <<<EOT
+<div class="buttons">
+  <input type="hidden" name="ts" value="">
+  <input type="hidden" name="id" value="{$ticket_id}">
+  <input type="submit" name="preview" value="Preview">&nbsp;
+  <input type="submit" name="submit" value="Submit changes">
+</div>
+</div>
+</form>
+</div>
+EOT;
+   echo wptc_widget_ticket_changelog($changelog);
 }

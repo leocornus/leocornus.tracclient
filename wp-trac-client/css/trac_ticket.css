@@ -307,3 +307,17 @@ table.tickets tbody tr.fullrow th {
   text-align: center;
   font-size: 85%;
 }
+/** Field set **/
+fieldset { padding: 3px 10px !important; border: 1px solid #999; margin: 2px 0; }
+fieldset legend.foldable :link, fieldset legend.foldable :visited { background: url(/trac_htdocs/chrome/common/expanded.png) 0 50% no-repeat; border: none; color: #666; font-size: 110%; padding-left: 16px; }
+fieldset.collapsed legend.foldable :link, fieldset.collapsed legend.foldable :visited { background-image: url(/trac_htdocs/chrome/common/collapsed.png); }
+fieldset.iefix {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#commentaction { border: 1px outset #996; padding: 1em }
+
+.buttons { display: block; overflow: hidden; margin-bottom: 18px; }
