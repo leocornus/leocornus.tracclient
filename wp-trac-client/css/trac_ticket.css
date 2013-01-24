@@ -320,7 +320,10 @@ fieldset.iefix {
 
 #commentaction { border: 1px outset #996; padding: 1em }
 
-.buttons { display: block; overflow: hidden; margin-bottom: 18px; }
+.buttons { display: block; overflow: hidden; 
+  margin-top: 8px;
+  margin-bottom: 0px; 
+}
 
 /** for wiki toolbar **/
 .wikitoolbar {

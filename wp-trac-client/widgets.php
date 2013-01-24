@@ -424,7 +424,7 @@ EOT;
 <fieldset id="action">
   <legend>Action</legend>
   {$divs}
-</fieldsed>
+</fieldset>
 EOT;
 
     return apply_filters('wptc_widget_action_fieldset', $ret);
@@ -476,7 +476,9 @@ function wptc_widget_comment_fieldset() {
     $fieldset = <<<EOT
 <fieldset class="iefix">
   <label for="comment">You may use
-    <a tabindex="42" href="/trac/egov_opspedia-search/wiki/WikiFormatting">WikiFormatting</a>
+    <a tabindex="42" target="_blank"
+       href="http://trac.edgewall.org/wiki/WikiFormatting">
+      WikiFormatting</a>
     here.</label>
   <div class="trac-resizable"><div>
     <textarea id="comment" name="comment" class="wikitext trac-resizable" rows="10" cols="78"></textarea>
@@ -710,13 +712,13 @@ EOT;
  */
 function wptc_widget_ticket_details($ticket_id) {
 
-   // one call to get ticket, changelog, and actions.
-   $ticket = wptc_get_ticket($ticket_id);
-   $changelog = wptc_get_ticket_changelog($ticket_id);
-   $actions = wptc_get_ticket_actions($ticket_id);
+    // one call to get ticket, changelog, and actions.
+    $ticket = wptc_get_ticket($ticket_id);
+    $changelog = wptc_get_ticket_changelog($ticket_id);
+    $actions = wptc_get_ticket_actions($ticket_id);
 
-   echo wptc_widget_ticket_info($ticket);
-   echo <<<EOT
+    echo wptc_widget_ticket_info($ticket);
+    echo <<<EOT
 <div class="field">
 <h2 id="trac-add-comment">
   <a id="edit" onfocus="$('#comment').get(0).focus()">Add a comment</a>
@@ -725,19 +727,19 @@ function wptc_widget_ticket_details($ticket_id) {
 <div id="commentaction">
 EOT;
 
-   echo wptc_widget_comment_fieldset();
-   echo wptc_widget_action_fieldset($actions, $ticket['status']);
+    echo wptc_widget_comment_fieldset();
+    echo wptc_widget_action_fieldset($actions, $ticket['status']);
 
-   echo <<<EOT
-<div class="buttons">
-  <input type="hidden" name="ts" value="">
-  <input type="hidden" name="id" value="{$ticket_id}">
-  <input type="submit" name="preview" value="Preview">&nbsp;
-  <input type="submit" name="submit" value="Submit changes">
-</div>
+    echo <<<EOT
+    <div class="buttons">
+      <input type="hidden" name="ts" value="">
+      <input type="hidden" name="id" value="{$ticket_id}">
+      <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
+      <input type="submit" name="submit" value="Submit changes">
+    </div>
 </div>
 </form>
 </div>
 EOT;
-   echo wptc_widget_ticket_changelog($changelog);
+    echo wptc_widget_ticket_changelog($changelog);
 }

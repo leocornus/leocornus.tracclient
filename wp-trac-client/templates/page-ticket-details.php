@@ -6,6 +6,7 @@
 get_header();
 wp_enqueue_style('wptc-trac-ticket');
 wp_enqueue_script('wptc-trac-wikitoolbar');
+
 $ticket_id = $_GET['id'];
 // TODO:
 // what if there is not id specified? create new ticket?
@@ -29,7 +30,7 @@ $ticket_id = $_GET['id'];
 <?php
 // =========================================================
 // debug message...
-$DEBUG = True;
+$DEBUG = False;
 if ($DEBUG) {
     global $post, $current_blog;
     // dump the change log 
