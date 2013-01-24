@@ -90,5 +90,23 @@
 // 'wikitext'.
 jQuery(document).ready(function($) {
   $("textarea.wikitext").each(function() { addWikiFormattingToolbar(this) });
-});
 
+  // only enable control elements for 
+  // the currently selected action
+  var actions = $("#action input[name='action']");
+  function updateActionFields() {
+    actions.each(function () {
+      findIds = $(this).siblings().find("*[id]");
+      if (findIds.length > 0) {
+        findIds[0].disabled = !this.checked;
+      }
+      filterIds = $(this).siblings().filter("*[id]");
+      if (filterIds.length > 0) {
+        filterIds[0].disabled = !this.checked;
+      }
+    });
+  }
+  actions.click(updateActionFields);
+  updateActionFields();
+
+});
