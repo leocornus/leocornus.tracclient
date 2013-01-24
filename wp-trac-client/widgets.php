@@ -478,7 +478,11 @@ function wptc_widget_comment_fieldset() {
   <label for="comment">You may use
     <a tabindex="42" href="/trac/egov_opspedia-search/wiki/WikiFormatting">WikiFormatting</a>
     here.</label>
-  <div class="wikitoolbar"><a href="#" id="strong" title="Bold text: '''Example'''" tabindex="400"></a><a href="#" id="em" title="Italic text: ''Example''" tabindex="400"></a><a href="#" id="heading" title="Heading: == Example ==" tabindex="400"></a><a href="#" id="link" title="Link: [http://www.example.com/ Example]" tabindex="400"></a><a href="#" id="code" title="Code block: {{{ example }}}" tabindex="400"></a><a href="#" id="hr" title="Horizontal rule: ----" tabindex="400"></a><a href="#" id="np" title="New paragraph" tabindex="400"></a><a href="#" id="br" title="Line break: [[BR]]" tabindex="400"></a><a href="#" id="img" title="Image: [[Image()]]" tabindex="400"></a></div><div class="trac-resizable"><div><textarea id="comment" name="comment" class="wikitext trac-resizable" rows="10" cols="78"></textarea><div class="trac-grip" style="margin-left: -1px; margin-right: 1px;"></div></div></div>
+  <div class="trac-resizable"><div>
+    <textarea id="comment" name="comment" class="wikitext trac-resizable" rows="10" cols="78"></textarea>
+    <div class="trac-grip" style="margin-left: -1px; margin-right: 1px;">
+    </div>
+  </div></div>
 </fieldset>
 EOT;
 

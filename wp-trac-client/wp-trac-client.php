@@ -55,6 +55,7 @@ function zend_framework_register_autoload() {
 // load the tmplate tags function.
 require_once(MY_PLUGIN_PATH . '/tags.php');
 require_once(MY_PLUGIN_PATH . '/widgets.php');
+require_once(MY_PLUGIN_PATH . '/actions.php');
 // load ajax functions.
 require_once(MY_PLUGIN_PATH . '/ajax.php');
 // load the WikiRenderer lib with trac wiki rule.
@@ -78,9 +79,11 @@ function register_resources() {
     // using wp_enqueue_script to load this js lib where you need.
     wp_register_style('jquery.dataTables',
                       plugins_url('wp-trac-client/css/jquery.dataTables.css'));
-    // the style for a trac-ticket.
+    // the styles and scripts for trac.
     wp_register_style('wptc-trac-ticket',
                       plugins_url('wp-trac-client/css/trac_ticket.css'));
+    wp_register_script('wptc-trac-wikitoolbar',
+                       plugins_url('wp-trac-client/js/trac-wikitoolbar.js'));
     // using wp_enqueue_style to load this css.
     // jquery ui dialog style seens not automatically loaded.
     wp_register_style('jquery-ui',
