@@ -255,8 +255,25 @@ function wptc_get_ticket_default_version() {
 /**
  * update the ticket .
  */
-function wptc_update_ticket($id, $comment='', $attributes,
-    $author) {
+function wptc_update_ticket($id, $comment='', $attributes) {
 
-    
+    // using current user's login as the author.
+    global $current_user;
+    get_currentuserinfo();
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    // here is the signature
+    // update(id, comment, attributes, notify, author, when)
+    $ticket = $proxy->update($id, $comment, $attributes, 
+                             False, 
+                             $current_user->user_login);
+    // TODO:
+    // 1. update memcached entry for ticket.
+    // 2. load the ticket change log
+    // 3. update memcached entry for ticket change log.
+    // 4. load the ticket actions
+    // 5. update memcached entry for ticket actions.
+    // 6. update solr doc based on the new data.
+
+    return $ticket;
 }

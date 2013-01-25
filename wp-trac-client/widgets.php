@@ -12,6 +12,7 @@ function wptc_widget_parse_content($wiki) {
     //$ret = Markdown($wiki);
     $wkr = new WikiRenderer('trac_to_xhtml');
     $ret = $wkr->render($wiki);
+    //$ret = $wiki;
 
     // apply filters to allow user to tweak.
     return apply_filters('wptc_widget_parse_content', $ret);
@@ -730,9 +731,13 @@ EOT;
     echo wptc_widget_comment_fieldset();
     echo wptc_widget_action_fieldset($actions, $ticket['status']);
 
+    // preparing the timestamp, should be the following format
+    // value="2012-11-26 20:01:26.925065+00:00"
+    //$now = new DateTime("now", new DateTimeZone('UTC'));
+    //$ts = $now->format('Y-m-d H:i:sP');
     echo <<<EOT
     <div class="buttons">
-      <input type="hidden" name="ts" value="">
+      <input type="hidden" name="ts" value="{$ticket['_ts']}">
       <input type="hidden" name="id" value="{$ticket_id}">
       <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
       <input type="submit" name="submit" value="Submit changes">
