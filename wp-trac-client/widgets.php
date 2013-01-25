@@ -630,12 +630,12 @@ function wptc_widget_ticket_changelog($changelog) {
 
         // start formating for each field.
         // we are using time as the key.
+        $change = array();
         if (array_key_exists($change_time, $changes)) {
             // we have this 'time' already, keep working on it.
             $change = $changes[$change_time];
         } else {
             // this is a new 'time', create new change,
-            $change = array();
             $changes[$change_time] = $change;
             $change['author'] = $change_author;
         }
@@ -671,8 +671,16 @@ function wptc_widget_ticket_changelog($changelog) {
         $change_author_href = 
             wptc_widget_user_href($change['author']);
         // check fields is exist or not.
+        // have to reset here, otherwise it will keep the 
+        // previous change's value.
+        $change_fields_list = "";
         if (array_key_exists('fields', $change)) {
             $change_fields_list = implode(" ", $change['fields']);
+            $change_fields_list = <<<EOT
+  <ul class="changes">
+    {$change_fields_list}
+  </ul>
+EOT;
         }
 
         $ticketChanges[] = <<<EOT
@@ -685,9 +693,7 @@ function wptc_widget_ticket_changelog($changelog) {
     </span>
     Changed {$change_age} ago by {$change_author_href}
   </h3>
-  <ul class="changes">
-    {$change_fields_list}
-  </ul>
+  {$change_fields_list}
   <div class="comment searchable">
     <p>{$change['comment']}</p>
   </div>
