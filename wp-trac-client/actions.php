@@ -10,7 +10,7 @@ function wptc_form_submit() {
         return;
     }
 
-    $comment = $_POST['comment'];
+    $comment = $_POST['wikicomment'];
     $id = $_POST['id'];
     $workflow_actions = wptc_analyze_workflow_action();
 

@@ -476,13 +476,13 @@ function wptc_widget_comment_fieldset() {
 
     $fieldset = <<<EOT
 <fieldset class="iefix">
-  <label for="comment">You may use
+  <label for="wikicomment">You may use
     <a tabindex="42" target="_blank"
        href="http://trac.edgewall.org/wiki/WikiFormatting">
       WikiFormatting</a>
     here.</label>
   <div class="trac-resizable"><div>
-    <textarea id="comment" name="comment" class="wikitext trac-resizable" rows="10" cols="78"></textarea>
+    <textarea id="wikicomment" name="wikicomment" class="wikitext trac-resizable" rows="10" cols="78"></textarea>
     <div class="trac-grip" style="margin-left: -1px; margin-right: 1px;">
     </div>
   </div></div>
