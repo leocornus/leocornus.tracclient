@@ -102,7 +102,11 @@ EOT;
  */
 function wptc_widget_field_change_msg($field, $old, $new) {
 
-    if (empty($old)) {
+    if ($field === 'description') {
+        // only flag description as modified for now.
+        // TODO: add the diff view for the change.
+        $change_msg = "modified";
+    } else if (empty($old)) {
         $change_msg = "set to <em>" . $new . "</em>";
     } else {
         $change_msg = "changed from <em>" . $old . 
@@ -296,11 +300,9 @@ function wptc_widget_ticket_fieldset($ticket) {
     <td class="fullrow" colspan="3">
       <fieldset class="iefix">
         <label for="field-description" id="field-description-help">You may use
-          <a tabindex="42" href="/trac/egov_opspedia-search/wiki/WikiFormatting">WikiFormatting</a> here.</label>
+          <a tabindex="42" href="http://trac.edgewall.org/wiki/WikiFormatting">WikiFormatting</a> here.</label>
         <div class="trac-resizable"><div>
-          <textarea id="field-description" name="field_description" class="wikitext trac-resizable" rows="10" cols="68">
-          {$ticket['description']}
-          </textarea>
+          <textarea id="field-description" name="field_description" class="wikitext trac-resizable" rows="10" cols="68">{$ticket['description']}</textarea>
           <div class="trac-grip" style="margin-left: 2px; margin-right: -2px;">
           </div>
         </div></div>
@@ -725,18 +727,36 @@ function wptc_widget_ticket_details($ticket_id) {
     $actions = wptc_get_ticket_actions($ticket_id);
 
     echo wptc_widget_ticket_info($ticket);
+
+    // the editing form, it should only show up for
+    // logged in users.
+    echo "<form method='post'>";
+
+    // the ticket editing form
     echo <<<EOT
-<div class="field">
-<h2 id="trac-add-comment">
-  <a id="edit" onfocus="$('#comment').get(0).focus()">Add a comment</a>
-</h2>
-<form method="post">
-<div id="commentaction">
+<div>
+  <h2 class="foldable">Modified Ticket</h2>
+  <div id="modify" class="field">
+EOT;
+    echo wptc_widget_ticket_fieldset($ticket);
+    echo <<<EOT
+  </div>
+  <div class="buttons">
+    <input type="submit" id="descsubmit" name="submit" value="Submit changes">
+  </div>
+</div>
 EOT;
 
+    // combine comment and action sections together.
+    echo <<<EOT
+<div class="field">
+<h2 class="foldable" id="trac-add-comment">
+  <a id="edit" onfocus="$('#comment').get(0).focus()">Add a comment</a>
+</h2>
+<div id="commentaction">
+EOT;
     echo wptc_widget_comment_fieldset();
     echo wptc_widget_action_fieldset($actions, $ticket['status']);
-
     // preparing the timestamp, should be the following format
     // value="2012-11-26 20:01:26.925065+00:00"
     //$now = new DateTime("now", new DateTimeZone('UTC'));
@@ -746,11 +766,13 @@ EOT;
       <input type="hidden" name="ts" value="{$ticket['_ts']}">
       <input type="hidden" name="id" value="{$ticket_id}">
       <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
-      <input type="submit" name="submit" value="Submit changes">
+      <input type="submit" id="wikisubmit" name="submit" value="Submit changes">
     </div>
 </div>
-</form>
 </div>
 EOT;
+    echo "</form>";
+
+    // Change log at the end.
     echo wptc_widget_ticket_changelog($changelog);
 }

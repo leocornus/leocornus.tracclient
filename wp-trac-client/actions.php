@@ -12,16 +12,43 @@ function wptc_form_submit() {
 
     $comment = $_POST['wikicomment'];
     $id = $_POST['id'];
+    // available workflow actions.
     $workflow_actions = wptc_analyze_workflow_action();
+    // ticket attributes.
+    $ticket_props = wptc_analyze_ticket_props();
 
     // get ready the attributes.
     $attributes = array();
     // timestamp is must!
     $attributes['_ts'] = $_POST['ts'];
-    $attributes = array_merge($attributes, $workflow_actions);
-    // ticket attributes.
+    $attributes = array_merge($attributes, $ticket_props,
+                              $workflow_actions);
 
     $ticket = wptc_update_ticket($id, $comment, $attributes);
+}
+
+/**
+ * collect ticket props from the form POST.
+ */
+function wptc_analyze_ticket_props() {
+
+    $attributes = array();
+    $fields = array(
+        'summary',
+        'reporter',
+        'description',
+        'type',
+        'priority',
+        'milestone',
+        'component',
+        'version',
+        'keywords');
+    foreach($fields as $field) {
+        $attributes[$field] = $_POST['field_' . $field];
+    }
+
+    return apply_filters('wptc_analyze_ticket_props', 
+                         $attributes);
 }
 
 /**
