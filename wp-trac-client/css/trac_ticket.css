@@ -357,3 +357,28 @@ fieldset.iefix {
 .wikitoolbar a#np { background-position: 0 -96px }
 .wikitoolbar a#br { background-position: 0 -112px }
 .wikitoolbar a#img { background-position: 0 -128px }
+
+/* Section folding */
+.foldable :link, .foldable :visited {
+ background: url(../images/expanded.png) 0 50% no-repeat;
+ border: none;
+ padding-left: 16px;
+}
+.foldable :link:hover, .foldable :visited:hover { background-color: transparent }
+.collapsed > .foldable :link, .collapsed > .foldable :visited {
+ background-image: url(../images/collapsed.png);
+}
+.collapsed > div, .collapsed > table, .collapsed > ul, .collapsed > dl { display: none }
+fieldset > legend.foldable :link, fieldset > legend.foldable :visited {
+ color: #666;
+ font-size: 100%;
+}
+
+/* titles */
+h1 { font-size: 24px; font-weight: normal; }
+h2 { font-size: 21px; font-weight: normal; }
+h3 { font-size: 16px; font-weight: normal; }
+h4 { font-size: 14px; font-weight: bold; }
+h5 { font-size: 14px; font-weight: normal; font-style: italic; }
+h1 span, h2 span { color: gray; font-size: 90%;}
+* .dashboard_h2 { margin-left: 27px; } /* H2s on the dashboard need to be indented on IE only */

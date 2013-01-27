@@ -706,7 +706,9 @@ EOT;
     $changes_html = implode(" ", array_reverse($ticketChanges));
     $ticketChangelog = <<<EOT
 <div>
-  <h2 class="foldable"><a id="no2" href="#no2">Change History</a></h2>
+  <h2 class="foldable">
+    <a id="no3" href="#no3">Change History</a>
+  </h2>
   <div id="changelog">
     {$changes_html}
   </div>
@@ -714,6 +716,66 @@ EOT;
 EOT;
 
     return apply_filters('wptc_widget_ticket_changelog', $ticketChangelog);
+}
+
+/**
+ * proparing the ticket ediging form:
+ */
+function wptc_widget_ticket_form($ticket, $actions) {
+
+    global $current_user;
+    get_currentuserinfo();
+    if (!$current_user->ID) {
+        // user not logged in. do nothing here.
+        return;
+    }
+
+    // the editing form, it should only show up for
+    // logged in users.
+    echo "<form method='post'>";
+    // the ticket editing form
+    echo <<<EOT
+<div class="collapsed">
+  <h2 class="foldable">
+    <a id="no1" href="#no1">Modify Ticket</a>
+  </h2>
+  <div id="modify" class="field">
+EOT;
+    echo wptc_widget_ticket_fieldset($ticket);
+    echo <<<EOT
+  </div>
+  <div class="buttons">
+    <input type="submit" id="descsubmit" name="submit" value="Submit changes">
+  </div>
+</div>
+EOT;
+
+    // combine comment and action sections together.
+    echo <<<EOT
+<div>
+<h2 class="foldable">
+  <a id="no2" href="#no2"
+     onfocus="$('#wikicomment').get(0).focus()">Add Comment</a>
+</h2>
+<div id="commentaction">
+EOT;
+    echo wptc_widget_comment_fieldset();
+    echo wptc_widget_action_fieldset($actions, $ticket['status']);
+    // preparing the timestamp, should be the following format
+    // value="2012-11-26 20:01:26.925065+00:00"
+    //$now = new DateTime("now", new DateTimeZone('UTC'));
+    //$ts = $now->format('Y-m-d H:i:sP');
+    echo <<<EOT
+    <div class="buttons">
+      <input type="hidden" name="ts" value="{$ticket['_ts']}">
+      <input type="hidden" name="id" value="{$ticket['id']}">
+      <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
+      <input type="submit" id="wikisubmit" name="submit" value="Submit changes">
+    </div>
+</div>
+</div>
+EOT;
+    echo "</form>";
 }
 
 /**
@@ -728,50 +790,8 @@ function wptc_widget_ticket_details($ticket_id) {
 
     echo wptc_widget_ticket_info($ticket);
 
-    // the editing form, it should only show up for
-    // logged in users.
-    echo "<form method='post'>";
-
-    // the ticket editing form
-    echo <<<EOT
-<div>
-  <h2 class="foldable">Modified Ticket</h2>
-  <div id="modify" class="field">
-EOT;
-    echo wptc_widget_ticket_fieldset($ticket);
-    echo <<<EOT
-  </div>
-  <div class="buttons">
-    <input type="submit" id="descsubmit" name="submit" value="Submit changes">
-  </div>
-</div>
-EOT;
-
-    // combine comment and action sections together.
-    echo <<<EOT
-<div class="field">
-<h2 class="foldable" id="trac-add-comment">
-  <a id="edit" onfocus="$('#comment').get(0).focus()">Add a comment</a>
-</h2>
-<div id="commentaction">
-EOT;
-    echo wptc_widget_comment_fieldset();
-    echo wptc_widget_action_fieldset($actions, $ticket['status']);
-    // preparing the timestamp, should be the following format
-    // value="2012-11-26 20:01:26.925065+00:00"
-    //$now = new DateTime("now", new DateTimeZone('UTC'));
-    //$ts = $now->format('Y-m-d H:i:sP');
-    echo <<<EOT
-    <div class="buttons">
-      <input type="hidden" name="ts" value="{$ticket['_ts']}">
-      <input type="hidden" name="id" value="{$ticket_id}">
-      <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
-      <input type="submit" id="wikisubmit" name="submit" value="Submit changes">
-    </div>
-</div>
-</div>
-EOT;
-    echo "</form>";
+    // load the ticket editing form.
+    wptc_widget_ticket_form($ticket, $actions);
 
     // Change log at the end.
     echo wptc_widget_ticket_changelog($changelog);
