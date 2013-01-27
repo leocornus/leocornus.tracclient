@@ -49,6 +49,9 @@ function wptc_analyze_ticket_props() {
         if ($field === 'description') {
             $attributes[$field] = 
                 wptc_widget_clean_textarea($attributes[$field]);
+        } else if ($field === 'summary') {
+            $attributes[$field] = 
+                stripslashes($attributes[$field]);
         }
     }
 
