@@ -5,6 +5,17 @@
  */
 
 /**
+ * clean up the textarea input value to remove 
+ * un-necessary characters, such as \r\n
+ */
+function wptc_widget_clean_textarea($input) {
+
+    $ret = str_replace("\r\n", "\n", stripslashes($input));
+
+    return apply_filters('wptc_widget_clean_textarea', $ret);
+}
+
+/**
  * parse wiki format to prepare HTML.
  */
 function wptc_widget_parse_content($wiki) {

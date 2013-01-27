@@ -10,7 +10,8 @@ function wptc_form_submit() {
         return;
     }
 
-    $comment = $_POST['wikicomment'];
+    $comment = 
+        wptc_widget_clean_textarea($_POST['wikicomment']);
     $id = $_POST['id'];
     // available workflow actions.
     $workflow_actions = wptc_analyze_workflow_action();
@@ -45,6 +46,10 @@ function wptc_analyze_ticket_props() {
         'keywords');
     foreach($fields as $field) {
         $attributes[$field] = $_POST['field_' . $field];
+        if ($field === 'description') {
+            $attributes[$field] = 
+                wptc_widget_clean_textarea($attributes[$field]);
+        }
     }
 
     return apply_filters('wptc_analyze_ticket_props', 
