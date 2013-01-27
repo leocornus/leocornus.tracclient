@@ -382,3 +382,9 @@ h4 { font-size: 14px; font-weight: bold; }
 h5 { font-size: 14px; font-weight: normal; font-style: italic; }
 h1 span, h2 span { color: gray; font-size: 90%;}
 * .dashboard_h2 { margin-left: 27px; } /* H2s on the dashboard need to be indented on IE only */
+
+.trac-topnav {
+ float: right;
+ font-size: 80%;
+ margin-top: 14px;
+}

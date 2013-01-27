@@ -495,6 +495,30 @@ EOT;
 }
 
 /**
+ * the login reminder for not logged in users.
+ */
+function wptc_widget_ticket_info_topnav($ticket_id) {
+
+    if(is_user_logged_in()) {
+        // user logged in, return empty string
+        // to leave topnav empty.
+        return "";
+    }
+
+    $loginHref = get_option('siteurl') . 
+        "/wp-login.php?redirect_to=" . 
+        urlencode(get_permalink() . "?id=" . $ticket_id);
+
+    $topnav = <<<EOT
+<div class="trac-topnav">
+  Please <a href="{$loginHref}">log in</a> to update/comment
+</div>
+EOT;
+
+    return $topnav;
+}
+
+/**
  * preparing the details info for a ticket
  */
 function wptc_widget_ticket_info($ticket) {
@@ -521,9 +545,13 @@ function wptc_widget_ticket_info($ticket) {
     $ticket_modifiedAge = 
         wptc_widget_time_age($ticket['modified']);
 
+    $permalink = get_permalink() . "?id=" . $ticket['id'];
+    $topnav = wptc_widget_ticket_info_topnav($ticket['id']);
+
     $ticketInfo = <<<EOT
+{$topnav}
 <h1 id="ticket-title">
-  Ticket #{$ticket['id']}
+  <a href="{$permalink}">Ticket #{$ticket['id']}</a>
   <span class="status">({$ticket_type_status})</span>
 </h1>
 
@@ -723,9 +751,7 @@ EOT;
  */
 function wptc_widget_ticket_form($ticket, $actions) {
 
-    global $current_user;
-    get_currentuserinfo();
-    if (!$current_user->ID) {
+    if (! is_user_logged_in()) {
         // user not logged in. do nothing here.
         return;
     }
