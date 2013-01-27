@@ -707,7 +707,7 @@ function wptc_widget_ticket_changelog($changelog) {
         if (array_key_exists('fields', $change)) {
             $change_fields_list = implode(" ", $change['fields']);
             $change_fields_list = <<<EOT
-  <ul class="changes">
+  <ul>
     {$change_fields_list}
   </ul>
 EOT;
