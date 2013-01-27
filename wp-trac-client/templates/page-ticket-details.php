@@ -3,9 +3,26 @@
  * Template Name: Trac Ticket Details
  * Description: a page to show the details for a ticket.
  */
-get_header();
+// enqueue styles and scripts for trac project.
 wp_enqueue_style('wptc-trac-ticket');
 wp_enqueue_script('wptc-trac-wikitoolbar');
+
+// you may not need the following section if you
+// don't have tiny-mce comments plugin installed.
+// remove the actions related to the mce comment editor.
+remove_action('template_redirect', 'mcecomment_loadCoreJS');
+remove_action('wp_head', 'mcecomment_init');
+// dequeue the tiny mce editor.
+wp_dequeue_script('tiny_mce');
+wp_dequeue_script('tiny_mce_lang');
+wp_dequeue_script('editor-template');
+wp_dequeue_script('comment-reply');
+
+// load the header now.
+get_header();
+
+// handler the submit action first.
+wptc_form_submit();
 
 $ticket_id = $_GET['id'];
 // TODO:
@@ -22,7 +39,7 @@ $ticket_id = $_GET['id'];
       </div>
     </div>
   </div>
- 
+
   <div id="right_column">
 
     <?php wptc_widget_ticket_details($ticket_id); ?>
@@ -34,7 +51,7 @@ $DEBUG = False;
 if ($DEBUG) {
     global $post, $current_blog;
     // dump the change log 
-    $ticket = wptc_get_ticket_actions($ticket_id);
+    $ticket = wptc_get_ticket($ticket_id);
     echo '<pre>';
     var_dump($ticket);
     echo '</pre>';
