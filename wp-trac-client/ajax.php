@@ -1,6 +1,30 @@
 <?php
 
 /**
+ *
+ */
+add_action('wp_ajax_nopriv_wptc_username_autocomplete', 'wptc_username_suggestion_cb');
+add_action('wp_ajax_wptc_username_autocomplete', 'wptc_username_suggestion_cb');
+function wptc_username_suggestion_cb() {
+
+    $searchTerm = $_POST['term'];
+    // query wp_users table for the given term.
+    $users = array("abc", "cde");
+
+    $suggestions = array();
+    foreach($users as $user) {
+        $suggestion = array();
+        $suggestion['label'] = 'Display Name - Email';
+        $suggestion['value'] = 'user_login';
+        $suggestions[] = $suggestion;
+    }
+
+    $response = $_GET["callback"] . "(" . json_encode($suggestions) . ")";
+    echo $response;
+    exit;
+}
+
+/**
  * the ajax wrappers for the trac functions
  * The _cb suffix stands for Call Back
  */

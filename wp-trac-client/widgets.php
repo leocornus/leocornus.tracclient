@@ -469,14 +469,13 @@ EOT;
 function wptc_widget_action_reassign($action) {
 
     $fields = $action[3][0];
-    $options = wptc_widget_options_html($fields[2], $fields[1]);
+    //$options = wptc_widget_options_html($fields[2], $fields[1]);
     // the resolve is a select element.
     // it will be disabled untile the radio button is selected.
     $select = <<<EOT
 to  
-<select name="{$fields[0]}" id="{$fields[0]}" disabled="">
-  {$options}
-</select>
+<input name="action_reassign_reassign_owner" id="action_reassign_reassign_owner" disabled="">
+{$options}
 EOT;
 
     return apply_filters('wptc_widget_action_reassign', $select);

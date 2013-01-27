@@ -1,6 +1,7 @@
 
 (function($){
-  
+
+  // trac wiki toolbar  
   window.addWikiFormattingToolbar = function(textarea) {
     if ((document.selection == undefined)
      && (textarea.setSelectionRange == undefined)) {
@@ -123,6 +124,21 @@ jQuery(document).ready(function($) {
 
   // attach folding function to foldable class.
   $(".foldable").enableFolding(false, true);
+
+  // username auto complete for re-assign action.
+  var wptc_username_ac = "wptc_username_autocomplete"
+  $("#action_reassign_reassign_owner").autocomplete({
+      source: function(request, response) {
+          $.getJSON(WptcAjaxObj.url + "?callback=?&action=" +
+                    wptc_username_ac, request, response);
+      },
+      minLength: 2,
+      select: function(event, ui) {
+          // selected value could get from ui param.
+          // ui.item.id, ui.item.value.
+          alert (ui.item.value);
+      }
+  });
 
   // only enable control elements for 
   // the currently selected action

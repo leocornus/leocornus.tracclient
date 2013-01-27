@@ -388,3 +388,8 @@ h1 span, h2 span { color: gray; font-size: 90%;}
  font-size: 80%;
  margin-top: 14px;
 }
+
+/* auto complete loading */
+.ui-autocomplete-loading {
+  background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
