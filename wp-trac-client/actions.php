@@ -1,4 +1,5 @@
 <?php
+global $current_user;
 /**
  * a convenient function to handle form post.
  */
@@ -9,6 +10,15 @@ function wptc_form_submit() {
         // nothing to do.
         return;
     }
+
+    if(!is_user_logged_in()) {
+
+        // user not logged in!
+        // TODO: error message
+        return;
+    }
+
+    // TODO: validate the reassign action
 
     $comment = 
         wptc_widget_clean_textarea($_POST['wikicomment']);
@@ -82,6 +92,9 @@ function wptc_analyze_workflow_action() {
             break;
         case 'accept':
             $attributes['status'] = 'accepted';
+            global $current_user;
+            // set owner to self.
+            $attributes['owner'] = $current_user->user_login;
             break;
         case 'resolve':
             // resove to a resolution.
@@ -92,6 +105,7 @@ function wptc_analyze_workflow_action() {
         case 'reassign':
             // reassign to another person.
             $attributes['status'] = 'assigned';
+            // set owner to selected user.
             $attributes['owner'] = 
                 $_POST['action_reassign_reassign_owner'];
             break;

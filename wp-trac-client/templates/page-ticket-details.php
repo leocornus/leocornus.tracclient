@@ -51,11 +51,11 @@ $ticket_id = $_GET['id'];
 <?php
 // =========================================================
 // debug message...
-$DEBUG = False;
+$DEBUG = True;
 if ($DEBUG) {
     global $post, $current_blog;
     // dump the change log 
-    $ticket = wptc_get_ticket($ticket_id);
+    $ticket = wptc_get_ticket_actions($ticket_id);
     echo '<pre>';
     var_dump($ticket);
     echo '</pre>';

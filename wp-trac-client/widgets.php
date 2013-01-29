@@ -472,10 +472,17 @@ function wptc_widget_action_reassign($action) {
     //$options = wptc_widget_options_html($fields[2], $fields[1]);
     // the resolve is a select element.
     // it will be disabled untile the radio button is selected.
+
+    // The following is the right one for default workflow,
+    // which has the **set_owner** operation for reassign 
+    // action.
+// <select name="{$fields[0]}" id="{$fields[0]}" disabled="">
+//   {$options}
+// </select>
     $select = <<<EOT
 to  
-<input name="action_reassign_reassign_owner" id="action_reassign_reassign_owner" disabled="">
-{$options}
+<input name="action_reassign_reassign_owner" 
+       id="action_reassign_reassign_owner" disabled="">
 EOT;
 
     return apply_filters('wptc_widget_action_reassign', $select);
