@@ -24,16 +24,19 @@ wp_dequeue_script('comment-reply');
 
 // load the header now.
 get_header();
+?>
+</div>
 
+<?php
 // handler the submit action first.
 wptc_form_submit();
 
-$ticket_id = $_GET['id'];
 // TODO:
 // what if there is not id specified? create new ticket?
+$ticket_id = $_GET['id'];
+if(isset($ticket_id)) {
+    // we are working on a existing ticket.
 ?>
-
-</div>
 
   <div id="left_column">
     <div class='leftnav'>
@@ -49,9 +52,18 @@ $ticket_id = $_GET['id'];
     <?php wptc_widget_ticket_details($ticket_id); ?>
 
 <?php
+} else {
+    // load the create ticket form in single column
+?>
+  <div id="content">
+
+    <?php wptc_widget_new_ticket_form(); ?>
+
+<?php
+}
 // =========================================================
 // debug message...
-$DEBUG = True;
+$DEBUG = False;
 if ($DEBUG) {
     global $post, $current_blog;
     // dump the change log 

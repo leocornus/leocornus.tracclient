@@ -276,7 +276,7 @@ function wptc_widget_ticket_fieldset($ticket) {
                                  $ticket['type']);
     $ticket_priority_options = 
         wptc_widget_options_html(wptc_get_ticket_priorities(),
-                                 $ticket['property']);
+                                 $ticket['priority']);
     $ticket_milestone_options = 
         wptc_widget_options_html(wptc_get_ticket_milestones(),
                                  $ticket['milestone']);
@@ -286,6 +286,36 @@ function wptc_widget_ticket_fieldset($ticket) {
     $ticket_version_options = 
         wptc_widget_options_html(wptc_get_ticket_versions(),
                                  $ticket['version']);
+    if(isset($ticket)) {
+        $ticket_reporter = $ticket['reporter'];
+        // no need project and owner field for 
+        // tiecket modification.
+        $project_and_owner_tr = "";
+    } else {
+        global $current_user;
+        $ticket_reporter = $current_user->user_login;
+        // preparing for project and owner fiels.
+        // default owner will be reporter.
+        $project_and_owner_tr = <<<EOT
+  <tr>
+    <th class="col1">
+      <label for="field-project">Project:</label>
+    </th>
+    <td class="col1">
+      <select id="field-project" name="field_project">
+        {$ticket_project_options}
+      </select>
+    </td>
+    <th class="col2">
+      <label for="field_owner">Owner:</label>
+    </th>
+    <td class="col2">
+      <input id="field_owner" name="field_owner"
+             value="{$ticket_reporter}">
+    </td>
+  </tr>
+EOT;
+    }
 
     $propsTable = <<<EOT
 <fieldset id="properties">
@@ -299,11 +329,11 @@ function wptc_widget_ticket_fieldset($ticket) {
     </td>
   </tr>
   <tr>
-    <th><label for="field-reporter">Reporter:</label></th>
+    <th><label for="field_reporter">Reporter:</label></th>
     <td class="fullrow" colspan="3">
-      <input type="text" id="field-reporter" 
-             name="field_reporter" 
-             value="{$ticket['reporter']}" size="70">
+      <input type="text" id="field_reporter" 
+             name="field_reporter"
+             value="{$ticket_reporter}" size="70">
     </td>
   </tr>
   <tr>
@@ -320,6 +350,7 @@ function wptc_widget_ticket_fieldset($ticket) {
       </fieldset>
     </td>
   </tr>
+  {$project_and_owner_tr}
   <tr>
     <th class="col1">
       <label for="field-type">Type:</label>
@@ -764,7 +795,50 @@ EOT;
 }
 
 /**
- * proparing the ticket ediging form:
+ * preparing the ticket ediging form, mainly for 
+ * update ticket properties.
+ */
+function wptc_widget_new_ticket_form() {
+
+    if (! is_user_logged_in()) {
+        // user not logged in. do nothing here.
+        $loginHref = get_option('siteurl') . 
+            "/wp-login.php?redirect_to=" . 
+            urlencode(get_permalink());
+        echo <<<EOT
+<div>
+  <h1 id="ticket-title">
+    Please <a href="{$loginHref}">log in</a> to 
+    create new ticket!
+  </h1>
+</div>
+EOT;
+        return;
+    }
+
+    // preparing the form.
+    echo <<<EOT
+<div>
+  <h1 id="ticket-title">Create New Ticket</h1>
+  <form method="post" id="propertyform">
+    <div id="modify">
+EOT;
+    echo wptc_widget_ticket_fieldset($ticket);
+    echo <<<EOT
+    </div>
+    <div class="buttons">
+      <input type="submit" id="descsubmit" 
+             name="submit" value="Submit changes">
+    </div>
+  </form>
+</div>
+EOT;
+
+}
+
+/**
+ * preparing the ticket ediging form, mainly for 
+ * update ticket properties.
  */
 function wptc_widget_ticket_form($ticket, $actions) {
 

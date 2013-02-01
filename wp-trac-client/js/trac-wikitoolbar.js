@@ -140,6 +140,20 @@ jQuery(document).ready(function($) {
       }
   });
 
+  $("#field_owner").autocomplete({
+      source: function(request, response) {
+          $.getJSON(WptcAjaxObj.url + "?callback=?&action=" +
+                    wptc_username_ac, request, response);
+      },
+      minLength: 2,
+      select: function(event, ui) {
+          // selected value could get from ui param.
+          // ui.item.id, ui.item.value.
+          alert (ui.item.value);
+      }
+  });
+
+
   // only enable control elements for 
   // the currently selected action
   var actions = $("#action input[name='action']");

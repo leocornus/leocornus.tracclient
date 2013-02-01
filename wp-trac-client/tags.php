@@ -277,3 +277,15 @@ function wptc_update_ticket($id, $comment='', $attributes) {
 
     return $ticket;
 }
+
+/**
+ * create new ticket.
+ */
+function wptc_create_ticket($summary, $description, $attrs) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    // notify reporter by default.
+    $id = $proxy->create($summary, $description, 
+                         $attrs, True);
+    return $id;
+}
