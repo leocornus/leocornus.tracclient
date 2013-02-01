@@ -1,6 +1,6 @@
 <?php
 
-$DEBUG = True;
+$DEBUG = False;
 
 if (isset($_POST['wptc_settings_form_submit']) &&
     $_POST['wptc_settings_form_submit'] == 'Y') {
