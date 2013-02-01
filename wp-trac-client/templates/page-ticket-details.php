@@ -67,9 +67,10 @@ $DEBUG = False;
 if ($DEBUG) {
     global $post, $current_blog;
     // dump the change log 
-    $ticket = wptc_get_ticket_actions($ticket_id);
+    //$ticket = wptc_get_ticket_actions($ticket_id);
+    $something = wptc_username_suggestion_query('se');
     echo '<pre>';
-    var_dump($ticket);
+    var_dump($something);
     echo '</pre>';
 
     $parent_post = get_page($post->post_parent);

@@ -134,9 +134,11 @@ jQuery(document).ready(function($) {
       },
       minLength: 2,
       select: function(event, ui) {
+          // do nothing for now.
           // selected value could get from ui param.
           // ui.item.id, ui.item.value.
-          alert (ui.item.value);
+          // testing...
+          //alert (ui.item.value);
       }
   });
 
@@ -149,7 +151,7 @@ jQuery(document).ready(function($) {
       select: function(event, ui) {
           // selected value could get from ui param.
           // ui.item.id, ui.item.value.
-          alert (ui.item.value);
+          //alert (ui.item.value);
       }
   });
 

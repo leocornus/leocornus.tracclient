@@ -289,3 +289,26 @@ function wptc_create_ticket($summary, $description, $attrs) {
                          $attrs, True);
     return $id;
 }
+
+/**
+ * preparing a list of user info based on the given
+ * search term.
+ */
+function wptc_username_suggestion_query($searchTerm) {
+
+    global $wpdb;
+    $likeTerm = '%' . $searchTerm . '%';
+    $query = $wpdb->prepare("
+        SELECT user_login, user_email, display_name
+        FROM wp_users
+        WHERE user_login like %s
+        OR display_name like %s
+    ",
+    $likeTerm, $likeTerm
+    );
+
+    // using the default OBJECT as the output format.
+    $users = $wpdb->get_results($query);
+    return  
+      apply_filters('wptc_username_suggestion_query', $users);
+}

@@ -1,24 +1,30 @@
 <?php
 
 /**
- *
+ * wordpress AJAX callback for user anme suggestions.
  */
 add_action('wp_ajax_nopriv_wptc_username_autocomplete', 'wptc_username_suggestion_cb');
 add_action('wp_ajax_wptc_username_autocomplete', 'wptc_username_suggestion_cb');
 function wptc_username_suggestion_cb() {
 
-    $searchTerm = $_POST['term'];
+    $searchTerm = $_REQUEST['term'];
     // query wp_users table for the given term.
-    $users = array("abc", "cde");
+    $users = wptc_username_suggestion_query($searchTerm);
 
     $suggestions = array();
     foreach($users as $user) {
         $suggestion = array();
-        $suggestion['label'] = 'Display Name - Email';
-        $suggestion['value'] = 'user_login';
+        // preparing label and value for each user.
+        // label: Display Name - Email
+        // value: user_login
+        $suggestion['label'] = $user->display_name . ' - ' .
+            $user->user_email;
+        $suggestion['value'] = $user->user_login;
         $suggestions[] = $suggestion;
     }
 
+    // we are using jQuery.getJSON to trigger AJAX request,
+    // it is different from direct AJAX call.
     $response = $_GET["callback"] . "(" . json_encode($suggestions) . ")";
     echo $response;
     exit;
