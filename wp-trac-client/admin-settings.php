@@ -6,9 +6,9 @@ if (isset($_POST['wptc_settings_form_submit']) &&
     $_POST['wptc_settings_form_submit'] == 'Y') {
 
     // save settings submit. save user input to database.
-    update_blog_option(get_current_blog_id(), 'wptc_rpcurl', $_POST['wptc_rpcurl']);
-    update_blog_option(get_current_blog_id(), 'wptc_username', $_POST['wptc_username']);
-    update_blog_option(get_current_blog_id(), 'wptc_password', $_POST['wptc_password']);
+    update_site_option('wptc_rpcurl', $_POST['wptc_rpcurl']);
+    update_site_option('wptc_username', $_POST['wptc_username']);
+    update_site_option('wptc_password', $_POST['wptc_password']);
 
     // show the message.
     echo '<div class="updated"><p><strong>Settings Updated</strong></p></div>';
@@ -17,9 +17,9 @@ if (isset($_POST['wptc_settings_form_submit']) &&
 if (isset($_POST['wptc_quicktest_form_submit']) &&
     $_POST['wptc_quicktest_form_submit'] == 'Y') {
 
-    $rpcurl = get_blog_option(get_current_blog_id(), 'wptc_rpcurl');
-    $username = get_blog_option(get_current_blog_id(), 'wptc_username');
-    $password = get_blog_option(get_current_blog_id(), 'wptc_password');
+    $rpcurl = get_site_option('wptc_rpcurl');
+    $username = get_site_option('wptc_username');
+    $password = get_site_option('wptc_password');
     if ($rpcurl) {
         require_once 'Zend/XmlRpc/Client.php';
         $client = new Zend_XmlRpc_Client($rpcurl);
@@ -49,19 +49,19 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
       <tr>
         <th>Trac XML-RPC URL: </th>
         <td><input type="text" id="wptc_rpcurl" name="wptc_rpcurl" 
-                   value="<?php echo get_blog_option(get_current_blog_id(), 'wptc_rpcurl'); ?>" size="88"/>
+                   value="<?php echo get_site_option('wptc_rpcurl'); ?>" size="88"/>
         </td>
       </tr>
       <tr>
         <th>Trac User Name: </th>
         <td><input type="text" id="wptc_username" name="wptc_username" 
-                   value="<?php echo get_blog_option(get_current_blog_id(), 'wptc_username'); ?>" size="58"/>
+                   value="<?php echo get_site_option('wptc_username'); ?>" size="58"/>
         </td>
       </tr>
       <tr>
         <th scope="row">Trac Password: </th>
         <td><input type="password" id="wptc_password" name="wptc_password" 
-                   value="<?php echo get_blog_option(get_current_blog_id(), 'wptc_password'); ?>" size="58"/>
+                   value="<?php echo get_site_option('wptc_password'); ?>" size="58"/>
         </td>
       </tr>
       <tr>

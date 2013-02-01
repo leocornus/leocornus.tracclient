@@ -23,21 +23,23 @@ define('WPTC_DB', $wpdb->base_prefix . 'wptc');
 // this will work for symlink path too.
 $my_plugin_file = __FILE__;
 
-if (isset($plugin)) {
-	$my_plugin_file = $plugin;
-}
-else if (isset($mu_plugin)) {
-	$my_plugin_file = $mu_plugin;
-}
-else if (isset($network_plugin)) {
-	$my_plugin_file = $network_plugin;
-}
+//if (isset($plugin)) {
+//	$my_plugin_file = $plugin;
+//}
+//else if (isset($mu_plugin)) {
+//	$my_plugin_file = $mu_plugin;
+//}
+//else if (isset($network_plugin)) {
+//	$my_plugin_file = $network_plugin;
+//}
+
+//var_dump($my_plugin_file);
 
 define('MY_PLUGIN_FILE', $my_plugin_file);
 define('MY_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
 
 // load the Zend Framework.
-
+// show error message.
 ini_set('display_errors', 1);
 add_action('plugins_loaded', 'zend_framework_init');
 function zend_framework_init() {
@@ -96,9 +98,9 @@ function register_resources() {
 function get_wptc_client() {
 
     // get the settings from current blog
-    $rpcurl = get_blog_option(get_current_blog_id(), 'wptc_rpcurl');
-    $username = get_blog_option(get_current_blog_id(), 'wptc_username');
-    $password = get_blog_option(get_current_blog_id(), 'wptc_password');
+    $rpcurl = get_site_option('wptc_rpcurl');
+    $username = get_site_option('wptc_username');
+    $password = get_site_option('wptc_password');
     if ($rpcurl) {
         require_once 'Zend/XmlRpc/Client.php';
         $wptc_client = new Zend_XmlRpc_Client($rpcurl);
@@ -109,7 +111,7 @@ function get_wptc_client() {
 }
 
 // we need a admin page on dashboard for configuration.
-add_action('admin_menu', 'wptc_admin_init');
+add_action('network_admin_menu', 'wptc_admin_init');
 /**
  * the main function to set up admin page.
  */
