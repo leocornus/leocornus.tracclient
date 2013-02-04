@@ -31,6 +31,32 @@ function wptc_username_suggestion_cb() {
 }
 
 /**
+ *
+ */
+add_action('wp_ajax_nopriv_wptc_valid_username', 'wptc_valid_username_cb');
+add_action('wp_ajax_wptc_valid_username', 'wptc_valid_username_cb');
+function wptc_valid_username_cb() {
+    $username = $_POST['username'];
+    $ret = array();
+    $ret['valid'] = True;
+    global $wpdb;
+    $query = $wpdb->prepare("
+        SELECT id 
+        FROM wp_users
+        WHERE user_login = %s
+    ", $username);
+    $userId = $wpdb->get_var($query);
+    if($userId === NULL) {
+        // username not exist.
+        $ret['valid'] = False;
+        $ret['username'] = $username;
+    }
+
+    echo json_encode($ret);
+    exit;
+}
+
+/**
  * the ajax wrappers for the trac functions
  * The _cb suffix stands for Call Back
  */
