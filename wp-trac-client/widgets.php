@@ -322,9 +322,9 @@ EOT;
 <legend>Ticket Properties</legend>
 <table><tbody>
   <tr>
-    <th><label for="field-summary">Summary:</label></th>
+    <th><label for="field_summary">Summary:</label></th>
     <td class="fullrow" colspan="3">
-      <input type="text" id="field-summary" name="field_summary" 
+      <input type="text" id="field_summary" name="field_summary" 
              value="{$ticket['summary']}" size="70">
     </td>
   </tr>
@@ -512,8 +512,8 @@ function wptc_widget_action_reassign($action) {
 // </select>
     $select = <<<EOT
 to  
-<input name="action_reassign_reassign_owner" 
-       id="action_reassign_reassign_owner" disabled="">
+<input name="field_owner" 
+       id="field_owner" disabled="">
 EOT;
 
     return apply_filters('wptc_widget_action_reassign', $select);
@@ -820,13 +820,15 @@ EOT;
     echo <<<EOT
 <div>
   <h1 id="ticket-title">Create New Ticket</h1>
-  <form method="post" id="propertyform">
+  <form method="post" id="ticketform">
     <div id="modify">
 EOT;
     echo wptc_widget_ticket_fieldset($ticket);
     echo <<<EOT
     </div>
     <div class="buttons">
+      <input type="hidden" id="invalidFields" 
+             name="invalidFields" value="">
       <input type="submit" id="descsubmit" 
              name="submit" value="Submit changes">
     </div>
@@ -849,7 +851,7 @@ function wptc_widget_ticket_form($ticket, $actions) {
 
     // the editing form, it should only show up for
     // logged in users.
-    echo "<form method='post'>";
+    echo "<form method='post' id='ticketform'>";
     // the ticket editing form
     echo <<<EOT
 <div class="collapsed">
@@ -884,8 +886,10 @@ EOT;
     //$ts = $now->format('Y-m-d H:i:sP');
     echo <<<EOT
     <div class="buttons">
-      <input type="hidden" name="ts" value="{$ticket['_ts']}">
-      <input type="hidden" name="id" value="{$ticket['id']}">
+      <input type="hidden" id="ts" name="ts" value="{$ticket['_ts']}">
+      <input type="hidden" id="id" name="id" value="{$ticket['id']}">
+      <input type="hidden" id="invalidFields" 
+             name="invalidFields" value="">
       <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
       <input type="submit" id="wikisubmit" name="submit" value="Submit changes">
     </div>

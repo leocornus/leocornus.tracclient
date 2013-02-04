@@ -127,7 +127,7 @@ jQuery(document).ready(function($) {
 
   // username auto complete for re-assign action.
   var wptc_username_ac = "wptc_username_autocomplete"
-  $("#action_reassign_reassign_owner").autocomplete({
+  var username_ac_data = {
       source: function(request, response) {
           $.getJSON(WptcAjaxObj.url + "?callback=?&action=" +
                     wptc_username_ac, request, response);
@@ -139,22 +139,86 @@ jQuery(document).ready(function($) {
           // ui.item.id, ui.item.value.
           // testing...
           //alert (ui.item.value);
-      }
-  });
-
-  $("#field_owner").autocomplete({
-      source: function(request, response) {
-          $.getJSON(WptcAjaxObj.url + "?callback=?&action=" +
-                    wptc_username_ac, request, response);
       },
-      minLength: 2,
-      select: function(event, ui) {
-          // selected value could get from ui param.
-          // ui.item.id, ui.item.value.
-          //alert (ui.item.value);
+      search: function(event, ui) {
+          $("#field_owner").blur();
+      },
+      close: function(event, ui) {
+          $("#field_owner").blur();
+      }
+  };
+
+  $("#field_owner").autocomplete(username_ac_data);
+
+  $(":input[type=submit]").click(function() {
+      $("#field_owner").focus().blur();
+  });
+
+  $("#ticketform").submit(function() {
+      // some validation here!
+
+      // summary is a must-have field.
+      if($.trim($("#field_summary").val()) == "") {
+          alert("We need at lease a SUMMARY to create a ticket");
+          $("#field_summary").focus();
+          return false;
+      }
+
+      owner = $("#field_owner");
+      if(owner.attr("disabled")) {
+          // skip the owner validation.
+          return true;
+      }
+
+      $("#field_owner").blur();
+      if($.trim($("#field_owner").val()) == "") {
+          alert("We need a OWNER for a ticket");
+          $("#field_owner").focus();
+          return false;
+      }
+
+      // make sure the invalid fields are empty.
+      fields = $.trim($("#invalidFields").val());
+      if (fields.length > 0) {
+          names = fields.split(" ");
+          for (var i = 0; i < names.length; i++) {
+              
+          }
+          // show the alert message.
+          alert("Owner \"" + $("#field_owner").val() +
+                "\" is not a valid username");
+          $("#field_owner").focus().select();
+          return false;
       }
   });
 
+  $("#field_owner").blur(function() {
+      // now let't make sure the owner is a valid username.
+      var data = {
+          "action" : "wptc_valid_username",
+          "username" : this.value,
+      };
+      jQuery.post(WptcAjaxObj.url, data, function(response) {
+          //alert(response);
+          var res = JSON.parse(response);
+          if(!res.valid) {
+              $("#field_owner").focus();
+              //$("#field_owner").select();
+              //alert("\"" + res.username + 
+              //      "\" is not a valid user name");
+              old = $.trim($("#invalidFields").val());
+              // check if this field is already exist.
+              if (old.indexOf("field_owner") < 0) {
+                  newValue = $.trim(old + " " + "field_owner");
+                  $("#invalidFields").val(newValue);
+              }
+          } else {
+              var old = $.trim($("#invalidFields").val());
+              newV = $.trim(old.replace("field_owner", ""));
+              $("#invalidFields").val(newV);
+          }
+      });
+  }); 
 
   // only enable control elements for 
   // the currently selected action

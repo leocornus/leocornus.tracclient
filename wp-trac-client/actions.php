@@ -142,7 +142,7 @@ function wptc_analyze_workflow_action() {
             $attributes['status'] = 'assigned';
             // set owner to selected user.
             $attributes['owner'] = 
-                $_POST['action_reassign_reassign_owner'];
+                $_POST['field_owner'];
             break;
     }
 
