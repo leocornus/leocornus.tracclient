@@ -1,5 +1,6 @@
 <?php
 
+wp_enqueue_script("wp_ajax_response");
 $DEBUG = False;
 
 if (isset($_POST['wptc_settings_form_submit']) &&

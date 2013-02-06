@@ -1,3 +1,37 @@
+<?php
+// load context.
+$pm_context = wptc_widget_pm_context();
+?>
+
 <div class='wrap'>
-  <h2>WordPress Trac Client - Management</h2>
+
+<?php
+// handle submit
+wptc_handle_pm_submit($pm_context);
+
+switch($pm_context['action']) {
+    case 'newproject':
+        wptc_widget_new_project();
+        break;
+    case 'list':
+    default:
+        wptc_widget_projects_list();
+        break;
+}
+?>
+
+<?php
+if ($DEBUG) {
+  global $wptc_db_version;
+  //wptc_create_tables();
+  $file = __FILE__;
+  $path = MY_PLUGIN_PATH;
+  $filename = basename(__FILE__);
+  echo <<<EOT
+  <p>$wptc_db_version</p>
+  <p>file: $file, basename: $filename</p>
+  <p>MY_PLUGIN_PATH: {$path}</p>
+EOT;
+}
+?>  
 </div>
