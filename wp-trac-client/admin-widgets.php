@@ -64,9 +64,11 @@ class WPTC_Project_List_Table extends WP_List_Table {
         $aTemp = '<a href="?page=%s&action=%s&project=%s">%s</a>';
         $actions = array(
             'edit'   => sprintf($aTemp, $_REQUEST['page'],
-                                'edit',$item['id'], 'Edit'),
+                                'editproject',$item['name'], 
+                                'Edit'),
             'delete' => sprintf($aTemp, $_REQUEST['page'],
-                                'delete',$item['id'], 'Delete'),
+                                'deleteproject',$item['name'], 
+                                'Delete'),
         );
 
         // Return the title contents
@@ -286,6 +288,10 @@ function wptc_handle_pm_submit($context) {
        $_POST['wptcaddproject_submit'] === 'Y') {
  
         wptc_handle_add_new_project();
+    } else if(isset($_REQUEST['action']) &&
+              $_REQUEST['action'] === 'deleteproject') {
+        // 
+        wptc_handle_delete_project();
     }
 }
 
@@ -320,4 +326,18 @@ EOT;
 </strong></p></div>
 EOT;
     }
+}
+
+/**
+ * delete projects.
+ */
+function wptc_handle_delete_project() {
+
+    $name = $_REQUEST['project'];
+    wptc_remove_project($name);
+    echo <<<EOT
+<div class="updated"><p><strong>
+  Project <em><b>$name</b></em> Removed!
+</strong></p></div>
+EOT;
 }

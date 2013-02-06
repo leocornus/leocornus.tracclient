@@ -90,3 +90,17 @@ function wptc_get_project($name) {
 
     return $project;
 }
+
+function wptc_remove_project($name) {
+
+    global $wpdb;
+    
+    $query = "delete from " . WPTC_PROJECT . 
+             " where name = %s";
+    $query = $wpdb->prepare($query, $name);
+    // if error, false is return.
+    // else number of rows affected/selected.
+    $rows = $wpdb->query($query);
+
+    return $rows;
+}

@@ -10,8 +10,8 @@ $pm_context = wptc_widget_pm_context();
 wptc_handle_pm_submit($pm_context);
 
 switch($pm_context['action']) {
-    case 'newproject':
-        wptc_widget_new_project();
+    case 'editproject':
+        wptc_widget_eidt_project();
         break;
     case 'list':
     default:
