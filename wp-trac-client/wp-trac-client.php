@@ -14,10 +14,15 @@ License: GPLv2
 
 // get the WordPress database object.
 global $wpdb;
+global $wptc_db_version;
+$wptc_db_version = "0.1";
 
 // we will using wptc as the prefix for thie plugin.
 // define some constants here
 define('WPTC_DB', $wpdb->base_prefix . 'wptc');
+define('WPTC_PROJECT', 'wptc_project');
+define('WPTC_PROJECT_METADATA', 'wptc_project_metadata');
+
 
 // figure out the plugin path.
 // this will work for symlink path too.
@@ -37,6 +42,20 @@ $my_plugin_file = __FILE__;
 
 define('MY_PLUGIN_FILE', $my_plugin_file);
 define('MY_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
+
+require_once(MY_PLUGIN_PATH . '/admin-tags.php');
+require_once(MY_PLUGIN_PATH . '/admin-widgets.php');
+
+// activation hook
+function wptc_install() {
+
+    wptc_logging('wptc plugin activation hook');
+    global $wptc_db_version;
+    wptc_logging($wptc_db_version);
+    wptc_create_tables();
+    add_site_option("wptc_db_version", $wptc_db_version);
+}
+register_activation_hook(MY_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_install');
 
 // load the Zend Framework.
 // show error message.
@@ -140,7 +159,7 @@ function wptc_admin_init() {
                     );
     // some management work here.
     add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
-                     'Trac Client Management', 'Manage',
+                     'Trac Client Management', 'Project Management',
                      'manage_options', 
                      'wp-trac-client/admin-manager.php'
                     );
