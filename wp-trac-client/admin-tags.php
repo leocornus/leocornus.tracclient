@@ -27,11 +27,11 @@ function wptc_create_tables($force=false) {
         name varchar(100) not null,
         description varchar(512) not null default '',
         PRIMARY  KEY  (id),
-        KEY name (name)
+        UNIQUE KEY name (name)
     );";
     wptc_logging("create project table: " . $sql);
     dbDelta($sql);
-    
+
     // the project metadata table.
     // the type will be one of [milestone, version]
     $sql = "CREATE TABLE " . WPTC_PROJECT_METADATA . " (
@@ -42,9 +42,9 @@ function wptc_create_tables($force=false) {
         description varchar(512) not null default '',
         due_date datetime not null default '0000-00-00 00:00:00',
         PRIMARY  KEY  (id),
-        KEY id (id)
+        UNIQUE KEY name (name)
     );";
-    wptc_logging("crate project metadata table: ". $sql);
+    wptc_logging("create project metadata table: ". $sql);
     dbDelta($sql);
 }
 
@@ -83,19 +83,31 @@ function wptc_get_project($name) {
 
     global $wpdb;
 
+    // query project.
     $query = "select * from " . WPTC_PROJECT . 
              " where name = %s";
     $query = $wpdb->prepare($query, $name);
     $project = $wpdb->get_row($query, ARRAY_A);
+    if(count($project) < 1) {
+        // not such project exist.
+        return $project;
+    }
+
+    // query all metadats 
+    $query = "select * from " . WPTC_PROJECT_METADATA .
+             " where project_id = %d order by due_date DESC";
+    $query = $wpdb->prepare($query, $project['id']);
+    $meta = $wpdb->get_results($query, ARRAY_A);
+    $project['meta'] = $meta;
 
     return $project;
 }
 
-function wptc_remove_project($name) {
+function wptc_remove_byname($table_name, $name) {
 
     global $wpdb;
-    
-    $query = "delete from " . WPTC_PROJECT . 
+
+    $query = "delete from " . $table_name . 
              " where name = %s";
     $query = $wpdb->prepare($query, $name);
     // if error, false is return.
@@ -103,4 +115,42 @@ function wptc_remove_project($name) {
     $rows = $wpdb->query($query);
 
     return $rows;
+}
+
+function wptc_update_mandv($project_name, $type, $name,
+                           $description, $duedate) {
+
+    global $wpdb;
+    $project = wptc_get_project($project_name);
+
+    $success = $wpdb->insert(
+        WPTC_PROJECT_METADATA,
+        array(
+            'name' => $name,
+            'description' => $description,
+            'type' => $type,
+            'due_date' => $duedate->format('Y-m-d H:i:s'),
+            'project_id' => $project['id']
+        ),
+        array(
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%d'
+        )
+    );
+
+    return $success;
+}
+
+function wptc_get_mandv($name) {
+
+    global $wpdb;
+    $query = "select * from " . WPTC_PROJECT_METADATA .
+             " where name = %s";
+    $query = $wpdb->prepare($query, $name);
+    $mandv = $wpdb->get_row($query, ARRAY_A);
+
+    return $mandv;
 }
