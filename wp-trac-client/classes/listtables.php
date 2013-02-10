@@ -29,7 +29,7 @@ class WPTC_Project_List_Table extends WP_List_Table {
         // the key will be used in method name to 
         // customize the column value for each item/row.
         $columns = array(
-            'cb'          => '<input type="checkbox" />',
+            //'cb'          => '<input type="checkbox" />',
             'name'        => 'Name',
             'description' => 'Description'
             // TODO: should provide the following information.
@@ -118,24 +118,24 @@ class WPTC_Project_List_Table extends WP_List_Table {
     /**
      * set bulk actions for checkboxes.
      */
-    function get_bulk_actions() {
+    //function get_bulk_actions() {
 
-        $actions = array(
-            'delete'    => 'Delete'
-        );
+    //    $actions = array(
+    //        'delete'    => 'Delete'
+    //    );
 
-        return $actions;
-    }
+    //    return $actions;
+    //}
 
     /**
      * handle bulk action here.
      */
-    function process_bulk_action() {
-        
-        if ('delete' === $this->current_action()) {
-            wp_die('action place holder for now');
-        }
-    }
+    //function process_bulk_action() {
+    //    
+    //    if ('delete' === $this->current_action()) {
+    //        wp_die('action place holder for now');
+    //    }
+    //}
 
     /**
      * get ready the data here.
@@ -153,7 +153,7 @@ class WPTC_Project_List_Table extends WP_List_Table {
 
         $this->_column_headers = array($columns, $hidden, 
                                        $sortable);
-        $this->process_bulk_action();
+        //$this->process_bulk_action();
 
         $data = wptc_get_projects();
 
@@ -218,7 +218,7 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
         // the key will be used in method name to 
         // customize the column value for each item/row.
         $columns = array(
-            'cb'          => '<input type="checkbox" />',
+            //'cb'          => '<input type="checkbox" />',
             'name'        => 'Name',
             'description' => 'Description',
             'due_date'    => 'Due Date'
@@ -263,7 +263,8 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
         // using ternary operator.
         $nameContent = ($item['type'] === 'version') ?
             ('— ' . $item['name']) :  $item['name'];    
-        $nameContent = "<b>" . $nameContent . "</b>";
+        $nameContent = "<b><span style='font-size: 15px'>" . 
+                       $nameContent . "</span></b>";
         $nameHref = sprintf($aTemp, $_REQUEST['page'],
                             'editmilestone',
                             $item['name'], $nameContent);
@@ -311,24 +312,24 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
     /**
      * set bulk actions for checkboxes.
      */
-    function get_bulk_actions() {
+    //function get_bulk_actions() {
 
-        $actions = array(
-            'delete'    => 'Delete'
-        );
+    //    $actions = array(
+    //        'delete'    => 'Delete'
+    //    );
 
-        return $actions;
-    }
+    //    return $actions;
+    //}
 
     /**
      * handle bulk action here.
      */
-    function process_bulk_action() {
-        
-        if ('delete' === $this->current_action()) {
-            wp_die('action place holder for now');
-        }
-    }
+    //function process_bulk_action() {
+    //    
+    //    if ('delete' === $this->current_action()) {
+    //        wp_die('action place holder for now');
+    //    }
+    //}
 
     /**
      * get ready the data here.
@@ -345,7 +346,7 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
         //$sortable = $this->get_sortable_columns();
 
         $this->_column_headers = array($columns, $hidden);
-        $this->process_bulk_action();
+        //$this->process_bulk_action();
 
         $data = wptc_get_project($this->project_name);
         $data = $data['meta'];
