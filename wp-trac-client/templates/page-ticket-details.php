@@ -36,20 +36,21 @@ wptc_form_submit();
 $ticket_id = $_GET['id'];
 if(isset($ticket_id)) {
     // we are working on a existing ticket.
+    $ticket = wptc_get_ticket($ticket_id);
 ?>
 
   <div id="left_column">
     <div class='leftnav'>
       <div class='widget'>
       <h2 class='widgettitle'>Sprint Navigation</h2>
-      <?php echo wptc_widget_version_nav()?>
+      <?php //echo wptc_widget_version_nav($ticket['project'])?>
       </div>
     </div>
   </div>
 
   <div id="right_column">
 
-    <?php wptc_widget_ticket_details($ticket_id); ?>
+    <?php wptc_widget_ticket_details($ticket); ?>
 
 <?php
 } else {

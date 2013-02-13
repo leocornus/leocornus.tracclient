@@ -80,23 +80,45 @@ EOT;
  * this could be used by type, milestone, version,
  * priority dropdown
  */
-function wptc_widget_options_html($options, $selected,
-                                  $showAsGroup=false) {
+function wptc_widget_options_html($options, $selected, 
+                                  $hasEmpty=true) {
 
-    $ret = "";
-    foreach ($options as $option) {
+    $ret = $hasEmpty ? "<option></option>" : "";
+    foreach ($options as $option => $label) {
         $sel = "";
         if($option === $selected) {
             $sel = "selected=\"selected\"";
         }
 
         $opt = <<<EOT
-<option value="{$option}" {$sel}>{$option}</option>
+<option value="{$option}" {$sel}>{$label}</option>
 EOT;
         $ret = $ret . $opt;
     }
 
     return apply_filters('wptc_widget_options_html', $ret);
+}
+
+/**
+ * 
+ */
+function wptc_widget_optgroups_html($optgroups, $selected,
+                                    $hasEmpty=True) {
+
+    $groups = $hasEmpty ? "<option></option>" : "";
+    foreach($optgroups as $group => $options) {
+
+        $optsHtml = 
+            wptc_widget_options_html($options, $selected, false);
+        $group = <<<EOT
+<optgroup label="{$group}">
+  {$optsHtml}
+</optgroup>
+EOT;
+        $groups = $groups . $group;
+    }
+
+    return apply_filters('wptc_widget_optgroups_html', $groups);
 }
 
 /**
@@ -271,7 +293,51 @@ EOT;
  */
 function wptc_widget_ticket_fieldset($ticket) {
 
+    // let's check this is a new ticket or not
+    if(isset($ticket)) {
+        // existing ticket.
+        $ticket_reporter = $ticket['reporter'];
+        // no need project and owner field for 
+        // tiecket modification.
+        $project_owner_tr = "";
+    } else {
+        // new ticket.
+        global $current_user;
+        $ticket_reporter = $current_user->user_login;
+        // set up some NECESSARY default values 
+        $ticket = wptc_widget_ticket_defaults();
+        // preparing for project and owner fiels.
+        // default owner will be reporter.
+        $project_owner_tr = <<<EOT
+  <tr>
+    <th class="col1">
+      <label for="field_owner">Owner:</label>
+    </th>
+    <td class="col1">
+      <input id="field_owner" name="field_owner"
+             value="{$ticket_reporter}">
+    </td>
+    <th class="col2">
+    </th>
+    <td class="col2">
+    </td>
+  </tr>
+EOT;
+    }
+
+    // have to define it first.
+    // project is a custom field.
+    $project = array_key_exists('project', $ticket) ?
+        $ticket['project'] : "";
+    if($project === "") {
+        $defaults = wptc_widget_ticket_defaults();
+        $project = $defaults['project'];
+    }
+
     // preparing options for select tag
+    $ticket_project_options = 
+        wptc_widget_options_html(wptc_get_ticket_projects(),
+                                 $project);
     $ticket_type_options = 
         wptc_widget_options_html(wptc_get_ticket_types(),
                                  $ticket['type']);
@@ -279,45 +345,18 @@ function wptc_widget_ticket_fieldset($ticket) {
         wptc_widget_options_html(wptc_get_ticket_priorities(),
                                  $ticket['priority']);
     $ticket_milestone_options = 
-        wptc_widget_options_html(wptc_get_ticket_milestones(),
-                                 $ticket['milestone']);
+        wptc_widget_optgroups_html(
+            wptc_get_ticket_milestones($project),
+            $ticket['milestone']);
     $ticket_component_options = 
         wptc_widget_options_html(wptc_get_ticket_components(),
                                  $ticket['component']);
     $ticket_version_options = 
-        wptc_widget_options_html(wptc_get_ticket_versions(),
-                                 $ticket['version']);
-    if(isset($ticket)) {
-        $ticket_reporter = $ticket['reporter'];
-        // no need project and owner field for 
-        // tiecket modification.
-        $project_and_owner_tr = "";
-    } else {
-        global $current_user;
-        $ticket_reporter = $current_user->user_login;
-        // preparing for project and owner fiels.
-        // default owner will be reporter.
-        $project_and_owner_tr = <<<EOT
-  <tr>
-    <th class="col1">
-      <label for="field-project">Project:</label>
-    </th>
-    <td class="col1">
-      <select id="field-project" name="field_project">
-        {$ticket_project_options}
-      </select>
-    </td>
-    <th class="col2">
-      <label for="field_owner">Owner:</label>
-    </th>
-    <td class="col2">
-      <input id="field_owner" name="field_owner"
-             value="{$ticket_reporter}">
-    </td>
-  </tr>
-EOT;
-    }
+        wptc_widget_optgroups_html(
+            wptc_get_ticket_versions($project, $ticket['milestone']),
+            $ticket['version']);
 
+    // the form table.
     $propsTable = <<<EOT
 <fieldset id="properties">
 <legend>Ticket Properties</legend>
@@ -351,22 +390,22 @@ EOT;
       </fieldset>
     </td>
   </tr>
-  {$project_and_owner_tr}
+  {$project_owner_tr}
   <tr>
     <th class="col1">
-      <label for="field-type">Type:</label>
+      <label for="field-project">Project:</label>
     </th>
     <td class="col1">
-      <select id="field-type" name="field_type">
-        {$ticket_type_options}
+      <select id="field-project" name="field_project">
+        {$ticket_project_options}
       </select>
     </td>
     <th class="col2">
-      <label for="field-priority">Priority:</label>
+      <label for="field-type">Type:</label>
     </th>
     <td class="col2">
-      <select id="field-priority" name="field_priority">
-        {$ticket_priority_options}
+      <select id="field-type" name="field_type">
+        {$ticket_type_options}
       </select>
     </td>
   </tr>
@@ -380,11 +419,11 @@ EOT;
       </select>
     </td>
     <th class="col2">
-      <label for="field-component">Component:</label>
+      <label for="field-priority">Priority:</label>
     </th>
     <td class="col2">
-      <select id="field-component" name="field_component">
-        {$ticket_component_options}
+      <select id="field-priority" name="field_priority">
+        {$ticket_priority_options}
       </select>
     </td>
   </tr>
@@ -398,13 +437,23 @@ EOT;
       </select>
     </td>
     <th class="col2">
-      <label for="field-keywords">Keywords:</label>
+      <label for="field-component">Component:</label>
     </th>
     <td class="col2">
-      <input type="text" id="field-keywords" name="field_keywords" 
-             value="{$ticket['keywords']}">
+      <select id="field-component" name="field_component">
+        {$ticket_component_options}
+      </select>
     </td>
   </tr>
+  <tr>
+    <th>
+      <label for="field-keywords">Keywords:</label>
+    </th>
+    <td class="fullrow" colspan="3">
+       <input type="text" id="field-keywords" name="field_keywords" 
+             value="{$ticket['keywords']}" size="70">
+    </td>
+ </tr>
 </tbody></table>
 </fieldset>
 EOT;
@@ -824,6 +873,7 @@ EOT;
   <form method="post" id="ticketform">
     <div id="modify">
 EOT;
+    // pass a not set variable
     echo wptc_widget_ticket_fieldset($ticket);
     echo <<<EOT
     </div>
@@ -903,10 +953,10 @@ EOT;
 /**
  * entry point for ticket details page.
  */
-function wptc_widget_ticket_details($ticket_id) {
+function wptc_widget_ticket_details($ticket) {
 
     // one call to get ticket, changelog, and actions.
-    $ticket = wptc_get_ticket($ticket_id);
+    $ticket_id = $ticket['id'];
     $changelog = wptc_get_ticket_changelog($ticket_id);
     $actions = wptc_get_ticket_actions($ticket_id);
 
@@ -917,4 +967,19 @@ function wptc_widget_ticket_details($ticket_id) {
 
     // Change log at the end.
     echo wptc_widget_ticket_changelog($changelog);
+}
+
+/**
+ * preparing s set of values for new create ticket form.
+ */
+function wptc_widget_ticket_defaults() {
+
+    $projects = array_keys(wptc_get_ticket_projects());
+    $ticket['project'] = $projects[0];
+    $mandvs = wptc_get_project_mandv($projects[0]);
+    $milestones = array_keys($mandvs);
+    $ticket['milestone'] = $milestones[0];
+    $ticket['version'] = $mandvs[$milestones[0]][1]['name'];
+
+    return $ticket;
 }

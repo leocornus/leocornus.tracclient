@@ -248,9 +248,9 @@ function wptc_get_ticket_milestones($project) {
         $label = '['. substr($duedate, 0, 10) . '] ' . $name;
         if($duedate >= $now) {
             // this is Running mile stone.
-            $optgroups['Running'][$name] = $label;
+            $optgroups['Running (by Due Date)'][$name] = $label;
         } else {
-            $optgroups['Closed'][$name] = $label;
+            $optgroups['Closed (by Due Date)'][$name] = $label;
         }
     }
 
@@ -274,8 +274,14 @@ function wptc_get_ticket_components() {
 function wptc_get_ticket_versions($project, $milestone) {
 
     $mandv = wptc_get_project_mandv($project);
-    // the first entry is the milestone.
-    $versions = array_slice($mandv[$milestone], 1); 
+    if(array_key_exists($milestone, $mandv)) {
+        // the first entry is the milestone.
+        $versions = array_slice($mandv[$milestone], 1); 
+    } else {
+        // using the first milestone as the default.
+        $all = array_values($mandv);
+        $versions =  array_slice($all[0], 1);
+    }
     $optgroups = array();
     foreach($versions as $version) {
         $duedate = $version['due_date'];
@@ -283,9 +289,9 @@ function wptc_get_ticket_versions($project, $milestone) {
         $name = $version['name'];
         $label = '['. substr($duedate, 0, 10) . '] ' . $name;
         if($duedate >= $now) {
-            $optgroups['Running'][$name] = $label;
+            $optgroups['Running (by Due Date)'][$name] = $label;
         } else {
-            $optgroups['Closed'][$name] = $label;
+            $optgroups['Closed (by Due Date)'][$name] = $label;
         }
     }
 

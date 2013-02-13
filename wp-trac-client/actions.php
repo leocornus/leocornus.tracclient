@@ -83,6 +83,7 @@ function wptc_analyze_ticket_props() {
         'summary',
         'reporter',
         'description',
+        'project',
         'type',
         'priority',
         'milestone',

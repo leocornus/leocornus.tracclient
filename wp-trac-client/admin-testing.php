@@ -41,12 +41,14 @@ if(isset($_POST['wptc_testing_form_submit']) &&
             <option>wptc_get_project</option>
             <option>wptc_get_projects</option>
             <option>wptc_get_project_mandv</option>
+            <option>wptc_get_ticket</option>
             <option>wptc_get_ticket_projects</option>
             <option>wptc_get_ticket_milestones</option>
             <option>wptc_get_ticket_versions</option>
             <option>wptc_get_ticket_types</option>
             <option>wptc_get_ticket_priorities</option>
             <option>wptc_get_ticket_components</option>
+            <option>wptc_widget_ticket_defaults</option>
           </select>
         </td>
       </tr>
