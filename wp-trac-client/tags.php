@@ -193,31 +193,69 @@ function wptc_get_ticket_metas($metaName) {
 }
 
 /**
+ * retrun all project names.
+ */
+function wptc_get_ticket_projects() {
+
+    $projects = wptc_get_projects();
+    $names = array();
+    foreach($projects as $project) {
+        $names[] = $project['name'];
+    }
+
+    // using the name as the lable too.
+    return array_combine($names, $names);
+}
+
+/**
  * return all ticket types.
  */
 function wptc_get_ticket_types() {
 
     $types = wptc_get_ticket_metas('type');
-    return apply_filters('wptc_get_ticket_types', $types);
+    return apply_filters('wptc_get_ticket_types', 
+                         array_combine($types, $types));
 }
 
 /**
- * return all ticket priority.
+ * return all ticket priority names.
  */
 function wptc_get_ticket_priorities() {
 
     $prios = wptc_get_ticket_metas('priority');
-    return apply_filters('wptc_get_ticket_priorities', $prios);
+    return apply_filters('wptc_get_ticket_priorities', 
+                         array_combine($prios, $prios));
 }
 
 /**
- * return all ticket milestone.
+ * return all ticket milestone names.
+ * grouped by due-date: future due-date in group Running
+ * past due-date in group Closed.
+ * following is a sample:
+ *
+ * 'Running' => array('mile 5', 'mile 4');
+ * 'Closed' => array('mile 3', 'mile 2', 'mile 1');
  */
-function wptc_get_ticket_milestones() {
+function wptc_get_ticket_milestones($project) {
 
-    $stones = wptc_get_ticket_metas('milestone');
+    $mandvs = wptc_get_project_mandv($project);
+    $optgroups = array();
+    foreach(array_values($mandvs) as $stone) {
+        //$stone['name']
+        $duedate = $stone[0]['due_date'];
+        $now = date('Y-m-d H:i:s');
+        $name = $stone[0]['name'];
+        $label = '['. substr($duedate, 0, 10) . '] ' . $name;
+        if($duedate >= $now) {
+            // this is Running mile stone.
+            $optgroups['Running'][$name] = $label;
+        } else {
+            $optgroups['Closed'][$name] = $label;
+        }
+    }
+
     return apply_filters('wptc_get_ticket_milestones', 
-                         $stones);
+                         $optgroups);
 }
 
 /**
@@ -227,17 +265,32 @@ function wptc_get_ticket_components() {
 
     $comps = wptc_get_ticket_metas('component');
     return apply_filters('wptc_get_ticket_components',
-                         $comps);
+                         array_combine($comps, $comps));
 }
 
 /**
- * return all ticket versions.
+ * return all ticket version names.
  */
-function wptc_get_ticket_versions() {
+function wptc_get_ticket_versions($project, $milestone) {
 
-    $versions = wptc_get_ticket_metas('version');
+    $mandv = wptc_get_project_mandv($project);
+    // the first entry is the milestone.
+    $versions = array_slice($mandv[$milestone], 1); 
+    $optgroups = array();
+    foreach($versions as $version) {
+        $duedate = $version['due_date'];
+        $now = date('Y-m-d H:i:s');
+        $name = $version['name'];
+        $label = '['. substr($duedate, 0, 10) . '] ' . $name;
+        if($duedate >= $now) {
+            $optgroups['Running'][$name] = $label;
+        } else {
+            $optgroups['Closed'][$name] = $label;
+        }
+    }
+
     return apply_filters('wptc_get_ticket_versions', 
-                         $versions);
+                         $optgroups);
 }
 
 /**

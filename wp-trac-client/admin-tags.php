@@ -79,6 +79,10 @@ function wptc_add_project($name, $description) {
     return $success;
 }
 
+/**
+ * return all details information about the given project.
+ * it will return a empty array if the project is not exist.
+ */
 function wptc_get_project($name) {
 
     global $wpdb;
@@ -94,7 +98,7 @@ function wptc_get_project($name) {
     }
 
     // query all metadats 
-    $query = "select * from " . WPTC_PROJECT_METADATA .
+    $query = "SELECT * FROM " . WPTC_PROJECT_METADATA .
              " where project_id = %d order by due_date DESC";
     $query = $wpdb->prepare($query, $project['id']);
     $meta = $wpdb->get_results($query, ARRAY_A);
@@ -107,8 +111,8 @@ function wptc_remove_byname($table_name, $name) {
 
     global $wpdb;
 
-    $query = "delete from " . $table_name . 
-             " where name = %s";
+    $query = "DELETE FROM " . $table_name . 
+             " WHERE name = %s";
     $query = $wpdb->prepare($query, $name);
     // if error, false is return.
     // else number of rows affected/selected.
@@ -144,13 +148,54 @@ function wptc_update_mandv($project_name, $type, $name,
     return $success;
 }
 
+/**
+ * return all files 
+ */
 function wptc_get_mandv($name) {
 
     global $wpdb;
-    $query = "select * from " . WPTC_PROJECT_METADATA .
-             " where name = %s";
+    $query = "SELECT * FROM " . WPTC_PROJECT_METADATA .
+             " WHERE name = %s";
     $query = $wpdb->prepare($query, $name);
     $mandv = $wpdb->get_row($query, ARRAY_A);
+
+    return $mandv;
+}
+
+/**
+ * return a list of milestones and versions for the given project.
+ * the result will be organized by milestones.
+ * 
+ * 'milestone1' => array(
+ *     array('milesone1', 'milestone 1 desc', 'type', 'id', 'due_date'),
+ *     array('version10', 'version 10 desc', 'version', 'id', 'due'),
+ *     array('version09', 'version 09 desc', 'version', 'id', 'due')
+ * );
+ */
+function wptc_get_project_mandv($name) {
+
+    //global $wpdb;
+    //$query = "SELECT * FROM " . WPTC_PROJECT_METADATA .
+    //         " WHERE project_id = " .
+    //         "(SELECT id FROM " . WPTC_PROJECT .
+    //         " WHERE name = %s) ORDER BY due_date DESC";
+    //$query = $wpdb->prepare($query, $type, $name);
+    //$mandv = $wpdb->get_results($query, ARRAY_A);
+    $project = wptc_get_project($name);
+    $mandv = array();
+    foreach($project['meta'] as $v) {
+        if ($v['type'] === 'milestone') {
+            //$milestone = array();
+            // adding this milestone as the first one.
+            //$milestone[] = $v;
+            $mandv[$v['name']][] = $v;
+        } else {
+            end($mandv);
+            $theKey = key($mandv);
+            // this is a version
+            $mandv[$theKey][] = $v;
+        }
+    }
 
     return $mandv;
 }

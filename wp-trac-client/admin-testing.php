@@ -5,7 +5,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
 
     $functionName = $_POST['wptc_function'];
     $functionInputs = $_POST['wptc_function_params'];
-    $params = explode(',', $functionInputs);
+    $functionParams = explode(',', $functionInputs);
 
     //switch($functionName) {
     //    case 'wptc_get_ticket_projects':
@@ -21,7 +21,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
     //}
 
     // call user func is the way to execute a function on the fly.
-    $testResult = call_user_func_array($functionName, $params);
+    $testResult = call_user_func_array($functionName, $functionParams);
 }
 ?>
 
@@ -37,9 +37,16 @@ if(isset($_POST['wptc_testing_form_submit']) &&
           <select type="text" id="wptc_function" 
             name="wptc_function">
             <?php //TODO: generate on the fly  ?>
+            <option></option>
+            <option>wptc_get_project</option>
+            <option>wptc_get_projects</option>
+            <option>wptc_get_project_mandv</option>
             <option>wptc_get_ticket_projects</option>
             <option>wptc_get_ticket_milestones</option>
             <option>wptc_get_ticket_versions</option>
+            <option>wptc_get_ticket_types</option>
+            <option>wptc_get_ticket_priorities</option>
+            <option>wptc_get_ticket_components</option>
           </select>
         </td>
       </tr>
@@ -71,7 +78,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
 <b>Function:</b> <?php echo $functionName; ?>
 <br/>
 <b>Parameters:</b> 
-<?php var_dump($params); ?>
+<?php var_dump($functionParams); ?>
 <b>Results:</b>
 <?php 
 if ($testResult) { 

@@ -55,6 +55,7 @@ function wptc_widget_time_age($time) {
         $weeks = (int)($totalDays / 7);
         $age = $weeks . ' weeks';
     } else if ($totalDays > 0) {
+        // older than 1 day, show days only
         $age = $totalDays . ' days';
     } else if ($hours > 0) {
         $age = $hours . ' hours';
