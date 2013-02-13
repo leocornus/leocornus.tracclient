@@ -164,6 +164,11 @@ function wptc_admin_init() {
                      'manage_options', 
                      'wp-trac-client/admin-manager.php'
                     );
+    add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
+                     'Trac Client Testing', 'APIs Testing',
+                     'manage_options', 
+                     'wp-trac-client/admin-testing.php'
+                    );
 
 }
 ?>
