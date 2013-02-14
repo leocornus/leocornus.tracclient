@@ -249,14 +249,14 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
     function column_name($item) {
 
         // Build row actions: Edit and Delete
-        $aTemp = '<a href="?page=%s&action=%s&mandv=%s">%s</a>';
+        $aTemp = '<a href="?page=%s&action=%s&mandv=%s&type=%s">%s</a>';
         $actions = array(
             'edit'   => sprintf($aTemp, $_REQUEST['page'],
-                                'editmandv',
-                                $item['name'], 'Edit'),
+                                'editmandv', $item['name'], 
+                                $item['type'], 'Edit'),
             'delete' => sprintf($aTemp, $_REQUEST['page'],
-                                'deletemandv',
-                                $item['name'], 'Delete'),
+                                'deletemandv', $item['name'],
+                                $item['type'], 'Delete'),
         );
 
         // Return the name contents
@@ -266,8 +266,8 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
         $nameContent = "<b><span style='font-size: 15px'>" . 
                        $nameContent . "</span></b>";
         $nameHref = sprintf($aTemp, $_REQUEST['page'],
-                            'editmilestone',
-                            $item['name'], $nameContent);
+                            'editmilestone', $item['name'],
+                            $item['type'], $nameContent);
         return sprintf('%1$s %2$s',
             /*$1%s*/ $nameHref,
             /*$2%s*/ $this->row_actions($actions)

@@ -184,12 +184,48 @@ function wptc_get_ticket_actions($id) {
  * @param $metaName the name of this metadata, 
  *        it could be: type, milestone, versions,
  *        component, priority.
+ * @return a list of metadata names.
  */
 function wptc_get_ticket_metas($metaName) {
 
     $proxy = get_wptc_client()->getProxy('ticket.'. $metaName);
     $metas = $proxy->getAll();
     return $metas;
+}
+
+/**
+ * update a milestone of version, create new one if it is not exist.
+ *
+ * @param type milestone or version
+ */
+function wptc_update_ticket_meta($type, $name, $attr) {
+
+    $proxy = get_wptc_client()->getProxy('ticket.' . $type);
+    try {
+        $oldOne = $proxy->get($name);
+        //return $oldOne;
+        // update the existing version.
+        $proxy->update($name, $attr);
+    } catch (Zend_XmlRpc_Client_FaultException $e) {
+        // new version. we will create one.
+        //return $e->getMessage();
+        $proxy->create($name, $attr);
+    } 
+}
+
+/**
+ * remove metadata identified by the given type and name.
+ */
+function wptc_remove_ticket_meta($type, $name) {
+
+    $proxy = get_wptc_client()->getProxy('ticket.' . $type);
+    try {
+        $proxy->delete($name);
+        return true;
+    } catch(Zend_XmlRpc_Client_FaultException $e) {
+        //var_dump($e->getMessage());
+        return false;
+    }
 }
 
 /**

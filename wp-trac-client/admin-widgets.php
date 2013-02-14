@@ -157,10 +157,11 @@ EOT;
 /**
  * delete a project for mandv
  */
-function wptc_handle_delete($type) {
+function wptc_handle_delete($actionType) {
 
-    $name = $_REQUEST[$type];
-    switch($type) {
+    $name = $_REQUEST[$actionType];
+    $metaType = $_REQUEST['type'];
+    switch($actionType) {
         case 'project':
             $table_name = WPTC_PROJECT;
             $label = 'Project';
@@ -173,7 +174,7 @@ function wptc_handle_delete($type) {
             // do nothing.
             return;
     }
-    wptc_remove_byname($table_name, $name);
+    wptc_remove_byname($table_name, $metaType, $name);
     echo <<<EOT
 <div class="updated"><p><strong>
   {$label} <em><b>{$name}</b></em> Removed!

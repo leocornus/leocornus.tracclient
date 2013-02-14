@@ -130,7 +130,7 @@ function wptc_get_project_name($mandvName) {
     }
 }
 
-function wptc_remove_byname($table_name, $name) {
+function wptc_remove_byname($table_name, $type, $name) {
 
     global $wpdb;
 
@@ -141,9 +141,31 @@ function wptc_remove_byname($table_name, $name) {
     // else number of rows affected/selected.
     $rows = $wpdb->query($query);
 
+    do_action('wptc_remove_byname_action', $type, $name);
+
     return $rows;
 }
 
+add_action('wptc_remove_byname_action', 'wptc_remove_byname_trac',
+           10, 2);
+
+/**
+ * action for remove metadata.
+ */
+function wptc_remove_byname_trac($type, $name) {
+
+    if(isset($type)) {
+
+        if(($type === 'milestone') || ($type === 'version')) {
+
+            wptc_remove_ticket_meta($type, $name);
+        }
+    }
+}
+
+/**
+ * update a milestone or version for the project.
+ */
 function wptc_update_mandv($project_name, $type, $name,
                            $description, $duedate) {
 
@@ -168,7 +190,33 @@ function wptc_update_mandv($project_name, $type, $name,
         )
     );
 
+    do_action('wptc_update_mandv', $type, $name, 
+              $description, $duedate);
+
     return $success;
+}
+
+// hook the update action.
+add_action('wptc_update_mandv', 'wptc_update_mandv_trac', 10, 4);
+
+/**
+ * update a milestone or version on trac.
+ */
+function wptc_update_mandv_trac($type, $name, $desc, $duedate) {
+
+    $attr = array();
+    $attr['name'] = $name;
+    $attr['description'] = $desc;
+    switch($type) {
+        case 'milestone':
+            $attr['due'] = $duedate;
+            break;
+        case 'version':
+            $attr['time'] = $duedate;
+            break;
+    }
+
+    wptc_update_ticket_meta($type, $name, $attr);
 }
 
 /**
