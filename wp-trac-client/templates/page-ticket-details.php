@@ -43,7 +43,7 @@ if(isset($ticket_id)) {
     <div class='leftnav'>
       <div class='widget'>
       <h2 class='widgettitle'>Sprint Navigation</h2>
-      <?php //echo wptc_widget_version_nav($ticket['project'])?>
+      <?php echo wptc_widget_version_nav($ticket['project'])?>
       </div>
     </div>
   </div>

@@ -13,7 +13,11 @@ wp_enqueue_style('wptc-trac-ticket');
 $version = $_GET['version'];
 if (empty($version)) {
     // using the default sprint.
-    $version = wptc_get_ticket_default_version();
+    $defaults = wptc_widget_ticket_defaults();
+    $version = $defaults['version'];
+    $project = $defaults['project'];
+} else {
+    $project = wptc_get_project_name($version);
 }
 ?>
 
@@ -22,8 +26,16 @@ if (empty($version)) {
   <div id="left_column">
     <div class='leftnav'>
       <div id='sprint-nav' class="widget">
-        <h2 class='widgettitle'>Project Title</h2>
-        <?php echo wptc_widget_version_nav()?>
+        <h2 class='widgettitle'>
+          Project: <b><?php echo $project;?></b>
+        </h2>
+        <p>
+          <?php echo wptc_widget_version_nav($project)?>
+        </p>
+      </div>
+      <div id='ticket-finder' class="widget">
+        <h2 class='widgettitle'>Ticket Finder</h2>
+        <p>Place Holder for Find Ticket Function</p> 
       </div>
     </div>
   </div> <?php // END left_column ?>

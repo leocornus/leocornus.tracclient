@@ -160,31 +160,48 @@ EOT;
 /**
  * preparing the sprint navigation bar.
  */
-function wptc_widget_version_nav() {
+function wptc_widget_version_nav($project) {
+
+    if(!isset($project)) {
+        // let using the default project.
+        $defaults = wptc_widget_ticket_defaults();
+        $project = $defaults['project'];
+    }
 
     // using the global variables.
     global $post, $current_blog;
-
-    $versions = wptc_get_ticket_versions();
     $blog_path = $current_blog->path;
     $page_slug = $post->post_parent ? 
         get_page($post->post_parent)->post_name :
         $post->post_name;
 
-    $versionHrefs = array();
-    foreach($versions as $version) {
-        $versionHrefs[] = <<<EOT
-<li><a href="{$blog_path}{$page_slug}?version={$version}">$version</a>
+    $mandv = wptc_get_project_mandv($project);
+    $milestones = array_keys($mandv);
+    $stoneLis = array();
+    foreach($milestones as $milestone) {
+        $stone = $mandv[$milestone][0];
+        $versions = array_slice($mandv[$milestone], 1);
+        $versionHrefs = array();
+        foreach($versions as $version) {
+            $versionHrefs[] = <<<EOT
+<li>
+  <a href="{$blog_path}{$page_slug}?version={$version['name']}">
+    {$version['name']}</a>
+</li>
+EOT;
+        }
+        $vHrefs = implode('', $versionHrefs);
+
+        $stoneLis[] = <<<EOT
+<li>{$stone['name']}
+  <ul>
+    $vHrefs
+  </ul>
 </li>
 EOT;
     }
 
-    $vHrefs = implode('', $versionHrefs);
-    $ret =  <<<EOT
-    <ul>
-      $vHrefs
-    </ul>
-EOT;
+    $ret = "<ul>" . implode('', $stoneLis) . "</ul>";
 
     return apply_filters('wptc_widget_version_nav', $ret);
 }

@@ -49,6 +49,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
             <option>wptc_get_ticket_priorities</option>
             <option>wptc_get_ticket_components</option>
             <option>wptc_widget_ticket_defaults</option>
+            <option>wptc_widget_version_nav</option>
           </select>
         </td>
       </tr>
