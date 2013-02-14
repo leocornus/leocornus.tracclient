@@ -165,8 +165,9 @@ jQuery(document).ready(function($) {
       }
 
       owner = $("#field_owner");
-      if(owner.attr("disabled")) {
+      if((owner.length <= 0) || owner.attr("disabled")) {
           // skip the owner validation.
+          // for no exist field or disabled field.
           return true;
       }
 
