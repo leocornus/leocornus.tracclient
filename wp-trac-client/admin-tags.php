@@ -107,6 +107,29 @@ function wptc_get_project($name) {
     return $project;
 }
 
+/**
+ * return the project name for the given milestone name
+ * for version name.
+ */
+function wptc_get_project_name($mandvName) {
+
+    global $wpdb;
+
+    $query = "SELECT name FROM " . WPTC_PROJECT .
+             " WHERE id = (" .
+             "SELECT project_id FROM " . WPTC_PROJECT_METADATA .
+             " WHERE name = %s)";
+    $query = $wpdb->prepare($query, $mandvName);
+    $project = $wpdb->get_row($query, ARRAY_A);
+    if(count($project) < 1) {
+        // no such milestone / version exist.
+        // TODO: Exception/Error Handling.
+        return null;
+    } else {
+        return $project['name'];
+    }
+}
+
 function wptc_remove_byname($table_name, $name) {
 
     global $wpdb;
@@ -182,6 +205,7 @@ function wptc_get_project_mandv($name) {
     //$query = $wpdb->prepare($query, $type, $name);
     //$mandv = $wpdb->get_results($query, ARRAY_A);
     $project = wptc_get_project($name);
+    // TODO: what if the project is not exist?
     $mandv = array();
     foreach($project['meta'] as $v) {
         if ($v['type'] === 'milestone') {
