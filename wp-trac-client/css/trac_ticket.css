@@ -393,3 +393,22 @@ h1 span, h2 span { color: gray; font-size: 90%;}
 .ui-autocomplete-loading {
   background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
+
+/* for ticket finder */
+#findTicket {
+    height: 28px;
+    padding: 10px 2px 2px 5px;
+}
+#ticketnumber {
+  border: 1px solid #DADBD5;
+  height: 17px;
+  width: 49px;
+  display: inline-block;
+}
+#ticketGo{
+  float: left;
+  margin: 0;
+  padding: 0 0 0 6px;
+  position: relative;
+  display: inline-block;
+}

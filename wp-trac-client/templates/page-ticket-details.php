@@ -45,6 +45,10 @@ if(isset($ticket_id)) {
       <h2 class='widgettitle'>Sprint Navigation</h2>
       <?php echo wptc_widget_version_nav($ticket['project'])?>
       </div>
+      <div id='ticket-finder' class="widget">
+        <h2 class='widgettitle'>Ticket Finder</h2>
+        <?php echo wptc_widget_ticket_finder('trac/ticket')?>
+      </div>
     </div>
   </div>
 

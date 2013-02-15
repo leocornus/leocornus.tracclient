@@ -207,6 +207,48 @@ EOT;
 }
 
 /**
+ * the ticket finder widget.
+ * this is more like a sample.
+ */
+function wptc_widget_ticket_finder($page_slug=null) {
+
+    global $post, $current_blog;
+    $blog_path = $current_blog->path;
+    $goImageUrl = plugins_url('wp-trac-client/images/ticketGo.gif');
+    if($page_slug == null) {
+        // using the current page to display the ticket.
+        $page_slug = $post->post_name;
+    }
+ 
+    $form = <<<EOT
+<div id="findTicket">
+  <div style="float: left;">
+  <label for="ticketnumber"><b>Find Ticket by ID: </b></label>
+  <input id="ticketnumber" type="text" 
+    maxlength="10" size="8" name="ticket_id">
+  </div>
+  <input id="ticketGo" type="image" alt="Go to Ticket" 
+    name="ticketGo" src="{$goImageUrl}" 
+    title="Go to Ticket">
+
+  <script>
+    jQuery("#ticketGo").click(function(){
+        var ticket_id = jQuery("#ticketnumber").val();
+        if((ticket_id != "") && jQuery.isNumeric(ticket_id)) {
+            // only handle number 
+            // redirect to ticket details page.
+            ticket_url = "{$blog_path}{$page_slug}?id=" + ticket_id;
+            window.location = ticket_url;
+        }
+    })
+  </script>
+</div>
+EOT;
+
+    return apply_filters('wptc_widget_ticket_finder', $form);
+}
+
+/**
  * preparing the user href by using wordpress user information.
  */
 function wptc_widget_user_href($userName) {
