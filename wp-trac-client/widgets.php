@@ -735,45 +735,45 @@ function wptc_widget_ticket_info($ticket) {
       </td>
     </tr>
     <tr>
+      <th id="h_project">
+        Project:
+      </th>
+      <td headers="h_project">
+        {$ticket['project']}
+      </td>
       <th id="h_priority">
         Priority:
       </th>
       <td headers="h_priority">
         {$ticket['priority']}
       </td>
+    </tr>
+    <tr>
       <th id="h_milestone">
         Milestone:
       </th>
       <td headers="h_milestone">
         {$ticket['milestone']}
       </td>
-    </tr>
-    <tr>
       <th id="h_component">
         Component:
       </th>
       <td headers="h_component">
         {$ticket['component']}
       </td>
+    </tr>
+    <tr>
       <th id="h_version">
         Version:
       </th>
       <td headers="h_version">
         {$ticket['version']}
       </td>
-    </tr>
-    <tr>
       <th id="h_keywords">
         Keywords:
       </th>
       <td headers="h_keywords" class="searchable">
         {$ticket['keywords']}
-      </td>
-      <th id="h_cc">
-        Cc:
-      </th>
-      <td headers="h_cc" class="searchable">
-        {$ticket['cc']}
       </td>
     </tr>
   </tbody></table>
