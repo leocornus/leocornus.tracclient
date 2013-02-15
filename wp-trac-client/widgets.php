@@ -230,6 +230,9 @@ function wptc_widget_ticket_finder($page_slug=null) {
   <input id="ticketGo" type="image" alt="Go to Ticket" 
     name="ticketGo" src="{$goImageUrl}" 
     title="Go to Ticket">
+  <p><br/><b>
+    <a href="{$blog_path}{$page_slug}">Create New Ticket</a>
+  </b></p>
 
   <script type="text/javascript" charset="utf-8">
     jQuery("#ticketGo").click(function(){
@@ -934,6 +937,7 @@ EOT;
 EOT;
     // pass a not set variable
     echo wptc_widget_ticket_fieldset($ticket);
+    echo wptc_widget_ticket_fieldset_js();
     echo <<<EOT
     </div>
     <div class="buttons">

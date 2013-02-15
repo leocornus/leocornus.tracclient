@@ -29,9 +29,7 @@ if (empty($version)) {
         <h2 class='widgettitle'>
           Project: <b><?php echo $project;?></b>
         </h2>
-        <p>
-          <?php echo wptc_widget_version_nav($project)?>
-        </p>
+        <?php echo wptc_widget_version_nav($project)?>
       </div>
       <div id='ticket-finder' class="widget">
         <h2 class='widgettitle'>Ticket Finder</h2>

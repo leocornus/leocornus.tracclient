@@ -396,7 +396,7 @@ h1 span, h2 span { color: gray; font-size: 90%;}
 
 /* for ticket finder */
 #findTicket {
-    height: 28px;
+    height: 45px;
     padding: 10px 2px 2px 5px;
 }
 #ticketnumber {
