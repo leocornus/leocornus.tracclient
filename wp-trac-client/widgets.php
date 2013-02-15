@@ -231,7 +231,7 @@ function wptc_widget_ticket_finder($page_slug=null) {
     name="ticketGo" src="{$goImageUrl}" 
     title="Go to Ticket">
 
-  <script>
+  <script type="text/javascript" charset="utf-8">
     jQuery("#ticketGo").click(function(){
         var ticket_id = jQuery("#ticketnumber").val();
         if((ticket_id != "") && jQuery.isNumeric(ticket_id)) {
@@ -240,7 +240,7 @@ function wptc_widget_ticket_finder($page_slug=null) {
             ticket_url = "{$blog_path}{$page_slug}?id=" + ticket_id;
             window.location = ticket_url;
         }
-    })
+    });
   </script>
 </div>
 EOT;
@@ -971,6 +971,7 @@ function wptc_widget_ticket_form($ticket, $actions) {
   <div id="modify" class="field">
 EOT;
     echo wptc_widget_ticket_fieldset($ticket);
+    echo wptc_widget_ticket_fieldset_js();
     echo <<<EOT
   </div>
   <div class="buttons">
@@ -1007,6 +1008,68 @@ EOT;
 </div>
 EOT;
     echo "</form>";
+}
+
+/**
+ * jQuery AJAX scripts to make following fields updating.
+ */
+function wptc_widget_ticket_fieldset_js() {
+
+    $ajax_url = admin_url('admin-ajax.php');
+    
+    $js = <<<EOT
+<script type="text/javascript" charset="utf-8">
+<!--
+jQuery("select#field-project").change(function() {
+    project = this.value;
+    //alert('change to [' + project + ']');
+    if(project == "") {
+        jQuery("select#field-milestone").html("");
+        jQuery("select#field-version").html("");
+    } else {
+        // ajax request data.
+        var data = {
+          "action" : "wptc_toggle_select_opts",
+          "type" : "project",
+          "name" : project,
+        };
+        jQuery.post("{$ajax_url}",
+          data,
+          function(response) {
+              res = JSON.parse(response);
+              // update milestone options.
+              jQuery("select#field-milestone").html(res);
+              jQuery("select#field-version").html("");
+          });
+    }
+});
+
+jQuery("select#field-milestone").change(function() {
+    milestone = this.value;
+    //alert('change to [' + milestone + ']');
+    if(milestone == "") {
+        jQuery("select#field-version").html("");
+    } else {
+        // ajax request data.
+        var data = {
+          "action" : "wptc_toggle_select_opts",
+          "type" : "milestone",
+          "name" : milestone,
+        };
+        jQuery.post("{$ajax_url}",
+          data,
+          function(response) {
+              res = JSON.parse(response);
+              // update milestone options.
+              jQuery("select#field-version").html(res);
+          });
+    }
+});
+-->
+</script>
+EOT;
+
+    return $js;
 }
 
 /**

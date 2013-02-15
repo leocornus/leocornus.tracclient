@@ -57,10 +57,42 @@ function wptc_valid_username_cb() {
 }
 
 /**
+ *
+ */
+add_action('wp_ajax_nopriv_wptc_toggle_select_opts',
+           'wptc_toggle_select_opts_cb');
+add_action('wp_ajax_wptc_toggle_select_opts',
+           'wptc_toggle_select_opts_cb');
+function wptc_toggle_select_opts_cb() {
+
+    $type = $_POST['type'];
+    $name = $_POST['name'];
+
+    switch($type) {
+        case "project":
+            // query milestones for the project.
+            $opts = wptc_widget_optgroups_html(
+                wptc_get_ticket_milestones($name), '');
+            break;
+        case "milestone":
+            // query version for the milestone
+            $project = wptc_get_project_name($name);
+            $opts = wptc_widget_optgroups_html(
+                wptc_get_ticket_versions($project, $name), '');
+            break;
+        default:
+            $opts = "";
+            break;
+    }
+
+    echo json_encode($opts);
+    exit;
+}
+
+/**
  * the ajax wrappers for the trac functions
  * The _cb suffix stands for Call Back
  */
-
 add_action('wp_ajax_ticket_versions', 'wptc_get_versions_cb');
 add_action('wp_ajax_nopriv_ticket_versions', 'wptc_get_versions_cb');
 function wptc_get_versions_cb() {

@@ -412,3 +412,7 @@ h1 span, h2 span { color: gray; font-size: 90%;}
   position: relative;
   display: inline-block;
 }
+
+select#field-project, select#field-milestone, select#field-version {
+  width: 250px;
+}
