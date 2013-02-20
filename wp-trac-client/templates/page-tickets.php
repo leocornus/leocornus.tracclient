@@ -40,9 +40,12 @@ if (empty($version)) {
 
   <div id="right_column">
 
-  <h2>Tickets for Version: <?php echo $version ?> </h2>
+  <h2>Tickets for Version: <em><?php echo $version ?></em></h2>
 
-  <?php echo wptc_widget_tickets_list($version) ?>
+  <?php 
+    $tickets = wptc_get_tickets_by_version($version);
+    echo wptc_widget_tickets_list($tickets, 'trac/ticket');
+  ?>
 
   </div> <?php // END right_column ?>
 

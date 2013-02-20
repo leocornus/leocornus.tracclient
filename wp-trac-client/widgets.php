@@ -280,10 +280,10 @@ EOT;
 /**
  * preparing the ticket list
  */
-function wptc_widget_tickets_list($version, $subpageSlug='ticket') {
+function wptc_widget_tickets_list($tickets, $subpageSlug='ticket') {
 
-    $tickets = wptc_get_tickets_by_version($version);
-
+    global $current_blog;
+    $blog_path = $current_blog->path;
     $ticketTr = array();
     $index = 1;
     foreach($tickets as $ticket) {
@@ -296,6 +296,9 @@ function wptc_widget_tickets_list($version, $subpageSlug='ticket') {
             $evenOrOdd = "even";
         }
         $index = $index + 1;
+        $ticketHref = <<<EOT
+{$blog_path}{$subpageSlug}?id={$ticket['id']}
+EOT;
 
         // TODO: get from priority object.
         $prioId = 3;
@@ -303,12 +306,12 @@ function wptc_widget_tickets_list($version, $subpageSlug='ticket') {
         $ticketTr[] = <<<EOT
 <tr class="{$evenOrOdd} prio{$prioId}">
   <td class="id">
-    <a href="{$subpageSlug}?id={$ticket['id']}" 
+    <a href="{$ticketHref}" 
        title="View Ticket">
       #{$ticket['id']}
     </a></td>
   <td class="summary">
-    <a href="{$subpageSlug}?id={$ticket['id']}" 
+    <a href="{$ticketHref}" 
        title="View Ticket">
       {$ticket['summary']}
     </a></td>

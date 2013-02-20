@@ -78,6 +78,23 @@ function wptc_get_tickets_by_version($version) {
 }
 
 /**
+ * return a list of tickets for the given owner.
+ */
+function wptc_get_tickets_by_owner($owner) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    // query by version order by prority
+    $queryStr = 'owner=' . $owner .
+                '&status!=closed' .
+                '&order=priority&desc=0';
+    $ids = $proxy->query($queryStr);
+
+    $tickets = wptc_get_tickets_list_m($ids);
+    return apply_filters('wptc_get_tickets_by_owner', 
+                         $tickets);
+}
+
+/**
  * using multi-call to get ticket info for a list of 
  * ids.
  */
