@@ -377,7 +377,7 @@ function wptc_update_ticket($id, $comment='', $attributes) {
     // here is the signature
     // update(id, comment, attributes, notify, author, when)
     $ticket = $proxy->update($id, $comment, $attributes, 
-                             False, 
+                             True, 
                              $current_user->user_login);
     // TODO:
     // 1. update memcached entry for ticket.
