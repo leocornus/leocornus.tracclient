@@ -89,7 +89,8 @@ function wptc_analyze_ticket_props() {
         'milestone',
         'component',
         'version',
-        'keywords');
+        'keywords',
+        'cc');
     foreach($fields as $field) {
         $attributes[$field] = $_POST['field_' . $field];
         if ($field === 'description') {

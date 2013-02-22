@@ -372,6 +372,11 @@ function wptc_update_ticket($id, $comment='', $attributes) {
     // using current user's login as the author.
     global $current_user;
     get_currentuserinfo();
+    if(has_filter('wptc_filter_ticket_attrs')) {
+        $attributes = 
+            apply_filters('wptc_filter_ticket_attrs', 
+                          $attributes);
+    }
 
     $proxy = get_wptc_client()->getProxy('ticket');
     // here is the signature
@@ -395,11 +400,46 @@ function wptc_update_ticket($id, $comment='', $attributes) {
  */
 function wptc_create_ticket($summary, $description, $attrs) {
 
+    if(has_filter('wptc_filter_ticket_attrs')) {
+        $attrs = apply_filters('wptc_filter_ticket_attrs', 
+                               $attrs);
+    }
+
     $proxy = get_wptc_client()->getProxy('ticket');
     // notify reporter by default.
     $id = $proxy->create($summary, $description, 
                          $attrs, True);
     return $id;
+}
+
+// add the filter.
+add_filter('wptc_filter_ticket_attrs', 
+           'ensure_owner_reporter_in_cc', 10, 1);
+
+/**
+ * filter hook to ensure the email addresses of both owner and 
+ * reporter are in the cc field.
+ */
+function ensure_owner_reporter_in_cc($attrs) {
+
+    // find user email by using wordpress fucntion.
+    $owner = get_user_by('login', $attrs['owner']);
+    $reporter = get_user_by('login', $attrs['reporter']);
+
+    // load the current cc as an array.
+    $cc_array = explode(",", trim($attrs['cc']));
+
+    if($owner && !in_array($owner->user_email, $cc_array)) {
+        $cc_array[] = $owner->user_email;
+    }
+
+    if($reporter && !in_array($reporter->user_email, $cc_array)) {
+        $cc_array[] = $reporter->user_email;
+    }
+
+    $attrs['cc'] = implode(",", $cc_array);
+
+    return $attrs;
 }
 
 /**

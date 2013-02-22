@@ -520,6 +520,8 @@ EOT;
     </td>
  </tr>
 </tbody></table>
+<input type="hidden" id="field-cc" name="field_cc" 
+      value="{$ticket['cc']}" size="70">
 </fieldset>
 EOT;
 
