@@ -823,6 +823,12 @@ function wptc_widget_ticket_changelog($changelog) {
         $change_oldvalue = $log[3];
         $change_newvalue = $log[4];
 
+        if ($change_field === "cc") {
+            // skip changes on cc field, we will have long 
+            // value for cc field. Since we use is as watch list.
+            continue;
+        }
+
         // start formating for each field.
         // we are using time as the key.
         $change = array();
@@ -854,7 +860,7 @@ function wptc_widget_ticket_changelog($changelog) {
 
         // set it back.
         $changes[$change_time] = $change;
-    }
+    } // End of foreach, what long one!
 
     $ticketChanges = array();
     // one time one change.
