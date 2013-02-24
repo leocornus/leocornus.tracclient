@@ -81,11 +81,18 @@ EOT;
  * priority dropdown
  */
 function wptc_widget_options_html($options, $selected, 
-                                  $hasEmpty=true) {
+                                  $hasEmpty=true,
+                                  $useNumeric=false) {
 
     $ret = $hasEmpty ? "<option></option>" : "";
     foreach ($options as $option => $label) {
         $sel = "";
+        if (is_numeric($option)) {
+            if (!$useNumeric) {
+                // not use numeric!
+                $option = $label;
+            }
+        }
         if($option === $selected) {
             $sel = "selected=\"selected\"";
         }
@@ -598,7 +605,8 @@ EOT;
 function wptc_widget_action_resolve($action) {
 
     $fields = $action[3][0];
-    $options = wptc_widget_options_html($fields[2], $fields[1]);
+    $options = wptc_widget_options_html($fields[2], $fields[1],
+                                        false, false);
     // the resolve is a select element.
     // it will be disabled untile the radio button is selected.
     $select = <<<EOT
