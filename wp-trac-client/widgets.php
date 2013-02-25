@@ -244,7 +244,7 @@ function wptc_widget_ticket_finder($page_slug=null) {
   <script type="text/javascript" charset="utf-8">
     jQuery("#ticketGo").click(function(){
         var ticket_id = jQuery("#ticketnumber").val();
-        if((ticket_id != "") && jQuery.isNumeric(ticket_id)) {
+        if((ticket_id != "") && !isNaN(parseInt(ticket_id))) { 
             // only handle number 
             // redirect to ticket details page.
             ticket_url = "{$blog_path}{$page_slug}?id=" + ticket_id;
