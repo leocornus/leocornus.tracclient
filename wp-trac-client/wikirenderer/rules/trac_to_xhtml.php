@@ -53,9 +53,9 @@ class trac_to_xhtml  extends WikiRendererConfig  {
 
     public $startHeaderNumber = 1; // top level header will be <h1> if you set to 1, <h2> if it is 2 etc..
 
-    public $wikiWordBaseUrl = '/';
+    public $wikiWordBaseUrl = '/wiki/';
     public $linkBaseUrl = array(
-        'ticket'=>'/ticket/',
+        'ticket'=>'/trac/ticket/',
         'report'=>'/report/',
         'changeset'=>'/changeset/',
         'log'=>'/log/',
@@ -118,7 +118,7 @@ class tracWikiHtmlTextLine extends WikiTag {
                     case 'http': $str.= '<a href="'.$match[0][0].'">'.$match[0][0].'</a>'; break;
                     case '':
                         if($match[3][0] != '')
-                            $str.= '<a href="'.$this->config->linkBaseUrl['ticket'].$match[3][0].'">#'.$match[3][0].'</a>';
+                            $str.= '<a href="'.$this->config->linkBaseUrl['ticket'] . '?id=' . $match[3][0].'">#'.$match[3][0].'</a>';
                         else
                             $str.= '<a href="'.$this->config->linkBaseUrl['report'].$match[4][0].'">{'.$match[4][0].'}</a>';
                         break;
