@@ -37,6 +37,8 @@ $ticket_id = $_GET['id'];
 if(isset($ticket_id)) {
     // we are working on a existing ticket.
     $ticket = wptc_get_ticket($ticket_id);
+}
+if(!empty($ticket)) {
 ?>
 
   <div id="left_column">

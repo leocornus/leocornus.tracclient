@@ -159,14 +159,21 @@ function wptc_get_ticket($id) {
 
     // we only need the ticket proxy.
     $proxy = get_wptc_client()->getProxy('ticket');
-    $raw = $proxy->get($id);
-    $ticket = $raw[3];
-    $ticket['id'] = $id;
-    $ticket['created'] = $raw[1];
-    $ticket['modified'] = $raw[2];
-    // we will use separate function for ticket changelog
-    //$changeLog = $proxy->changeLog($id);
-    //$ticket_details = array_merge($ticket, $changeLog);
+    try {
+        $raw = $proxy->get($id);
+        $ticket = $raw[3];
+        $ticket['id'] = $id;
+        $ticket['created'] = $raw[1];
+        $ticket['modified'] = $raw[2];
+        // we will use separate function for ticket changelog
+        //$changeLog = $proxy->changeLog($id);
+        //$ticket_details = array_merge($ticket, $changeLog);
+    } catch (Zend_XmlRpc_Client_FaultException $e) {
+        // ticket is not exist. we will create one.
+        //return $e->getMessage();
+        // return a empty array!
+        $ticket = array();
+    } 
 
     return apply_filters('wptc_get_ticket', $ticket);
 }
