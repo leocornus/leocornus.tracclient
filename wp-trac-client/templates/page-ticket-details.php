@@ -70,8 +70,7 @@ if(!empty($ticket)) {
 }
 // =========================================================
 // debug message...
-$DEBUG = False;
-if ($DEBUG) {
+if (wptc_is_debug()) {
     global $post, $current_blog;
     // dump the change log 
     //$ticket = wptc_get_ticket_actions($ticket_id);

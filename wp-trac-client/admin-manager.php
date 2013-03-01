@@ -21,7 +21,7 @@ switch($pm_context['action']) {
 ?>
 
 <?php
-if ($DEBUG) {
+if (wptc_is_debug()) {
   global $wptc_db_version;
   //wptc_create_tables();
   $file = __FILE__;

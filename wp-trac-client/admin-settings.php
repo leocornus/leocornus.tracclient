@@ -1,7 +1,6 @@
 <?php
 
 wp_enqueue_script("wp_ajax_response");
-$DEBUG = False;
 
 if (isset($_POST['wptc_settings_form_submit']) &&
     $_POST['wptc_settings_form_submit'] == 'Y') {
@@ -10,6 +9,7 @@ if (isset($_POST['wptc_settings_form_submit']) &&
     update_site_option('wptc_rpcurl', $_POST['wptc_rpcurl']);
     update_site_option('wptc_username', $_POST['wptc_username']);
     update_site_option('wptc_password', $_POST['wptc_password']);
+    update_site_option('wptc_debug', $_POST['wptc_debug']);
 
     // show the message.
     echo '<div class="updated"><p><strong>Settings Updated</strong></p></div>';
@@ -66,6 +66,19 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         </td>
       </tr>
       <tr>
+        <th scope="row">Debug Mode: </th>
+        <td>
+          <input type="radio" name="wptc_debug" value="true"
+            <?php echo (get_site_option('wptc_debug') == 'true') ?
+                'checked' : '';?>
+          >On
+          <input type="radio" name="wptc_debug" value="false"
+            <?php echo (get_site_option('wptc_debug') == 'false') ?
+                'checked' : '';?>
+          >Off
+        </td>
+      </tr>
+      <tr>
         <th scope="row"><input type="submit" name="saveSetting" class="button-primary" value="Save Settings" />
         </th>
         <td></td>
@@ -105,7 +118,7 @@ if ($testResult) {
     </tbody></table>
   </form>
 
-<?php if ($DEBUG) {
+<?php if (wptc_is_debug()) {
     // some testing code.
 ?>
     <h3>Some temp Testing:</h3>

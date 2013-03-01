@@ -38,6 +38,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
             name="wptc_function">
             <?php //TODO: generate on the fly  ?>
             <option></option>
+            <option>wptc_is_debug</option>
             <option>wptc_get_project</option>
             <option>wptc_get_projects</option>
             <option>wptc_get_project_mandv</option>

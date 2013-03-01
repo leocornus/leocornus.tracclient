@@ -130,6 +130,12 @@ function get_wptc_client() {
     return $wptc_client;
 }
 
+function wptc_is_debug() {
+
+    $debug = get_site_option('wptc_debug');
+    return ($debug === 'true');
+}
+
 // we need a admin page on dashboard for configuration.
 add_action('network_admin_menu', 'wptc_admin_init');
 /**
@@ -153,22 +159,23 @@ function wptc_admin_init() {
                      'wp-trac-client/admin-settings.php'
                     );
     // the template management page.
-    add_submenu_page('wp-trac-client/admin-settings.php',
-                     'Trac Client Templates', 'Templates',
-                     'manage_options',
-                     'wp-trac-client/admin-templates.php'
-                    );
+    //add_submenu_page('wp-trac-client/admin-settings.php',
+    //                 'Trac Client Templates', 'Templates',
+    //                 'manage_options',
+    //                 'wp-trac-client/admin-templates.php'
+    //                );
     // some management work here.
     add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
                      'Trac Client Management', 'Project Management',
                      'manage_options', 
                      'wp-trac-client/admin-manager.php'
                     );
-    add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
-                     'Trac Client Testing', 'APIs Testing',
-                     'manage_options', 
-                     'wp-trac-client/admin-testing.php'
-                    );
-
+    if(wptc_is_debug()) {
+        add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
+                         'Trac Client Testing', 'APIs Testing',
+                         'manage_options', 
+                         'wp-trac-client/admin-testing.php'
+                        );
+    }
 }
 ?>
