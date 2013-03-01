@@ -424,3 +424,12 @@ h1 span, h2 span { color: gray; font-size: 90%;}
 select#field-project, select#field-milestone, select#field-version {
   width: 250px;
 }
+
+/* hilight closed ticket */
+a.closed:link, a.closed:visited, span.closed {
+  text-decoration: line-through;
+}
+/* underline the new ticket */
+a.new:link, a.new:visited, span.new{
+  text-decoration: underline;
+}

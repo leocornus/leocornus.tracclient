@@ -314,7 +314,7 @@ EOT;
 <tr class="{$evenOrOdd} prio{$prioId}">
   <td class="id">
     <a href="{$ticketHref}" 
-       title="View Ticket">
+       title="View Ticket" class="{$ticket['status']}">
       #{$ticket['id']}
     </a></td>
   <td class="summary">
