@@ -321,8 +321,9 @@ EOT;
 EOT;
     } else {
         // adding time to the end of the date
-        $duedate = DateTime::createFromFormat('m/d/Y H:i:s', 
-            $due . ' 17:00:00');
+        $dueStr = ($type === 'milestone') ? $due . ' 17:00:01' :
+            $due . ' 17:00:00';
+        $duedate = DateTime::createFromFormat('m/d/Y H:i:s', $dueStr);
         $success = wptc_update_mandv($projectName, $type, $name, 
                                      $desc, $duedate);
         echo <<<EOT
