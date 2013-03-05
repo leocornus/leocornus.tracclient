@@ -427,6 +427,7 @@ EOT;
         wptc_widget_optgroups_html(
             wptc_get_ticket_versions($project, $ticket['milestone']),
             $ticket['version']);
+    $ticket_summary = htmlspecialchars($ticket['summary']);
 
     // the form table.
     $propsTable = <<<EOT
@@ -437,7 +438,7 @@ EOT;
     <th><label for="field_summary">Summary:</label></th>
     <td class="fullrow" colspan="3">
       <input type="text" id="field_summary" name="field_summary" 
-             value="{$ticket['summary']}" size="70">
+             value="{$ticket_summary}" size="70">
     </td>
   </tr>
   <tr>
