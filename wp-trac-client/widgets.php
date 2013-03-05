@@ -242,13 +242,23 @@ function wptc_widget_ticket_finder($page_slug=null) {
   </b></p>
 
   <script type="text/javascript" charset="utf-8">
-    jQuery("#ticketGo").click(function(){
-        var ticket_id = jQuery("#ticketnumber").val();
+    function gotoTicket(ticket_id) {
         if((ticket_id != "") && !isNaN(parseInt(ticket_id))) { 
             // only handle number 
             // redirect to ticket details page.
             ticket_url = "{$blog_path}{$page_slug}?id=" + ticket_id;
             window.location = ticket_url;
+        }
+    }
+
+    jQuery("#ticketGo").click(function(){
+        var ticket_id = jQuery("#ticketnumber").val();
+        gotoTicket(ticket_id);
+    });
+    jQuery("#ticketnumber").keypress(function(event) {
+        if(event.which == 13) {
+            var ticket_id = this.value;
+            gotoTicket(ticket_id);
         }
     });
   </script>
