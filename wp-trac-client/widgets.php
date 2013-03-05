@@ -512,7 +512,7 @@ EOT;
   </tr>
   <tr>
     <th class="col1">
-      <label for="field-version">Version:</label>
+      <label for="field-version">Sprint:</label>
     </th>
     <td class="col1">
       <select id="field-version" name="field_version">
@@ -788,7 +788,7 @@ function wptc_widget_ticket_info($ticket) {
     </tr>
     <tr>
       <th id="h_version">
-        Version:
+        Sprint:
       </th>
       <td headers="h_version">
         {$ticket['version']}
