@@ -175,13 +175,6 @@ function wptc_widget_version_nav($project) {
         $project = $defaults['project'];
     }
 
-    // using the global variables.
-    global $post, $current_blog;
-    $blog_path = $current_blog->path;
-    $page_slug = $post->post_parent ? 
-        get_page($post->post_parent)->post_name :
-        $post->post_name;
-
     $mandv = wptc_get_project_mandv($project);
     $milestones = array_keys($mandv);
     $stoneLis = array();
@@ -190,10 +183,11 @@ function wptc_widget_version_nav($project) {
         $versions = array_slice($mandv[$milestone], 1);
         $versionHrefs = array();
         foreach($versions as $version) {
+
+            $versionHref = wptc_widget_version_href($version['name']);
             $versionHrefs[] = <<<EOT
 <li>
-  <a href="{$blog_path}{$page_slug}?version={$version['name']}">
-    {$version['name']}</a>
+  <a href="{$versionHref}">{$version['name']}</a>
 </li>
 EOT;
         }
@@ -292,6 +286,23 @@ EOT;
     }
 
     return apply_filters('wptc_widget_user_href', $href);
+}
+
+/**
+ * generate the href link for version field.
+ */
+function wptc_widget_version_href($version) {
+
+    // using the global variables.
+    global $post, $current_blog;
+    $blog_path = $current_blog->path;
+    $page_slug = $post->post_parent ? 
+        get_page($post->post_parent)->post_name :
+        $post->post_name;
+
+    $href = $blog_path . $page_slug . '?version=' . $version;
+
+    return apply_filters('wptc_widget_version_href', $href);
 }
 
 /**
@@ -720,6 +731,8 @@ function wptc_widget_ticket_info($ticket) {
         wptc_widget_user_href($ticket['reporter']);
     $ticket_owner_href = 
         wptc_widget_user_href($ticket['owner']);
+    $ticket_version_href = 
+        wptc_widget_version_href($ticket['version']);
     // preparing the descriptions.
     $ticket_description = 
         wptc_widget_parse_content($ticket['description']);
@@ -791,7 +804,7 @@ function wptc_widget_ticket_info($ticket) {
         Sprint:
       </th>
       <td headers="h_version">
-        {$ticket['version']}
+        <a href="{$ticket_version_href}">{$ticket['version']}</a>
       </td>
       <th id="h_keywords">
         Keywords:
