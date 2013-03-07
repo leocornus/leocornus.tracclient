@@ -16,14 +16,30 @@ function wptc_widget_clean_textarea($input) {
 }
 
 /**
+ * using mediawiki api to parse wiki content
+ */
+function wptc_widget_mw_parse_content($wiki) {
+
+    $wiki_client = get_wiki_client();
+    $wiki_client->setParameterGet('action', 'parse');
+    $wiki_client->setParameterGet('format', 'xml');
+    $wiki_client->setParameterGet('text', $wiki);
+    $response = $wiki_client->request('GET');
+    $result = simplexml_load_string(trim($response->getBody()));
+    //print_r($result);
+
+    //echo $result->text();
+    return (string)$result->parse->text;
+}
+
+/**
  * parse wiki format to prepare HTML.
  */
 function wptc_widget_parse_content($wiki) {
 
-    //$ret = Markdown($wiki);
     $wkr = new WikiRenderer('trac_to_xhtml');
     $ret = $wkr->render($wiki);
-    //$ret = $wiki;
+    //$ret = wptc_widget_mw_parse_content($wiki);
 
     // apply filters to allow user to tweak.
     return apply_filters('wptc_widget_parse_content', $ret);
@@ -820,7 +836,7 @@ function wptc_widget_ticket_info($ticket) {
       Description
     <a class="anchor" href="#comment:description" title="Link to this section"> ¶</a></h3>
     <div class="searchable">
-      <p>{$ticket_description}<br></p>
+      {$ticket_description}
     </div>
   </div><!-- END ticket-description -->
 

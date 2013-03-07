@@ -4,7 +4,7 @@ if(isset($_POST['wptc_testing_form_submit']) &&
    $_POST['wptc_testing_form_submit'] === 'Y') {
 
     $functionName = $_POST['wptc_function'];
-    $functionInputs = $_POST['wptc_function_params'];
+    $functionInputs = stripslashes($_POST['wptc_function_params']);
     $functionParams = explode(',', $functionInputs);
 
     //switch($functionName) {
@@ -55,6 +55,9 @@ if(isset($_POST['wptc_testing_form_submit']) &&
             <option>wptc_remove_ticket_meta</option>
             <option>wptc_widget_ticket_defaults</option>
             <option>wptc_widget_version_nav</option>
+            <option>get_wiki_client</option>
+            <option>wptc_widget_parse_content</option>
+            <option>wptc_widget_mw_parse_content</option>
           </select>
         </td>
       </tr>

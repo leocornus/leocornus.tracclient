@@ -130,6 +130,18 @@ function get_wptc_client() {
     return $wptc_client;
 }
 
+/**
+ * retrun a rest wiki ckient.
+ */
+function get_wiki_client() {
+
+    require_once 'Zend/Http/Client.php';
+    $wikiApiUrl = 'http://en.wikipedia.org/w/api.php';
+    $wiki_client = new Zend_Http_Client($wikiApiUrl);
+
+    return $wiki_client;
+}
+
 function wptc_is_debug() {
 
     $debug = get_site_option('wptc_debug');
