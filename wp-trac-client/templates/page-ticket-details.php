@@ -5,9 +5,9 @@
  */
 wp_enqueue_script('jquery-ui-autocomplete');
 // enqueue styles and scripts for trac project.
-wp_enqueue_style('wptc-trac-ticket');
-wp_enqueue_script('wptc-trac-wikitoolbar');
-wp_localize_script('wptc-trac-wikitoolbar', 'WptcAjaxObj', 
+wp_enqueue_style('wptc-css');
+wp_enqueue_script('wptc-js');
+wp_localize_script('wptc-js', 'WptcAjaxObj', 
     array('url' => admin_url('admin-ajax.php')));
 wp_enqueue_style('jquery-ui');
 

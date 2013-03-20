@@ -8,7 +8,7 @@
 
 <?php 
 get_header(); 
-wp_enqueue_style('wptc-trac-ticket');
+wp_enqueue_style('wptc-css');
 global $current_user;
 ?>
 

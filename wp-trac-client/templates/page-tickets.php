@@ -7,7 +7,7 @@
 
 <?php 
 get_header(); 
-wp_enqueue_style('wptc-trac-ticket');
+wp_enqueue_style('wptc-css');
 wp_enqueue_script('jquery-masonry');
 
 // the page slug will be the project name.

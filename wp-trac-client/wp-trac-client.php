@@ -102,17 +102,14 @@ function register_resources() {
     wp_register_style('jquery.dataTables',
                       plugins_url('wp-trac-client/css/jquery.dataTables.css'));
     // the styles and scripts for trac.
-    wp_register_style('wptc-trac-ticket',
-                      plugins_url('wp-trac-client/css/trac_ticket.css'));
-    wp_register_script('wptc-trac-wikitoolbar',
-                       plugins_url('wp-trac-client/js/trac-wikitoolbar.js'));
+    wp_register_style('wptc-css',
+                      plugins_url('wp-trac-client/css/wptc.css'));
+    wp_register_script('wptc-js',
+                       plugins_url('wp-trac-client/js/wptc.js'));
     // using wp_enqueue_style to load this css.
     // jquery ui dialog style seens not automatically loaded.
     wp_register_style('jquery-ui',
                       'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
-    // javascript for autocomplete.
-    wp_register_script('wptc-autocomplete',
-                       plugins_url('wp-trac-client/js/wptc-autocomplete.js'));
     // js lib for jQuery masonry.
     wp_register_script('jquery-masonry',
                        plugins_url('wp-trac-client/js/jquery.masonry.min.js'),
