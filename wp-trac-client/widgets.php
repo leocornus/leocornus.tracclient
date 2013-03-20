@@ -1201,7 +1201,7 @@ EOT;
 
         // the summary label for each status.
         $dt = "<dt>" . $status . ":</dt>";
-        $dt = $dt . "<dd>" . $subtotal . "</dd>";
+        $dt = $dt . "<dd>" . $subtotal . "</dd> ";
         $progressDts = $progressDts . $dt;
     }
 
@@ -1211,7 +1211,7 @@ EOT;
 
     $html = <<<EOT
 <div class="milestone">
-  <h3>Milestone: {$attrs['name']}</h3>
+  <div class="name">Milestone: {$attrs['name']}</div>
   <div class="info">
     <p class="date"><strong>Due Date: </strong>
       {$attrs['due']}
@@ -1252,7 +1252,7 @@ function wptc_widget_project_summary($project) {
 
     $div = <<<EOT
 <div class="project">
-  <h3>Project: {$project}</h3>
+  <div class="name">Project: {$project}</div>
   {$milestoneDivs}
 </div>
 EOT;
@@ -1284,7 +1284,9 @@ jQuery(document).ready(function($) {
     $('#projects').masonry({
         // options.
         itemSelector     : '.project',
-        columnWidth      : 175,
+        columnWidth      : function(containerWidth) {
+            return containerWidth / 2;
+        },
         isAnimated       : true,
         animationOptions : {
             duration: 1750,

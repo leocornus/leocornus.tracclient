@@ -433,3 +433,119 @@ a.closed:link, a.closed:visited, span.closed {
 a.new:link, a.new:visited, span.new{
   text-decoration: underline;
 }
+
+/**
+ * milestone progress bar
+ */
+.project {
+  background: #F7F7EF;
+  -webkit-border-radius: 5px;
+  margin: 2px;
+  width: 48%;
+  padding: 5px;
+}
+.name {
+  font-weight: bold;
+}
+.project .name {
+  font-size: 120%;
+  border-bottom: 3px solid #d7d7d7;
+}
+.milestone .name {
+  font-size: 100%;
+  font-style: italic;
+  border-bottom-width: 0px;
+}
+/* General styles for the progress bars */
+table.progress {
+ border: 1px solid #d7d7d7;
+ border-collapse: collapse;
+ border-spacing: 0;
+ float: left;
+ margin: 0;
+ padding: 0;
+ empty-cells: show;
+}
+table.progress a, table.progress :link, table.progress :visited,
+table.progress :link:hover, table.progress :visited:hover {
+ border: none;
+ display: block;
+ width: 100%;
+ height: 1.2em;
+ padding: 0;
+ margin: 0;
+ text-decoration: none
+}
+table.progress td { background: #fff; padding: 0 }
+table.progress td.new { background: #f5f5b5 }
+table.progress td.closed { background: #bae0ba }
+table.progress td :hover { background: none }
+p.percent { 
+ line-height: 1.2em;
+ margin: 0;
+}
+
+/* Styles for the roadmap view */
+.milestones { margin: 2em 0 0; padding: 0 }
+.milestone { 
+  margin-bottom: 5px;
+  border-bottom: 1px solid #d7d7d7;
+}
+.milestone .info { white-space: nowrap }
+.milestone .info h2 {
+ background: #f7f7f7;
+ border-bottom: 1px solid #d7d7d7;
+ margin: 0;
+}
+.milestone .info h2 :link, .milestone .info h2 :visited {
+ color: #000;
+ display: block;
+ border-bottom: none;
+}
+.milestone .info h2 :link:hover, .milestone .info h2 :visited:hover {
+ color: #000;
+}
+.milestone .info h2 em { color: #b00; font-style: normal }
+.milestone .info .date {
+ color: #888;
+ font-size: 11px;
+ font-style: italic;
+ margin: 0 0 3px 0;
+}
+.milestone .info .progress { 
+  margin: 0 1em; 
+  width: 40em; 
+  max-width: 70%; 
+}
+.milestone .info dl {
+ font-size: 10px;
+ font-style: italic;
+ margin: 1em;
+ white-space: normal;
+ clear: left;
+}
+.milestone .info dt { display: inline; margin-left: .5em }
+.milestone .info dd { display: inline; margin: 0 1em 0 .5em }
+.milestone .description { margin-left: 1em }
+
+table.progress td { font-weight: bold; text-shadow: 0 1px 0 #fff; line-height:
+16px; font-size: 10px; height: 16px; margin: 0; padding: 0 9px; text-align:
+right; }
+.meter.commitment p span { float: left; border-width: 1px 0 1px 1px;
+text-align: center; }
+#contingent_progressbar table.progress { height: 19px; }
+.milestone table.progress td.closed,
+.sprint table.progress td.closed { color: #4D9C1D; background: #AEEB58
+url(../images/trac_progress_gradient.png) top repeat-x; }
+.milestone table.progress td.accepted,
+.sprint table.progress td.accepted{ color: orange; background: #CB8045
+url(../images/trac_progress_gradient.png) top repeat-x; }
+
+.milestone table.progress td.reopened,
+.sprint table.progress td.reopened { color: orange; background: #f6ea63
+url(../images/trac_progress_gradient.png) top repeat-x; }
+.milestone table.progress td.assigned,
+.sprint table.progress td.assigned { color: black; background: #f1d0d0
+url(../images/trac_progress_gradient.png) top repeat-x; }
+.milestone table.progress td.new,
+.sprint table.progress td.new { background-color: white; }
