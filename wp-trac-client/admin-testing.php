@@ -50,10 +50,15 @@ if(isset($_POST['wptc_testing_form_submit']) &&
             <option>wptc_get_ticket_priorities</option>
             <option>wptc_get_ticket_components</option>
             <option>wptc_get_ticket_metas</option>
+            <option>wptc_get_ticket_meta</option>
             <option>wptc_get_ticket_actions</option>
+            <option>wptc_get_ticket_status</option>
+            <option>wptc_ticket_query</option>
+            <option>wptc_milestone_ticket_summary</option>
             <option>wptc_update_ticket_meta</option>
             <option>wptc_remove_ticket_meta</option>
             <option>wptc_widget_ticket_defaults</option>
+            <option>wptc_widget_milestone_summary</option>
             <option>wptc_widget_version_nav</option>
             <option>get_wiki_client</option>
             <option>wptc_widget_parse_content</option>

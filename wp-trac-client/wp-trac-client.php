@@ -112,7 +112,11 @@ function register_resources() {
                       'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
     // javascript for autocomplete.
     wp_register_script('wptc-autocomplete',
-                       plugins_url('wt-trac-client/js/wptc-autocomplete.js'));
+                       plugins_url('wp-trac-client/js/wptc-autocomplete.js'));
+    // js lib for jQuery masonry.
+    wp_register_script('jquery-masonry',
+                       plugins_url('wp-trac-client/js/jquery.masonry.min.js'),
+                       array('jquery'), '2.1.08');
 }
 
 function get_wptc_client() {

@@ -1168,3 +1168,133 @@ function wptc_widget_ticket_defaults() {
 
     return $ticket;
 }
+
+/**
+ * Preparing the summary div html for a milestone.
+ *
+ */
+function wptc_widget_milestone_summary($milestone) {
+
+    // get all necessary information.
+    $attrs = wptc_get_ticket_meta('milestone', $milestone);
+    $tickets = wptc_milestone_ticket_summary($milestone);
+    $total = array_sum($tickets);
+    if($total === 0) {
+        // skip this milestone.
+        return "";
+    }
+    $percent = round(($tickets['closed'] / $total) * 100);
+
+    $progressTds = "";
+    $progressDts = "";
+    // get ready the progress bar. using table.
+    foreach($tickets as $status => $subtotal) {
+
+        $tdPercent = round(($subtotal / $total) * 100);
+        $tdStyle = $tdPercent < 1 ? 
+            "display: none" : "width: " . $tdPercent . "%";
+        $td = <<<EOT
+<td class="{$status}" style="{$tdStyle}"> 
+</td>
+EOT;
+        $progressTds = $progressTds . $td;
+
+        // the summary label for each status.
+        $dt = "<dt>" . $status . ":</dt>";
+        $dt = $dt . "<dd>" . $subtotal . "</dd>";
+        $progressDts = $progressDts . $dt;
+    }
+
+    // total tickets
+    $dt = "<dt>Total:</dt><dd>" . $total . "</dd>";
+    $progressDts = $progressDts . $dt;
+
+    $html = <<<EOT
+<div class="milestone">
+  <h3>Milestone: {$attrs['name']}</h3>
+  <div class="info">
+    <p class="date"><strong>Due Date: </strong>
+      {$attrs['due']}
+    </p>
+    <table class="progress"><tbody>
+      <tr>
+        {$progressTds}
+      </tr>
+    </tbody></table>
+    <p class="percent">{$percent}%</p>
+    <dl>
+      <dt>Number of ticket: </dt><dd></dd>
+      {$progressDts}
+    </dl>
+  </div>
+</div>
+EOT;
+
+    return $html;
+}
+
+/**
+ * preparing the div html for the project summary page.
+ */
+function wptc_widget_project_summary($project) {
+
+    // get running milestone for the given project.
+    $all = wptc_get_ticket_milestones($project);
+    if (empty($all)) {
+        return "";
+    }
+    $running = $all['Running (by Due Date)'];
+    $milestoneDivs = "";
+    foreach(array_keys($running) as $milestone) {
+        $milestoneDivs = $milestoneDivs . 
+            wptc_widget_milestone_summary($milestone);
+    }
+
+    $div = <<<EOT
+<div class="project">
+  <h3>Project: {$project}</h3>
+  {$milestoneDivs}
+</div>
+EOT;
+
+    return $div;
+}
+
+/**
+ * proeparing hte trac home page.
+ */
+function wptc_widget_trac_homepage() {
+
+    // get all projects.
+    $projects = wptc_get_projects();
+    $projectDivs = "";
+    foreach($projects as $project) {
+        $projectDivs = $projectDivs . 
+            wptc_widget_project_summary($project['name']);
+    }
+
+    $div = <<<EOT
+<div id="projects">
+  {$projectDivs}
+</div>
+
+<script type="text/javascript" charset="utf-8">
+jQuery(document).ready(function($) {
+
+    $('#projects').masonry({
+        // options.
+        itemSelector     : '.project',
+        columnWidth      : 175,
+        isAnimated       : true,
+        animationOptions : {
+            duration: 1750,
+            easing: 'linear',
+            queue: false
+        }
+    });
+});
+</script>
+EOT;
+
+    return $div;
+}

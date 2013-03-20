@@ -149,6 +149,38 @@ function wptc_build_query($milestone, $version=null, $max=25, $page=1) {
 }
 
 /**
+ * generic way to query tickets.
+ */
+function wptc_ticket_query($query, $max=25, $page=1) {
+
+    $proxy = get_wptc_client()->getProxy('ticket');
+    $query = $query . '&max=' . $max . '&page=' . $page;
+    $ids = $proxy->query($query);
+    return $ids;
+}
+
+/**
+ * multicall query tickets.
+ */
+function wptc_ticket_query_m($querys) {
+
+    // preparing the signature.
+    $signatures = array();
+    foreach ($querys as $query) {
+        $sign = array(
+            'methodName' => 'ticket.query',
+            'params' => array($query)
+            );
+        array_push($signatures, $sign);
+    }
+    // get the system proxy.
+    $proxy = get_wptc_client()->getProxy('system');
+    $results = $proxy->multicall($signatures);
+
+    return $results;
+}
+
+/**
  * return all details about a ticket.
  *
  * @param $id the ticket id.
@@ -215,6 +247,22 @@ function wptc_get_ticket_metas($metaName) {
     $proxy = get_wptc_client()->getProxy('ticket.'. $metaName);
     $metas = $proxy->getAll();
     return $metas;
+}
+
+/**
+ * return the details attributes for the given meta.
+ *
+ * @param $metaType the type of metadata: type, milestone, veraion,
+ *        etc.
+ * @param $metaName the name of the metadata.
+ * @return the full attributes for the given metadata.
+ */
+function wptc_get_ticket_meta($metaType, $metaName) {
+
+    $proxy = get_wptc_client()->getProxy('ticket.' . $metaType);
+    $attrs = $proxy->get($metaName);
+
+    return $attrs;
 }
 
 /**
@@ -288,6 +336,21 @@ function wptc_get_ticket_priorities() {
 }
 
 /**
+ * return all ticket status names, which are defined in the workflow.
+ * we assume all projects are using the same workflow.
+ */
+function wptc_get_ticket_status() {
+
+   $status = wptc_get_ticket_metas('status');
+   $ret = array();
+   foreach($status as $s) {
+       $s == 'closed' ? array_unshift($ret, $s) : 
+             array_push($ret, $s);
+   }
+   return $ret;
+}
+
+/**
  * return all ticket milestone names.
  * grouped by due-date: future due-date in group Running
  * past due-date in group Closed.
@@ -316,6 +379,27 @@ function wptc_get_ticket_milestones($project) {
 
     return apply_filters('wptc_get_ticket_milestones', 
                          $optgroups);
+}
+
+/**
+ * return the ticket summary for the gieven milestone.
+ */
+function wptc_milestone_ticket_summary($milestone) {
+
+    $queryBase = 'milestone=' . $milestone;
+    $status = wptc_get_ticket_status();
+
+    foreach ($status as $s) {
+        $querys[$s] = $queryBase. '&status=' . $s . '&max=0';
+    }
+
+    $ids = wptc_ticket_query_m($querys);
+    foreach($ids as $id) {
+        $counts[] = count($id[0]);
+    }
+
+    return array_combine($status, $counts);
+    //return round(($counts[0] / array_sum($counts)) * 100);
 }
 
 /**
