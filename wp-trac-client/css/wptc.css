@@ -449,12 +449,15 @@ a.new:link, a.new:visited, span.new{
 }
 .project .name {
   font-size: 120%;
-  border-bottom: 3px solid #d7d7d7;
+  border-bottom: 2px solid #d7d7d7;
+  background-color: #f7f7f7;
 }
 .milestone .name {
   font-size: 100%;
   font-style: italic;
+  /*font-weight: normal;*/
   border-bottom-width: 0px;
+  background-color: transparent;
 }
 /* General styles for the progress bars */
 table.progress {
@@ -489,6 +492,7 @@ p.percent {
 .milestones { margin: 2em 0 0; padding: 0 }
 .milestone { 
   margin-bottom: 5px;
+  margin-top: 5px;
   border-bottom: 1px solid #d7d7d7;
 }
 .milestone .info { white-space: nowrap }

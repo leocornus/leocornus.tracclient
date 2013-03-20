@@ -1289,7 +1289,7 @@ jQuery(document).ready(function($) {
         },
         isAnimated       : true,
         animationOptions : {
-            duration: 1750,
+            duration: 3000,
             easing: 'linear',
             queue: false
         }
