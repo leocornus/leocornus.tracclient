@@ -1287,10 +1287,12 @@ jQuery(document).ready(function($) {
         columnWidth      : function(containerWidth) {
             return containerWidth / 2;
         },
+        // addtional spaces between columns
+        gutterWidth      : 0,
         isAnimated       : true,
         animationOptions : {
-            duration: 3000,
-            easing: 'linear',
+            duration: 600,
+            easing: 'swing',
             queue: false
         }
     });
