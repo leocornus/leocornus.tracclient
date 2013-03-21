@@ -35,8 +35,8 @@ if (empty($version)) {
       </div>
 <?php } ?>
       <div id='ticket-finder' class="widget">
-        <h2 class='widgettitle'>Ticket Finder</h2>
-        <?php echo wptc_widget_ticket_finder('trac/ticket')?>
+        <h2 class='widgettitle'>Ticket Toolbar</h2>
+        <?php echo wptc_widget_trac_toolbar('trac/ticket')?>
       </div>
     </div>
   </div> <?php // END left_column ?>

@@ -48,8 +48,8 @@ if(!empty($ticket)) {
       <?php echo wptc_widget_version_nav($ticket['project'])?>
       </div>
       <div id='ticket-finder' class="widget">
-        <h2 class='widgettitle'>Ticket Finder</h2>
-        <?php echo wptc_widget_ticket_finder('trac/ticket')?>
+        <h2 class='widgettitle'>Ticket Toolbar</h2>
+        <?php echo wptc_widget_trac_toolbar('trac/ticket')?>
       </div>
     </div>
   </div>

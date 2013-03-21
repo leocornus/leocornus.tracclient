@@ -227,7 +227,7 @@ EOT;
  * the ticket finder widget.
  * this is more like a sample.
  */
-function wptc_widget_ticket_finder($page_slug=null) {
+function wptc_widget_trac_toolbar($page_slug=null) {
 
     global $post, $current_blog;
     $blog_path = $current_blog->path;
@@ -238,7 +238,12 @@ function wptc_widget_ticket_finder($page_slug=null) {
     }
  
     $form = <<<EOT
-<div id="findTicket">
+<div class="trac-toolbar-item">
+  <b>
+  <a href="{$blog_path}{$page_slug}">Create New Ticket</a>
+  </b>
+</div>
+<div class="trac-toolbar-item">
   <div style="float: left;">
   <label for="ticketnumber"><b>Find Ticket by ID: </b></label>
   <input id="ticketnumber" type="text" 
@@ -247,9 +252,6 @@ function wptc_widget_ticket_finder($page_slug=null) {
   <input id="ticketGo" type="image" alt="Go to Ticket" 
     name="ticketGo" src="{$goImageUrl}" 
     title="Go to Ticket">
-  <p><br/><b>
-    <a href="{$blog_path}{$page_slug}">Create New Ticket</a>
-  </b></p>
 
   <script type="text/javascript" charset="utf-8">
     function gotoTicket(ticket_id) {
