@@ -407,6 +407,18 @@ h1 span, h2 span { color: gray; font-size: 90%;}
   margin: 3px 2px 2px 5px;
   display: inline-block;
 }
+.trac-toolbar-item .browse-ticket {
+  padding-left: 10px;
+}
+.trac-toolbar-item .browse-ticket select{
+  width: 218px;
+}
+.trac-toolbar-item .browse-ticket label{
+  font-weight: bold;
+  font-size: 90%;
+}
+
+
 #ticketnumber {
   border: 1px solid #DADBD5;
   height: 17px;

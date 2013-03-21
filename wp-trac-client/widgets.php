@@ -96,7 +96,7 @@ EOT;
  * this could be used by type, milestone, version,
  * priority dropdown
  */
-function wptc_widget_options_html($options, $selected, 
+function wptc_widget_options_html($options, $selected="", 
                                   $hasEmpty=true,
                                   $useNumeric=false) {
 
@@ -236,13 +236,22 @@ function wptc_widget_trac_toolbar($page_slug=null) {
         // using the current page to display the ticket.
         $page_slug = $post->post_name;
     }
+
+    $browseTickets = wptc_widget_browse_tickets_toolbar();
  
     $form = <<<EOT
+<div class="trac-toolbar-item">
+  <b>
+  <a href="{$blog_path}trac/mytickets">My Tickets</a>
+  </b>
+</div>
+<br/>
 <div class="trac-toolbar-item">
   <b>
   <a href="{$blog_path}{$page_slug}">Create New Ticket</a>
   </b>
 </div>
+<br/>
 <div class="trac-toolbar-item">
   <div style="float: left;">
   <label for="ticketnumber"><b>Find Ticket by ID: </b></label>
@@ -275,9 +284,102 @@ function wptc_widget_trac_toolbar($page_slug=null) {
     });
   </script>
 </div>
+<br/>
+{$browseTickets}
 EOT;
 
     return apply_filters('wptc_widget_ticket_finder', $form);
+}
+
+/**
+ * preparing the toolbar item for explore tickets.
+ * Depends on user's selection, we will it will load the root
+ * trac page with one of the following params:
+ *   ?version=...
+ *   ?mileston=...
+ *   ?project=...
+ * Then user in the 
+ */
+function wptc_widget_browse_tickets_toolbar() {
+
+    // using the global variables.
+    global $post, $current_blog;
+    $blog_path = $current_blog->path;
+    $page_slug = $post->post_parent ? 
+        get_page($post->post_parent)->post_name :
+        $post->post_name;
+
+    $hrefBase = $blog_path . $page_slug;
+    // preparing options for select tag
+    $ticket_project_options = 
+        wptc_widget_options_html(wptc_get_ticket_projects());
+    $pmvjs = wptc_widget_ticket_pmv_js("toolbar-field-project",
+                                       "toolbar-field-milestone",
+                                       "toolbar-field-version");
+
+    $divHtml = <<<EOT
+<div class="trac-toolbar-item">
+  <b>Explore Tickets By:</b>
+  <div class="browse-ticket">
+    <label for="toolbar-field-project">Project:</label>
+    <select id="toolbar-field-project">
+      {$ticket_project_options}
+    </select>
+    <span style="display: none" id="toolbar-milestone-span">
+      <label for="toolbar-field-milestone">Milestone:</label>
+      <select id="toolbar-field-milestone"></select>
+    </span>
+    <span style="display: none" id="toolbar-version-span">
+      <label for="toolbar-field-version">Sprint:</label>
+      <select id="toolbar-field-version"></select>
+    </span>
+    <input id="toolbar-browse-go" type="button" 
+           value="Browse Tickets" 
+           title="Browse Tickets" style="display: none">
+  </div>
+  {$pmvjs}
+  <script type="text/javascript" charset="utf-8">
+  <!--
+  jQuery("input#toolbar-browse-go").click(function(){
+      var version = jQuery("select#toolbar-field-version").val();
+      window.location = "{$hrefBase}?version=" + version;
+  });
+
+  jQuery("select#toolbar-field-project").change(function() {
+      project = this.value;
+      jQuery("span#toolbar-version-span").css('display', 'none');
+      jQuery("input#toolbar-browse-go").css('display', 'none');
+      if (project == "") {
+          jQuery("span#toolbar-milestone-span").css('display', 'none');
+      } else {
+          jQuery("span#toolbar-milestone-span").css('display', 'block');
+      }
+  });
+
+  jQuery("select#toolbar-field-milestone").change(function() {
+      project = this.value;
+      jQuery("input#toolbar-browse-go").css('display', 'none');
+      if (project == "") {
+          jQuery("span#toolbar-version-span").css('display', 'none');
+      } else {
+          jQuery("span#toolbar-version-span").css('display', 'block');
+      }
+  });
+
+  jQuery("select#toolbar-field-version").change(function() {
+      project = this.value;
+      if (project == "") {
+          jQuery("input#toolbar-browse-go").css('display', 'none');
+      } else {
+          jQuery("input#toolbar-browse-go").css('display', 'block');
+      }
+  });
+  -->
+  </script>
+</div>
+EOT;
+
+    return $divHtml;
 }
 
 /**
@@ -998,7 +1100,7 @@ EOT;
 EOT;
     // pass a not set variable
     echo wptc_widget_ticket_fieldset($ticket);
-    echo wptc_widget_ticket_fieldset_js();
+    echo wptc_widget_ticket_pmv_js();
     echo <<<EOT
     </div>
     <div class="buttons">
@@ -1036,7 +1138,7 @@ function wptc_widget_ticket_form($ticket, $actions) {
   <div id="modify" class="field">
 EOT;
     echo wptc_widget_ticket_fieldset($ticket);
-    echo wptc_widget_ticket_fieldset_js();
+    echo wptc_widget_ticket_pmv_js();
     echo <<<EOT
   </div>
   <div class="buttons">
@@ -1078,19 +1180,21 @@ EOT;
 /**
  * jQuery AJAX scripts to make following fields updating.
  */
-function wptc_widget_ticket_fieldset_js() {
+function wptc_widget_ticket_pmv_js($project_id="field-project",
+                                   $milestone_id="field-milestone",
+                                   $version_id="field-version") {
 
     $ajax_url = admin_url('admin-ajax.php');
     
     $js = <<<EOT
 <script type="text/javascript" charset="utf-8">
 <!--
-jQuery("select#field-project").change(function() {
+jQuery("select#{$project_id}").change(function() {
     project = this.value;
     //alert('change to [' + project + ']');
     if(project == "") {
-        jQuery("select#field-milestone").html("");
-        jQuery("select#field-version").html("");
+        jQuery("select#{$milestone_id}").html("");
+        jQuery("select#{$version_id}").html("");
     } else {
         // ajax request data.
         var data = {
@@ -1103,17 +1207,17 @@ jQuery("select#field-project").change(function() {
           function(response) {
               res = JSON.parse(response);
               // update milestone options.
-              jQuery("select#field-milestone").html(res);
-              jQuery("select#field-version").html("");
+              jQuery("select#{$milestone_id}").html(res);
+              jQuery("select#{$version_id}").html("");
           });
     }
 });
 
-jQuery("select#field-milestone").change(function() {
+jQuery("select#{$milestone_id}").change(function() {
     milestone = this.value;
     //alert('change to [' + milestone + ']');
     if(milestone == "") {
-        jQuery("select#field-version").html("");
+        jQuery("select#{$version_id}").html("");
     } else {
         // ajax request data.
         var data = {
@@ -1126,7 +1230,7 @@ jQuery("select#field-milestone").change(function() {
           function(response) {
               res = JSON.parse(response);
               // update milestone options.
-              jQuery("select#field-version").html(res);
+              jQuery("select#{$version_id}").html(res);
           });
     }
 });
