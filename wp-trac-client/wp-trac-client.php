@@ -40,12 +40,12 @@ $my_plugin_file = __FILE__;
 
 //var_dump($my_plugin_file);
 
-define('MY_PLUGIN_FILE', $my_plugin_file);
-define('MY_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
+define('WPTC_PLUGIN_FILE', $my_plugin_file);
+define('WPTC_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
 
-require_once(MY_PLUGIN_PATH . '/classes/listtables.php');
-require_once(MY_PLUGIN_PATH . '/admin-tags.php');
-require_once(MY_PLUGIN_PATH . '/admin-widgets.php');
+require_once(WPTC_PLUGIN_PATH . '/classes/listtables.php');
+require_once(WPTC_PLUGIN_PATH . '/admin-tags.php');
+require_once(WPTC_PLUGIN_PATH . '/admin-widgets.php');
 
 // activation hook
 function wptc_install() {
@@ -56,7 +56,7 @@ function wptc_install() {
     wptc_create_tables();
     add_site_option("wptc_db_version", $wptc_db_version);
 }
-register_activation_hook(MY_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_install');
+register_activation_hook(WPTC_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_install');
 
 // load the Zend Framework.
 // show error message.
@@ -64,7 +64,7 @@ ini_set('display_errors', 1);
 add_action('plugins_loaded', 'zend_framework_init');
 function zend_framework_init() {
     // add the lib folder into the include path.
-    set_include_path(get_include_path() . PATH_SEPARATOR . MY_PLUGIN_PATH . '/lib' );
+    set_include_path(get_include_path() . PATH_SEPARATOR . WPTC_PLUGIN_PATH . '/lib' );
     define('WP_ZEND_FRAMEWORK', true);
     zend_framework_register_autoload();
 }
@@ -75,14 +75,14 @@ function zend_framework_register_autoload() {
 }
 
 // load the tmplate tags function.
-require_once(MY_PLUGIN_PATH . '/tags.php');
-require_once(MY_PLUGIN_PATH . '/widgets.php');
-require_once(MY_PLUGIN_PATH . '/actions.php');
+require_once(WPTC_PLUGIN_PATH . '/tags.php');
+require_once(WPTC_PLUGIN_PATH . '/widgets.php');
+require_once(WPTC_PLUGIN_PATH . '/actions.php');
 // load ajax functions.
-require_once(MY_PLUGIN_PATH . '/ajax.php');
+require_once(WPTC_PLUGIN_PATH . '/ajax.php');
 // load the WikiRenderer lib with trac wiki rule.
-require_once(MY_PLUGIN_PATH . '/wikirenderer/WikiRenderer.lib.php');
-require_once(MY_PLUGIN_PATH . '/wikirenderer/rules/trac_to_xhtml.php');
+require_once(WPTC_PLUGIN_PATH . '/wikirenderer/WikiRenderer.lib.php');
+require_once(WPTC_PLUGIN_PATH . '/wikirenderer/rules/trac_to_xhtml.php');
 
 //global $wptc_client;
 

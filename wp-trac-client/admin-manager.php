@@ -25,12 +25,12 @@ if (wptc_is_debug()) {
   global $wptc_db_version;
   //wptc_create_tables();
   $file = __FILE__;
-  $path = MY_PLUGIN_PATH;
+  $path = WPTC_PLUGIN_PATH;
   $filename = basename(__FILE__);
   echo <<<EOT
   <p>$wptc_db_version</p>
   <p>file: $file, basename: $filename</p>
-  <p>MY_PLUGIN_PATH: {$path}</p>
+  <p>WPTC_PLUGIN_PATH: {$path}</p>
 EOT;
 }
 ?>  
