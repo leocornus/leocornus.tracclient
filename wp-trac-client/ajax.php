@@ -15,6 +15,7 @@ function wptc_username_suggestion_cb() {
     foreach($users as $user) {
         $suggestion = array();
         // preparing label and value for each user.
+        // TODO: should we add the avatar too?
         // label: Display Name - Email
         // value: user_login
         $suggestion['label'] = $user->display_name . ' - ' .
