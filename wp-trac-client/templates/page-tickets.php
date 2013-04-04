@@ -52,8 +52,15 @@ if (empty($version)) {
   <h2>Tickets for Version: <em><?php echo $version ?></em></h2>
 
   <?php 
-    $tickets = wptc_get_tickets_by_version($version);
-    echo wptc_widget_tickets_list($tickets, 'trac/ticket');
+    //$tickets = wptc_get_tickets_by_version($version);
+    //echo wptc_widget_tickets_list($tickets, 'trac/ticket');
+    global $current_blog;
+    $blog_path = $current_blog->path;
+    $query = "version=" . $version;
+    $ticketsList = new WPTC_Ticket_List_Table($query, $blog_path,
+                                              'trac/ticket');
+    $ticketsList->prepare_items();
+    $ticketsList->display();
   ?>
 
 <?php } ?>
