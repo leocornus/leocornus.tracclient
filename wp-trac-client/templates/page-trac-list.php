@@ -160,60 +160,6 @@ function showVersions() {
     details about the ticket.
     <?php // ticket view start?>
 <div id="ticket">
-  <div class="date">
-    <p>Opened <a class="timeline" href="/trac/egov_opspedia-search/timeline?from=2012-10-22T10%3A58%3A26-04%3A00&amp;precision=second" title="2012-10-22T10:58:26-04:00 in Timeline">4 days</a> ago</p>
-  </div>
-  <h2 class="summary searchable">Upgrade Solr to 4.0</h2>
-  <table class="properties">
-    <tbody><tr>
-      <th id="h_reporter">Reported by:</th>
-      <td headers="h_reporter" class="searchable">
-        <a href="/trac/egov_opspedia-search/query?status=!closed&amp;reporter=tomsommerville">tomsommerville</a>
-      </td>
-      <th id="h_owner">Owned by:</th>
-      <td headers="h_owner">
-        <a href="/trac/egov_opspedia-search/query?status=!closed&amp;owner=seanchen">seanchen</a>
-      </td>
-    </tr>
-    <tr>
-        <th id="h_priority">
-          Priority:
-        </th>
-        <td headers="h_priority">
-              <a href="/trac/egov_opspedia-search/query?status=!closed&amp;priority=major">major</a>
-        </td>
-        <th id="h_milestone">
-          Milestone:
-        </th>
-        <td headers="h_milestone">
-              <a class="milestone" href="/trac/egov_opspedia-search/milestone/Search%200.1">Search 0.1</a>
-        </td>
-    </tr><tr>
-        <th id="h_component">
-          Component:
-        </th>
-        <td headers="h_component">
-              <a href="/trac/egov_opspedia-search/query?status=!closed&amp;component=Search+Index">Search Index</a>
-        </td>
-        <th id="h_version">
-          Version:
-        </th>
-        <td headers="h_version">
-              <a href="/trac/egov_opspedia-search/query?status=!closed&amp;version=Sprint+2">Sprint 2</a>
-        </td>
-    </tr><tr>
-        <th id="h_keywords">
-          Keywords:
-        </th>
-        <td headers="h_keywords" class="searchable">
-        </td>
-        <th id="h_cc">
-          Cc:
-        </th>
-        <td headers="h_cc" class="searchable">
-        </td>
-    </tr>
-  </tbody></table>
   <div class="description">
     <h3 id="comment:description">
       Description

@@ -141,7 +141,6 @@ function wptc_get_tickets_cb() {
 
     // prepareing aaData
     $tickets = wptc_get_tickets_m($milestone, $version, $max, $pageNumber);
-    //$tickets = wptc_get_tickets_m('OPSpedia v2.2.0');
     foreach ($tickets as $ticket) {
 
         $id = $ticket[0];
