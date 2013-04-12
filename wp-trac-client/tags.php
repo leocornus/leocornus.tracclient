@@ -4,6 +4,14 @@
  */
 
 /**
+ * return the base url to git repository.
+ */
+function wptc_get_git_base_url() {
+
+    return get_site_option('wptc_git_base_url');
+}
+
+/**
  * return a list of tickets.
  *
  * @param $milestone 

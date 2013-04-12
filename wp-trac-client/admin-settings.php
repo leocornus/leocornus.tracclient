@@ -9,6 +9,8 @@ if (isset($_POST['wptc_settings_form_submit']) &&
     update_site_option('wptc_rpcurl', $_POST['wptc_rpcurl']);
     update_site_option('wptc_username', $_POST['wptc_username']);
     update_site_option('wptc_password', $_POST['wptc_password']);
+    update_site_option('wptc_git_base_url', 
+                       $_POST['wptc_git_base_url']);
     update_site_option('wptc_debug', $_POST['wptc_debug']);
 
     // show the message.
@@ -63,6 +65,13 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         <th scope="row">Trac Password: </th>
         <td><input type="password" id="wptc_password" name="wptc_password" 
                    value="<?php echo get_site_option('wptc_password'); ?>" size="58"/>
+        </td>
+      </tr>
+      <tr>
+        <th>Base URL to Git Commit View: </th>
+        <td><input type="text" id="wptc_git_base_url" 
+                   name="wptc_git_base_url" 
+                   value="<?php echo get_site_option('wptc_git_base_url'); ?>" size="88"/>
         </td>
       </tr>
       <tr>
