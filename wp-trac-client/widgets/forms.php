@@ -82,8 +82,8 @@ jQuery(function($) {
     $("#previewDialog").dialog({
         autoOpen: false,
         position: "center",
-        minWidth: 680,
-        height: 450,
+        minWidth: 580,
+        height: 350,
         show: {
             effect: "blind",
             duration: 1000
