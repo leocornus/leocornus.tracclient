@@ -11,7 +11,7 @@ function wptc_widget_new_ticket_form() {
         $loginHref = get_option('siteurl') . 
             "/wp-login.php?redirect_to=" . 
             urlencode(get_permalink());
-        echo <<<EOT
+        $form = <<<EOT
 <div>
   <h1 id="ticket-title">
     Please <a href="{$loginHref}">log in</a> to 
@@ -19,31 +19,86 @@ function wptc_widget_new_ticket_form() {
   </h1>
 </div>
 EOT;
-        return;
+        return $form;
     }
 
+    $fieldset = wptc_widget_ticket_fieldset($ticket);
+    $pmv_js = wptc_widget_ticket_pmv_js();
+    $preview_js = wptc_widget_preview_dialog_js();
     // preparing the form.
-    echo <<<EOT
+    $form = <<<EOT
 <div>
   <h1 id="ticket-title">Create New Ticket</h1>
   <form method="post" id="ticketform">
     <div id="modify">
-EOT;
-    // pass a not set variable
-    echo wptc_widget_ticket_fieldset($ticket);
-    echo wptc_widget_ticket_pmv_js();
-    echo <<<EOT
+      {$fieldset}
+      {$pmv_js}
     </div>
     <div class="buttons">
       <input type="hidden" id="invalidFields" 
              name="invalidFields" value="">
+      <input type="button" id="descpreview"
+             name="descpreview" value="Preview Description"
+             onclick="javascript: preview('#field-description')">
       <input type="submit" id="descsubmit" 
              name="submit" value="Submit changes">
     </div>
+    {$preview_js}
   </form>
 </div>
 EOT;
 
+    return $form;
+}
+
+/**
+ * preparing the preview dialog js,
+ * based on jQuery UI Dialog.
+ */
+function wptc_widget_preview_dialog_js() {
+
+    $js = <<<EOT
+<script type="text/javascript">
+function preview(fieldSelector) {
+    wiki = jQuery(fieldSelector).val();
+    //alert("click preview: " + wiki);
+    jQuery("#previewContent").html("<b>Loading ...</b>");
+    jQuery("#previewDialog").dialog("open");
+    jQuery("#previewContent").html("<pre>" + wiki + "</pre>");
+
+    //var data = {
+    //    "action" : "wptc_preview_wiki",
+    //    "wiki"   : wiki
+    //}
+    //jQuery.post("wp-admin/admin-ajax.php", data, function(response) {
+
+    //    jQuery("#previewContent").html(response);
+    //});
+}
+
+jQuery(function($) {
+    $("#previewDialog").dialog({
+        autoOpen: false,
+        position: "center",
+        minWidth: 680,
+        height: 450,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        }
+   });
+});
+</script>
+    <div id="previewDialog" title="Description Preview">
+      <div id="previewContent"></div>
+    </div>
+EOT;
+
+    return $js;
 }
 
 /**

@@ -4,6 +4,7 @@
  * Description: a page to show the details for a ticket.
  */
 wp_enqueue_script('jquery-ui-autocomplete');
+wp_enqueue_script('jquery-ui-dialog');
 // enqueue styles and scripts for trac project.
 wp_enqueue_style('wptc-css');
 wp_enqueue_script('wptc-js');
@@ -64,7 +65,7 @@ if(!empty($ticket)) {
 ?>
   <div id="content">
 
-    <?php wptc_widget_new_ticket_form(); ?>
+    <?php echo wptc_widget_new_ticket_form(); ?>
 
 <?php
 }
