@@ -57,6 +57,8 @@ EOT;
  */
 function wptc_widget_preview_dialog_js() {
 
+    $ajax_url = admin_url('admin-ajax.php');
+
     $js = <<<EOT
 <script type="text/javascript">
 function preview(fieldSelector) {
@@ -64,16 +66,16 @@ function preview(fieldSelector) {
     //alert("click preview: " + wiki);
     jQuery("#previewContent").html("<b>Loading ...</b>");
     jQuery("#previewDialog").dialog("open");
-    jQuery("#previewContent").html("<pre>" + wiki + "</pre>");
 
-    //var data = {
-    //    "action" : "wptc_preview_wiki",
-    //    "wiki"   : wiki
-    //}
-    //jQuery.post("wp-admin/admin-ajax.php", data, function(response) {
+    var data = {
+        "action" : "wptc_preview_wiki",
+        "wiki"   : wiki
+    };
 
-    //    jQuery("#previewContent").html(response);
-    //});
+    jQuery.post("{$ajax_url}", data, function(response) {
+
+        jQuery("#previewContent").html(JSON.parse(response));
+    });
 }
 
 jQuery(function($) {
@@ -93,7 +95,7 @@ jQuery(function($) {
    });
 });
 </script>
-    <div id="previewDialog" title="Description Preview">
+    <div id="previewDialog" title="Description / Comment Preview">
       <div id="previewContent"></div>
     </div>
 EOT;

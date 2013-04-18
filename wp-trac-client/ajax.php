@@ -58,7 +58,7 @@ function wptc_valid_username_cb() {
 }
 
 /**
- *
+ * ajax call back for toggle select options.
  */
 add_action('wp_ajax_nopriv_wptc_toggle_select_opts',
            'wptc_toggle_select_opts_cb');
@@ -87,6 +87,22 @@ function wptc_toggle_select_opts_cb() {
     }
 
     echo json_encode($opts);
+    exit;
+}
+
+/**
+ * ajax call back to preview wiki content.
+ */
+add_action('wp_ajax_nopriv_wptc_preview_wiki',
+           'wptc_preview_wiki_cb');
+add_action('wp_ajax_wptc_preview_wiki',
+           'wptc_preview_wiki_cb');
+function wptc_preview_wiki_cb() {
+
+    $wiki = stripslashes($_POST['wiki']);
+    $preview = wptc_widget_parse_content($wiki);
+
+    echo json_encode($preview);
     exit;
 }
 
