@@ -945,7 +945,7 @@ function wptc_widget_ticket_details($ticket) {
     echo wptc_widget_ticket_info($ticket);
 
     // load the ticket editing form.
-    wptc_widget_ticket_form($ticket, $actions);
+    echo wptc_widget_ticket_form($ticket, $actions);
 
     // Change log at the end.
     echo wptc_widget_ticket_changelog($changelog);
