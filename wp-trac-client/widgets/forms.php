@@ -84,6 +84,11 @@ jQuery(function($) {
         position: "center",
         minWidth: 580,
         height: 350,
+        buttons: {
+            "Close": function() {
+                $(this).dialog("close");
+            }
+        },
         show: {
             effect: "blind",
             duration: 1000
