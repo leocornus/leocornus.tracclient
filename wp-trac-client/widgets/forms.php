@@ -141,7 +141,11 @@ function wptc_widget_ticket_form($ticket, $actions) {
     {$preview_js}
   </div>
   <div class="buttons">
-    <input type="submit" id="descsubmit" name="submit" value="Submit changes">
+    <input type="button" id="descpreview"
+           name="descpreview" value="Preview description"
+           onclick="javascript: preview('#field-description')">
+    <input type="submit" id="descsubmit" 
+           name="submit" value="Submit changes">
   </div>
 </div>
 
@@ -158,8 +162,11 @@ function wptc_widget_ticket_form($ticket, $actions) {
       <input type="hidden" id="id" name="id" value="{$ticket['id']}">
       <input type="hidden" id="invalidFields" 
              name="invalidFields" value="">
-      <!-- input type="submit" name="preview" value="Preview" -->&nbsp;
-      <input type="submit" id="wikisubmit" name="submit" value="Submit changes">
+      <input type="button" id="descpreview"
+             name="descpreview" value="Preview description"
+             onclick="javascript: preview('#wikicomment')">
+      <input type="submit" id="wikisubmit" 
+             name="submit" value="Submit changes">
     </div>
 </div>
 </div>
