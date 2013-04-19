@@ -299,14 +299,16 @@ class tracxhtml_list extends WikiRendererBloc {
     public $type='list';
     protected $_stack=array();
     protected $_firstTagLen;
-    protected $regexp="/^(\s*)(\*|1\.)(.*)/";
+    protected $regexp="/^(\s*)(\*|-|1\.)(.*)/";
+    protected $_uls = array("*", "-");
     protected $_firstItem = true;
 
     public function open(){
         $this->_stack[] = array(strlen($this->_detectMatch[1]) ,  $this->_detectMatch[2]);
         $this->_firstTagLen = strlen($this->_detectMatch[1]);
         $this->_firstItem = true;
-        if($this->_detectMatch[2] == '*')
+        
+        if(in_array($this->_detectMatch[2], $this->_uls))
             return "<ul>\n";
         else
             return "<ol>\n";
@@ -318,7 +320,7 @@ class tracxhtml_list extends WikiRendererBloc {
         for($i=count($this->_stack)-1; $i >=0; $i--){
             if($this->_stack[$i][0] < $this->_firstTagLen) break;
 
-            $str.=($this->_stack[$i][1]== '*'?"</li></ul>\n":"</li></ol>\n");
+            $str.=(in_array($this->_stack[$i][1], $this->_uls)?"</li></ul>\n":"</li></ol>\n");
             array_pop($this->_stack);
         }
         return $str;
@@ -332,7 +334,7 @@ class tracxhtml_list extends WikiRendererBloc {
 
         if( $d < 0 ){ // un niveau de plus
             $this->_stack[] = array($newLen ,  $this->_detectMatch[2]);
-            $str=($this->_detectMatch[2] == '*'?"<ul><li>":"<ol><li>");
+            $str=(in_array($this->_detectMatch[2], $this->_uls)?"<ul><li>":"<ol><li>");
 
         } else {
             if( $d > 0 ){ // on remonte d'un ou plusieurs cran dans la hierarchie...
@@ -340,7 +342,7 @@ class tracxhtml_list extends WikiRendererBloc {
                     if($this->_stack[$i][0] <= $newLen){
                         break;
                     } else {
-                        $str.=($this->_stack[$i][1]== '*'?"</li></ul>\n":"</li></ol>\n");
+                        $str.=(in_array($this->_stack[$i][1], $this->_uls)?"</li></ul>\n":"</li></ol>\n");
                     }
                     array_pop($this->_stack);
                 }
@@ -349,7 +351,7 @@ class tracxhtml_list extends WikiRendererBloc {
                     $this->_firstItem = true;
                     $t = array($newLen,   $this->_detectMatch[2]);
                     $this->_stack[] = $t;
-                    if($t[1] == '*')
+                    if(in_array($t[1], $this->_uls))
                         $str .= "<ul>\n";
                     else
                         $str .= "<ol>\n";
@@ -363,7 +365,7 @@ class tracxhtml_list extends WikiRendererBloc {
                 if(!$this->_firstItem)
                     $str .='</li>';
 
-                if($t[1] == '*')
+                if(in_array($t[1], $this->_uls))
                     $str .= "<ul>\n<li>";
                 else
                     $str .= "<ol>\n<li>";
