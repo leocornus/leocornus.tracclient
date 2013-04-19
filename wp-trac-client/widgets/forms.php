@@ -163,7 +163,7 @@ function wptc_widget_ticket_form($ticket, $actions) {
       <input type="hidden" id="invalidFields" 
              name="invalidFields" value="">
       <input type="button" id="descpreview"
-             name="descpreview" value="Preview description"
+             name="descpreview" value="Preview comment"
              onclick="javascript: preview('#wikicomment')">
       <input type="submit" id="wikisubmit" 
              name="submit" value="Submit changes">
