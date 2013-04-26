@@ -1041,6 +1041,9 @@ function wptc_widget_project_summary($project) {
         return "";
     }
     $running = $all['Running (by Due Date)'];
+    if (empty($running)) {
+        return "";
+    }
     $milestoneDivs = "";
     foreach(array_keys($running) as $milestone) {
         $milestoneDivs = $milestoneDivs . 
