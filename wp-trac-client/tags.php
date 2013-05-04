@@ -468,9 +468,20 @@ function wptc_get_ticket_default_version() {
  */
 function wptc_update_ticket($id, $comment='', $attributes) {
 
+    if($attributes === null) {
+        // this is a easy signiture to add comment to a ticket.
+        // load the ticket attributes 
+        $ticket = wptc_get_ticket($id);
+        if(empty($ticket)) {
+            // no ticket found, retur.
+            return null;
+        } else {
+            $attributes['summary'] = $ticket['summary'];
+        }
+    }
+
     // using current user's login as the author.
-    global $current_user;
-    get_currentuserinfo();
+    $current_user = wp_get_current_user();
     if(has_filter('wptc_filter_ticket_attrs')) {
         $attributes = 
             apply_filters('wptc_filter_ticket_attrs', 
@@ -521,22 +532,24 @@ add_filter('wptc_filter_ticket_attrs',
  */
 function ensure_owner_reporter_in_cc($attrs) {
 
-    // find user email by using wordpress fucntion.
-    $owner = get_user_by('login', $attrs['owner']);
-    $reporter = get_user_by('login', $attrs['reporter']);
+    if($attrs && array_key_exists('cc', $attrs)) {
+        // find user email by using wordpress fucntion.
+        $owner = get_user_by('login', $attrs['owner']);
+        $reporter = get_user_by('login', $attrs['reporter']);
 
-    // load the current cc as an array.
-    $cc_array = explode(",", trim($attrs['cc']));
+        // load the current cc as an array.
+        $cc_array = explode(",", trim($attrs['cc']));
 
-    if($owner && !in_array($owner->user_email, $cc_array)) {
-        $cc_array[] = $owner->user_email;
+        if($owner && !in_array($owner->user_email, $cc_array)) {
+            $cc_array[] = $owner->user_email;
+        }
+
+        if($reporter && !in_array($reporter->user_email, $cc_array)) {
+            $cc_array[] = $reporter->user_email;
+        }
+
+        $attrs['cc'] = implode(",", $cc_array);
     }
-
-    if($reporter && !in_array($reporter->user_email, $cc_array)) {
-        $cc_array[] = $reporter->user_email;
-    }
-
-    $attrs['cc'] = implode(",", $cc_array);
 
     return $attrs;
 }
