@@ -14,7 +14,7 @@ function wptc_widget_time_age($time) {
 
     $date = new DateTime($time, new DateTimeZone('UTC'));
     $age = human_time_diff($date->getTimestamp(), 
-                           current_time('timestamp'));
+                           current_time('timestamp', true));
     return $age;
 
     $interval = $date->diff(new DateTime('now'));
