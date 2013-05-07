@@ -13,6 +13,10 @@
 function wptc_widget_time_age($time) {
 
     $date = new DateTime($time, new DateTimeZone('UTC'));
+    $age = human_time_diff($date->getTimestamp(), 
+                           current_time('timestamp'));
+    return $age;
+
     $interval = $date->diff(new DateTime('now'));
     $totalDays = $interval->days;
     $minutes = $interval->m;
