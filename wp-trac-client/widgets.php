@@ -301,7 +301,16 @@ function wptc_widget_tickets_list($tickets, $subpageSlug='ticket') {
     $blog_path = $current_blog->path;
     $ticketTr = array();
     $index = 1;
+    // save the status summary for all tickets.
+    $status_summary = array();
     foreach($tickets as $ticket) {
+
+        // prepareing the status summary.
+        if(array_key_exists($ticket['status'], $status_summary)) {
+            $status_summary[$ticket['status']] += 1;
+        } else {
+            $status_summary[$ticket['status']] = 1;
+        }
 
         $ticket_owner_href = 
             wptc_widget_user_href($ticket['owner']);
@@ -346,9 +355,28 @@ EOT;
 EOT;
     }
 
+    $statusDts = array();
+    $total = array_sum(array_values($status_summary));
+    foreach($status_summary as $status => $subtotal) {
+        $statusDts[] = <<<EOT
+<dt>{$status}:</dt>
+<dd>{$subtotal}</dd>
+EOT;
+    }
+    $statusDts = implode("\n", $statusDts);
+
     $ticketTrs = implode('', $ticketTr);
     $list = <<<EOT
 <div>
+<div class="milestone"><div class="info">
+<dl>
+  <dt><b>Number of tickets</b></dt>
+  <dd></dd>
+  {$statusDts}
+  <dt><b>Total:</b></dt> 
+  <dd>{$total}</dd>
+</dl>
+</div></div>
 <table width="100%" class="listing tickets">
   <tbody>
   <tr class="trac-columns">
