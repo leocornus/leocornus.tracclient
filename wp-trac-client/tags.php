@@ -102,6 +102,19 @@ function wptc_get_tickets_by_owner($owner) {
                          $tickets);
 }
 
+/*
+ * return a list fo tickets for the given milstone.
+ */
+function wptc_get_tickets_by_milestone($milestone, $max=100, $page=1) {
+
+    $query = "milestone=" . $milestone .
+             "&order=id";
+    $ids = wptc_ticket_query($query, $max, $page);
+    $tickets = wptc_get_tickets_list_m($ids);
+
+    return $tickets;
+}
+
 /**
  * using multi-call to get ticket info for a list of 
  * ids.
@@ -158,6 +171,7 @@ function wptc_build_query($milestone, $version=null, $max=25, $page=1) {
 
 /**
  * generic way to query tickets.
+ * set max to 0 to retrun all tickets.
  */
 function wptc_ticket_query($query, $max=25, $page=1) {
 

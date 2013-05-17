@@ -746,6 +746,8 @@ function wptc_widget_ticket_info($ticket) {
         wptc_widget_user_href($ticket['reporter']);
     $ticket_owner_href = 
         wptc_widget_user_href($ticket['owner']);
+    $ticket_milestone_href = 
+        wptc_widget_milestone_href($ticket['milestone']);
     $ticket_version_href = 
         wptc_widget_version_href($ticket['version']);
     // preparing the descriptions.
@@ -805,7 +807,7 @@ function wptc_widget_ticket_info($ticket) {
         Milestone:
       </th>
       <td headers="h_milestone">
-        {$ticket['milestone']}
+        <a href="{$ticket_milestone_href}">{$ticket['milestone']}</a>
       </td>
       <th id="h_component">
         Component:

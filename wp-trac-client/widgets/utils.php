@@ -123,7 +123,7 @@ EOT;
 /**
  * generate the href link for version field.
  */
-function wptc_widget_version_href($version) {
+function wptc_widget_base_href() {
 
     // using the global variables.
     global $post, $current_blog;
@@ -132,7 +132,29 @@ function wptc_widget_version_href($version) {
         get_page($post->post_parent)->post_name :
         $post->post_name;
 
-    $href = $blog_path . $page_slug . '?version=' . $version;
+    $href = $blog_path . $page_slug;
+
+    return apply_filters('wptc_widget_base_href', $href);
+}
+
+/**
+ * generate the href link for version field.
+ */
+function wptc_widget_version_href($version) {
+
+    $base = wptc_widget_base_href();
+    $href = $base . '?version=' . $version;
 
     return apply_filters('wptc_widget_version_href', $href);
+}
+
+/**
+ * generate the href link for version field.
+ */
+function wptc_widget_milestone_href($milestone) {
+
+    $base = wptc_widget_base_href();
+    $href = $base . '?milestone=' . $milestone;
+
+    return apply_filters('wptc_widget_milestone_href', $href);
 }
