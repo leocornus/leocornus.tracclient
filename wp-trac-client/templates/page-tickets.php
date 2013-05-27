@@ -3,6 +3,9 @@
  * Template Name: Trac Tickets
  * Description: a page templage to show a list of tickets.
  */
+
+require_once(WPTC_PLUGIN_PATH . '/classes/wptc-ticket-list-table.php');
+
 ?>
 
 <?php 
