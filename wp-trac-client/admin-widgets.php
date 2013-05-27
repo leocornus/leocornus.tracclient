@@ -1,5 +1,7 @@
 <?php
 
+require_once(WPTC_PLUGIN_PATH . '/classes/wptc-project-list-table.php');
+
 /**
  * load and analyzt the request context.
  * the context will be array with 

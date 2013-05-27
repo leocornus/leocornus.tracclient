@@ -43,7 +43,6 @@ $my_plugin_file = __FILE__;
 define('WPTC_PLUGIN_FILE', $my_plugin_file);
 define('WPTC_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
 
-require_once(WPTC_PLUGIN_PATH . '/classes/listtables.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-tags.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-widgets.php');
 
