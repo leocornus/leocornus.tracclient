@@ -9,10 +9,16 @@ require_once(WPTC_PLUGIN_PATH . '/classes/wptc-project-list-table.php');
 function wptc_widget_pm_context() {
 
     $context = array();
+    // what's the action.
     if (isset($_REQUEST['action'])) { 
         $context['action'] = $_REQUEST['action'];
     } else {
         $context['action'] = 'list';
+    }
+
+    // what's the manage action.
+    if (isset($_REQUEST['manageaction'])) {
+        $context['manageaction'] = $_REQUEST['manageaction'];
     }
 
     return $context;
@@ -187,7 +193,7 @@ EOT;
 /**
  * page to manage a project.
  */
-function wptc_widget_manage_project() {
+function wptc_widget_manage_project($context) {
 
     $name = $_REQUEST['project'];
     $milestoneList = new WPTC_Milestone_List_Table($name);
@@ -199,7 +205,7 @@ function wptc_widget_manage_project() {
 <h2>Manage Project <b>$name</b></h2>
 EOT;
     // milestone edit form.
-    wptc_widget_mandv_form($name);
+    wptc_widget_mandv_form($name, $context);
 
     echo <<<EOT
 <h3>List of Milestones</h3>
@@ -215,7 +221,7 @@ EOT;
 /**
  * milestone and version list for a project.
  */
-function wptc_widget_mandv_form($project) {
+function wptc_widget_mandv_form($project, $context) {
 
     $page = $_REQUEST['page'];
     $form_id = 'wptc_mandv_form';

@@ -11,7 +11,7 @@ wptc_handle_pm_submit($pm_context);
 
 switch($pm_context['action']) {
     case 'manageproject':
-        wptc_widget_manage_project();
+        wptc_widget_manage_project($pm_context);
         break;
     case 'list':
     default:

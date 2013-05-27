@@ -253,10 +253,14 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
 
         // Build row actions: Edit and Delete
         $aTemp = '<a href="?page=%s&action=%s&mandv=%s&type=%s">%s</a>';
+
+        $editHref = '<a href="?page=' . $_REQUEST['page'] .
+                    '&action=manageproject&project=' . 
+                    $this->project_name . '&manageaction=edit' .
+                    '&mandv=' . $item['name'] .
+                    '&type=' . $item['type'] . '">Edit</a>';
         $actions = array(
-            'edit'   => sprintf($aTemp, $_REQUEST['page'],
-                                'editmandv', $item['name'], 
-                                $item['type'], 'Edit'),
+            'edit'   => $editHref,
             'delete' => sprintf($aTemp, $_REQUEST['page'],
                                 'deletemandv', $item['name'],
                                 $item['type'], 'Delete'),
