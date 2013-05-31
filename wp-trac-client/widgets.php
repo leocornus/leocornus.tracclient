@@ -152,6 +152,12 @@ function wptc_widget_trac_toolbar($page_slug=null) {
     $form = <<<EOT
 <div class="trac-toolbar-item">
   <b>
+  <a href="{$blog_path}trac">Timeline</a>
+  </b>
+</div>
+<br/>
+<div class="trac-toolbar-item">
+  <b>
   <a href="{$blog_path}trac/mytickets">My Tickets</a>
   </b>
 </div>
@@ -1163,7 +1169,7 @@ function wptc_widget_trac_timeline() {
 
         $ticket_dt = <<<EOT
 <dt>
-  <a href="{$ticket_href}">
+  <a href="{$ticket_href}" class="ticket">
   <span class="time">{$change_age}</span>
   Ticket 
   (<em title="{$aline['title']}">#{$aline['id']}</em>)

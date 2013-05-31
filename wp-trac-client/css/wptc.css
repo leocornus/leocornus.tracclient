@@ -585,3 +585,49 @@ url(../images/trac_progress_gradient.png) top repeat-x; }
   margin-left: 2em;
   padding: 0;
 }
+
+/**
+ * timeline styles
+ */
+.timeline dl {
+ line-height: 1.3em;
+ margin-left: 1em;
+}
+.timeline dl.unread {
+ margin-left: 0.38em;
+ border-left: 0.31em solid #c0f0c0;
+ padding-left: 0.31em;
+}
+
+.timeline dt { background: 3px 4px no-repeat; padding: 0 }
+.timeline dt :link, dt :visited {
+ background: 3px 3px no-repeat;
+ border: none;
+ color: #000;
+ padding: 0 4px 2px 22px;
+}
+.timeline dt>:link, .timeline dt>:visited {
+ /* Hide from IE/Win */
+ background-position: 3px 4px;
+}
+.timeline dt :link:hover, dt :visited:hover { background-color: #eed; color: #000 }
+.timeline dt em {
+ border-bottom: 1px dotted #bbb;
+ color: #b00;
+ font-style: normal;
+ text-decoration: none;
+}
+.timeline dt .time { color: #999; font-size: 80%; 
+  display: inline-block;
+  width: 50px;
+}
+.timeline dt .author { color: #666; }
+.timeline dt.highlight { background-color: #ffa; }
+.timeline dd {
+ font-size: 80%;
+ margin: 0 0 .75em 5.8em;
+ padding: 0;
+ color: #776;
+}
+
+.timeline dt a.ticket { background-image: url(../images/editedticket.png) !important }

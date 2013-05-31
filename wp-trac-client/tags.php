@@ -285,7 +285,11 @@ function wptc_get_tickets_timeline($from, $to=null) {
                 'author' => $change['author'],
                 'action' => 'updated',
             );
-            if(array_key_exists('fields', $change)) {
+            if(array_key_exists('comment', $change)) {
+                $line['summary'] = substr($change['comment'], 0, 120);
+            }
+            if (empty($line['summary']) &&
+                array_key_exists('fields', $change)) {
             
                 $line['summary'] = implode(" ", $change['fields']);
             }
