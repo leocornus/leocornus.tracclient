@@ -1095,9 +1095,9 @@ EOT;
 }
 
 /**
- * proeparing hte trac home page.
+ * all project summary in one page
  */
-function wptc_widget_trac_homepage() {
+function wptc_widget_project_summary_allinone() {
 
     // get all projects.
     $projects = wptc_get_projects();
@@ -1135,4 +1135,48 @@ jQuery(document).ready(function($) {
 EOT;
 
     return $div;
+}
+
+/**
+ * preparing hte trac home page.
+ */
+function wptc_widget_trac_homepage() {
+
+    //return wptc_widget_project_summary_allinone();
+    return wptc_widget_trac_timeline();
+}
+
+/**
+ * preparing the timeline 
+ */
+function wptc_widget_trac_timeline() {
+
+    // using 2 weeks time range as the default.
+    $from = date('m/d/Y', strtotime("-2 Weeks"));
+    $timeline = wptc_get_tickets_timeline($from);
+    $timeline_dts = "";
+    foreach($timeline as $change_time => $aline) {
+
+        $change_age = wptc_widget_time_age($change_time);
+        $ticket_href = 'ticket?id=' . $aline['id'];
+        $author_href = wptc_widget_user_href($aline['author']);
+
+        $ticket_dt = <<<EOT
+<dt>
+  <a href="{$ticket_href}">
+  <span class="time">{$change_age}</span>
+  Ticket 
+  (<em title="{$aline['title']}">#{$aline['id']}</em>)
+  {$aline['title']} 
+  </a> {$aline['action']} by {$author_href}
+</dt>
+<dd>
+  {$aline['summary']} [...]
+</dd>
+EOT;
+        $timeline_dts = $timeline_dts . $ticket_dt;
+    }
+
+    return "<div class='timeline'><dl>" . $timeline_dts . 
+           "</dl></div>";
 }

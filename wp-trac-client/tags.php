@@ -203,6 +203,172 @@ function wptc_ticket_query_m($querys) {
 }
 
 /**
+ * return ticket timeline as an array.
+ * The from and to date should use the following format:
+ * 01/31/2013
+ * the return of the timeline should looks like the following:
+ *
+ * array(
+ *     '01/31/2013' => array(
+ *         '14:30' => 'message',
+           '13:20' => 'message',
+
+ *         ),
+ *     '01/30/2013' => array(
+           '12:45' => array(
+               
+               ),
+ *         ),
+ * )
+ *
+ * @param $from start date
+ * @param $to end date, default is null, which means now today.
+ */
+function wptc_get_tickets_timeline($from, $to=null) {
+
+    if($to === null) {
+        // today will be used.
+        $to = date("Ymd\TH:i:s", time());
+    }
+    $proxy = get_wptc_client()->getProxy('ticket');
+    $query = 'changetime=' . $from . '..' . $to .
+             '&order=changetime&desc=1';
+    $ids = $proxy->query($query);
+    // get change logs for all of them at once.
+    $tickets = wptc_get_tickets_list_m($ids);
+    $tickets = array_combine($ids, $tickets);
+    $changelogs = wptc_get_tickets_changelog_m($ids);
+
+    $timeline = array();
+    foreach($changelogs as $id => $logs) {
+        $ticket = $tickets[$id];
+        // check the created date first.
+        if(strtotime($ticket['created']) > strtotime($from)) {
+            // this is a new created ticket in the time range.
+            $line = array(
+                'id' => $id,
+                'title' => $ticket['summary'],
+                'author' => $ticket['reporter'],
+                // action will be one of created, accepted, assigned,
+                // reopened, closed, and updated.
+                // basically it will 
+                'action' => 'created',
+                // TODO: get first line of desc as the message
+                'summary' => substr($ticket['description'], 0,  120)
+            );
+            // this change time should not exist yet!
+            $timeline[$ticket['created']] = $line;
+        }
+
+        // reverse to make the latest change first.
+        $logs = array_reverse($logs[0]);
+        $changes = array();
+        foreach($logs as $log) {
+
+            $change_time = $log[0];
+            if(strtotime($change_time) < strtotime($from)) {
+                // this change is too old.
+                // skip to the next change log directly.
+                break;
+            }
+            $change = wptc_combine_changes($changes, $log);
+            if($change !== null) {
+                $changes[$change_time] = $change;
+            }
+        }
+
+        foreach($changes as $change_time => $change) {
+
+            $line = array(
+                'id' => $id,
+                'title' => $ticket['summary'],
+                'author' => $change['author'],
+                'action' => 'updated',
+            );
+            if(array_key_exists('fields', $change)) {
+            
+                $line['summary'] = implode(" ", $change['fields']);
+            }
+            // TODO: How about comments?
+            $timeline[$change_time] = $line;
+        }
+    }
+
+    // sort the array by key.
+    ksort($timeline);
+
+    // return the reverse order, so the latest change will go
+    // first.
+    return array_reverse($timeline);
+}
+
+function wptc_combine_changes($changes, $log) {
+
+    // get message from each log.
+    // trac tracking field's change in one log, 
+    // even it appears to user as one change.
+    $change_time = $log[0];
+    $change_author = $log[1];
+    // time and author will keep the same for all logs
+    // within one change.
+    $change_field = $log[2];
+    $change_oldvalue = $log[3];
+    $change_newvalue = $log[4];
+
+    if ($change_field === "cc") {
+        // skip changes on cc field, we will have long 
+        // value for cc field. Since we use is as watch list.
+        return null;
+    }
+
+    // start formating for each field.
+    // we are using time as the key.
+    $change = array();
+    if (array_key_exists($change_time, $changes)) {
+        // we have this 'time' already, keep working on it.
+        $change = $changes[$change_time];
+    } else {
+        // this is a new 'time', create new change,
+        $changes[$change_time] = $change;
+        $change['author'] = $change_author;
+    }
+
+    // we handle comment field differently!
+    if ($change_field === "comment") {
+        $change['id'] = $change_oldvalue;
+        // need a little parse for the comment content
+        $change['comment'] = $change_newvalue;
+    } else if (strpos($change_field, '_comm') !== false) {
+        // do nothing here,
+        // this log is tracking the comments' 
+        // change history, it looks like '_comment0'
+        // We do NOT need now!
+    } else {
+        $msg = wptc_ticket_field_change_msg($change_field,
+            $change_oldvalue, $change_newvalue);
+        $change['fields'][] = $msg;
+    }
+
+    return $change;
+}
+
+function wptc_ticket_field_change_msg($field, $old, $new) {
+
+    if ($field === 'description') {
+        // only flag description as modified for now.
+        // TODO: add the diff view for the change.
+        $change_msg = "modified";
+    } else if (empty($old)) {
+        $change_msg = "set to <em>" . $new . "</em>";
+    } else {
+        $change_msg = "changed from <em>" . $old . 
+            "</em> to <em>" . $new . "</em>";
+    }
+
+    return "<strong>{$field}</strong> " . $change_msg;
+}
+
+/**
  * return all details about a ticket.
  *
  * @param $id the ticket id.
@@ -242,6 +408,42 @@ function wptc_get_ticket_changelog($id) {
 
     return apply_filters('wptc_get_ticket_changelog', 
                          $changeLog);
+}
+
+/**
+ * multi call to return all changelog for a list of tickets.
+ */
+function wptc_get_tickets_changelog_m($ids) {
+
+    // prepare the signatures.
+    $signatures = array();
+    foreach($ids as $id) {
+        $sign = array(
+            'methodName' => 'ticket.changeLog',
+            'params' => array($id)
+        );
+        array_push($signatures, $sign);
+    }
+    // using the system proxy
+    $proxy = get_wptc_client()->getProxy('system');
+    $logs = $proxy->multicall($signatures);
+
+    return array_combine($ids, $logs);
+}
+
+function wptc_quick_test() {
+
+    //$logs = wptc_get_tickets_changelog_m(array(981, 535, 538));
+    ////return $logs;
+    //foreach($logs as $id => $log) {
+
+    //    $log = array_reverse($log[0]);
+    //    return empty($log);
+    //}
+
+    
+    $from = date('m/d/Y', strtotime("-2 Weeks"));
+    return $from;
 }
 
 /**
