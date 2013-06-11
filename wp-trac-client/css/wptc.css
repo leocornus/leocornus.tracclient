@@ -114,6 +114,11 @@ h1 .status { color: #444; }
   margin-left: 2em; 
   padding: 0 
 }
+#changelog ol li, #ticket ol li {
+  list-style-type: decimal;
+  margin-left: 2em;
+  padding: 0;
+}
 #changelog .comment, #ticketchange .comment { margin-left: 2em }
 
 form .field { margin-top: .75em; width: 100% }
@@ -582,6 +587,12 @@ url(../images/trac_progress_gradient.png) top repeat-x; }
 #previewContent ul li {
   color: #000;
   list-style: square;
+  margin-left: 2em;
+  padding: 0;
+}
+
+#previewContent ol li {
+  list-style-type: decimal;
   margin-left: 2em;
   padding: 0;
 }
