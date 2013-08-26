@@ -43,16 +43,19 @@ $my_plugin_file = __FILE__;
 define('WPTC_PLUGIN_FILE', $my_plugin_file);
 define('WPTC_PLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)));
 
+require_once(WPTC_PLUGIN_PATH . '/admin/index.php');
+require_once(WPTC_PLUGIN_PATH . '/admin/init.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-tags.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-widgets.php');
 
-// activation hook
+// activation hook has to be in main php file.
 function wptc_install() {
 
     wptc_logging('wptc plugin activation hook');
     global $wptc_db_version;
     wptc_logging($wptc_db_version);
     wptc_create_tables();
+    wptc_create_pages();
     add_site_option("wptc_db_version", $wptc_db_version);
 }
 register_activation_hook(WPTC_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_install');
@@ -150,6 +153,3 @@ function wptc_is_debug() {
     $debug = get_site_option('wptc_debug');
     return ($debug === 'true');
 }
-
-// load setting pages on dashboard.
-require_once(WPTC_PLUGIN_PATH . '/admin/index.php');

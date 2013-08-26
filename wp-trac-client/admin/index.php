@@ -1,4 +1,7 @@
 <?php
+
+require_once(WPTC_PLUGIN_PATH . '/admin/init.php');
+
 // we need a admin page on dashboard for configuration.
 add_action('network_admin_menu', 'wptc_admin_init');
 /**
