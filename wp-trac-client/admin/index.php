@@ -28,7 +28,7 @@ function wptc_admin_init() {
     add_submenu_page('wp-trac-client/admin-settings.php',
                      'Trac Client Templates', 'Templates',
                      'manage_options',
-                     'wp-trac-client/admin-templates.php'
+                     'wp-trac-client/admin/templates.php'
                     );
     // some management work here.
     add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
