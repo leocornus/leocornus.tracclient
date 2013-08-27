@@ -12,8 +12,6 @@ wp_enqueue_style('wptc-css');
 global $current_user;
 ?>
 
-</div>
-
   <div id="left_column">
     <div class='leftnav'>
       <div id='ticket-finder' class="widget">
@@ -23,7 +21,7 @@ global $current_user;
     </div>
   </div> <?php // END left_column ?>
 
-  <div id="right_column">
+  <div id="content">
 
   <h2>Tickets I am working on ...</h2>
 

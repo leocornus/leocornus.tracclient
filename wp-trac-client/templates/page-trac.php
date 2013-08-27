@@ -25,7 +25,6 @@ if (empty($version)) {
 }
 ?>
 
-</div>
 
   <div id="left_column">
     <div class='leftnav'>
@@ -44,7 +43,7 @@ if (empty($version)) {
     </div>
   </div> <?php // END left_column ?>
 
-  <div id="right_column">
+  <div id="content">
 
 <?php if (empty($version)) {
 

@@ -26,7 +26,6 @@ wp_dequeue_script('comment-reply');
 // load the header now.
 get_header();
 ?>
-</div>
 
 <?php
 // handler the submit action first.
@@ -55,19 +54,17 @@ if(!empty($ticket)) {
     </div>
   </div>
 
-  <div id="right_column">
-
-    <?php wptc_widget_ticket_details($ticket); ?>
+  <div id="content">
 
 <?php
+    wptc_widget_ticket_details($ticket);
+
 } else {
     // load the create ticket form in single column
 ?>
-  <div id="content">
-
-    <?php echo wptc_widget_new_ticket_form(); ?>
-
+  <div id="right_column">
 <?php
+    echo wptc_widget_new_ticket_form();
 }
 // =========================================================
 // debug message...
