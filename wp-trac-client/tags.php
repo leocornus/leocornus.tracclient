@@ -445,9 +445,10 @@ function wptc_quick_test() {
     //    return empty($log);
     //}
 
-    
+    global $wp_styles;
+
     $from = date('m/d/Y', strtotime("-2 Weeks"));
-    return $from;
+    return $wp_styles;
 }
 
 /**
@@ -711,9 +712,14 @@ function wptc_update_ticket($id, $comment='', $attributes) {
     $proxy = get_wptc_client()->getProxy('ticket');
     // here is the signature
     // update(id, comment, attributes, notify, author, when)
+    $author =  $current_user->user_login;
     $ticket = $proxy->update($id, $comment, $attributes, 
-                             True, 
-                             $current_user->user_login);
+                             True, $author);
+    // action to allow user hook logic after create ticket.
+    if(has_action('wptc_update_ticket')) {
+        do_action('wptc_update_ticket', $id, $attributes, $author);
+    }
+
     // TODO:
     // 1. update memcached entry for ticket.
     // 2. load the ticket change log
@@ -739,6 +745,13 @@ function wptc_create_ticket($summary, $description, $attrs) {
     // notify reporter by default.
     $id = $proxy->create($summary, $description, 
                          $attrs, True);
+
+    // action to allow user hook logic after create ticket.
+    if(has_action('wptc_create_ticket')) {
+        do_action('wptc_create_ticket', $id, $summary, 
+                  $description, $attrs);
+    }
+
     return $id;
 }
 
