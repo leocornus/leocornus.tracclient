@@ -121,6 +121,11 @@ h1 .status { color: #444; }
 }
 #changelog .comment, #ticketchange .comment { margin-left: 2em }
 
+#ticket pre, #changelog pre {
+  white-space: pre-wrap;
+  background-color: #eeeeee;
+}
+
 form .field { margin-top: .75em; width: 100% }
 form .field fieldset.iefix { margin-left: 1px; margin-right: 1px }
 label[for=wikicomment] { float: right }
