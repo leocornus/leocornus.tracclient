@@ -159,8 +159,8 @@ function wptc_get_tickets_cb() {
     $tickets = wptc_get_tickets_m($milestone, $version, $max, $pageNumber);
     foreach ($tickets as $ticket) {
 
-        $id = $ticket[0];
-        $ticket[0] = "<a href='#' id='ticket-{$id}' name='ticket-{$id}'>{$id}</a>";
+        $id = $ticket['id'];
+        $ticket['id'] = "<a href='#' id='ticket-{$id}' name='ticket-{$id}'>{$id}</a>";
 
         // add to aaData.
         $output['aaData'][] = $ticket;

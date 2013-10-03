@@ -11,7 +11,7 @@ wp_enqueue_style('jquery.dataTables');
 wp_enqueue_script('jquery-ui-dialog');
 wp_enqueue_style('jquery-ui');
 ?>
-
+<div id="content">
 <script type="text/javascript" charset="utf-8">
 <!--
 
@@ -51,12 +51,14 @@ jQuery(document).ready(function() {
         "bFilter" : false,
         // turn off sorting.
         "bSort" : false,
+        // items per page.
         "iDisplayLength" : 15,
         "sAjaxSource": "<?php echo admin_url('admin-ajax.php'); ?>",
         "sServerMethod" : "POST",
         "fnServerParams" : function (aoData) {
             aoData.push(
-                {"name" : "action", "value" : "wptc_get_tickets_cb"}
+                {"name" : "action", 
+                 "value" : "wptc_get_tickets_cb"}
             );
         },
         "fnRowCallback" : function (nRow, aData, iDisplayIndex) {
@@ -88,7 +90,14 @@ jQuery(document).ready(function() {
                     jQuery("#ticketDetail").html('<strong>Here is ticket: <br/>' + response + '</strong>');
                 });
             });
-        }
+        },
+        "aoColumns":[
+            {"mDataProp": "id"},
+            {"mDataProp": "summary"},
+            {"mDataProp": "owner"},
+            {"mDataProp": "priority"},
+            {"mDataProp": "status"}
+        ]
     } );
 
     jQuery('#mydialog').dialog({
@@ -119,13 +128,25 @@ jQuery("a[name^='ticket-']").click(function() {
 
   <p>
   <table cellpadding="0" cellspacing="0" border="0" id="tickets">
-  <thead><th width="18px">ID</th><th>Summary</th><th width="68px">Owner</th><th width="58px">Priority</th><th width="58px">Status</th></thead>
+  <thead>
+    <th width="18px">ID</th>
+    <th>Summary</th>
+    <th width="68px">Owner</th>
+    <th width="58px">Priority</th>
+    <th width="58px">Status</th>
+  </thead>
   <tbody>
     <tr>
       <td colspan="4" class="dataTables_empty">Loading data from server</td>
     </tr>
   </tbody>
-  <tfoot><th>ID</th><th>Summary</th><th>Owner</th><th>Priority</th><th>Status</th></tfoot>
+  <tfoot>
+    <th>ID</th>
+    <th>Summary</th>
+    <th>Owner</th>
+    <th>Priority</th>
+    <th>Status</th>
+  </tfoot>
   </table>
   </p>
 
@@ -178,4 +199,5 @@ function showVersions() {
   </pre>
 
 <?php //get_sidebar(); ?>
+</div>
 <?php get_footer(); ?>
