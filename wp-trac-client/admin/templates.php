@@ -27,6 +27,9 @@ function wptc_pages_admin_form($echo = false) {
 
     $trac_select_html = wptc_page_list_html('trac', 
         get_site_option('wptc_page_trac'));
+    // jQuery DataTable JavaScript based trac homepage.
+    $tracdt_select_html = wptc_page_list_html('tracdt', 
+        get_site_option('wptc_page_trac_dt'));
     $ticket_select_html = wptc_page_list_html('trac-ticket',
         get_site_option('wptc_page_trac_ticket'));
     $mytickets_select_html = wptc_page_list_html('trac-mytickets',
@@ -44,6 +47,11 @@ function wptc_pages_admin_form($echo = false) {
   </thead>
 
   <tbody>
+    <tr>
+      <td>Trac DataTable Homepage</td>
+      <td>{$tracdt_select_html}</td>
+    </tr>
+
     <tr>
       <td>Trac Homepage</td>
       <td>{$trac_select_html}</td>
@@ -82,6 +90,7 @@ if (isset($_POST['wptc_pages_form_submit']) &&
     $_POST['wptc_pages_form_submit'] == 'Y') {
 
     // form submit.
+    update_site_option('wptc_page_trac_dt', $_POST['tracdt']);
     update_site_option('wptc_page_trac', $_POST['trac']);
     update_site_option('wptc_page_trac_ticket', 
                        $_POST['trac-ticket']);

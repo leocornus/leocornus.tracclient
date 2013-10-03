@@ -31,6 +31,13 @@ function wptc_apply_page_template($template) {
     }
     
     // using default value to make things easier.
+    // trac datatable homepage.
+    $page_id = get_site_option('wptc_page_trac_dt', "-1");
+    if(($page_id != "-1") && is_page($page_id)) {
+        // apply trac homepage template.
+        $template = WPTC_PLUGIN_PATH . '/templates/page-trac-list.php';
+        return $template;
+    }
     // trac homepage.
     $page_id = get_site_option('wptc_page_trac', "-1");
     if(($page_id != "-1") && is_page($page_id)) {

@@ -1,10 +1,10 @@
 <?php
 /*
  * Template Name: Trac Client 0.1
+ * 
+ * this is a page template based on jQuery DataTable js lib.
  */
-?>
 
-<?php 
 get_header(); 
 wp_enqueue_script('jquery.dataTables');
 wp_enqueue_style('jquery.dataTables');
