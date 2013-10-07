@@ -9,7 +9,8 @@
 <?php 
 get_header(); 
 wp_enqueue_style('wptc-css');
-global $current_user;
+wp_enqueue_script('jquery.dataTables');
+wp_enqueue_style('jquery.dataTables');
 ?>
 
   <div id="left_column">
@@ -26,8 +27,9 @@ global $current_user;
   <h2>Tickets I am working on ...</h2>
 
   <?php 
-    $tickets = wptc_get_tickets_by_owner($current_user->user_login);
-    echo wptc_widget_tickets_list($tickets, 'trac/ticket');
+    $current_user = wp_get_current_user();
+    $query = 'owner=' . $current_user->user_login;
+    echo wptc_view_tickets_dt($query);
   ?>
 
   </div> <?php // END right_column ?>
