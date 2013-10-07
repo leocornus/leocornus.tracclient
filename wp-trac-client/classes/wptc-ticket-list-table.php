@@ -1,10 +1,10 @@
 <?php
 
+require_once( ABSPATH . 'wp-admin/includes/template.php' );
 // load the WP_List_Table class.
 if(!class_exists('WP_List_Table')){
     // the WP_List_Table class depends on a set of function in
     // screen.php.
-    require_once( ABSPATH . 'wp-admin/includes/screen.php' );
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
