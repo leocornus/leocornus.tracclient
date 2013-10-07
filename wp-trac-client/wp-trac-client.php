@@ -81,6 +81,7 @@ require_once(WPTC_PLUGIN_PATH . '/tags.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets/utils.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets/forms.php');
+require_once(WPTC_PLUGIN_PATH . '/widgets/views.php');
 require_once(WPTC_PLUGIN_PATH . '/actions.php');
 // load ajax functions.
 require_once(WPTC_PLUGIN_PATH . '/ajax.php');
