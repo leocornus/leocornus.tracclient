@@ -11,10 +11,12 @@ require_once(WPTC_PLUGIN_PATH . '/classes/wptc-ticket-list-table.php');
 <?php 
 get_header(); 
 wp_enqueue_style('wptc-css');
-wp_enqueue_script('jquery-masonry');
+wp_enqueue_script('jquery.dataTables');
+wp_enqueue_style('jquery.dataTables');
 
 // the page slug will be the project name.
 $version = $_GET['version'];
+$milestone = $_GET['milestone'];
 if (empty($version)) {
     // using the default sprint.
     //$defaults = wptc_widget_ticket_defaults();
@@ -45,24 +47,27 @@ if (empty($version)) {
 
   <div id="content">
 
-<?php if (empty($version)) {
+<?php if (empty($version) && empty($milestone)) {
 
   echo wptc_widget_trac_homepage();
 
-} else { ?>
+} else if (!empty($version)) { ?>
 
   <h2>Tickets for Version: <em><?php echo $version ?></em></h2>
 
   <?php 
     //$tickets = wptc_get_tickets_by_version($version);
     //echo wptc_widget_tickets_list($tickets, 'trac/ticket');
-    global $current_blog;
-    $blog_path = $current_blog->path;
     $query = "version=" . $version;
-    $ticketsList = new WPTC_Ticket_List_Table($query, $blog_path,
-                                              'trac/ticket');
-    $ticketsList->prepare_items();
-    $ticketsList->display();
+    echo wptc_view_tickets_dt($query);
+
+} else if (!empty($milestone)) { ?>
+
+  <h2>Tickets for Milestone: <em><?php echo $milestone ?></em></h2>
+
+  <?php
+    $query = "milestone=" . $milestone;
+    echo wptc_view_tickets_dt($query);
   ?>
 
 <?php } ?>
