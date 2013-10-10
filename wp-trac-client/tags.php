@@ -717,7 +717,8 @@ function wptc_update_ticket($id, $comment='', $attributes) {
                              True, $author);
     // action to allow user hook logic after create ticket.
     if(has_action('wptc_update_ticket')) {
-        do_action('wptc_update_ticket', $id, $attributes, $author);
+        do_action('wptc_update_ticket', $id, $comment, 
+                  $attributes, $author);
     }
 
     // TODO:

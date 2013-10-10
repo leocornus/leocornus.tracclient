@@ -15,9 +15,9 @@ function testing_create_ticket($id, $summary, $desc, $attrs) {
 }
 
 
-add_action('wptc_update_ticket', 'testing_update_ticket', 10, 3);
-function testing_update_ticket($id, $attrs, $author) {
+add_action('wptc_update_ticket', 'testing_update_ticket', 10, 4);
+function testing_update_ticket($id, $comment, $attrs, $author) {
 
-    $msg = $id . "===>" . $author;
+    $msg = $id . "===>" . $comment . "===>" . $author;
     update_site_option("update-result", $msg);
 }
