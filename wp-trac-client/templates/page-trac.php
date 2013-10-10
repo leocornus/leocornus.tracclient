@@ -4,11 +4,6 @@
  * Description: a page templage to show a list of tickets.
  */
 
-require_once(WPTC_PLUGIN_PATH . '/classes/wptc-ticket-list-table.php');
-
-?>
-
-<?php 
 get_header(); 
 wp_enqueue_style('wptc-css');
 wp_enqueue_script('jquery.dataTables');
@@ -56,8 +51,6 @@ if (empty($version)) {
   <h2>Tickets for Version: <em><?php echo $version ?></em></h2>
 
   <?php 
-    //$tickets = wptc_get_tickets_by_version($version);
-    //echo wptc_widget_tickets_list($tickets, 'trac/ticket');
     $query = "version=" . $version;
     echo wptc_view_tickets_dt($query);
 
