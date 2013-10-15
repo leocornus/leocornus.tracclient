@@ -75,6 +75,8 @@ function wptc_widget_field_change_msg($field, $old, $new) {
         $change_msg = "modified";
     } else if (empty($old)) {
         $change_msg = "set to <em>" . $new . "</em>";
+    } else if (empty($new)) {
+        $change_msg = "<em>" . $old . "</em> deleted";
     } else {
         $change_msg = "changed from <em>" . $old . 
             "</em> to <em>" . $new . "</em>";

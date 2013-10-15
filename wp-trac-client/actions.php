@@ -118,6 +118,8 @@ function wptc_analyze_workflow_action() {
     // we should always have 'action' field.
     $action = $_POST['action'];
     $attributes = array();
+    // action field will trigger the worflow action on trac server,
+    // and it will be executed after XMLRPC call.
     $attributes['action'] = $action;
     switch($action) {
         case 'leave':
@@ -136,7 +138,10 @@ function wptc_analyze_workflow_action() {
         case 'resolve':
             // resove to a resolution.
             $attributes['status'] = 'closed';
-            $attributes['resolution'] = 
+            // resolve action will use this attribute to set
+            // the resolution field. 
+            // The trac workflow engine control this.
+            $attributes['action_resolve_resolve_resolution'] = 
                 $_POST['action_resolve_resolve_resolution'];
             break;
         case 'reassign':
