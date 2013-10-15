@@ -27,7 +27,9 @@ function wptc_view_tickets_dt($query,
         $owner_href = wptc_widget_user_href($ticket['owner']);
         $one_tr = <<<EOT
 <tr>
-  <td><a href="{$ticket_url}">{$ticket['id']}</a></td>
+  <td><a href="{$ticket_url}" class="{$ticket['status']}">
+    {$ticket['id']}</a>
+  </td>
   <td><a href="{$ticket_url}">{$ticket['summary']}</a></td>
   <td>{$owner_href}</td>
   <td>{$ticket['priority']}</td>
