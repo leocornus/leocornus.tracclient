@@ -28,7 +28,8 @@ wp_enqueue_style('jquery.dataTables');
 
   <?php 
     $current_user = wp_get_current_user();
-    $query = 'owner=' . $current_user->user_login;
+    $query = 'owner=' . $current_user->user_login . 
+             '&status!=closed';
     echo wptc_view_tickets_dt($query);
   ?>
 
