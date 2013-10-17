@@ -162,7 +162,7 @@ class WPTC_Project_List_Table extends WP_List_Table {
 
         // this is array sorting,
         // we could query database directly
-        function usort_reorder($a,$b){
+        function wptc_project_usort_reorder($a,$b){
             $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'name'; //If no sort, default to name 
             $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
             // Determine sort order
@@ -170,7 +170,7 @@ class WPTC_Project_List_Table extends WP_List_Table {
             // Send final sort direction to usort
             return ($order==='asc') ? $result : -$result; 
         }
-        usort($data, 'usort_reorder');
+        usort($data, 'wptc_project_usort_reorder');
 
         // for pagination.
         $current_page = $this->get_pagenum();
