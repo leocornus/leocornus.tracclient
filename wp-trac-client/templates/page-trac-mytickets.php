@@ -11,6 +11,23 @@ get_header();
 wp_enqueue_style('wptc-css');
 wp_enqueue_script('jquery.dataTables');
 wp_enqueue_style('jquery.dataTables');
+
+// get the user
+$owner = $_GET['owner'];
+if(empty($owner)) {
+    $current_user = wp_get_current_user();
+    $owner = $current_user->user_login;
+}
+// include closed or not
+$include_closed = $_GET['includeClosed'];
+if(!empty($include_closed) && 
+   strtolower($include_closed) === "true" ) {
+    $query = "owner={$owner}";
+    $checked = "checked";
+} else {
+    $query = "owner={$owner}" . '&status!=closed';
+    $checked = "";
+}
 ?>
 
   <div id="left_column">
@@ -26,10 +43,37 @@ wp_enqueue_style('jquery.dataTables');
 
   <h2>Tickets I am working on ...</h2>
 
+  <div style="float: right">
+    <input type="hidden" id="owner" value="<?php echo $owner;?>"/>
+    <input type="checkbox" id="includeClosed" 
+        <?php echo $checked;?>
+    />
+    Include Closed Tickets
+    <script type="text/javascript" charset="utf-8">
+    <!--
+      jQuery('#includeClosed').on("click", function() {
+          var owner = jQuery('#owner').val();
+          var checked = jQuery(this).attr('checked');
+          var local = jQuery(location);
+          var params = {};
+          if(checked == 'checked') {
+              params['includeClosed'] = 'true';
+          }
+          if(owner.length > 0) {
+              params['owner'] = owner;
+          }
+          var newHref = local.attr('protocol') + "://" + 
+                        local.attr('host') + 
+                        local.attr('pathname') + "?" +
+                        jQuery.param(params);
+          window.location = newHref;
+ 
+      });
+    -->
+    </script>
+  </div>
+
   <?php 
-    $current_user = wp_get_current_user();
-    $query = 'owner=' . $current_user->user_login . 
-             '&status!=closed';
     echo wptc_view_tickets_dt($query);
   ?>
 
