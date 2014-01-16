@@ -45,6 +45,12 @@ function wptc_widget_parse_content($wiki) {
  * preparing the options for select tag.
  * this could be used by type, milestone, version,
  * priority dropdown
+ * Options will an array with the following format:
+ *
+ * $options = array(
+ *     'options_value_1' => 'options_label_1',
+ *     'options_value_2' => 'options_label_2'
+ * );
  */
 function wptc_widget_options_html($options, $selected="", 
                                   $hasEmpty=true,
