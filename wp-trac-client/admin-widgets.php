@@ -245,7 +245,7 @@ function wptc_widget_mandv_form($project, $context) {
         $mandv = wptc_get_mandv($mandv_name);
         $mandv_type = $mandv['type'];
         $mandv_desc = $mandv['description'];
-        $mandv_due = $mandv['due_date'];
+        $mandv_due = substr($mandv['due_date'], 0, 10);
         $manage_action = "edit";
         $form_title = 'Update ' . $mandv_type . ': ' . $mandv_name;
     } else {
@@ -324,7 +324,9 @@ EOT;
     echo <<<EOT
   <script>
     jQuery(function() {
-      jQuery("#wptc_mandvduedate").datepicker();
+      jQuery("#wptc_mandvduedate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
     });
   </script>
 </form>
@@ -363,7 +365,7 @@ EOT;
         // adding time to the end of the date
         $dueStr = ($type === 'milestone') ? $due . ' 17:00:01' :
             $due . ' 17:00:00';
-        $duedate = DateTime::createFromFormat('m/d/Y H:i:s', $dueStr);
+        $duedate = DateTime::createFromFormat('Y-m-d H:i:s', $dueStr);
         $success = wptc_update_mandv($projectName, $type, $name, 
                                      $desc, $duedate);
         if ($action === 'new') {
