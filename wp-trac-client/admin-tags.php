@@ -164,34 +164,43 @@ function wptc_remove_byname_trac($type, $name) {
 }
 
 /**
- * update a milestone or version for the project.
+ * create or update a milestone or version for the project.
  */
 function wptc_update_mandv($project_name, $type, $name,
                            $description, $duedate) {
 
     global $wpdb;
     $project = wptc_get_project($project_name);
-
-    $success = $wpdb->insert(
-        WPTC_PROJECT_METADATA,
-        array(
+    $data = array(
             'name' => $name,
             'description' => $description,
             'type' => $type,
             'due_date' => $duedate->format('Y-m-d H:i:s'),
             'project_id' => $project['id']
-        ),
-        array(
+           );
+    $format = array(
             '%s',
             '%s',
             '%s',
             '%s',
             '%d'
-        )
-    );
+           );
 
-    do_action('wptc_update_mandv', $type, $name, 
-              $description, $duedate);
+    if (count(wptc_get_mandv($name)) > 0) {
+        // update an exist metadata.
+        $success = $wpdb->update(
+            WPTC_PROJECT_METADATA,
+            $data, array('name' => $name),
+            $format, array('%s'));
+    } else {
+        // create a new one.
+        $success = $wpdb->insert(WPTC_PROJECT_METADATA, 
+                                 $data, $format);
+    }
+
+    if ($success)
+        do_action('wptc_update_mandv', $type, $name, 
+                  $description, $duedate);
 
     return $success;
 }
