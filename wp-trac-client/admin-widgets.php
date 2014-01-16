@@ -253,6 +253,12 @@ function wptc_widget_mandv_form($project, $context) {
         $form_title = "Add New Milestone / Version";
     }
 
+    // preparing the type options for the dropdown.
+    $type_options = wptc_widget_options_html(
+        array('version' => 'Version',
+              'milestone' => 'Milestone'),
+        $mandv_type, false, false);
+
     echo <<<EOT
 <h3>{$form_title}</h3>
 
@@ -275,8 +281,7 @@ EOT;
       </th>
       <td>
         <select id="wptc_mandvtype" name="wptc_mandvtype">
-          <option value="version" selected>Version</option>
-          <option value="milestone">Milestone</option>
+          {$type_options}
         </select>
       </td>
     </tr>
