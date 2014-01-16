@@ -253,17 +253,17 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
 
         // Build row actions: Edit and Delete
         $aTemp = '<a href="?page=%s&action=%s&mandv=%s&type=%s">%s</a>';
-
-        $editHref = '<a href="?page=' . $_REQUEST['page'] .
+        $baseHref = '<a href="?page=' . $_REQUEST['page'] .
                     '&action=manageproject&project=' . 
-                    $this->project_name . '&manageaction=edit' .
+                    $this->project_name .
                     '&mandv=' . $item['name'] .
-                    '&type=' . $item['type'] . '">Edit</a>';
+                    '&type=' . $item['type'] . 
+                    '&manageaction=';
+        $deleteHref = $baseHref . 'delete">Delete</a>';
+        $editHref = $baseHref . 'edit">Edit</a>';
         $actions = array(
             'edit'   => $editHref,
-            'delete' => sprintf($aTemp, $_REQUEST['page'],
-                                'deletemandv', $item['name'],
-                                $item['type'], 'Delete'),
+            'delete' => $deleteHref
         );
 
         // Return the name contents
@@ -272,9 +272,8 @@ class WPTC_Milestone_List_Table extends WP_List_Table {
             ('— ' . $item['name']) :  $item['name'];    
         $nameContent = "<b><span style='font-size: 15px'>" . 
                        $nameContent . "</span></b>";
-        $nameHref = sprintf($aTemp, $_REQUEST['page'],
-                            'editmilestone', $item['name'],
-                            $item['type'], $nameContent);
+        $nameHref = $baseHref . 'edit">' . $nameContent . '</a>';
+
         return sprintf('%1$s %2$s',
             /*$1%s*/ $nameHref,
             /*$2%s*/ $this->row_actions($actions)

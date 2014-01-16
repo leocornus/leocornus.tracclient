@@ -16,9 +16,16 @@ function wptc_widget_pm_context() {
         $context['action'] = 'list';
     }
 
-    // what's the manage action.
+    // what's the manage action. Possible actions are:
+    // - edit
+    // - list (this is the default action);
     if (isset($_REQUEST['manageaction'])) {
         $context['manageaction'] = $_REQUEST['manageaction'];
+        $context['mandv'] = $_REQUEST['mandv'];
+    } else {
+        // what's the default manage action?
+        // list all metadata as the default one.
+        $context['manageaction'] = 'list';
     }
 
     return $context;
@@ -116,14 +123,13 @@ function wptc_handle_pm_submit($context) {
               $_POST['wptc_mandv_form_submit'] === 'Y') {
         wptc_handle_mandv_formsubmit();
     } else if(isset($_REQUEST['action'])) { 
-        switch($_REQUEST['action']) {
-            case 'deleteproject': 
-                // 
-                wptc_handle_delete("project");
-                break;
-            case 'deletemandv':
+        $action = $_REQUEST['action'];
+        if ($action === 'deleteproject') {
+            wptc_handle_delete("project");
+        } else if ($action === 'manageproject') {
+            if($context['manageaction'] === 'delete') {
                 wptc_handle_delete("mandv");
-                break; 
+            }
         }
     }
 }
@@ -202,7 +208,13 @@ function wptc_widget_manage_project($context) {
 
     echo <<<EOT
 <div id="icon-edit-pages" class="icon32"><br/></div>
-<h2>Manage Project <b>$name</b></h2>
+<h2>
+  Manage Project <b>$name</b>
+  <a href="?page=$page&project=$name&action=manageproject"
+     class="add-new-h2">
+    Add New Milestone / Version
+  </a>
+</h2>
 EOT;
     // milestone edit form.
     wptc_widget_mandv_form($name, $context);
@@ -226,8 +238,23 @@ function wptc_widget_mandv_form($project, $context) {
     $page = $_REQUEST['page'];
     $form_id = 'wptc_mandv_form';
 
+    // get ready the form.
+    if ($context['manageaction'] === 'edit') {
+        // edit an existing metadata.
+        $mandv_name = $context['mandv'];
+        $mandv = wptc_get_mandv($mandv_name);
+        $mandv_type = $mandv['type'];
+        $mandv_desc = $mandv['description'];
+        $mandv_due = $mandv['due_date'];
+        $manage_action = "edit";
+        $form_title = 'Update ' . $mandv_type . ': ' . $mandv_name;
+    } else {
+        $manage_action = "new";
+        $form_title = "Add New Milestone / Version";
+    }
+
     echo <<<EOT
-<h3>Add New Milestone / Version</h3>
+<h3>{$form_title}</h3>
 
 <form id="{$form_id}" method="post" name="{$form_id}"
       action=""
@@ -235,6 +262,8 @@ function wptc_widget_mandv_form($project, $context) {
   <input type="hidden" name="page" value="{$page}"/>
   <input type="hidden" name="wptc_projectname" value="{$project}"/>
   <input type="hidden" name="{$form_id}_submit" value="Y"/>
+  <input type="hidden" name="wptc_manageaction" 
+         value="{$manage_action}"/>
 EOT;
     wp_nonce_field('create-edit-mandv',
                    '_wpnonce_create_edit_mandv');
@@ -259,7 +288,7 @@ EOT;
       </th>
       <td><input type="text" id="wptc_mandvname" 
                  name="wptc_mandvname" 
-                 value="" size="58"/>
+                 value="{$mandv_name}" size="58"/>
       </td>
     </tr>
     <tr>
@@ -270,7 +299,7 @@ EOT;
       </th>
       <td><input type="text" id="wptc_mandvdesc" 
                  name="wptc_mandvdesc" 
-                 value="" size="88"/>
+                 value="{$mandv_desc}" size="88"/>
       </td>
     </tr>
     <tr>
@@ -280,7 +309,8 @@ EOT;
         </label>
       </th>
       <td><input type="text" id="wptc_mandvduedate" 
-                 name="wptc_mandvduedate"/>
+                 name="wptc_mandvduedate"
+                 value="{$mandv_due}"/>
       </td>
     </tr>
   </tbody></table>
@@ -288,7 +318,7 @@ EOT;
 
     wp_enqueue_script('jquery-ui-datepicker');
     wp_enqueue_style('jquery-ui');
-    submit_button('Add New Milestone / Version', 'primary',
+    submit_button($form_title, 'primary',
                   'mandvsubmit', true,
                   array('id' => 'mandvsubmit'));
     echo <<<EOT
@@ -307,6 +337,7 @@ EOT;
 function wptc_handle_mandv_formsubmit() {
 
     $projectName = trim($_POST['wptc_projectname']);
+    $action = trim($_POST['wptc_manageaction']);
     $type = trim($_POST['wptc_mandvtype']);
     $name = trim($_POST['wptc_mandvname']);
     $desc = trim($_POST['wptc_mandvdesc']);
@@ -321,7 +352,8 @@ function wptc_handle_mandv_formsubmit() {
   are <em><b>required</b></em> for a new {$type}.
 </p></div>
 EOT;
-    } else if(count(wptc_get_mandv($name)) > 0){
+    } else if(($action === 'new') &&
+              count(wptc_get_mandv($name)) > 0){
         echo <<<EOT
 <div class="error"><p>
   {$type} <em><b>$name</b></em> already exist!
@@ -334,9 +366,14 @@ EOT;
         $duedate = DateTime::createFromFormat('m/d/Y H:i:s', $dueStr);
         $success = wptc_update_mandv($projectName, $type, $name, 
                                      $desc, $duedate);
+        if ($action === 'new') {
+            $msg = "Added";
+        } else if ($action === 'edit') {
+            $msg = "Updated";
+        }
         echo <<<EOT
 <div class="updated"><p><strong>
-  {$type} <b>$name</b> Added!
+  {$type} <b>$name</b> $msg!
 </strong></p></div>
 EOT;
     }
