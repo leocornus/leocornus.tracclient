@@ -12,12 +12,9 @@ wp_enqueue_style('jquery.dataTables');
 // the page slug will be the project name.
 $version = $_GET['version'];
 $milestone = $_GET['milestone'];
-if (empty($version)) {
-    // using the default sprint.
-    //$defaults = wptc_widget_ticket_defaults();
-    //$version = $defaults['version'];
-    //$project = $defaults['project'];
-} else {
+$project = $_GET['project'];
+if (!empty($version)) {
+    // get the project name
     $project = wptc_get_project_name($version);
 }
 ?>
@@ -25,7 +22,7 @@ if (empty($version)) {
 
   <div id="left_column">
     <div class='leftnav'>
-<?php if (!empty($version)) { ?>
+<?php if (!empty($project)) { ?>
       <div id='sprint-nav' class="widget">
         <h2 class='widgettitle'>
           Project: <b><?php echo $project;?></b>
@@ -42,7 +39,8 @@ if (empty($version)) {
 
   <div id="content">
 
-<?php if (empty($version) && empty($milestone)) {
+<?php if (empty($version) && empty($milestone)
+          && empty($project)) {
 
   echo wptc_widget_trac_homepage();
 
@@ -61,9 +59,15 @@ if (empty($version)) {
   <?php
     $query = "milestone=" . $milestone;
     echo wptc_view_tickets_dt($query);
-  ?>
 
-<?php } ?>
+} else if (!empty($project)) { ?>
+
+  <h2>Tickets for Project: <em><?php echo $project ?></em></h2>
+
+  <?php
+    $query = "project=" . $project;
+    echo wptc_view_tickets_dt($query);
+} ?>
 
   </div> <?php // END right_column ?>
 

@@ -155,7 +155,7 @@ function wptc_widget_version_href($version) {
 }
 
 /**
- * generate the href link for version field.
+ * generate the href link for milestone field.
  */
 function wptc_widget_milestone_href($milestone) {
 
@@ -163,4 +163,15 @@ function wptc_widget_milestone_href($milestone) {
     $href = $base . '?milestone=' . $milestone;
 
     return apply_filters('wptc_widget_milestone_href', $href);
+}
+
+/**
+ * generate the href link for project field.
+ */
+function wptc_widget_project_href($project) {
+
+    $base = wptc_widget_base_href();
+    $href = $base . '?project=' . $project;
+
+    return apply_filters('wptc_widget_project_href', $href);
 }
