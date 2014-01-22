@@ -75,7 +75,7 @@ EOT;
  * a re-usable function to generate JavaScript code to configurate
  * and load jQuery DataTable for the given table id.
  */
-function wptc_view_dt_js($table_id, $per_page=15) {
+function wptc_view_dt_js($table_id, $per_page=25) {
 
     $js = <<<EOT
 <script type="text/javascript" charset="utf-8">
