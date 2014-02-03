@@ -110,3 +110,76 @@ EOT;
 
     return $js;
 }
+
+/**
+ * display a list of tickets by using jQuery DataTable.
+ * The jQuery DataTable lib will handle the basic funtionalities
+ * like pagination, sorting, filtering...
+ * We only need provide the query criterias
+ *
+ * @param $query is the search criteria.
+ * @param $per_page default tickets per page is 15.
+ */
+function wptc_view_mytickets_dt($query, 
+                                $ticket_page_slug="trac/ticket") {
+
+    // the empty blog_id will tell to use the current blog.
+    $blog_path = get_site_url();
+
+    // query tickets and load ticket details
+    // will load all qualified tickets at one query.
+    $ids = wptc_ticket_query($query, 0);
+    $tickets = wptc_get_tickets_list_m($ids);
+
+    $trs = array();
+    foreach($tickets as $ticket) {
+
+        $ticket_url = $blog_path . "/" . $ticket_page_slug . "?id=" . 
+                      $ticket['id'];
+        $sprint_href = wptc_widget_version_href($ticket['version']);
+        $one_tr = <<<EOT
+<tr>
+  <td><a href="{$ticket_url}" class="{$ticket['status']}">
+    {$ticket['id']}</a>
+  </td>
+  <td><a href="{$ticket_url}">{$ticket['summary']}</a></td>
+  <td><a href="{$sprint_href}">{$ticket['version']}</a></td>
+  <td>{$ticket['priority']}</td>
+  <td>{$ticket['status']}</td>
+</tr>
+EOT;
+        $trs[] = $one_tr;
+    }
+
+    // get ready for the datatable.
+    $tickets_tr = implode("\n", $trs);
+    $table_id = "tracTickets";
+    // prepar the data table javascript code.
+    $dt_js = wptc_view_dt_js($table_id);
+
+    $dt = <<<EOT
+<table cellpadding="0" cellspacing="0" border="0" id="{$table_id}">
+<thead>
+  <th width="18px">ID</th>
+  <th>Summary</th>
+  <th width="78px">Sprint</th>
+  <th width="28px">Priority</th>
+  <th width="28px">Status</th>
+</thead>
+<tbody>
+  {$tickets_tr}
+</tbody>
+<tfoot>
+  <th>ID</th>
+  <th>Summary</th>
+  <th>Sprint</th>
+  <th>Priority</th>
+  <th>Status</th>
+</tfoot>
+</table>
+{$dt_js}
+EOT;
+
+    return $dt;
+}
+

@@ -74,7 +74,7 @@ if(!empty($include_closed) &&
   </div>
 
   <?php 
-    echo wptc_view_tickets_dt($query);
+    echo wptc_view_mytickets_dt($query);
   ?>
 
   </div> <?php // END right_column ?>
