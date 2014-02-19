@@ -60,22 +60,8 @@ function wptc_install() {
 }
 register_activation_hook(WPTC_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_install');
 
-// load the Zend Framework.
-// show error message.
-ini_set('display_errors', 1);
-add_action('plugins_loaded', 'zend_framework_init');
-function zend_framework_init() {
-    // add the lib folder into the include path.
-    set_include_path(get_include_path() . PATH_SEPARATOR . WPTC_PLUGIN_PATH . '/lib' );
-    define('WP_ZEND_FRAMEWORK', true);
-    zend_framework_register_autoload();
-}
-
-function zend_framework_register_autoload() {
-    require_once 'Zend/Loader/Autoloader.php';
-    $autoloader = Zend_Loader_Autoloader::getInstance();
-}
-
+// try to load the Zend lib.
+require_once(WPTC_PLUGIN_PATH . '/lib/LoadZend.php');
 // load the tmplate tags function.
 require_once(WPTC_PLUGIN_PATH . '/tags.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets.php');
