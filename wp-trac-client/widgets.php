@@ -441,6 +441,10 @@ function wptc_widget_ticket_fieldset($ticket) {
 EOT;
     }
 
+    // plupload container div.
+    $plupload_container = 
+        wptc_widget_plupload_container('field-description');
+
     // have to define it first.
     // project is a custom field.
     $project = array_key_exists('project', $ticket) ?
@@ -505,6 +509,12 @@ EOT;
           </div>
         </div></div>
       </fieldset>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="field-attachment">Attachment:</label></th>
+    <td class="fullrow" colspan="3">
+    {$plupload_container}
     </td>
   </tr>
   {$project_owner_tr}

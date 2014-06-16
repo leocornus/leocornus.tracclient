@@ -5,6 +5,7 @@
  */
 wp_enqueue_script('jquery-ui-autocomplete');
 wp_enqueue_script('jquery-ui-dialog');
+wp_enqueue_script('plupload-handlers');
 // enqueue styles and scripts for trac project.
 wp_enqueue_style('wptc-css');
 wp_enqueue_script('wptc-js');

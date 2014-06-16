@@ -66,6 +66,7 @@ require_once(WPTC_PLUGIN_PATH . '/lib/LoadZend.php');
 require_once(WPTC_PLUGIN_PATH . '/tags.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets/utils.php');
+require_once(WPTC_PLUGIN_PATH . '/widgets/plupload.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets/forms.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets/views.php');
 require_once(WPTC_PLUGIN_PATH . '/actions.php');
