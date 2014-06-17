@@ -6,7 +6,7 @@
 function wptc_auto_link_commit_id($subject) {
 
     // #12 or #3
-    $pattern = '/( ){1}([0-9a-fA-F]{7,40})(\]| ){1}/';
+    $pattern = '/( ){1}([0-9a-fA-F]{7,40})(\]| |\)){1}/';
     if(preg_match($pattern, $subject) === 1) {
         $base_url = wptc_get_git_base_url();
         $href = "\\1<a href='" . $base_url . "?id=\\2'>\\2</a>\\3";
