@@ -108,6 +108,8 @@ jQuery(document).ready(function() {
               var desc = jQuery('textarea#{$textarea_id}');
               desc.val(desc.val() + "\\n [[Image(" + 
                        res.fileUrl + ", 500px)]]\\n");
+              // scroll to the bottom of the textarea.
+              desc.scrollTo(99999);
               // switch cursor...
               jQuery('#{$filelist_id}').html('No file choose');
               jQuery(':text').css('cursor', 'text');
