@@ -20,7 +20,6 @@ jQuery(document).ready(function() {
       runtimes : 'html5,flash,silverlight,html4',
       unique_names : false,
       browse_button : 'pickfiles', // you can pass in id...
-      container: 'container', // ... or DOM Element itself
       multi_selection : false,
        
       //url : "/plupload.php",
@@ -113,9 +112,7 @@ jQuery(document).ready(function() {
 <textarea id="description"> abcd
 </textarea>
 
-  <div id="container" style="">
-      <input type="button" id="pickfiles" value="[Select files]"/>
-  </div>
+  <input type="button" id="pickfiles" value="[Select files]"/>
 
   <br />
   <pre id="console"></pre>
