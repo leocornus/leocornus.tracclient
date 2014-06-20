@@ -38,7 +38,7 @@ jQuery(document).ready(function() {
           ]
       },
 
-      // set the file data name:
+      // set the file data name for MediaWiki Upload class:
       file_data_name : 'wpUploadFile',
       // Flash settings
       flash_swf_url : '/wp-includes/js/plupload/plupload.flash.swf',
@@ -50,12 +50,6 @@ jQuery(document).ready(function() {
           PostInit : function() {
 
               alert("post init");
-              jQuery('#filelist').html('');
-   
-              jQuery('#uploadfiles').click(function() {
-                  uploader.start();
-                  return false;
-              });
           },
 
           BeforeUpload: function(up, file) {
@@ -68,9 +62,6 @@ jQuery(document).ready(function() {
           },
    
           FilesAdded: function(up, files) {
-              plupload.each(files, function(file) {
-                  jQuery('#filelist').html(file.name);
-              });
               // switch cursor...
               jQuery(':text').css('cursor', 'wait');
               jQuery(':button').css('cursor', 'wait');
@@ -94,7 +85,6 @@ jQuery(document).ready(function() {
               desc.val(desc.val() + "\n\n [[Image(" + 
                        res.fileUrl + ", 500px)]]\n\n");
               // switch cursor...
-              jQuery('#filelist').html('No file choose');
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
               jQuery('textarea').css('cursor', 'text');
