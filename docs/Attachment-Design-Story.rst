@@ -24,10 +24,28 @@ Basic Flow
   description / comment textarea to include the 
   attachment url.
 
+**Seamless Design**
+
+The seamless way to implement the attachment function will
+be incorporate with the img button of Trac_ wiki toolbar.
+The Trac_ wiki toolbar has a add-image-button (id is **img**)
+to insert **[[Image()]]** into the wiki text textarea.
+We could update the java script for **img** button to 
+leverage plupload js lib and MediaWiki special page to 
+incorporate all the following actions in one single click:
+
+- Browse the select file from local desktop [plupload]
+- Upload file to server [plupload]
+- Save file as MediaWiki File [MediaWiki Special Page]
+- Return the MediaWiki File's URL to Javascript client
+  [MediaWiki Special Page]
+- Insert the wiki text (based on mime type) for the file into 
+  textarea [plupload, jQuery]
+
 Components
 ==========
 
-- Mediawiki special page to handle PLupload AJAX request.
+- `Mediawiki Special Page`_ to handle PLupload AJAX request.
 - PHP function to render HTML for file selection and
   upload section (row). It will be used on both ticket
   details form and comment form.
@@ -50,3 +68,20 @@ Components
   handle AJAX response from MediaWiki Special page.
   Bascially how to handle (display) the URLs for
   those uploaded files.
+
+Attachment Admin Page
+=====================
+
+Create a admin page on dashbord to provide options for attachments.
+We will have the following options:
+
+- URL to handle plupload AJAX request.
+- General Tags add to attachement: Wiki Categories for the 
+  MediaWiki special page case.
+- Extra Tags for different mime type of attachment.
+
+References
+==========
+
+.. _plupload wiki: https://github.com/moxiecode/plupload/wiki
+.. _MediaWiki Special Page: http://www.mediawiki.org/wiki/Manual:Special_pages
