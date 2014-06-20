@@ -72,6 +72,13 @@ jQuery(document).ready(function() {
               plupload.each(files, function(file) {
                   jQuery('#filelist').html(file.name);
               });
+              // switch cursor...
+              jQuery(':text').css('cursor', 'wait');
+              jQuery(':button').css('cursor', 'wait');
+              jQuery('textarea').css('cursor', 'wait');
+              jQuery('body').css('cursor', 'wait');
+              this.start();
+              return false;
           },
    
           UploadProgress: function(up, file) {
@@ -98,17 +105,6 @@ jQuery(document).ready(function() {
   });
 
   uploader.init();
-
-  jQuery('#filelist').html('No file choose');
-  jQuery('#uploadfiles').click(function() {
-      // switch cursor...
-      jQuery(':text').css('cursor', 'wait');
-      jQuery(':button').css('cursor', 'wait');
-      jQuery('textarea').css('cursor', 'wait');
-      jQuery('body').css('cursor', 'wait');
-      uploader.start();
-      return false;
-  });
 });
 </script>
 <div id="content">
@@ -116,13 +112,11 @@ jQuery(document).ready(function() {
   Description: <br/>
 <textarea id="description"> abcd
 </textarea>
-   
+
   <div id="container" style="">
       <input type="button" id="pickfiles" value="[Select files]"/>
-      <span id="filelist"></span>
-      <input type="button" id="uploadfiles" value="[Upload files]"/>
   </div>
-   
+
   <br />
   <pre id="console"></pre>
 </div>
