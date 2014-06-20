@@ -79,9 +79,16 @@ We will have the following options:
 - General Tags add to attachement: Wiki Categories for the 
   MediaWiki special page case.
 - Extra Tags for different mime type of attachment.
+- General Wiki Text
+- Extract Wiki Text
 
-References
-==========
+Site admin could use the following keywords to get metadata from 
+the current ticket:
+
+- [TICKET_ID]
+- [PROJECT]
+- [MILESTONE]
 
 .. _plupload wiki: https://github.com/moxiecode/plupload/wiki
 .. _MediaWiki Special Page: http://www.mediawiki.org/wiki/Manual:Special_pages
+.. _Trac: http://trac.edgewall.org/
