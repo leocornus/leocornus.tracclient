@@ -12,21 +12,21 @@ function wptc_widget_plupload_container($textarea_id = "desc",
     // generate a random number as postfix, so we can have
     // multiple plupload contanier in one page.
     $random = rand();
-    $containter_id = "plupload-" . $random;
     $browse_id = "pickfiles-" . $random;
-    $filelist_id = "filelist-" . $random;
-    $uploadfile_id = "uploadfiles-" . $random;
+
+    // TODO: get url from attachement admin page.
+    $url = "/wiki/Special:SpecialPlupload";
+
+    $options = array(
+      'browse_button' => $browse_id,
+      'url' => $url,
+    );
 
     $plupload_js = wptc_widget_plupload_js(
-        $container_id, $browse_id, $filelist_id, $uploadfile_id,
-        $description, $comment, $textarea_id);
+        $options, $description, $comment, $textarea_id);
 
     $container = <<<EOT
-<div id="{$containter_id}" style="text-align: left;">
-  <input type="button" id="{$browse_id}" value="Choose File"/>
-  <span id="{$filelist_id}">No File Choose</span>
-  <input type="button" id="{$uploadfile_id}" value="Upload File"/>
-</div>
+<input type="button" id="{$browse_id}" value="Choose File"/>
 {$plupload_js}
 EOT;
 
@@ -36,9 +36,8 @@ EOT;
 /**
  * generate all necessary Javascript for plupload container.
  */
-function wptc_widget_plupload_js(
-        $container_id, $browse_id, $filelist_id, $uploadfile_id,
-        $description, $comment, $textarea_id) {
+function wptc_widget_plupload_js($options, $description, 
+                                 $comment, $textarea_id) {
 
     $uploader_js = <<<EOT
 <script type="text/javascript">
@@ -48,12 +47,12 @@ jQuery(document).ready(function() {
 
       runtimes : 'html5,flash,silverlight,html4',
       unique_names : false,
-      browse_button : '{$browse_id}', // you can pass in id...
-      container: '{$container_id}', // ... or DOM Element itself
+      // you can pass in id...
+      browse_button : '{$options["browse_button"]}', 
       multi_selection : false,
 
-      //url : "/plupload.php",
-      url : "/wiki/Special:SpecialPlupload",
+      url : "{$options['url']}",
+      //url : "/wiki/Special:SpecialPlupload",
       multipart_params : {
           action : "plupload",
           desc : "{$description}",
@@ -90,9 +89,13 @@ jQuery(document).ready(function() {
           },
    
           FilesAdded: function(up, files) {
-              plupload.each(files, function(file) {
-                  jQuery('#{$filelist_id}').html(file.name);
-              });
+              // switch cursor...
+              jQuery(':text').css('cursor', 'wait');
+              jQuery(':button').css('cursor', 'wait');
+              jQuery('textarea').css('cursor', 'wait');
+              jQuery('body').css('cursor', 'wait');
+              this.start();
+              return false;
           },
    
           UploadProgress: function(up, file) {
@@ -111,7 +114,6 @@ jQuery(document).ready(function() {
               // scroll to the bottom of the textarea.
               desc.scrollTo(99999);
               // switch cursor...
-              jQuery('#{$filelist_id}').html('No file choose');
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
               jQuery('textarea').css('cursor', 'text');
@@ -122,16 +124,6 @@ jQuery(document).ready(function() {
 
   uploader.init();
 
-  jQuery('#{$filelist_id}').html('No file choose');
-  jQuery('#{$uploadfile_id}').click(function() {
-      // switch cursor...
-      jQuery(':text').css('cursor', 'wait');
-      jQuery(':button').css('cursor', 'wait');
-      jQuery('textarea').css('cursor', 'wait');
-      jQuery('body').css('cursor', 'wait');
-      uploader.start();
-      return false;
-  });
 });
 </script>
 
