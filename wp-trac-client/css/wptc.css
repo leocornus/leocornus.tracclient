@@ -375,6 +375,8 @@ fieldset.iefix {
 .wikitoolbar a#np { background-position: 0 -96px }
 .wikitoolbar a#br { background-position: 0 -112px }
 .wikitoolbar a#img { background-position: 0 -128px }
+.wikitoolbar a#field-description-img { background-position: 0 -128px }
+.wikitoolbar a#wikicomment-img { background-position: 0 -128px }
 
 /* Section folding */
 .foldable :link, .foldable :visited {

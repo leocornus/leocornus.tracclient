@@ -76,8 +76,8 @@
     addButton("br", "Line break: [[BR]]", function() {
       encloseSelection("[[BR]]\n", "");
     });
-    addButton("img", "Image: [[Image()]]", function() {
-      encloseSelection("[[Image(", ")]]");
+    addButton($(textarea).attr("id") + "-img", "Image: [[Image()]]", function() {
+      //encloseSelection("[[Image(", ")]]");
     });
   
     $(textarea).before(toolbar);

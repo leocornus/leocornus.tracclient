@@ -441,9 +441,16 @@ function wptc_widget_ticket_fieldset($ticket) {
 EOT;
     }
 
-    // plupload container div.
-    $plupload_container = 
-        wptc_widget_plupload_container('field-description');
+    // plupload java script.
+    $options = array(
+        'browse_button' => 'field-description-img',
+        'url' => '/wiki/Special:SpecialPlupload'
+    );
+    $description = 'New file from plupload, [[OPSpedia Development]]';
+    $comment = 'testing from plupload';
+    $plupload_js = 
+        wptc_widget_plupload_js($options, $description, 
+                                $comment, 'field-description');
 
     // have to define it first.
     // project is a custom field.
@@ -511,13 +518,7 @@ EOT;
       </fieldset>
     </td>
   </tr>
-  <tr>
-    <th><label for="field-attachment">Attachment:</label></th>
-    <td class="fullrow" colspan="3">
-    {$plupload_container}
-    </td>
-  </tr>
-  {$project_owner_tr}
+  {$plupload_js}
   <tr>
     <th class="col1">
       <label for="field-project">Project:</label>
