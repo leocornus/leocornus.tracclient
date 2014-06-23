@@ -442,15 +442,9 @@ EOT;
     }
 
     // plupload java script.
-    $options = array(
-        'browse_button' => 'field-description-img',
-        'url' => '/wiki/Special:SpecialPlupload'
-    );
-    $description = 'New file from plupload, [[OPSpedia Development]]';
-    $comment = 'testing from plupload';
     $plupload_js = 
-        wptc_widget_plupload_js($options, $description, 
-                                $comment, 'field-description');
+        wptc_widget_plupload_js('field-description-img',
+                                'field-description', $ticket);
 
     // have to define it first.
     // project is a custom field.
@@ -703,18 +697,11 @@ EOT;
 /**
  * preparing the comment fieldset.
  */
-function wptc_widget_comment_fieldset() {
+function wptc_widget_comment_fieldset($ticket) {
 
-    // plupload java script.
-    $options = array(
-        'browse_button' => 'wikicomment-img',
-        'url' => '/wiki/Special:SpecialPlupload'
-    );
-    $description = 'New file from plupload, [[OPSpedia Development]]';
-    $comment = 'testing from plupload';
     $plupload_js = 
-        wptc_widget_plupload_js($options, $description, 
-                                $comment, 'wikicomment');
+        wptc_widget_plupload_js('wikicomment-img', 'wikicomment',
+                                $ticket);
 
     $fieldset = <<<EOT
 <fieldset class="iefix">

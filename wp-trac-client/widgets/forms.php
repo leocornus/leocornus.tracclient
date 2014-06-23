@@ -121,7 +121,7 @@ function wptc_widget_ticket_form($ticket, $actions) {
 
     $ticket_fieldset = wptc_widget_ticket_fieldset($ticket);
     $pmv_js = wptc_widget_ticket_pmv_js();
-    $comment_fieldset = wptc_widget_comment_fieldset();
+    $comment_fieldset = wptc_widget_comment_fieldset($ticket);
     $action_fieldset = 
         wptc_widget_action_fieldset($actions, $ticket['status']);
     $preview_js = wptc_widget_preview_dialog_js();
