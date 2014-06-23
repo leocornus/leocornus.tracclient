@@ -705,6 +705,17 @@ EOT;
  */
 function wptc_widget_comment_fieldset() {
 
+    // plupload java script.
+    $options = array(
+        'browse_button' => 'wikicomment-img',
+        'url' => '/wiki/Special:SpecialPlupload'
+    );
+    $description = 'New file from plupload, [[OPSpedia Development]]';
+    $comment = 'testing from plupload';
+    $plupload_js = 
+        wptc_widget_plupload_js($options, $description, 
+                                $comment, 'wikicomment');
+
     $fieldset = <<<EOT
 <fieldset class="iefix">
   <label for="wikicomment">You may use
@@ -718,6 +729,7 @@ function wptc_widget_comment_fieldset() {
     </div>
   </div></div>
 </fieldset>
+{$plupload_js}
 EOT;
 
     return apply_filters('wptc_widget_comment_fieldset', $fieldset);
