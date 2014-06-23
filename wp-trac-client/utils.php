@@ -74,3 +74,23 @@ function wptc_apply_page_template($template) {
     return $template;
 }
 add_filter('template_include', 'wptc_apply_page_template');
+
+/**
+ * get all attachments settings and return them as a array.
+ */
+function wptc_attachment_get_settings() {
+
+    $handler_url = get_site_option('wptc_attachments_handler_url');
+    $desc_template = get_site_option('wptc_attachments_description');
+    $tags_template = get_site_option('wptc_attachments_tags');
+    $comment = get_site_option('wptc_attachments_comment');
+
+    $settings = array(
+        'handler_url' => $handler_url,
+        'desc' = $desc_template,
+        'tags' = $tags_template,
+        'comment' => $comment
+    );
+
+    return $settings;
+}
