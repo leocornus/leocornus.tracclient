@@ -87,8 +87,8 @@ function wptc_attachment_get_settings() {
 
     $settings = array(
         'handler_url' => $handler_url,
-        'desc' = $desc_template,
-        'tags' = $tags_template,
+        'desc' => $desc_template,
+        'tags' => $tags_template,
         'comment' => $comment
     );
 
