@@ -48,13 +48,6 @@ function wptc_attachments_admin_form($echo = false) {
       </td>
     </tr>
     <tr>
-      <th></th>
-      <th scope="row">
-        <input type="submit" name="save" 
-               class="button-primary" value="Save" />
-      </th>
-    </tr>
-    <tr>
       <th>Attachment comment: </th>
       <td>
         <input type="text" id="wptc_attachments_comment"
@@ -63,6 +56,13 @@ function wptc_attachments_admin_form($echo = false) {
                size="88"
         />
       </td>
+    </tr>
+    <tr>
+      <th></th>
+      <th scope="row">
+        <input type="submit" name="save" 
+               class="button-primary" value="Save" />
+      </th>
     </tr>
   </tbody></table>
 </form>
@@ -103,7 +103,18 @@ EOT;
 <div class="wrap">
   <h2>Wordpress Trac Client - Attachment Settings</h2>
 
-  <p>General Setting for Attachment to a Ticket</p>
+  <p>General Setting for Attachment to a Ticket.
+  The following keywords could be used to reference the 
+  metadata of a ticket:</p>
+
+  <dl>
+    <dt><strong>[TICKET_ID]</strong></dt>
+      <dd>It will be replace with ticket id</dd>
+    <dt><strong>[PROJECT]</strong></dt>
+      <dd>Project for current ticket</dd>
+    <dt><strong>[MILESTONE]</strong></dt>
+      <dd>Project milestone of the current ticket</dd>
+  </dl>
 
   <?php echo wptc_attachments_admin_form(); ?>
 </div>
