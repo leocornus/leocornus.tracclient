@@ -24,6 +24,12 @@ function wptc_admin_init() {
                      'manage_options', 
                      'wp-trac-client/admin-settings.php'
                     );
+    // some attachment settings here.
+    add_submenu_page('wp-trac-client/admin-settings.php', // parent slug.
+                     'Trac Attachment Management', 'Attachments',
+                     'manage_options', 
+                     'wp-trac-client/admin/attachments.php'
+                    );
     // the template management page.
     add_submenu_page('wp-trac-client/admin-settings.php',
                      'Trac Client Templates', 'Templates',
