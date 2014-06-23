@@ -36,8 +36,22 @@ EOT;
 /**
  * generate all necessary Javascript for plupload container.
  */
-function wptc_widget_plupload_js($options, $description, 
-                                 $comment, $textarea_id) {
+//function wptc_widget_plupload_js($options, $description, 
+//                                 $comment, $textarea_id) {
+function wptc_widget_plupload_js($browse_button, $textarea_id, 
+                                 $ticket) {
+
+    $settings = wptc_attachment_get_settings();
+    $tags = str_replace(array("\n", "\r"), 
+                        array("\\n", " "), $settings['tags']);
+    $description = $settings['desc'] . "\\n\\n " . $tags;
+    $comment = $settings['comment'];
+
+    $search = array('[TICKET_ID]', '[PROJECT]', '[MILESTONE]');
+    $replace = array($ticket['id'], $ticket['project'], 
+                     $ticket['milestone']);
+    $description = str_ireplace($search, $replace, $description);
+    $comment = str_ireplace($search, $replace, $comment);
 
     $uploader_js = <<<EOT
 <script type="text/javascript">
@@ -48,10 +62,10 @@ jQuery(document).ready(function() {
       runtimes : 'html5,flash,silverlight,html4',
       unique_names : false,
       // you can pass in id...
-      browse_button : '{$options["browse_button"]}', 
+      browse_button : '{$browse_button}', 
       multi_selection : false,
 
-      url : "{$options['url']}",
+      url : "{$settings['handler_url']}",
       //url : "/wiki/Special:SpecialPlupload",
       multipart_params : {
           action : "plupload",
