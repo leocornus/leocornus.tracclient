@@ -76,11 +76,12 @@ Create a admin page on dashbord to provide options for attachments.
 We will have the following options:
 
 - URL to handle plupload AJAX request.
+- General Wiki Text
+- Extract Wiki Text [PHASE 2]
+- attachment comment
 - General Tags add to attachement: Wiki Categories for the 
   MediaWiki special page case.
-- Extra Tags for different mime type of attachment.
-- General Wiki Text
-- Extract Wiki Text
+- Extra Tags for different mime type of attachment. [PHASE 2]
 
 Site admin could use the following keywords to get metadata from 
 the current ticket:
@@ -88,6 +89,14 @@ the current ticket:
 - [TICKET_ID]
 - [PROJECT]
 - [MILESTONE]
+
+**Components**
+
+- dashboard admin page.
+- associated functions to get options.
+- save settings to Database or site options? we will use site options
+  for the first phase.
+- a list of site options.
 
 .. _plupload wiki: https://github.com/moxiecode/plupload/wiki
 .. _MediaWiki Special Page: http://www.mediawiki.org/wiki/Manual:Special_pages
