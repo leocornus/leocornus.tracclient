@@ -93,7 +93,6 @@ jQuery(document).ready(function() {
 
           BeforeUpload: function(up, file) {
               //console.log('up object %O', up);
-              //console.log('file object: %O', file);
               // attach the uploader id as prefix to 
               // make the file name unique.
               up.settings.multipart_params.wpDestFile = 
@@ -124,9 +123,15 @@ jQuery(document).ready(function() {
           FileUploaded: function(up, file, info) {
               //console.log("info: %O", info.response);
               var res = JSON.parse(info.response);
+              // get ready the wikitext for the uploaded file,
+              // based on the mimetype.
+              var fileWikiText = "\\n[" + res.fileUrl + "]\\n";
+              if(res.mimeType.search(/^image/) == 0) {
+                  fileWikiText = "\\n [[Image(" + 
+                       res.fileUrl + ", 500px)]]\\n";
+              }
               var desc = jQuery('textarea#{$textarea_id}');
-              desc.val(desc.val() + "\\n [[Image(" + 
-                       res.fileUrl + ", 500px)]]\\n");
+              desc.val(desc.val() + fileWikiText);
               // scroll to the bottom of the textarea.
               desc.scrollTo(99999);
               // switch cursor...

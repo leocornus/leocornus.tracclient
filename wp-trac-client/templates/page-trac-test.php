@@ -81,9 +81,15 @@ jQuery(document).ready(function() {
           FileUploaded: function(up, file, info) {
               console.log("info: %O", info.response);
               var res = JSON.parse(info.response);
+              // get ready the wikitext for the uploaded file,
+              // based on the mimetype.
+              var fileWikiText = "\n[" + res.fileUrl + "]\n";
+              if(res.mimeType.search(/^image/) == 0) {
+                  fileWikiText = "\n [[Image(" + 
+                       res.fileUrl + ", 500px)]]\n";
+              }
               var desc = jQuery('textarea#description');
-              desc.val(desc.val() + "\n\n [[Image(" + 
-                       res.fileUrl + ", 500px)]]\n\n");
+              desc.val(desc.val() + fileWikiText);
               // switch cursor...
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
