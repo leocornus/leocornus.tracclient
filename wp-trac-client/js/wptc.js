@@ -76,7 +76,7 @@
     addButton("br", "Line break: [[BR]]", function() {
       encloseSelection("[[BR]]\n", "");
     });
-    addButton($(textarea).attr("id") + "-img", "Image: [[Image()]]", function() {
+    addButton($(textarea).attr("id") + "-img", "Attach Images/Files", function() {
       //encloseSelection("[[Image(", ")]]");
     });
   
