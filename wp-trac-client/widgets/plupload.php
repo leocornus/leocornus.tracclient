@@ -36,8 +36,6 @@ EOT;
 /**
  * generate all necessary Javascript for plupload container.
  */
-//function wptc_widget_plupload_js($options, $description, 
-//                                 $comment, $textarea_id) {
 function wptc_widget_plupload_js($browse_button, $textarea_id, 
                                  $ticket) {
 
@@ -72,13 +70,13 @@ jQuery(document).ready(function() {
           desc : "{$description}",
           comment : "{$comment}"
       },
-       
+
       filters : {
-          max_file_size : '10mb',
           mime_types: [
-              {title : "Image files", extensions : "jpg,gif,png"},
-              {title : "Zip files", extensions : "zip"}
-          ]
+              {title : "Image Files plupload", 
+               extensions : "jpg,jpeg,gif,png"}
+          ],
+          max_file_size : '10mb',
       },
 
       // set the file data name:
@@ -104,8 +102,12 @@ jQuery(document).ready(function() {
    
           FilesAdded: function(up, files) {
               // switch cursor...
+              // for type is text
               jQuery(':text').css('cursor', 'wait');
+              // for type is button
               jQuery(':button').css('cursor', 'wait');
+	      // for the following html tags.
+              jQuery('select').css('cursor', 'wait');
               jQuery('textarea').css('cursor', 'wait');
               jQuery('body').css('cursor', 'wait');
               this.start();
@@ -130,6 +132,7 @@ jQuery(document).ready(function() {
               // switch cursor...
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
+              jQuery('select').css('cursor', 'default');
               jQuery('textarea').css('cursor', 'text');
               jQuery('body').css('cursor', 'default');
           }
