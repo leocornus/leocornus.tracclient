@@ -12,7 +12,7 @@ This plugin is using XML-RPC APIs to talk to Trac_ instance.
 LICENSE
 =======
 
-Leocornus.tracclient is released with `GPL v2 licencse`_
+Leocornus.tracclient is released with `GPL v2 license`_
 (LICENSE-GPL2.txt).
 Please see the license file for details of the license. 
 You are free to use, modify and distribute this software, 
@@ -20,4 +20,4 @@ but all copyright information must remain.
 
 .. _WordPress: http://www.wordpress.org
 .. _Trac: http://trac.edgewall.org/
-.. _`GPL v2 licences`: http://www.gnu.org/licenses/gpl-2.0.html
+.. _`GPL v2 licenes`: http://www.gnu.org/licenses/gpl-2.0.html
