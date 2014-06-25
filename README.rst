@@ -20,4 +20,4 @@ but all copyright information must remain.
 
 .. _WordPress: http://www.wordpress.org
 .. _Trac: http://trac.edgewall.org/
-.. _`GPL v2 licenes`: http://www.gnu.org/licenses/gpl-2.0.html
+.. _`GPL v2 license`: http://www.gnu.org/licenses/gpl-2.0.html

@@ -96,7 +96,12 @@ the current ticket:
 - associated functions to get options.
 - save settings to Database or site options? we will use site options
   for the first phase.
-- a list of site options.
+- a list of site options:
+
+  - wptc_attachment_handler_url
+  - wptc_attachment_description the template for description.
+  - wptc_attachment_tags a list of tags for a attachment.
+  - wptc_attachment_comment the template for comment.
 
 .. _plupload wiki: https://github.com/moxiecode/plupload/wiki
 .. _MediaWiki Special Page: http://www.mediawiki.org/wiki/Manual:Special_pages
