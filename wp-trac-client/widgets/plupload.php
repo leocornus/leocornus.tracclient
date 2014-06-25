@@ -40,6 +40,10 @@ function wptc_widget_plupload_js($browse_button, $textarea_id,
                                  $ticket) {
 
     $settings = wptc_attachment_get_settings();
+    if($settings['handler_url'] == false) {
+        // the handler url not been set! do NOTHING.
+	return "";
+    }
     $tags = str_replace(array("\n", "\r"), 
                         array("\\n", " "), $settings['tags']);
     $description = $settings['desc'] . "\\n\\n " . $tags;
@@ -117,7 +121,14 @@ jQuery(document).ready(function() {
           },
    
           Error: function(up, err) {
-              document.getElementById('console').innerHTML += "\\nError #" + err.code + ": " + err.message;
+
+              jQuery(':text').css('cursor', 'text');
+              jQuery(':button').css('cursor', 'default');
+              jQuery('select').css('cursor', 'default');
+              jQuery('textarea').css('cursor', 'text');
+              jQuery('body').css('cursor', 'default');
+              alert("Plupload Error #" + err.code + ": " + 
+	            err.message);
           },
 
           FileUploaded: function(up, file, info) {
