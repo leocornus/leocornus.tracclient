@@ -133,7 +133,11 @@ jQuery(document).ready(function() {
 
           FileUploaded: function(up, file, info) {
               //console.log("info: %O", info.response);
-              var res = JSON.parse(info.response);
+	      var response = info.response;
+	      // index for the first {
+	      var si = response.indexOf("{");
+	      var ei = response.lastIndexOf("}");
+              var res = JSON.parse(response.substring(si, ei + 1));
               // get ready the wikitext for the uploaded file,
               // based on the mimetype.
               var fileWikiText = "\\n[" + res.fileUrl + "]\\n";
