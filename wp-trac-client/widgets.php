@@ -513,6 +513,7 @@ EOT;
     </td>
   </tr>
   {$plupload_js}
+  {$project_owner_tr}
   <tr>
     <th class="col1">
       <label for="field-project">Project:</label>
