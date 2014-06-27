@@ -52,8 +52,8 @@ function wptc_widget_plupload_js($browse_button, $textarea_id,
     $search = array('[TICKET_ID]', '[PROJECT]', '[MILESTONE]');
     $replace = array($ticket['id'], $ticket['project'], 
                      $ticket['milestone']);
-    $description = str_ireplace($search, $replace, $description);
-    $comment = str_ireplace($search, $replace, $comment);
+    $description = str_replace($search, $replace, $description);
+    $comment = str_replace($search, $replace, $comment);
 
     $uploader_js = <<<EOT
 <script type="text/javascript">
