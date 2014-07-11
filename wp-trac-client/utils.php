@@ -84,12 +84,18 @@ function wptc_attachment_get_settings() {
     $desc_template = get_site_option('wptc_attachment_description');
     $tags_template = get_site_option('wptc_attachment_tags');
     $comment = get_site_option('wptc_attachment_comment');
+    $image_wikitext = 
+        get_site_option('wptc_attachment_image_wikitext');
+    $file_wikitext = 
+        get_site_option('wptc_attachment_file_wikitext');
 
     $settings = array(
         'handler_url' => $handler_url,
         'desc' => $desc_template,
         'tags' => $tags_template,
-        'comment' => $comment
+        'comment' => $comment,
+        'image_wikitext' => $image_wikitext,
+        'file_wikitext' => $file_wikitext
     );
 
     return $settings;

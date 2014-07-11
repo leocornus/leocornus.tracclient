@@ -12,6 +12,10 @@ function wptc_attachment_admin_form($echo = false) {
     $desc_template = get_site_option('wptc_attachment_description');
     $tags_template = get_site_option('wptc_attachment_tags');
     $comment = get_site_option('wptc_attachment_comment');
+    $image_wikitext = 
+        get_site_option('wptc_attachment_image_wikitext');
+    $file_wikitext = 
+        get_site_option('wptc_attachment_file_wikitext');
 
     $form = <<<EOT
 <form name="wptc_attachment_admin_form" method="post">
@@ -48,13 +52,31 @@ function wptc_attachment_admin_form($echo = false) {
       </td>
     </tr>
     <tr>
-      <th>Attachment comment: </th>
+      <th>Attachment Comment Template: </th>
       <td>
         <input type="text" id="wptc_attachment_comment"
                name="wptc_attachment_comment"
                value="{$comment}"
                size="88"
         />
+      </td>
+    </tr>
+    <tr>
+      <th>Image Wiki Text Template: </th>
+      <td>
+        <textarea id="wptc_attachment_image_wikitext"
+               name="wptc_attachment_image_wikitext"
+                  rows="4" cols="98"
+        >{$image_wikitext}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <th>None-Image Wiki Text Template: </th>
+      <td>
+        <textarea id="wptc_attachment_file_wikitext"
+               name="wptc_attachment_file_wikitext"
+                  rows="4" cols="98"
+        >{$file_wikitext}</textarea>
       </td>
     </tr>
     <tr>
@@ -88,6 +110,10 @@ if (isset($_POST['wptc_attachment_admin_form_submin']) &&
         stripslashes($_POST['wptc_attachment_tags']));
     update_site_option('wptc_attachment_comment', 
         $_POST['wptc_attachment_comment']);
+    update_site_option('wptc_attachment_image_wikitext', 
+        $_POST['wptc_attachment_image_wikitext']);
+    update_site_option('wptc_attachment_file_wikitext', 
+        $_POST['wptc_attachment_file_wikitext']);
 
     // show the confirm message.
     $msg = <<<EOT
