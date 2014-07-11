@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
       unique_names : false,
       // you can pass in id...
       browse_button : '{$browse_button}', 
-      multi_selection : false,
+      multi_selection : true,
 
       url : "{$settings['handler_url']}",
       //url : "/wiki/Special:SpecialPlupload",
@@ -149,6 +149,9 @@ jQuery(document).ready(function() {
               desc.val(desc.val() + fileWikiText);
               // scroll to the bottom of the textarea.
               desc.scrollTo(99999);
+          },
+
+          UploadComplete: function(up, files) {
               // switch cursor...
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
