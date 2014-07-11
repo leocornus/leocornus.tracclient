@@ -3,6 +3,7 @@ We will have the following features:
 
 - `More options for attachment`_: multifile support, wiki
   template for image attachment and none-image attachment.
+- add hooks to allow developer to update those options.
 
 More options for attachment
 ---------------------------
@@ -22,3 +23,12 @@ wptc_attachment_image_wikitext
 wptc_attachment_file_wikitext
   Trac wiki text template for none-image attachment.
   It is similar with the previous one.
+
+Some Code Memos
+---------------
+
+Here is how to do search and replace in JavaScript::
+
+  var str = " [[Image([FILE_URL], 500px)]]";
+  var newStr = str.replace(/\[FILE_URL\]/g, theUrl);
+
