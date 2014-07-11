@@ -4,7 +4,8 @@ We will have the following features:
 - `More options for attachment`_: multifile support, wiki
   template for image attachment and none-image attachment.
 
-.. _More options for attachment:
+More options for attachment
+---------------------------
 
 We will add more options for attachments to make it 
 easier for developers to attache files/images to a ticket.
