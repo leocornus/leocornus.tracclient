@@ -11,6 +11,13 @@ We will add more options for attachments to make it
 easier for developers to attache files/images to a ticket.
 Here are the new options:
 
-- option to allow multifile selection
-- Trac wiki text template for image
-- Trac wiki text template for none-image
+wptc_attachment_multi_selection  Option to allow multifile selection.
+                                 Default is **false**.
+wptc_attachment_image_wikitext   Trac wiki text template for image.
+                                 This is the wiki text that will 
+                                 be insert into the ticket descrption
+                                 or commet after the image is 
+                                 successfully uploaded.
+wptc_attachment_file_wikitext    Trac wiki text template for 
+                                 none-image attachment.
+                                 It is similar with the previous one.
