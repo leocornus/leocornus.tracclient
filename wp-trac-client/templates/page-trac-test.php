@@ -16,12 +16,14 @@ wp_enqueue_script('plupload-handlers');
 // Custom example logic
 jQuery(document).ready(function() { 
   var uploader = new plupload.Uploader({
+//  jQuery("#uploader").plupload({
 
       runtimes : 'html5,flash,silverlight,html4',
       unique_names : false,
       browse_button : 'pickfiles', // you can pass in id...
-      multi_selection : false,
-       
+      //container: 'uploader',
+      multi_selection : true,
+
       //url : "/plupload.php",
       url : "/wiki/Special:SpecialPlupload",
       multipart_params : {
@@ -29,7 +31,7 @@ jQuery(document).ready(function() {
           desc : "testing upload from ticket",
           comment : "from code, plupload"
       },
-       
+
       filters : {
           max_file_size : '10mb',
           mime_types: [
@@ -37,6 +39,13 @@ jQuery(document).ready(function() {
               {title : "Zip files", extensions : "zip"}
           ]
       },
+
+      // views to activate
+      //views: {
+      //    list: true,
+      //    thrumbs: true,
+      //    active: 'thumbs'
+      //},
 
       // set the file data name for MediaWiki Upload class:
       file_data_name : 'wpUploadFile',
@@ -78,9 +87,12 @@ jQuery(document).ready(function() {
           Error: function(up, err) {
               document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
           },
+
           FileUploaded: function(up, file, info) {
               console.log("info: %O", info.response);
-              var res = JSON.parse(info.response);
+	      var si = info.response.indexOf("{");
+	      var ei = info.response.lastIndexOf("}");
+              var res = JSON.parse(info.response.substring(si, ei + 1));
               // get ready the wikitext for the uploaded file,
               // based on the mimetype.
               var fileWikiText = "\n[" + res.fileUrl + "]\n";
@@ -90,6 +102,9 @@ jQuery(document).ready(function() {
               }
               var desc = jQuery('textarea#description');
               desc.val(desc.val() + fileWikiText);
+          },
+
+          UploadComplete: function(up, files) {
               // switch cursor...
               jQuery(':text').css('cursor', 'text');
               jQuery(':button').css('cursor', 'default');
@@ -104,10 +119,17 @@ jQuery(document).ready(function() {
 </script>
 <div id="content">
 
+  <div id="uploader">
+    
+  </div>
+  <p/>
+  Category: <input id="cates" type="text" cols="80"/>
+  <br />
   Description: <br/>
-<textarea id="description"> abcd
-</textarea>
-
+<textarea id="description" cols="80" rows="16">abcd</textarea>
+  <br />
+  Comment: <input id="comment" type="text" cols="40"/>
+  <br />
   <input type="button" id="pickfiles" value="[Select files]"/>
 
   <br />
