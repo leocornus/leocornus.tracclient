@@ -54,6 +54,12 @@ function wptc_widget_plupload_js($browse_button, $textarea_id,
                      $ticket['milestone']);
     $description = str_replace($search, $replace, $description);
     $comment = str_replace($search, $replace, $comment);
+    $image_wikitext = str_replace(array("\n", "\r"),
+                                  array("\\n", ""), 
+                                  $settings['image_wikitext']);
+    $file_wikitext = str_replace(array("\n", "\r"),
+                                 array("\\n", ""), 
+                                 $settings['file_wikitext']);
 
     $uploader_js = <<<EOT
 <script type="text/javascript">
@@ -140,10 +146,14 @@ jQuery(document).ready(function() {
               var res = JSON.parse(response.substring(si, ei + 1));
               // get ready the wikitext for the uploaded file,
               // based on the mimetype.
-              var fileWikiText = "\\n[" + res.fileUrl + "]\\n";
+              var wikiText = "{$file_wikitext}";
+              var fileWikiText = wikiText.replace(/\[FILE_URL\]/g,
+                                                  res.fileUrl);
               if(res.mimeType.search(/^image/) == 0) {
-                  fileWikiText = "\\n [[Image(" + 
-                       res.fileUrl + ", 500px)]]\\n";
+                  wikiText = "\\n{$image_wikitext}";
+                  fileWikiText = 
+                      wikiText.replace(/\[FILE_URL\]/g, res.fileUrl).
+                      replace(/\[PAGE_URL\]/g, res.pageUrl);
               }
               var desc = jQuery('textarea#{$textarea_id}');
               desc.val(desc.val() + fileWikiText);
