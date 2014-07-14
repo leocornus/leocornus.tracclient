@@ -9,6 +9,10 @@ a complete solution to seamlessly integrate Trac_ project
 into WordPress_.
 This plugin is using XML-RPC APIs to talk to Trac_ instance.
 
+**Change Logs**
+
+- `wp-trac-client Release 0.4.1 <docs/wp-trac-client-0.4.1.rst>`_.
+
 LICENSE
 =======
 

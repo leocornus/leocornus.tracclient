@@ -39,6 +39,15 @@ uploaded attachment:
 [PAGE_URL]
   The full URL to the page associated to the file.
 
+Here is a sample for image wiki text template::
+
+   [[Image([FILE_URL], 500px)]]
+  [[PAGE_URL] Edit Image]
+
+Here is a sample for file wiki text templage::
+
+  [[FILE_URL] [FILE_NAME]] ([[PAGE_URL] Edit File])
+
 Some Code Memos
 ---------------
 
