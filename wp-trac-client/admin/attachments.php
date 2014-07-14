@@ -12,6 +12,16 @@ function wptc_attachment_admin_form($echo = false) {
     $desc_template = get_site_option('wptc_attachment_description');
     $tags_template = get_site_option('wptc_attachment_tags');
     $comment = get_site_option('wptc_attachment_comment');
+    // not allow multi selection by default.
+    $multi_selection = 
+        get_site_option('wptc_attachment_multi_selection', "false");
+    if($multi_selection == "true") {
+        $multi_selection_false = "";
+        $multi_selection_true = "checked";
+    } else {
+        $multi_selection_false = "checked";
+        $multi_selection_true = "";
+    }
     $image_wikitext = 
         get_site_option('wptc_attachment_image_wikitext');
     $file_wikitext = 
@@ -31,6 +41,17 @@ function wptc_attachment_admin_form($echo = false) {
                value="{$handler_url}"
                size="88"
         />
+      </td>
+    </tr>
+    <tr>
+      <th>Allow Multiple Attachments: </th>
+      <td>
+        <input type="radio" id="wptc_attachment_multi_selection"
+               name="wptc_attachment_multi_selection"
+               value="true" {$multi_selection_true}/>True
+        <input type="radio" id="wptc_attachment_multi_selection"
+               name="wptc_attachment_multi_selection"
+               value="false" {$multi_selection_false}/>False
       </td>
     </tr>
     <tr>
@@ -110,6 +131,8 @@ if (isset($_POST['wptc_attachment_admin_form_submin']) &&
         stripslashes($_POST['wptc_attachment_tags']));
     update_site_option('wptc_attachment_comment', 
         $_POST['wptc_attachment_comment']);
+    update_site_option('wptc_attachment_multi_selection', 
+        $_POST['wptc_attachment_multi_selection']);
     update_site_option('wptc_attachment_image_wikitext', 
         $_POST['wptc_attachment_image_wikitext']);
     update_site_option('wptc_attachment_file_wikitext', 

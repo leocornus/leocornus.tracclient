@@ -88,12 +88,15 @@ function wptc_attachment_get_settings() {
         get_site_option('wptc_attachment_image_wikitext');
     $file_wikitext = 
         get_site_option('wptc_attachment_file_wikitext');
+    $multi_selection = 
+        get_site_option('wptc_attachment_multi_selection', 'false');
 
     $settings = array(
         'handler_url' => $handler_url,
         'desc' => $desc_template,
         'tags' => $tags_template,
         'comment' => $comment,
+        'multi_selection' => $multi_selection,
         'image_wikitext' => $image_wikitext,
         'file_wikitext' => $file_wikitext
     );

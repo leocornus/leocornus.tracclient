@@ -54,6 +54,8 @@ function wptc_widget_plupload_js($browse_button, $textarea_id,
                      $ticket['milestone']);
     $description = str_replace($search, $replace, $description);
     $comment = str_replace($search, $replace, $comment);
+    // escape the new line special char, so it can be used in 
+    // javascript.
     $image_wikitext = str_replace(array("\n", "\r"),
                                   array("\\n", ""), 
                                   $settings['image_wikitext']);
@@ -71,7 +73,7 @@ jQuery(document).ready(function() {
       unique_names : false,
       // you can pass in id...
       browse_button : '{$browse_button}', 
-      multi_selection : true,
+      multi_selection : {$settings['multi_selection']},
 
       url : "{$settings['handler_url']}",
       //url : "/wiki/Special:SpecialPlupload",

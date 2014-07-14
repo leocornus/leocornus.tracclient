@@ -13,7 +13,10 @@ easier for developers to attache files/images to a ticket.
 Here are the new options:
 
 wptc_attachment_multi_selection  
-  Option to allow multifile selection. Default is **false**.
+  Option to allow multifile selection. 
+  If set to **true**, user can upload more than one attachment
+  to the ticket at once.
+  Default is **false**.
 
 wptc_attachment_image_wikitext   
   Trac wiki text template for image.
