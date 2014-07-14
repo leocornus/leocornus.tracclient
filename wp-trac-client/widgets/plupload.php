@@ -149,14 +149,13 @@ jQuery(document).ready(function() {
               // get ready the wikitext for the uploaded file,
               // based on the mimetype.
               var wikiText = "{$file_wikitext}";
-              var fileWikiText = wikiText.replace(/\[FILE_URL\]/g,
-                                                  res.fileUrl);
               if(res.mimeType.search(/^image/) == 0) {
                   wikiText = "\\n{$image_wikitext}";
-                  fileWikiText = 
-                      wikiText.replace(/\[FILE_URL\]/g, res.fileUrl).
-                      replace(/\[PAGE_URL\]/g, res.pageUrl);
               }
+              var fileWikiText = 
+                  wikiText.replace(/\[FILE_URL\]/g, res.fileUrl).
+                           replace(/\[PAGE_URL\]/g, res.pageUrl).
+                           replace(/\[FILE_NAME\]/g, res.fileName);
               var desc = jQuery('textarea#{$textarea_id}');
               desc.val(desc.val() + fileWikiText);
               // scroll to the bottom of the textarea.

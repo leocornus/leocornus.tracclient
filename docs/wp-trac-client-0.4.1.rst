@@ -27,6 +27,18 @@ wptc_attachment_file_wikitext
   Trac wiki text template for none-image attachment.
   It is similar with the previous one.
 
+The following keywords could be used to reference each
+uploaded attachment:
+
+[FILE_NAME]
+  The name of the uploaded attachment file.
+
+[FILE_URL]
+  The full URL to the actural file.
+
+[PAGE_URL]
+  The full URL to the page associated to the file.
+
 Some Code Memos
 ---------------
 
