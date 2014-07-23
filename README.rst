@@ -11,7 +11,8 @@ This plugin is using XML-RPC APIs to talk to Trac_ instance.
 
 **Change Logs**
 
-- `wp-trac-client Release 0.4.1 <docs/wp-trac-client-0.4.1.rst>`_.
+- `wp-trac-client Release 0.4.1 
+  <docs/wp-trac-client/wp-trac-client-0.4.1.rst>`_.
 
 LICENSE
 =======
