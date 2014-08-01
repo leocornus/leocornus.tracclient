@@ -90,6 +90,8 @@ function wptc_attachment_get_settings() {
         get_site_option('wptc_attachment_file_wikitext');
     $multi_selection = 
         get_site_option('wptc_attachment_multi_selection', 'false');
+    $unique_filename = 
+        get_site_option('wptc_attachment_unique_filename', 'true');
 
     $settings = array(
         'handler_url' => $handler_url,
@@ -97,6 +99,7 @@ function wptc_attachment_get_settings() {
         'tags' => $tags_template,
         'comment' => $comment,
         'multi_selection' => $multi_selection,
+        'unique_filename' => $unique_filename,
         'image_wikitext' => $image_wikitext,
         'file_wikitext' => $file_wikitext
     );

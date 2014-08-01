@@ -12,6 +12,7 @@ function wptc_attachment_admin_form($echo = false) {
     $desc_template = get_site_option('wptc_attachment_description');
     $tags_template = get_site_option('wptc_attachment_tags');
     $comment = get_site_option('wptc_attachment_comment');
+
     // not allow multi selection by default.
     $multi_selection = 
         get_site_option('wptc_attachment_multi_selection', "false");
@@ -22,6 +23,18 @@ function wptc_attachment_admin_form($echo = false) {
         $multi_selection_false = "checked";
         $multi_selection_true = "";
     }
+
+    // using unique file name by default.
+    $unique_filename = 
+        get_site_option('wptc_attachment_unique_filename', "true");
+    if($unique_filename == "true") {
+        $unique_filename_true = "checked";
+        $unique_filename_false = "";
+    } else {
+        $unique_filename_true = "";
+        $unique_filename_false = "checked";
+    }
+
     $image_wikitext = 
         get_site_option('wptc_attachment_image_wikitext');
     $file_wikitext = 
@@ -52,6 +65,17 @@ function wptc_attachment_admin_form($echo = false) {
         <input type="radio" id="wptc_attachment_multi_selection"
                name="wptc_attachment_multi_selection"
                value="false" {$multi_selection_false}/>False
+      </td>
+    </tr>
+    <tr>
+      <th>Use Unique File Name: </th>
+      <td>
+        <input type="radio" id="wptc_attachment_unique_filename"
+               name="wptc_attachment_unique_filename"
+               value="true" {$unique_filename_true}/>True
+        <input type="radio" id="wptc_attachment_unique_filename"
+               name="wptc_attachment_unique_filename"
+               value="false" {$unique_filename_false}/>False
       </td>
     </tr>
     <tr>
@@ -133,6 +157,8 @@ if (isset($_POST['wptc_attachment_admin_form_submin']) &&
         $_POST['wptc_attachment_comment']);
     update_site_option('wptc_attachment_multi_selection', 
         $_POST['wptc_attachment_multi_selection']);
+    update_site_option('wptc_attachment_unique_filename', 
+        $_POST['wptc_attachment_unique_filename']);
     update_site_option('wptc_attachment_image_wikitext', 
         $_POST['wptc_attachment_image_wikitext']);
     update_site_option('wptc_attachment_file_wikitext', 

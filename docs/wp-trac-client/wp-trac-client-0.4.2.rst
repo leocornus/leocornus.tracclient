@@ -7,7 +7,10 @@ Get ready for releae 0.4.2
 Unique File Name Switch Story
 -----------------------------
 
-need new site option **wptc_atachement_unique_filename**.
-default value is true
+Introduce new site option **wptc_atachement_unique_filename**:
+default value is true.
+If it is **true**, the file name will be prefixed by
+a unique random generated id.
+If it is **false**, the original file name will be use.
 
 new field in admin page **Use unique filename:**.

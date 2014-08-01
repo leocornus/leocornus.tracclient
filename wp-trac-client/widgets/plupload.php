@@ -63,6 +63,13 @@ function wptc_widget_plupload_js($browse_button, $textarea_id,
                                  array("\\n", ""), 
                                  $settings['file_wikitext']);
 
+    // decide using unique filename or not!
+    if($settings['unique_filename'] === "true") {
+        $destFileName = "file.id + '-' + file.name";
+    } else {
+        $destFileName = "file.name";
+    }
+
     $uploader_js = <<<EOT
 <script type="text/javascript">
 // Custom example logic
@@ -108,7 +115,7 @@ jQuery(document).ready(function() {
               // attach the uploader id as prefix to 
               // make the file name unique.
               up.settings.multipart_params.wpDestFile = 
-                file.id + '-' + file.name;
+                {$destFileName};
           },
    
           FilesAdded: function(up, files) {
