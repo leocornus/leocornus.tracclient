@@ -38,6 +38,8 @@ Functions and Components
   will return a list of watchers
 - page template to show the list of watchers for a ticket!
   maybe just a jQuery UI Dialog.
+- PHP function to generate the HTML for the watch/unwatch button 
+  and the total number of watching users.
 - [HOLD ON] AJAX call back PHP function to handle the AJAX requst
   for watch and unwatch a ticket.
 - JavaScript client to update page and handle user's activities,
@@ -46,17 +48,29 @@ Functions and Components
 Code Samples
 ============
 
+The watch button will be located between ticket title and
+ticket details div.
 Markup for the watch/unwatch and summary button::
 
-  <span class="watching" style="
-      float: right;
-      font-size: 78%;
-      border: solid black 1px;
-  ">
-      <span class="watching-button" style="
-      border-right: solid black 1px;
-      margin-right: -4px;
-      padding-right: 4px;
-      ">Watch</span>
-      <span class="watching-sum">21</span>
-  </span>
+  <div id="content">
+    <h1 id="ticket-title">...</h1>
+    <span class="watching" style="
+          float: right;
+          font-size: 100%;
+          border: solid #ffd 1px;
+      
+          margin-top: -15px;
+          background-color: #ffd;
+    ">
+          <span class="watching-button" style="
+              border-right: solid #996 1px;
+              margin-right: -4px;
+              padding-right: 4px;
+          ">Watch</span>
+          <span class="watching-sum" style="
+              padding-left: 3px;
+         ">222</span>
+    </span>
+    <div id="ticket">...</div>
+  ...
+  </div>
