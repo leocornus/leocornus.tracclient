@@ -7,6 +7,7 @@ Use Cases
 - logged in user can review all tickets
   that she/he is watching...
 - list of users watching a ticket, from ticket's perspective.
+- show total number of users who is watching a ticket.
 - user will receive email notification for all watching tickets...
 
 Design Overview
@@ -30,13 +31,17 @@ Views and Widgets Need
 Functions and Components
 ========================
 
-- function **wptc_watch_ticket($ticket_id, $watching = true, $user_email = null)**
-  will be the one for watch and unwatch ticket.
+- function **wptc_watch_ticket($ticket_id, $watching = true, 
+  $user_email = null)**
+  will be the one for watch and unwatch a ticket.
 - function **wptc_ticket_watchers($ticket_id)**
   will return a list of watchers
 - page template to show the list of watchers for a ticket!
   maybe just a jQuery UI Dialog.
-- [HOLD ON] AJAX call back function to call the
+- [HOLD ON] AJAX call back PHP function to handle the AJAX requst
+  for watch and unwatch a ticket.
+- JavaScript client to update page and handle user's activities,
+  mainly: mouse click.
 
 Code Samples
 ============
