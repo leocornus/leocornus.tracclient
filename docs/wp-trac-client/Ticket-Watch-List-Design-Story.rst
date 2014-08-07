@@ -17,16 +17,21 @@ Design Overview
   email addresses.
 - Trac client plugin will associate the email address with
   user login and user full name, back and forth.
-- ticket owner and reporter will automatically watch the ticket.
+- Ticket owners and reporter will automatically watch the ticket.
+  Ticket owners include all users who has been assigned or has
+  accepted.
+  [Should we include users who add comment to this ticket?]
 - wptc_widget_ticket_info_topnav function.
 
 Views and Widgets Need
 ======================
 
-- [logged in user] view to list all watching tickets for a user
-- [anonymous user] view to list all users who are watching a ticket
 - image / button for logged in user to watch / unwatch a ticke
-- [anonymouns] ability to show the total number of watchers for a ticket.
+- [logged in user] view to list all watching tickets for a user
+- [anonymous] view to list all users who are watching a ticket
+- [anonymous] ability to show the total number of watchers for a ticket.
+- [anonymous] ability to show the tooltip: Please login to watch this
+  ticket.
 
 Functions and Components
 ========================
