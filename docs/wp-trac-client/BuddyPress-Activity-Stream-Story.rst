@@ -1,4 +1,4 @@
-`wp-trac-client Release 0.4.2 <wp-trac-client-0.4.1.rst>`_ > 
+`wp-trac-client Release 0.4.2 <wp-trac-client-0.4.2.rst>`_ > 
 Design story for adding Trac activity to BuddyPress activity stream
 
 Overview

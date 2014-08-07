@@ -1,4 +1,5 @@
-iIntroduce the Watch /Unwatch function for each ticket.
+`wp-trac-client Release 0.4.2 <wp-trac-client-0.4.2.rst>`_ > 
+Introduce the Watch / Unwatch function for each ticket.
 
 Use Cases
 =========
