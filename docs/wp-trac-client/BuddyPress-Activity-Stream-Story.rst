@@ -14,6 +14,13 @@ Try to add all Trac activities to BuddyPress activity stream...
 Design
 ------
 
-depends on the following functions:
+We will hood in the following actions:
+
+- **wptc_create_ticket**
+  We will using the id, author and summary,
+- **wptc_update_ticket**
+  We will use the id, comment and author.
+
+depends on the following BuddyPress_ functions:
 
 - BuddyPress function **bp_activity_add**
