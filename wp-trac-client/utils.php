@@ -142,6 +142,11 @@ function wptc_add_buddypress_activity($ticket_id,
     $owner = get_user_by('login', $ticket_attr['owner']);
     $owner_url = bp_core_get_userlink($owner->ID);
 
+    if(!isset($ticket_action)) {
+        // give a default action here!
+        $ticket_action = 'leave';
+    }
+
     switch($ticket_action) {
         case "leave":
             $message = $user_url . ' update ' . $ticket_url;
