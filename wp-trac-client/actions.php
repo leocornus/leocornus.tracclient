@@ -138,6 +138,8 @@ function wptc_analyze_workflow_action() {
         case 'resolve':
             // resove to a resolution.
             $attributes['status'] = 'closed';
+            $attributes['resolution'] = 
+                $_POST['action_resolve_resolve_resolution'];
             // resolve action will use this attribute to set
             // the resolution field. 
             // The trac workflow engine control this.

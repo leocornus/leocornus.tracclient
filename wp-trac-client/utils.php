@@ -116,3 +116,79 @@ function wptc_buddypress_activity_on() {
 
     return ($add === 'true');
 }
+
+/**
+ * this function will record a Trac update as a BuddyPress activity
+ * $ticket_id
+ * $action    This is the Trac workflow action. 
+ *            The default workflow actions are: leave, create,
+ *            accept, reassign, resolve, reopen
+ * $content   ticket summary.
+ */
+function wptc_add_buddypress_activity($ticket_id, 
+    $ticket_action, $ticket_attr) {
+
+    if(!wptc_buddypress_activity_on() or 
+       !function_exists('bp_activity_add')) {
+        // skip!
+        return;
+    }
+
+    // get ready the URL to ticket.
+    $ticket_url = wptc_widget_parse_content('ticket #' . $ticket_id);
+    // get ready the link to user, using current user.
+    $user = wp_get_current_user();
+    $user_url = bp_core_get_userlink($user->ID);
+    $owner = get_user_by('login', $ticket_attr['owner']);
+    $owner_url = bp_core_get_userlink($owner->ID);
+
+    switch($ticket_action) {
+        case "leave":
+            $message = $user_url . ' update ' . $ticket_url;
+            break;
+        case "reassign":
+            // get the new owner.
+            $message = $user_url . ' reassign ' . $ticket_url .
+                       ' to ' . $owner_url;
+            break;
+        case "resolve":
+            // get the resolution.
+            $message = $user_url . ' resolve ' . $ticket_url .
+                       " as <strong>" . $ticket_attr['resolution'] .
+                       "</strong>";
+            break;
+        default:
+            $message = $user_url . ' ' . $ticket_action . ' ' . 
+                       $ticket_url;
+            break;
+    }
+
+    bp_activity_add(array(
+        'action' => $message,
+        'content' => $ticket_attr['summary'],
+        'component' => 'OPSpedia Ticket',
+        'type' => 'ticket_update'
+    ));
+
+    return true;
+}
+
+/**
+ * action function for create ticket.
+ */
+function wptc_create_ticket_action($id, $summary, $desc, $attrs) {
+
+    wptc_add_buddypress_activity($id, 'create', $attrs);
+    return;
+}
+add_action('wptc_create_ticket', 'wptc_create_ticket_action', 10, 4);
+
+/**
+ * action function for update ticket.
+ */
+function wptc_update_ticket_action($id, $comment, $attrs, $author) {
+
+    wptc_add_buddypress_activity($id, $attrs['action'], $attrs);
+    return;
+}
+add_action('wptc_update_ticket', 'wptc_update_ticket_action', 10, 4);
