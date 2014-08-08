@@ -106,3 +106,13 @@ function wptc_attachment_get_settings() {
 
     return $settings;
 }
+
+/**
+ * return true if the add BuddyPress activity option is set to true.
+ */
+function wptc_buddypress_activity_on() {
+
+    $add = get_site_option('wptc_buddypress_activity', 'false');
+
+    return ($add === 'true');
+}

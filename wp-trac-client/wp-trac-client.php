@@ -138,6 +138,6 @@ function get_wiki_client() {
 
 function wptc_is_debug() {
 
-    $debug = get_site_option('wptc_debug');
+    $debug = get_site_option('wptc_debug', 'false');
     return ($debug === 'true');
 }

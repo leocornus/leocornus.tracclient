@@ -12,6 +12,8 @@ if (isset($_POST['wptc_settings_form_submit']) &&
     update_site_option('wptc_git_base_url', 
                        $_POST['wptc_git_base_url']);
     update_site_option('wptc_debug', $_POST['wptc_debug']);
+    update_site_option('wptc_buddypress_activity', 
+                       $_POST['wptc_buddypress_activity']);
 
     // show the message.
     echo '<div class="updated"><p><strong>Settings Updated</strong></p></div>';
@@ -72,6 +74,24 @@ if (isset($_POST['wptc_quicktest_form_submit']) &&
         <td><input type="text" id="wptc_git_base_url" 
                    name="wptc_git_base_url" 
                    value="<?php echo get_site_option('wptc_git_base_url'); ?>" size="88"/>
+        </td>
+      </tr>
+      <tr <?php echo (function_exists('bp_activity_add')) ? 
+                     '' : 'style="display: none"' ?>
+      >
+        <th scope="row">Add BuddyPress Activity: </th>
+        <td>
+          <input type="radio" name="wptc_buddypress_activity" 
+                 value="true"
+            <?php echo (get_site_option('wptc_buddypress_activity',                                           'false') == 'true') ?
+                'checked' : '';?>
+          > true
+          <input type="radio" name="wptc_buddypress_activity" 
+                 value="false"
+            <?php echo (get_site_option('wptc_buddypress_activity',
+                                        'false') == 'false') ?
+                'checked' : '';?>
+          > false
         </td>
       </tr>
       <tr>
