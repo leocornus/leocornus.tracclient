@@ -41,8 +41,13 @@ activity hook.
   It is responsible for turn on or off the action to 
   add all trac activities to BuddyPress_ activity stream.
   It depends on the BuddyPress_ plugin for WordPress_
+:Conditions:
+  This option will only show up on the general settings page if
+  the BuddyPress_ plugin is activated.
+  The **function_exists('bp_activity_add')** will be used to 
+  check if BuddyPress_ is activated or ont.
 :Default Value:
-  **False**, which will turn off the action.
+  **false**, which will turn off the action.
 
 Actions
 -------
