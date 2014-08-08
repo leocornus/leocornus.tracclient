@@ -31,6 +31,28 @@ depends on the following BuddyPress_ functions:
 
 - BuddyPress function **bp_activity_add**
 
+BuddyPress_ activity message will be generated based on
+Trac_ workflow actions. 
+Here a message design for each of the default workflow action:
+
+create
+  [USER] create ticket #[TICKET_ID]
+
+leave
+  [USER] update ticket #[TICKET_ID]
+
+accept
+  [USER] accpet ticket #[TICKET_ID]
+
+reassign
+  [USER] reassign ticket #[TICKET_ID] to [NEW OWNER]
+
+resolve
+  [USER] resolve ticket #[TICKET_ID] as [RESOLUTION]
+
+reopen
+  [USER] reopen ticket #[TICKET_ID]
+
 A new site option will be used to turn on and off the BuddyPress_
 activity hook.
 
