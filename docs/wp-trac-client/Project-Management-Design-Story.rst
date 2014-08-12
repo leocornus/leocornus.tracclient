@@ -1,4 +1,5 @@
-> Project Management Design Story
+`wp-trac-client Release 0.4.3 <wp-trac-client-0.4.3.rst>`_ > 
+Project Management Design Story
 
 Overview
 --------
@@ -33,5 +34,11 @@ Here are the minimium list of fields:
 - Ticket summary
 - Ticket description
 - Project (autocomplete),
+
+Use Cases
+---------
+
+we will work on to make everybody can create and manage projet 
+through wp-tracl-client plugin.
 
 .. _Trac: http://trac.edgewall.org/
