@@ -782,6 +782,7 @@ function wptc_widget_ticket_info($ticket) {
 
     $permalink = get_permalink() . "?id=" . $ticket['id'];
     $topnav = wptc_widget_ticket_info_topnav($ticket['id']);
+    $watching = wptc_widget_ticket_watching();
 
     $ticketInfo = <<<EOT
 {$topnav}
@@ -789,7 +790,7 @@ function wptc_widget_ticket_info($ticket) {
   <a href="{$permalink}">Ticket #{$ticket['id']}</a>
   <span class="status">({$ticket_type_status})</span>
 </h1>
-
+{$watching}
 <div id="ticket">
   <div id="ticket-age" class="date">
     <p>Opened {$ticket_openedAge} ago</p>
