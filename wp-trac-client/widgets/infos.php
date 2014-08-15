@@ -11,22 +11,10 @@ function wptc_widget_ticket_watching() {
     }
 
     $span = <<<EOT
-<span class="watching" style="
-      float: right;
-      font-size: 100%;
-      border: solid #ffd 1px;
-  
-      margin-top: -15px;
-      background-color: #ffd;
-">
-      <span class="watching-button" style="
-          border-right: solid #996 1px;
-          margin-right: -4px;
-          padding-right: 4px;
-      ">Watch</span>
-      <span class="watching-sum" style="
-          padding-left: 3px;
-     ">222</span>
+<span class="watching">
+  <span class="watching-sum">222</span>
+  <a class="watching-but-unwatch" id="watching-button" href="#">
+  Watching</a>
 </span>
 EOT;
 
