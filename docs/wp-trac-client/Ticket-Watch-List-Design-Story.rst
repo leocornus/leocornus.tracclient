@@ -42,12 +42,13 @@ Functions and Components
   will be the one for watch and unwatch a ticket.
 - function **wptc_ticket_watchers($ticket_id)**
   will return a list of watchers
-- page template to show the list of watchers for a ticket!
-  maybe just a jQuery UI Dialog.
-- PHP function to generate the HTML for the watch/unwatch button 
+- New PHP function (**wptc_widget_ticket_watching**)
+  to generate the HTML for the watch/unwatch button 
   and the total number of watching users.
 - [HOLD ON] AJAX call back PHP function to handle the AJAX requst
   for watch and unwatch a ticket.
+- [NEXT PHASE] page template to show the list of watchers 
+  for a ticket! Maybe just a jQuery UI Dialog.
 - JavaScript client to update page and handle user's activities,
   mainly: mouse click.
 
@@ -56,6 +57,7 @@ Code Samples
 
 The watch button will be located between ticket title and
 ticket details div.
+In function **wptc_widget_ticket_info**.
 Markup for the watch/unwatch and summary button::
 
   <div id="content">
@@ -64,7 +66,6 @@ Markup for the watch/unwatch and summary button::
           float: right;
           font-size: 100%;
           border: solid #ffd 1px;
-      
           margin-top: -15px;
           background-color: #ffd;
     ">
