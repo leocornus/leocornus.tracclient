@@ -15,6 +15,12 @@ Here are list tools we may offer:
   project milestone, components, description, wiki documents
 - Project Explore page.
 
+We will use the following new tech to make the development work easier:
+
+- `AngularJS`_ and `angular_ui`_ for lightweight front end client.
+- Twitter `bootstrap`_ for stylesheet
+- `d3js`_ for reporting...
+
 Project Metadata
 ----------------
 
@@ -41,4 +47,22 @@ Use Cases
 we will work on to make everybody can create and manage projet 
 through wp-tracl-client plugin.
 
+Initial Thinkings
+-----------------
+
+Here are some initial ideas about Agile project management:
+
+- create a project through wordpress dashboard or regular page
+- create a git repository sandbox through user profile
+- set up project metadata: components, milestones, sprint,
+- page to create ticket
+- page to list / search ticket
+- widget to generate milestone list
+- widget to list most recent changes
+- widget to autocomplete
+
 .. _Trac: http://trac.edgewall.org/
+.. _AngularJS: https://github.com/angular/angular.js
+.. _angular_ui: https://github.com/angular-ui/ui-utils
+.. _bootstrap: https://github.com/twbs/bootstrap
+.. _d3js: https://github.com/mbostock/d3
