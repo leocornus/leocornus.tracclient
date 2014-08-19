@@ -667,6 +667,14 @@ span.watching-sum{
   padding-right: 4px;
 }
 
+span.watching-label {
+  padding-left: 2px;
+  padding-right: 18px;
+  background-image: url(../images/unwatch-icon.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
 a.watching-but-watch{
   padding-left: 3px;
   padding-right: 18px;
