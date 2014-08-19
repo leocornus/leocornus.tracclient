@@ -45,7 +45,7 @@ Functions and Components
 - function **wptc_ticket_is_watching($ticket_id, 
   $user_field="email", $user_value=null)** returns true if the user 
   is watching the given ticket.
-- New PHP function (**wptc_widget_ticket_watching**)
+- New PHP function (**wptc_widget_ticket_watching($ticket)**)
   to generate the HTML for the watch/unwatch button 
   and the total number of watching users.
 - [HOLD ON] AJAX call back PHP function to handle the AJAX requst
