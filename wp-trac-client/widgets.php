@@ -782,7 +782,7 @@ function wptc_widget_ticket_info($ticket) {
 
     $permalink = get_permalink() . "?id=" . $ticket['id'];
     $topnav = wptc_widget_ticket_info_topnav($ticket['id']);
-    $watching = wptc_widget_ticket_watching();
+    $watching = wptc_widget_ticket_watching($ticket);
 
     $ticketInfo = <<<EOT
 {$topnav}
