@@ -42,6 +42,9 @@ Functions and Components
   will be the one for watch and unwatch a ticket.
 - function **wptc_ticket_watchers($ticket_id)**
   will return a list of watchers
+- function **wptc_ticket_is_watching($ticket_id, 
+  $user_field="email", $user_value=null)** returns true if the user 
+  is watching the given ticket.
 - New PHP function (**wptc_widget_ticket_watching**)
   to generate the HTML for the watch/unwatch button 
   and the total number of watching users.
@@ -51,6 +54,17 @@ Functions and Components
   for a ticket! Maybe just a jQuery UI Dialog.
 - JavaScript client to update page and handle user's activities,
   mainly: mouse click.
+
+**Values for user_field**
+
+We will use the same possible values for user_field as the
+WordPress `function get_user_by`_.
+Here are the list of possible values, the default value is email.
+
+- id
+- slug
+- email
+- login
 
 Code Samples
 ============
@@ -81,3 +95,6 @@ Markup for the watch/unwatch and summary button::
     <div id="ticket">...</div>
   ...
   </div>
+
+.. _function get_user_by: http://codex.wordpress.org/Function_Reference/get_user_by
+.. _function wp_get_current_user: http://codex.wordpress.org/Function_Reference/wp_get_current_user
