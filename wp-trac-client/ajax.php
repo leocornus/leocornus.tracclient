@@ -185,3 +185,57 @@ function wptc_get_ticket_cb() {
     echo json_encode($output);
     exit;
 }
+
+/**
+ * ajax callback function for action wptc_watch_ticket.
+ * this action is only for authorized user.
+ */
+add_action('wp_ajax_wptc_watch_ticket', 'wptc_watch_ticket_cb');
+function wptc_watch_ticket_cb() {
+
+    // here are params we need:
+    $ticket_id = $_POST['id'];
+    $existing_cc = $_POST['existing_cc'];
+    $watcher_email = $_POST['watcher_email'];
+    // possible actions: watch and unwatch
+    $action = $_POST['watch_action'];
+
+    // get current user.
+    $current_user = wp_get_current_user();
+    // preparing the watchers.
+    $watchers = explode(',', $existing_cc);
+    // verify the email address.
+
+    switch($action) {
+        case 'watch':
+            // prepare the comment.
+            $comment = $current_user->display_name . 
+                       "started watch this ticket!";
+            // add the watcher email.
+            $watchers[] = $watcher_email;
+            break;
+        case 'unwatch':
+            // prepare the comment.
+            $comment = $current_user->display_name .
+                       "Stopped watch this ticket!";
+            // remove the watcher email.
+            $key = array_search($watcher_email, $watchers);
+            if($key !== false) {
+                unset($watchers[$key]);
+            }
+            break;
+    }
+
+    $res = array();
+    // update ticket.
+    $id = wptc_update_ticket($ticket_id, $comment, 
+                             array('cc' => implode(',', $watchers)));
+    $res['id'] = $id;
+    $res['success'] = true;
+    echo json_encode($res);
+    exit;
+}
+
+/**
+ * function to generate javascript for call wptc_watch_ticket action.
+ */
