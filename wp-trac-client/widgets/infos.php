@@ -13,14 +13,16 @@ function wptc_widget_ticket_watching($ticket) {
         $current_user = wp_get_current_user();
         // assume current user is not watching now.
         $a_class = "watching-but-watch";
+        $a_label = "Watch";
         if (in_array($current_user->user_email, $watching_emails)) {
             // current user is in watching list.
             $a_class = "watching-but-unwatch";
+            $a_label = "Watching";
         }
 
         $watching_label = <<<EOT
 <a class="{$a_class}" id="watching-button" href="#">
-Watching</a>
+{$a_label}</a>
 EOT;
     } else {
         // user not logged in, only show how many user are watching.
