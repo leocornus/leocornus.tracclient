@@ -48,12 +48,25 @@ Functions and Components
 - New PHP function (**wptc_widget_ticket_watching($ticket)**)
   to generate the HTML for the watch/unwatch button 
   and the total number of watching users.
-- [HOLD ON] AJAX call back PHP function to handle the AJAX requst
+- Create new `wp_ajax_(action)`_ to handle watch and unwatch action.
+  TODO: What's the action name? what's the call back function name?
+- AJAX call back PHP function to handle the AJAX requst
   for watch and unwatch a ticket.
 - [NEXT PHASE] page template to show the list of watchers 
   for a ticket! Maybe just a jQuery UI Dialog.
 - JavaScript client to update page and handle user's activities,
   mainly: mouse click.
+
+Rough Flow
+----------
+
+User's watch/unwatch click will triger AJAX request,
+The AJAX Request be handle through `wp_ajax_(action)`_
+**wptc_watch_ticket**.
+The PHP callback function **wptc_watch_ticket_cb** will update 
+ticket based on the request (watch or unwatch).
+The client site JavaScript parse the response and 
+reload the page!
 
 **Values for user_field**
 
@@ -96,5 +109,8 @@ Markup for the watch/unwatch and summary button::
   ...
   </div>
 
+How to update ticket for the 
+
 .. _function get_user_by: http://codex.wordpress.org/Function_Reference/get_user_by
 .. _function wp_get_current_user: http://codex.wordpress.org/Function_Reference/wp_get_current_user
+.. _wp_ajax_(action): http://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
