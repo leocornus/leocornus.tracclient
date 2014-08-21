@@ -28,20 +28,20 @@ function wptc_widget_ticket_watching($ticket) {
                                          $watch_action);
 
         $watching_label = <<<EOT
-<a class="{$a_class}" id="watching-button" href="#">
+<a class="{$a_class}" id="watching-button" href>
 {$a_label}</a>
 {$watch_js}
 EOT;
     } else {
         // user not logged in, only show how many user are watching.
         $watching_label = <<<EOT
-<span class="watching-label">Watch</span>
+<span class="watching-sum">{$total}</span>
+<span class="watching-label">Watching</span>
 EOT;
     }
 
     $span = <<<EOT
 <span class="watching">
-  <!-- span class="watching-sum">{$total}</span -->
   {$watching_label}
 </span>
 EOT;
