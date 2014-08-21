@@ -259,6 +259,9 @@ jQuery("a#{$button_id}").click(function() {
         "watch_action" : "{$watch_action}",
     };
 
+    jQuery("body").css("cursor", "progress");
+    jQuery("a").css("cursor", "progress");
+
     // AJAX Post
     jQuery.post("{$ajax_url}", data,
         function(response) {
