@@ -53,6 +53,9 @@ resolve
 reopen
   [USER] reopen ticket #[TICKET_ID]
 
+New Site Option
+---------------
+
 A new site option will be used to turn on and off the BuddyPress_
 activity hook.
 
@@ -84,6 +87,10 @@ List of actions to have this feature implemented:
 QUESTIONS
 ---------
 
+How to add better summary for the BuddyPress activity stream?
+  The `function bp_activity_add`_ have a set of fields to 
+  customize the summary of a BuddyPress activity.
+
 How to decide the URL to a ticket?
   Currently, we are using WikiRenderer_ lib to parse the Trac_
   wiki text to HTML, which will parse the ticket id with format
@@ -95,6 +102,7 @@ How to decide the URL to a ticket?
   the Trac_ wiki text to HTML.
 
 .. _BuddyPress: http://www.buddypress.org
+.. _function bp_activity_add: http://codex.buddypress.org/developer/function-examples/bp_activity_add
 .. _WordPress: http://www.wordpress.org
 .. _WikiRenderer: https://github.com/laurentj/wikirenderer
 .. _Trac: http://trac.edgewall.org/
