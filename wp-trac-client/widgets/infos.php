@@ -11,22 +11,21 @@ function wptc_widget_ticket_watching($ticket) {
     if(is_user_logged_in()) {
         // logged in user will have a button to watch/unwatch
         $current_user = wp_get_current_user();
-        // assume current user is not watching now.
-        $a_class = "watching-but-watch";
-        $a_label = "Watch";
-        $watch_js = wptc_watch_ticket_js("watching-button",
-                                         $ticket['id'],
-                                         $ticket['cc'],
-                                         "watch");
         if (in_array($current_user->user_email, $watching_emails)) {
             // current user is in watching list.
             $a_class = "watching-but-unwatch";
             $a_label = "Watching";
-            $watch_js = wptc_watch_ticket_js("watching-button",
-                                             $ticket['id'],
-                                             $ticket['cc'],
-                                             "unwatch");
+            $watch_action = "unwatch";
+        } else {
+            // current user is not watching now.
+            $a_class = "watching-but-watch";
+            $a_label = "Watch";
+            $watch_action = "watch";
         }
+        $watch_js = wptc_watch_ticket_js("watching-button",
+                                         $ticket['id'],
+                                         $ticket['cc'],
+                                         $watch_action);
 
         $watching_label = <<<EOT
 <a class="{$a_class}" id="watching-button" href="#">
