@@ -194,30 +194,31 @@ add_action('wp_ajax_wptc_watch_ticket', 'wptc_watch_ticket_cb');
 function wptc_watch_ticket_cb() {
 
     // here are params we need:
-    $ticket_id = $_POST['id'];
+    $ticket_id = intval($_POST['ticket_id']);
     $existing_cc = $_POST['existing_cc'];
-    $watcher_email = $_POST['watcher_email'];
+    //$watcher_email = $_POST['watcher_email'];
     // possible actions: watch and unwatch
     $action = $_POST['watch_action'];
 
     // get current user.
     $current_user = wp_get_current_user();
     // preparing the watchers.
-    $watchers = explode(',', $existing_cc);
+    $watchers = explode(', ', $existing_cc);
     // verify the email address.
+    $watcher_email = $current_user->user_email;
 
     switch($action) {
         case 'watch':
             // prepare the comment.
             $comment = $current_user->display_name . 
-                       "started watch this ticket!";
+                       " started watching this ticket!";
             // add the watcher email.
             $watchers[] = $watcher_email;
             break;
         case 'unwatch':
             // prepare the comment.
             $comment = $current_user->display_name .
-                       "Stopped watch this ticket!";
+                       " stopped watch this ticket!";
             // remove the watcher email.
             $key = array_search($watcher_email, $watchers);
             if($key !== false) {
@@ -229,7 +230,7 @@ function wptc_watch_ticket_cb() {
     $res = array();
     // update ticket.
     $id = wptc_update_ticket($ticket_id, $comment, 
-                             array('cc' => implode(',', $watchers)));
+                             array('cc' => implode(', ', $watchers)));
     $res['id'] = $id;
     $res['success'] = true;
     echo json_encode($res);
@@ -239,3 +240,35 @@ function wptc_watch_ticket_cb() {
 /**
  * function to generate javascript for call wptc_watch_ticket action.
  */
+function wptc_watch_ticket_js($button_id, $ticket_id, 
+                              $existing_cc, $watch_action) {
+
+    // the ajax_url
+    $ajax_url = admin_url('admin-ajax.php');
+
+    $js = <<<EOT
+<script type="text/javascript" charset="utf-8">
+<!--
+jQuery("a#{$button_id}").click(function() {
+
+    // preparing the data.
+    var data = {
+        "action" : "wptc_watch_ticket",
+        "ticket_id" : {$ticket_id},
+        "existing_cc" : "{$existing_cc}",
+        "watch_action" : "{$watch_action}",
+    };
+
+    // AJAX Post
+    jQuery.post("{$ajax_url}", data,
+        function(response) {
+            res = JSON.parse(response);
+            location.reload();
+        });
+});
+-->
+</script>
+EOT;
+
+    return $js;
+}

@@ -5,7 +5,7 @@
 function wptc_widget_ticket_watching($ticket) {
 
     // findout the total number of watchers.
-    $watching_emails = explode(',', $ticket['cc']);
+    $watching_emails = explode(', ', $ticket['cc']);
     $total = count($watching_emails);
 
     if(is_user_logged_in()) {
@@ -14,15 +14,24 @@ function wptc_widget_ticket_watching($ticket) {
         // assume current user is not watching now.
         $a_class = "watching-but-watch";
         $a_label = "Watch";
+        $watch_js = wptc_watch_ticket_js("watching-button",
+                                         $ticket['id'],
+                                         $ticket['cc'],
+                                         "watch");
         if (in_array($current_user->user_email, $watching_emails)) {
             // current user is in watching list.
             $a_class = "watching-but-unwatch";
             $a_label = "Watching";
+            $watch_js = wptc_watch_ticket_js("watching-button",
+                                             $ticket['id'],
+                                             $ticket['cc'],
+                                             "unwatch");
         }
 
         $watching_label = <<<EOT
 <a class="{$a_class}" id="watching-button" href="#">
 {$a_label}</a>
+{$watch_js}
 EOT;
     } else {
         // user not logged in, only show how many user are watching.
@@ -33,7 +42,7 @@ EOT;
 
     $span = <<<EOT
 <span class="watching">
-  <span class="watching-sum">{$total}</span>
+  <!-- span class="watching-sum">{$total}</span -->
   {$watching_label}
 </span>
 EOT;
@@ -43,6 +52,11 @@ EOT;
 
 
 // utility functions
+
+function wptc_update_cc_only($id, $comment, $new_cc) {
+
+    wptc_update_ticket(2148, $comment, array('cc' => $new_cc));
+}
 
 /**
  * return true if the user is watching 
