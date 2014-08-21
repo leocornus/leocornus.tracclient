@@ -30,7 +30,8 @@ Views and Widgets Need
 - image / button for logged in user to watch / unwatch a ticke
 - [logged in user] view to list all watching tickets for a user
 - [anonymous] view to list all users who are watching a ticket
-- [anonymous] ability to show the total number of watchers for a ticket.
+- [anonymous] ability to show the total number of watchers 
+  for a ticket.
 - [anonymous] ability to show the tooltip: Please login to watch this
   ticket.
 
@@ -66,17 +67,6 @@ ticket based on the request (watch or unwatch).
 The client site JavaScript parse the response and 
 reload the page!
 
-**Values for user_field**
-
-We will use the same possible values for user_field as the
-WordPress `function get_user_by`_.
-Here are the list of possible values, the default value is email.
-
-- id
-- slug
-- email
-- login
-
 Code Samples
 ============
 
@@ -87,27 +77,32 @@ Markup for the watch/unwatch and summary button::
 
   <div id="content">
     <h1 id="ticket-title">...</h1>
-    <span class="watching" style="
-          float: right;
-          font-size: 100%;
-          border: solid #ffd 1px;
-          margin-top: -15px;
-          background-color: #ffd;
-    ">
-          <span class="watching-button" style="
-              border-right: solid #996 1px;
-              margin-right: -4px;
-              padding-right: 4px;
-          ">Watch</span>
-          <span class="watching-sum" style="
-              padding-left: 3px;
-         ">222</span>
+    <span class="watching">
+      <span class="watching-sum">123</span>
+      <span class="watching-label">Watching</span>
+      <a class="watch" id="watching-button" href>
+        Watching
+      </a>
     </span>
     <div id="ticket">...</div>
   ...
   </div>
 
 How to update ticket for the 
+
+Legacy Backups
+--------------
+
+**Values for user_field**
+
+We will use the same possible values for user_field as the
+WordPress `function get_user_by`_.
+Here are the list of possible values, the default value is email.
+
+- id
+- slug
+- email
+- login
 
 .. _function get_user_by: http://codex.wordpress.org/Function_Reference/get_user_by
 .. _function wp_get_current_user: http://codex.wordpress.org/Function_Reference/wp_get_current_user
