@@ -37,25 +37,23 @@ Views and Widgets Need
 Functions and Components
 ========================
 
-- function **wptc_watch_ticket($ticket_id, $watching = true, 
-  $user_email = null)**
-  will be the one for watch and unwatch a ticket.
-- function **wptc_ticket_watchers($ticket_id)**
+- New PHP function (**wptc_widget_ticket_watching($ticket)**)
+  to generate the HTML for the watch/unwatch button 
+  and the total number of watching users.
+- Create new `wp_ajax_(action)`_ **wptc_watch_ticket**
+  to handle watch and unwatch action.
+- new function **wptc_watch_ticket_cb** as the callback function
+  for AJAX request. TODO: example for post data in JSON format.
+- new function **wptc_watch_ticket_js** to generate 
+  JavaScript client to update page and handle user's activities:
+  mainly mouse clicks, cursor update, etc..
+- [NEXT PHASE] page template to show the list of watchers 
+  for a ticket! Maybe just a jQuery UI Dialog.
+- [NEXT PHASE] function **wptc_ticket_watchers($ticket_id)**
   will return a list of watchers
 - function **wptc_ticket_is_watching($ticket_id, 
   $user_field="email", $user_value=null)** returns true if the user 
   is watching the given ticket.
-- New PHP function (**wptc_widget_ticket_watching($ticket)**)
-  to generate the HTML for the watch/unwatch button 
-  and the total number of watching users.
-- Create new `wp_ajax_(action)`_ to handle watch and unwatch action.
-  TODO: What's the action name? what's the call back function name?
-- AJAX call back PHP function to handle the AJAX requst
-  for watch and unwatch a ticket.
-- [NEXT PHASE] page template to show the list of watchers 
-  for a ticket! Maybe just a jQuery UI Dialog.
-- JavaScript client to update page and handle user's activities,
-  mainly: mouse click.
 
 Rough Flow
 ----------
