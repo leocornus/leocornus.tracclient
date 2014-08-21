@@ -35,8 +35,8 @@ EOT;
     } else {
         // user not logged in, only show how many user are watching.
         $watching_label = <<<EOT
-<span class="watching-sum">{$total}</span>
-<span class="watching-label">Watching</span>
+<!-- span class="watching-sum"></span -->
+<span class="watching-label">{$total}</span>
 EOT;
     }
 
