@@ -47,6 +47,33 @@ Use Cases
 we will work on to make everybody can create and manage projet 
 through wp-tracl-client plugin.
 
+Use cases will be devided by user roles.
+We will have the following roles:
+
+#. General User, anonymous user
+#. Developer / Tester / Contributor
+#. Project Owner, Project Manager
+
+General User Story
+------------------
+
+As a general user, I should be able to:
+
+- view the summary of a project [Project Summary Page]:
+
+  - project name, description
+  - list of tickets
+  - list of wiki pages, documentations,
+  - list (tag cloud) of contributors
+  - report of the projects.
+  - list of milestones / roadmap
+  - list of sprints
+
+- View the summary of any milestone of a project 
+  [Milestone Summary Page]:
+- View the summary of any sprint [Sprint Page]:
+- View the summary of any Ticket [Ticket Page]:
+
 Initial Thinkings
 -----------------
 
