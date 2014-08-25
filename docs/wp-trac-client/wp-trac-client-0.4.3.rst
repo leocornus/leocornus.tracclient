@@ -4,5 +4,6 @@ hosting capability.
 Stories
 -------
 
+- `AngularJS Introduction Story <AngularJS-Introduction-Story.rst>`_
 - `Progress Custom Field Design Story <Progress-Custom-Field-Design-Story.rst>`_
 - `Project Management Design Story <Project-Management-Design-Story.rst>`_
