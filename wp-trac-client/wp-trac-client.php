@@ -3,8 +3,8 @@
 Plugin Name: WP Trac Client
 Plugin URI: http://www.github.com/leocornus/leocornus.tracclient
 Description: An XML-RPC trac client for WordPress blogs.
-Version: 0.4.1
-Author: Leocornus Ltd.
+Version: 0.4.2
+Author: Sean Chen <sean.chen@leocorn.com>
 Author URI: http://www.leocorn.com
 License: GPLv2
 */
