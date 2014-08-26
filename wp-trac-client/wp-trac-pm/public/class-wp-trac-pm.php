@@ -56,6 +56,18 @@ class WPTracProjectManagement {
         add_action('wpmu_new_blog', 
                    array($this, 'activate_new_site'));
 
+        $base_path = WPTC_PLUGIN_PATH . '/wp-trac-pm/public/fake';
+        /**
+         * register script.
+         */
+        wp_register_script(
+            'wptc-angular-core',
+            //plugin_dir_url(__FILE__) . 'assets/js/angular.min.js', 
+            plugins_url('assets/js/angular.min.js', $base_path),
+            array('jquery'),
+            '1.2.23', false
+        );
+
         // Load public-facing style sheet and JavaScript.
         add_action('wp_enqueue_scripts', 
                    array($this, 'enqueue_styles'));
@@ -217,6 +229,7 @@ class WPTracProjectManagement {
      * @since    0.4.3
      */
     private static function single_activate() {
+
         // @TODO: Define activation functionality here
     }
 
@@ -249,7 +262,7 @@ class WPTracProjectManagement {
      * @since    0.4.3
      */
     public function enqueue_styles() {
-        wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
+        //wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
     }
 
     /**
@@ -258,7 +271,7 @@ class WPTracProjectManagement {
      * @since    0.4.3
      */
     public function enqueue_scripts() {
-        wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
+        //wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
     }
 
     /**
