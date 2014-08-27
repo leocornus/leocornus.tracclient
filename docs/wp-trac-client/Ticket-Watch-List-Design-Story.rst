@@ -16,6 +16,7 @@ Design Overview
 
 - we will using the Trac's **cc** field to save all watchers's
   email addresses.
+- Using AngularJS lib for better client side presentation.
 - Trac client plugin will associate the email address with
   user login and user full name, back and forth.
 - Ticket owners and reporter will automatically watch the ticket.
@@ -88,7 +89,11 @@ Markup for the watch/unwatch and summary button::
   ...
   </div>
 
-How to update ticket for the 
+We could only update one field of a Trac ticket.
+Here is a sample to update only **cc** field::
+
+  wptc_update_ticket(1888, 'some comment', 
+                     array('cc' => 'my@email.com'));
 
 Legacy Backups
 --------------

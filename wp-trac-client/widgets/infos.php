@@ -58,14 +58,6 @@ EOT;
     return $span;
 }
 
-
-// utility functions
-
-function wptc_update_cc_only($id, $comment, $new_cc) {
-
-    wptc_update_ticket(2148, $comment, array('cc' => $new_cc));
-}
-
 /**
  * return true if the user is watching 
  * $user_field will be one of the following values:
