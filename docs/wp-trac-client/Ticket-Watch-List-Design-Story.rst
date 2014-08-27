@@ -57,6 +57,11 @@ Functions and Components
   $user_field="email", $user_value=null)** returns true if the user 
   is watching the given ticket.
 
+Trac Query
+----------
+
+TracQery_ is using **~=** for contain condition.
+
 Rough Flow
 ----------
 
@@ -112,3 +117,4 @@ Here are the list of possible values, the default value is email.
 .. _function get_user_by: http://codex.wordpress.org/Function_Reference/get_user_by
 .. _function wp_get_current_user: http://codex.wordpress.org/Function_Reference/wp_get_current_user
 .. _wp_ajax_(action): http://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+.. _TracQuery: http://trac.edgewall.org/wiki/TracQuery
