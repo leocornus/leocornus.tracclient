@@ -9,7 +9,19 @@ get_header();
 
 // inqueue plupload lib
 wp_enqueue_script('plupload-handlers');
+wp_enqueue_script('wptc-angularjs-core');
 ?>
+
+<!-- testing angularjs -->
+<script type="text/javascript">
+jQuery('html').attr('ng-app', '');
+</script>
+<div>
+  <label>Name:</label>
+  <input type="text" ng-model="yourName" 
+         placeholder="Enter a name here">
+  <h1>Hello {{yourName}}!</h1>
+</div>
 
 <!-- script type="text/javascript" src="/plupload-test.js"></script --> 
 <script type="text/javascript">
@@ -117,7 +129,7 @@ jQuery(document).ready(function() {
   uploader.init();
 });
 </script>
-<div id="content">
+<div>
 
   <div id="uploader">
     
