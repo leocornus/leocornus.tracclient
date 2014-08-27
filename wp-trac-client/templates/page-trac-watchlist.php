@@ -1,8 +1,8 @@
 <?php
 /*
- * Template Name: Trac My Tickets
- * Description: a page templage to show a list of tickets for 
- * current user.
+ * Template Name: Trac My Watchlist 
+ * Description: a page template to show a list of tickets 
+ * that current user is watching.
  */
 ?>
 
@@ -17,15 +17,19 @@ $owner = $_GET['owner'];
 if(empty($owner)) {
     $current_user = wp_get_current_user();
     $owner = $current_user->user_login;
+    $owner_email = $current_user->user_email;
+} else {
+    $user = get_user_by('login', $owner);
+    $owner_email = $user->user_email;
 }
 // include closed or not
 $include_closed = $_GET['includeClosed'];
 if(!empty($include_closed) && 
    strtolower($include_closed) === "true" ) {
-    $query = "owner={$owner}";
+    $query = "cc~={$owner_email}";
     $checked = "checked";
 } else {
-    $query = "owner={$owner}" . '&status!=closed';
+    $query = "cc~={$owner_email}" . '&status!=closed';
     $checked = "";
 }
 ?>
@@ -41,7 +45,7 @@ if(!empty($include_closed) &&
 
   <div id="content">
 
-  <h2>Tickets I am working on ...</h2>
+  <h2>Tickets in My Watchlist</h2>
 
   <div style="float: right">
     <input type="hidden" id="owner" value="<?php echo $owner;?>"/>
