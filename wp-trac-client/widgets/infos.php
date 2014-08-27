@@ -36,7 +36,11 @@ EOT;
         // user not logged in, only show how many user are watching.
         $watching_label = <<<EOT
 <!-- span class="watching-sum"></span -->
-<span class="watching-label">{$total}</span>
+<a href id="tooltip" title="Login to Watch This Ticket!"
+   class="watching-but-unwatch"
+>
+  {$total}
+</a>
 EOT;
     }
 

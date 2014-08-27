@@ -661,20 +661,6 @@ span.watching{
   background-color: #ffd;
 }
 
-span.watching-sum{
-  border-right: solid #996 1px;
-  margin-right: -4px;
-  padding-right: 4px;
-}
-
-span.watching-label {
-  padding-left: 2px;
-  padding-right: 18px;
-  background-image: url(../images/unwatch-icon.png);
-  background-repeat: no-repeat;
-  background-position: right;
-}
-
 a.watching-but-watch{
   padding-left: 3px;
   padding-right: 18px;
@@ -694,4 +680,8 @@ a.watching-but-unwatch{
 a.watching-but-watch:hover
 a.watching-but-unwatch:hover {
   text-decoration: none;
+}
+
+a#tooltip:hover {
+  background-image: url(../images/watch-icon.png);
 }
