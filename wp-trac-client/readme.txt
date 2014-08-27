@@ -5,8 +5,8 @@ Donate link:
 http://www.github.com/leocornus/leocornus.tracclient
 Tags: trac, ticket, xml-rpc, project management, agile, milestone, sprint
 Requires at least: 3.3.1
-Tested up to: 3.3.1
-Stable tag: 0.4.1
+Tested up to: 3.5.1
+Stable tag: 0.4.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,4 +43,4 @@ The admin page on dashboard->General->TracClient On Wordpress
 
 == Change Log ==
 
-
+http://github.com/leocornus/leocornus.tracclient
