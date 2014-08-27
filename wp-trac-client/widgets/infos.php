@@ -15,11 +15,13 @@ function wptc_widget_ticket_watching($ticket) {
             // current user is in watching list.
             $a_class = "watching-but-unwatch";
             $a_label = "Watching";
+            $a_title = "Click to Unwatch This Ticket";
             $watch_action = "unwatch";
         } else {
             // current user is not watching now.
             $a_class = "watching-but-watch";
             $a_label = "Watch";
+            $a_title = "Click to Watch This Ticket";
             $watch_action = "watch";
         }
         $watch_js = wptc_watch_ticket_js("watching-button",
@@ -28,8 +30,11 @@ function wptc_widget_ticket_watching($ticket) {
                                          $watch_action);
 
         $watching_label = <<<EOT
-<a class="{$a_class}" id="watching-button" href>
-{$a_label}</a>
+<a class="{$a_class}" id="watching-button" href
+   title="{$a_title}"
+>
+ {$a_label}
+</a>
 {$watch_js}
 EOT;
     } else {
