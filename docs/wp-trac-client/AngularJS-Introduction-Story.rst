@@ -16,6 +16,12 @@ We will using WordPress functions:
 
 How to manage the handle names?
 
+List of Handle Names and Files
+------------------------------
+
+wptc-angular-core
+  js/angular.js
+
 Reference `AngularJS for WordPress Plugin`_
 
 .. _bootstrap: https://github.com/twbs/bootstrap
