@@ -1,4 +1,4 @@
-`wp-trac-client Release 0.4.3 <wp-trac-client-0.4.3.rst>`_ >
+`wp-trac-client Release 0.4.2 <wp-trac-client-0.4.2.rst>`_ >
 Introducing AngularJS for wp-trac-client
 
 We will explore how AngularJS_ can help to present Trac_ project
