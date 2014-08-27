@@ -75,7 +75,7 @@ EOT;
  * a re-usable function to generate JavaScript code to configurate
  * and load jQuery DataTable for the given table id.
  */
-function wptc_view_dt_js($table_id, $per_page=25) {
+function wptc_view_dt_js($table_id, $per_page=10) {
 
     $js = <<<EOT
 <script type="text/javascript" charset="utf-8">
@@ -87,7 +87,7 @@ jQuery(document).ready(function() {
         // trun off the length change drop down.
         "bLengthChange" : true,
         // define the length memn option
-        "aLengthMenu" : [[15, 25, 50, -1], [15, 25, 50, "All"]],
+        "aLengthMenu" : [[10, 25, 50, -1], [10, 25, 50, "All"]],
         // turn off filter.
         "bFilter" : true,
         // turn off sorting.
