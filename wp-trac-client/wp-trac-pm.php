@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Trac Project Management on WordPress
+ * NONE Plugin Name: Trac Project Management on WordPress
  * Plugin URI: http://www.github.com/leocornus/leocornus.tracclient
  * Description: Agile Project Management at Trac on WordPress
  * Version: 0.4.3
