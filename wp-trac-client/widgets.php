@@ -166,6 +166,12 @@ function wptc_widget_trac_toolbar($page_slug=null) {
 <br/>
 <div class="trac-toolbar-item">
   <b>
+  <a href="{$blog_path}trac/watchlist">My Watchlist</a>
+  </b>
+</div>
+<br/>
+<div class="trac-toolbar-item">
+  <b>
   <a href="{$blog_path}{$page_slug}">Create New Ticket</a>
   </b>
 </div>
