@@ -104,6 +104,11 @@ function register_resources() {
     wp_register_script('jquery-masonry',
                        plugins_url('wp-trac-client/js/jquery.masonry.min.js'),
                        array('jquery'), '2.1.08');
+
+    // RESOURCES for AngularJS
+    wp_register_script('wptc-angularjs-core',
+        plugins_url('wp-trac-client/js/angular.min.js'),
+        array('jquery'), '1.2.23');
 }
 
 function get_wptc_client() {
