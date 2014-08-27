@@ -34,6 +34,8 @@ function wptc_pages_admin_form($echo = false) {
         get_site_option('wptc_page_trac_ticket'));
     $mytickets_select_html = wptc_page_list_html('trac-mytickets',
         get_site_option('wptc_page_trac_mytickets'));
+    $watchlist_select_html = wptc_page_list_html('trac-watchlist',
+        get_site_option('wptc_page_trac_watchlist'));
     $testing_select_html = wptc_page_list_html('trac-testing',
         get_site_option('wptc_page_trac_testing'));
 
@@ -70,6 +72,11 @@ function wptc_pages_admin_form($echo = false) {
     </tr>
 
     <tr>
+      <td>Trac My Watchlist Page</td>
+      <td>{$watchlist_select_html}</td>
+    </tr>
+
+    <tr>
       <td>Trac Testing Page</td>
       <td>{$testing_select_html}</td>
     </tr>
@@ -103,6 +110,8 @@ if (isset($_POST['wptc_pages_form_submit']) &&
                        $_POST['trac-ticket']);
     update_site_option('wptc_page_trac_mytickets', 
                        $_POST['trac-mytickets']);
+    update_site_option('wptc_page_trac_watchlist', 
+                       $_POST['trac-watchlist']);
     update_site_option('wptc_page_trac_testing', 
                        $_POST['trac-testing']);
 

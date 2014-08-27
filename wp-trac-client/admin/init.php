@@ -46,6 +46,12 @@ function wptc_create_pages() {
     $my_id = wp_insert_post($post_data, false);
     update_site_option('wptc_page_trac_mytickets', $my_id);
 
+    // the ticket page using trac page as parent.
+    $post_data['post_parent'] = $trac_id;
+    $post_data['post_title'] = __('watchlist', 'wptc');
+    $watch_id = wp_insert_post($post_data, false);
+    update_site_option('wptc_page_trac_watchlist', $watch_id);
+
     // the testing page using trac page as parent.
     $post_data['post_parent'] = $trac_id;
     $post_data['post_title'] = __('testing', 'wptc');

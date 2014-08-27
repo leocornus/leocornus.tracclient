@@ -61,6 +61,14 @@ function wptc_apply_page_template($template) {
                     '/templates/page-trac-mytickets.php';
         return $template;
     }
+    // my watchlist page.
+    $page_id = get_site_option('wptc_page_trac_watchlist', "-1");
+    if(($page_id != "-1") && is_page($page_id)) {
+        // apply trac homepage template.
+        $template = WPTC_PLUGIN_PATH . 
+                    '/templates/page-trac-watchlist.php';
+        return $template;
+    }
     // the testing page.
     $page_id = get_site_option('wptc_page_trac_testing', "-1");
     if(($page_id != "-1") && is_page($page_id)) {
