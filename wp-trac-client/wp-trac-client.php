@@ -109,6 +109,12 @@ function register_resources() {
     wp_register_script('wptc-angularjs-core',
         plugins_url('wp-trac-client/js/angular.min.js'),
         array('jquery'), '1.2.23');
+    wp_register_style('wptc-bootstrap', 
+        plugins_url('wp-trac-client/css/bootstrap.css'),
+        array(), '2.3.2');
+    wp_register_style('wptc-bootstrap-docs', 
+        plugins_url('wp-trac-client/css/bootstrap.css'),
+        array('wptc-bootstrap'), '2.3.2');
 }
 
 function get_wptc_client() {
