@@ -6,6 +6,7 @@
 
 get_header();
 wp_enqueue_script('wptc-angular-core');
+wp_enqueue_style('wptc-bootstrap-docs');
 ?>
 
 <script type="text/javascript">
@@ -48,7 +49,7 @@ angular.module('todoApp', [])
   <input type="text" ng-model="yourName" 
          placeholder="Enter a name here">
   <hr>
-  <h1>Hello {{yourName}}!</h1>
+  <h3>Hello {{yourName}}!</h3>
 </div>
 
 <h2>TODO List</h2>
@@ -64,7 +65,7 @@ angular.module('todoApp', [])
   </ul>
   <form ng-submit="addTodo()">
     <input type="text" ng-model="todoText"  size="30"
-           placeholder="add new todo here">
+           placeholder="add new todo here" required>
     <input class="btn-primary" type="submit" value="add">
   </form>
 </div>
