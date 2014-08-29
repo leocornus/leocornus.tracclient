@@ -15,7 +15,6 @@ Stories
 -------
 
 - `Unique File Name Option Story`_
-- `AngularJS Introduction Story <AngularJS-Introduction-Story.rst>`_
 - `Ticket Watch List Story <Ticket-Watch-List-Design-Story.rst>`_
 - `BuddyPress Activity Stream Story <BuddyPress-Activity-Stream-Story.rst>`_
 
