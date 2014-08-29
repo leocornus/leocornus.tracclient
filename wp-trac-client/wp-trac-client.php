@@ -109,6 +109,19 @@ function register_resources() {
     wp_register_script('wptc-angularjs-core',
         plugins_url('wp-trac-client/js/angular.min.js'),
         array('jquery'), '1.2.23');
+    wp_register_script('wptc-angularjs-route',
+        plugins_url('wp-trac-client/js/angular-route.min.js'),
+        array('wptc-angularjs-core'), '1.2.23');
+    wp_register_script('wptc-angularjs-resource',
+        plugins_url('wp-trac-client/js/angular-resource.min.js'),
+        array('wptc-angularjs-core'), '1.2.23');
+    wp_register_script('wptc-angularfire',
+        plugins_url('wp-trac-client/js/angularfire.min.js'),
+        array('wptc-angularjs-core'), '0.8.0');
+    wp_register_script('wptc-firebase',
+        plugins_url('wp-trac-client/js/firebase.js'),
+        array('wptc-angularjs-core'), '1.0.18');
+
     wp_register_style('wptc-bootstrap', 
         plugins_url('wp-trac-client/css/bootstrap.css'),
         array(), '2.3.2');
