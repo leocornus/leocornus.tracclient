@@ -25,6 +25,9 @@ WordPress wp_ajax actions::
     });
   });
 
+As all **wp_ajax** actions only work with POST method, 
+we have to pass the data throgh **params** parameter.
+
 .. _$http: https://docs.angularjs.org/api/ng/service/$http
 .. _$resource: https://docs.angularjs.org/api/ngResource/service/$resource
 .. _XHRs & Dependency Injection: https://docs.angularjs.org/tutorial/step_05
