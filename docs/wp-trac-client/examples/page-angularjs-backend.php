@@ -11,7 +11,9 @@ wp_enqueue_script('wptc-angularjs-resource');
 wp_enqueue_script('wptc-angularjs-route');
 wp_enqueue_script('wptc-angularfire');
 wp_enqueue_script('wptc-firebase');
-wp_enqueue_style('wptc-bootstrap');
+//wp_enqueue_style('wptc-bootstrap');
+
+$ajax_url = admin_url('admin-ajax.php');
 ?>
 
 <script type="text/javascript">
@@ -101,8 +103,19 @@ angular.module('project', ['ngRoute', 'firebase'])
     });
 })
  
-.controller('ListCtrl', function($scope, Projects) {
+.controller('ListCtrlORG', function($scope, Projects) {
   $scope.projects = Projects;
+})
+
+.controller('ListCtrl', function($scope, $http) {
+  var data = {
+    'action' : 'wptc_trac_tickets',
+  };
+  $http.post('<?php echo $ajax_url;?>', data, {params: data})
+  .success(function(response) {
+      //alert(response);
+      $scope.projects = response;
+  });
 })
  
 .controller('CreateCtrl', function($scope, $location, $timeout, Projects) {
