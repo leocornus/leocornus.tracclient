@@ -18,34 +18,38 @@ What source code?
 Which WordPress context?
 ------------------------
 
-- WordPress page template
+- WordPress page template to load the AngularJS apps in WordPress
+  context. 
+- PHP helper function to register js libs, css files
+- PHP function to load js files, css files, and all imges.
 
 How a AngularJS app looks like in WordPress
 -------------------------------------------
 
 folder layout::
 
-  page-angular-app.php
-  angular-app/
-   |- app\
-       |- css\
-       |- js\
-       |- img\
-       |- html\
+  page-myapp.php
+  myapp/
+   |- app/
+       |- css/
+       |- js/
+       |- img/
+       |- view/
        |- index.html
-   |- test\
-       |- unit\
-       |- e2e\
+   |- test/
+       |- unit/
+       |- e2e/
 
 Important WordPress Technique
 -----------------------------
 
 We will use the following basic and important WordPress techniques
-wo wire up an AngularJS app in WordPress context.
+to wire up an AngularJS app in WordPress context.
 
 - wp_enqueue_script
 - wp_localize_script
 - wp_enqueue_scripts anction
+- WordPress page template
 
 This post `use wp_localize_script it is awesome`_ has a very good
 example about how to use those techniques.
