@@ -40,6 +40,12 @@ folder layout::
        |- unit/
        |- e2e/
 
+The page template will basically locate all resources and wire up them all together.
+The wp_ajax actions will provide necessary data as the module.
+JavaScript in the js folder will implement all logics as controller.
+HTML files in view folder, stylesheets in css folder and images in **img** folder will 
+offer needed views: data list, forms, dialog, etc.
+
 Important WordPress Technique
 -----------------------------
 
