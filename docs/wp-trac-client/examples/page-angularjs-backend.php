@@ -51,7 +51,7 @@ angular.module('project', ['ngRoute', 'firebase'])
     })
     .when('/new', {
       controller:'CreateCtrl',
-      template: detail
+      templateUrl: '<?php echo $detail_template; ?>' 
     })
     .otherwise({
       redirectTo:'/'
