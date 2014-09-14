@@ -11,7 +11,13 @@ wp_enqueue_script('wptc-angularjs-resource');
 wp_enqueue_script('wptc-angularjs-route');
 wp_enqueue_script('wptc-angularfire');
 wp_enqueue_script('wptc-firebase');
-wp_enqueue_style('wptc-bootstrap');
+//wp_enqueue_style('wptc-bootstrap');
+
+$ajax_url = admin_url('admin-ajax.php');
+$detail_template = get_stylesheet_directory_uri() . 
+    '/template/detail.html';
+$list_template = get_stylesheet_directory_uri() . 
+    '/template/list.html';
 ?>
 
 <script type="text/javascript">
@@ -20,7 +26,7 @@ jQuery('html').attr('ng-app', 'project');
 
 <h2>AngularJS Projects</h2>
 
-<div ng-view></div>
+<div ng-view calss="well"></div>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -34,75 +40,37 @@ angular.module('project', ['ngRoute', 'firebase'])
  
 .config(function($routeProvider) {
 
-  // the projects list html.
-  var list = '<input type="text" ng-model="search" class="search-query" placeholder="Search">' + 
-'<table>' +
-'  <thead>' +
-'  <tr>' +
-'    <th>Project</th>' +
-'    <th>Description</th>' +
-'    <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>' +
-'  </tr>' +
-'  </thead>' +
-'  <tbody>' +
-'  <tr ng-repeat="project in projects | filter:search | orderBy:\'name\'">' +
-'    <td><a ng-href="{{project.site}}" target="_blank">{{project.name}}</a></td>' +
-'    <td>{{project.description}}</td>' +
-'    <td>' +
-'      <a ng-href="#/edit/{{project.$id}}"><i class="icon-pencil"></i></a>' +
-'    </td>' +
-'  </tr>' +
-'  </tbody>' +
-'</table>';
-  // the details html template
-  var detail = '<form name="myForm">' + 
-'  <div class="control-group" ng-class="{error: myForm.name.$invalid && !myForm.name.$pristine}">' +
-'    <label>Name</label>' +
-'    <input type="text" name="name" ng-model="project.name" required>' +
-'    <span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">' +
-'        Required {{myForm.name.$pristine}}</span>' +
-'  </div>' +
-' ' +
-'  <div class="control-group" ng-class="{error: myForm.site.$invalid && !myForm.site.$pristine}">' +
-'    <label>Website</label>' +
-'    <input type="url" name="site" ng-model="project.site" required>' +
-'    <span ng-show="myForm.site.$error.required && !myForm.site.$pristine" class="help-inline">' +
-'        Required</span>' +
-'    <span ng-show="myForm.site.$error.url" class="help-inline">' +
-'        Not a URL</span>' +
-'  </div>' +
-' ' +
-'  <label>Description</label>' +
-'  <textarea name="description" ng-model="project.description"></textarea>' +
-' ' +
-'  <br>' +
-'  <a href="#/" class="btn">Cancel</a>' +
-'  <button ng-click="save()" ng-disabled="myForm.$invalid"' +
-'          class="btn btn-primary">Save</button>' +
-'  <button ng-click="destroy()"' +
-'          ng-show="project.$id" class="btn btn-danger">Delete</button>' +
-'</form>';
-
   $routeProvider
     .when('/', {
       controller:'ListCtrl',
-      template: list
+      templateUrl:'<?php echo $list_template; ?>' 
     })
     .when('/edit/:projectId', {
       controller:'EditCtrl',
-      template: detail
+      templateUrl: '<?php echo $detail_template; ?>' 
     })
     .when('/new', {
       controller:'CreateCtrl',
-      template: detail
+      templateUrl: '<?php echo $detail_template; ?>' 
     })
     .otherwise({
       redirectTo:'/'
     });
 })
  
-.controller('ListCtrl', function($scope, Projects) {
+.controller('ListCtrlORG', function($scope, Projects) {
   $scope.projects = Projects;
+})
+
+.controller('ListCtrl', function($scope, $http) {
+  var data = {
+    'action' : 'wptc_trac_tickets',
+  };
+  $http.post('<?php echo $ajax_url;?>', data, {params: data})
+  .success(function(response) {
+      //alert(response);
+      $scope.projects = response;
+  });
 })
  
 .controller('CreateCtrl', function($scope, $location, $timeout, Projects) {

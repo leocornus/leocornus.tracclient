@@ -12,6 +12,14 @@ Questions and Challenges
 - What's the best way to incorporate both bootstrap_ and AngularJS_
   into WordPress theme or plugin?
 
+Stories
+-------
+
+- `Options for AngularJS communicate with WordPress backend 
+  <How-AngularJS-Talk-to-WordPress.rst>`_
+- `Best Practice to Organize Source Code for AngularJS APP
+  in WordPress Context <AngularJS-Code-Organization-Story.rst>`_
+
 Package Mangement
 -----------------
 
@@ -39,6 +47,7 @@ We will using WordPress functions:
 
 - wp_register_script
 - wp_enqueue_script
+- wp_localize_script
 - wp_register_style
 - wp_enqueue_style
 - wp_enqueue_scripts action
@@ -53,7 +62,6 @@ List of Handle Names and Files
 
 :wptc-bootstrap:
 :wptc-bootstrap-docs:
-
 
 Reference `AngularJS for WordPress Plugin`_
 

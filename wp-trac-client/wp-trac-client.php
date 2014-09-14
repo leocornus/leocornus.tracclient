@@ -69,6 +69,7 @@ require_once(WPTC_PLUGIN_PATH . '/widgets/index.php');
 require_once(WPTC_PLUGIN_PATH . '/actions.php');
 // load ajax functions.
 require_once(WPTC_PLUGIN_PATH . '/ajax.php');
+require_once(WPTC_PLUGIN_PATH . '/json/index.php');
 require_once(WPTC_PLUGIN_PATH . '/utils.php');
 // load the WikiRenderer lib with trac wiki rule.
 require_once(WPTC_PLUGIN_PATH . '/wikirenderer/WikiRenderer.lib.php');
