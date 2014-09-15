@@ -30,6 +30,7 @@ function wptc_widget_ticket_watching($ticket) {
                                          $watch_action);
 
         $watching_label = <<<EOT
+<span class="watching-sum">{$total}</span>
 <a class="{$a_class}" id="watching-button" href
    title="{$a_title}"
 >

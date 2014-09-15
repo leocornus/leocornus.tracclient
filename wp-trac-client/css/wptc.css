@@ -662,21 +662,25 @@ span.watching{
 }
 
 a.watching-but-watch{
-  padding-left: 3px;
-  padding-right: 18px;
   background-image: url(../images/watch-icon.png);
   background-repeat: no-repeat;
   background-position: right;
+  padding-left: 5px;
+  padding-right: 18px;
+  text-decoration: none;
+  border-left: solid #996 1px;
 }
 
 a.watching-but-unwatch{
-  padding-left: 3px;
-  padding-right: 18px;
   background-image: url(../images/unwatch-icon.png);
   background-repeat: no-repeat;
   background-position: right;
+  padding-left: 5px;
+  padding-right: 18px;
   text-decoration: none;
+  border-left: solid #996 1px;
 }
+
 a.watching-but-watch:hover
 a.watching-but-unwatch:hover {
   text-decoration: none;
