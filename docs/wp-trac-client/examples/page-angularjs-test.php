@@ -5,7 +5,7 @@
  */
 
 get_header();
-wp_enqueue_script('wptc-angular-core');
+wp_enqueue_script('wptc-angularjs-core');
 wp_enqueue_style('wptc-bootstrap-docs');
 ?>
 
