@@ -19,6 +19,8 @@ Stories
   <How-AngularJS-Talk-to-WordPress.rst>`_
 - `Best Practice to Organize Source Code for AngularJS APP
   in WordPress Context <AngularJS-Code-Organization-Story.rst>`_
+- `Design the JSON APIs aiming at AngularJS apps
+  <Trac-Client-JSON-APIs-Design-Story.rst>`_
 
 Package Mangement
 -----------------
