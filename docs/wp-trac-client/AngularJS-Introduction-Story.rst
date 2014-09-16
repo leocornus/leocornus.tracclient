@@ -41,6 +41,12 @@ developers / programmers.
 
 [This might good enough to be a WordPress Plugin]
 
+Form Builder
+------------
+
+The GitHob project angular-schema-form_ offers a easy way to
+generate forms based on the JSON schemas.
+
 Load AngularJS
 --------------
 
@@ -76,3 +82,4 @@ Reference `AngularJS for WordPress Plugin`_
 .. _AngularJS for WordPress Plugin: http://plugins.svn.wordpress.org/angularjs-for-wp/
 .. _private bower registry: http://hacklone.github.io/private-bower/
 .. _WordPress: http://www.wordpress.org
+.. _angular-schema-form: https://github.com/Textalk/angular-schema-form
