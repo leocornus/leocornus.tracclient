@@ -11,14 +11,24 @@ There are plenty of samples to demostrate how to use D3.js
 manipulate SVG animation.
 Here are some interesting things:
 
-1. `mbostock's blocks`_ has many cool sample from `GitHub Gist`_ 
-1. d3js_ has may samples in its homepage.
+#. `mbostock's blocks`_ has many cool sample from `GitHub Gist`_ 
+#. d3js_ has may samples in its homepage.
 
 Some Blocks
 -----------
 
 - `Zoombable Circle Packing <http://bl.ocks.org/mbostock/7607535>`_
   offers an new impressive way for presentation.
+
+My Blocks
+---------
+
+List of my blocks on Gist.
+
+- The `Zoombal Circle Packing Gist
+  <https://gist.github.com/seanchen/9faaa5db80e63a16b652>`_.
+  Here is `running on bl.ocks.org
+  <http://bl.ocks.org/seanchen/9faaa5db80e63a16b652>`_.
 
 MathJax
 -------
@@ -30,3 +40,4 @@ MathJax_ will bring beautiful math in all browsers.
 .. _Scalable Vector Graphics: http://en.wikipedia.org/wiki/Scalable_Vector_Graphics
 .. _MathJax: https://github.com/mathjax/MathJax
 .. _mbostock's blocks: http://bl.ocks.org/mbostock
+.. _bl.ocks.org: http://bl.ocks.org/
