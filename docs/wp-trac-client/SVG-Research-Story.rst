@@ -14,6 +14,11 @@ Here are some interesting things:
 #. `mbostock's blocks`_ has many cool sample from `GitHub Gist`_ 
 #. d3js_ has may samples in its homepage.
 
+here are some small app to get start with svg:
+
+- `saveing canvas image data using php and ajax
+  <http://permadi.com/blog/2010/10/html5-saving-canvas-image-data-using-php-and-ajax/>`_
+
 Some Blocks
 -----------
 
