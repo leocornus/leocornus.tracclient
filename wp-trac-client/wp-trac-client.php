@@ -123,6 +123,11 @@ function register_resources() {
         plugins_url('wp-trac-client/js/firebase.js'),
         array('wptc-angularjs-core'), '1.0.18');
 
+    // Resources for d3
+    wp_register_script('wptc-d3',
+        plugins_url('wp-trac-client/js/d3.v3.min.js'),
+        array(), '3.4.12');
+
     wp_register_style('wptc-bootstrap', 
         plugins_url('wp-trac-client/css/bootstrap.css'),
         array(), '2.3.2');
