@@ -169,10 +169,10 @@ jQuery(document).ready(function($) {
     // have to make sure the those version and xmlns are 
     // set properly!
     //var svgHtml = $('#svgcontent')[0].innerHTML;
-    console.log(svgHtml);
+    //console.log(svgHtml);
     // get the Base64 format data.
     var imgSrc = 'data:image/svg+xml;base64,' + btoa(svgHtml);
-    console.log(imgSrc);
+    //console.log(imgSrc);
     // get the canvas object.
     var canvas = $('canvas')[0];
     // get the canvas rendering context.
@@ -184,7 +184,22 @@ jQuery(document).ready(function($) {
     context.drawImage(img, 0, 0);
     // get the image data URL in Base64 format.
     var canvasData = canvas.toDataURL('image/png');
-    console.log(canvasData);
+    //console.log(canvasData);
+
+    // hook on the image onload event to download image
+    // to local file automatically.
+    img.onload = function() {
+      // try to remove the previous images.
+      $('savedImage').remove();
+      // append the
+      $('body').append("<a id='savedImage'></a>");
+      var downloadLink = $('#savedImage')[0];
+      // set the file name so it will save to local.
+      downloadLink.download = 'mySavedImage.png';
+      downloadLink.href = canvasData;
+      // trigger the click event.
+      downloadLink.click();
+    };
   });
 });
 </script>
