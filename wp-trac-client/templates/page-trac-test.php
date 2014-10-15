@@ -10,6 +10,7 @@ get_header();
 // inqueue plupload lib
 wp_enqueue_script('plupload-handlers');
 wp_enqueue_script('wptc-angularjs-core');
+wp_enqueue_script('wptc-d3');
 ?>
 
 <!-- testing angularjs -->
@@ -134,7 +135,6 @@ jQuery(document).ready(function() {
   <div id="uploader">
     
   </div>
-  <p/>
   Category: <input id="cates" type="text" cols="80"/>
   <br />
   Description: <br/>
@@ -146,6 +146,48 @@ jQuery(document).ready(function() {
 
   <br />
   <pre id="console"></pre>
+</div>
+
+<div id="svgtesting">
+  <div id="svgcontent">
+  <svg height="210" width="500"><g><polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" /></g></svg>
+  </div>
+
+  <canvas height="210" width="500" style="display: none;"></canvas>
+  <input type="button" id="save" value="save"/>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) { 
+  $("#save").on("click", function() {
+    //alert('hello');
+    // Base64 need those attributes to do convertion properly.
+    var svgHtml = d3.select("svg").attr("version", 1.1)
+                                  .attr("xmlns",
+                                        "http://www.w3.org/2000/svg")
+                                  .node().parentNode.innerHTML;
+    // We can using jQuery selector too, then we 
+    // have to make sure the those version and xmlns are 
+    // set properly!
+    //var svgHtml = $('#svgcontent')[0].innerHTML;
+    console.log(svgHtml);
+    // get the Base64 format data.
+    var imgSrc = 'data:image/svg+xml;base64,' + btoa(svgHtml);
+    console.log(imgSrc);
+    // get the canvas object.
+    var canvas = $('canvas')[0];
+    // get the canvas rendering context.
+    var context = canvas.getContext('2d');
+    // need a Image dom object to draw on the canvas.
+    var img = new Image();
+    img.src = imgSrc;
+    // draw the image on canvas.
+    context.drawImage(img, 0, 0);
+    // get the image data URL in Base64 format.
+    var canvasData = canvas.toDataURL('image/png');
+    console.log(canvasData);
+  });
+});
+</script>
 </div>
 
 <?php
