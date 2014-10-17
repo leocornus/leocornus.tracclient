@@ -185,21 +185,43 @@ jQuery(document).ready(function($) {
     // get the image data URL in Base64 format.
     var canvasData = canvas.toDataURL('image/png');
     //console.log(canvasData);
+    // strip out the encoding prefix, the data url will
+    // have prefix like: data:image/png;base64,
+    var base64Data = canvasData.substring(22);
+
+    // now we will try to save the Base64 data on remote server
+    // as wiki page.
+    var handler_url = '/wiki/Special:SpecialPlupload';
+    var data = {
+      'action' : 'base64',
+      'desc' : "testing upload from ticket [[Category:Base64]]",
+      'comment' : "from code, plupload",
+      'wpDestFile' : 'saved image from svg as png.png',
+      'base64Data' : base64Data
+    };
+    $.post(handler_url, data, function(response) {
+
+        //console.log(response);
+	var si = response.indexOf("{");
+	var ei = response.lastIndexOf("}");
+        var res = JSON.parse(response.substring(si, ei + 1));
+        //console.log(res);
+    });
 
     // hook on the image onload event to download image
     // to local file automatically.
-    img.onload = function() {
-      // try to remove the previous images.
-      $('savedImage').remove();
-      // append the
-      $('body').append("<a id='savedImage'></a>");
-      var downloadLink = $('#savedImage')[0];
-      // set the file name so it will save to local.
-      downloadLink.download = 'mySavedImage.png';
-      downloadLink.href = canvasData;
-      // trigger the click event.
-      downloadLink.click();
-    };
+    //img.onload = function() {
+    //  // try to remove the previous images.
+    //  $('savedImage').remove();
+    //  // append the
+    //  $('body').append("<a id='savedImage'></a>");
+    //  var downloadLink = $('#savedImage')[0];
+    //  // set the file name so it will save to local.
+    //  downloadLink.download = 'mySavedImage.png';
+    //  downloadLink.href = canvasData;
+    //  // trigger the click event.
+    //  downloadLink.click();
+    //};
   });
 });
 </script>
