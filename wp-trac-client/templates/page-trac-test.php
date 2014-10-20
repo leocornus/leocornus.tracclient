@@ -206,6 +206,12 @@ jQuery(document).ready(function($) {
 	var ei = response.lastIndexOf("}");
         var res = JSON.parse(response.substring(si, ei + 1));
         //console.log(res);
+        if(res.success) {
+            // redirect to the image page
+            window.location.href = res.pageUrl;
+        } else {
+            alert('You need Log in to save image on Wiki!');
+        }
     });
 
     // hook on the image onload event to download image
