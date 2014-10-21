@@ -188,6 +188,7 @@ jQuery(document).ready(function($) {
     // strip out the encoding prefix, the data url will
     // have prefix like: data:image/png;base64,
     var base64Data = canvasData.substring(22);
+    var serial = Math.floor(Math.random() * 100000 + 1);
 
     // now we will try to save the Base64 data on remote server
     // as wiki page.
@@ -196,7 +197,7 @@ jQuery(document).ready(function($) {
       'action' : 'base64',
       'desc' : "testing upload from ticket [[Category:Base64]]",
       'comment' : "from code, plupload",
-      'wpDestFile' : 'saved image from svg as png.png',
+      'wpDestFile' : 'saved image from svg as png ' + serial + '.png',
       'base64Data' : base64Data
     };
     $.post(handler_url, data, function(response) {
@@ -209,6 +210,7 @@ jQuery(document).ready(function($) {
         if(res.success) {
             // redirect to the image page
             window.location.href = res.pageUrl;
+            //alert(res.pageUrl);
         } else {
             alert('You need Log in to save image on Wiki!');
         }
