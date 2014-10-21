@@ -180,41 +180,45 @@ jQuery(document).ready(function($) {
     // need a Image dom object to draw on the canvas.
     var img = new Image();
     img.src = imgSrc;
-    // draw the image on canvas.
-    context.drawImage(img, 0, 0);
-    // get the image data URL in Base64 format.
-    var canvasData = canvas.toDataURL('image/png');
-    //console.log(canvasData);
-    // strip out the encoding prefix, the data url will
-    // have prefix like: data:image/png;base64,
-    var base64Data = canvasData.substring(22);
-    var serial = Math.floor(Math.random() * 100000 + 1);
+    // hook on the onload event to make sure the image data are 
+    // generated on the canvas! Firefox only works on this way.
+    img.onload = function () {
+        // draw the image on canvas.
+        context.drawImage(img, 0, 0);
+        // get the image data URL in Base64 format.
+        var canvasData = canvas.toDataURL('image/png');
+        //console.log(canvasData);
+        // strip out the encoding prefix, the data url will
+        // have prefix like: data:image/png;base64,
+        var base64Data = canvasData.substring(22);
+        var serial = Math.floor(Math.random() * 100000 + 1);
 
-    // now we will try to save the Base64 data on remote server
-    // as wiki page.
-    var handler_url = '/wiki/Special:SpecialPlupload';
-    var data = {
-      'action' : 'base64',
-      'desc' : "testing upload from ticket [[Category:Base64]]",
-      'comment' : "from code, plupload",
-      'wpDestFile' : 'saved image from svg as png ' + serial + '.png',
-      'base64Data' : base64Data
-    };
-    $.post(handler_url, data, function(response) {
+        // now we will try to save the Base64 data on remote server
+        // as wiki page.
+        var handler_url = '/wiki/Special:SpecialPlupload';
+        var data = {
+          'action' : 'base64',
+          'desc' : "testing upload from ticket [[Category:Base64]]",
+          'comment' : "from code, plupload",
+          'wpDestFile' : 'SVG to Image ' + serial + '.png',
+          'base64Data' : base64Data
+        };
+        $.post(handler_url, data, function(response) {
 
-        //console.log(response);
-	var si = response.indexOf("{");
-	var ei = response.lastIndexOf("}");
-        var res = JSON.parse(response.substring(si, ei + 1));
-        //console.log(res);
-        if(res.success) {
-            // redirect to the image page
-            window.location.href = res.pageUrl;
-            //alert(res.pageUrl);
-        } else {
-            alert('You need Log in to save image on Wiki!');
-        }
-    });
+            //console.log(response);
+            var si = response.indexOf("{");
+            var ei = response.lastIndexOf("}");
+            var res = JSON.parse(response.substring(si, ei + 1));
+            //console.log(res);
+            if(res.success) {
+                // redirect to the image page
+                window.location.href = res.pageUrl;
+                //alert(res.pageUrl);
+            } else {
+                alert('You need Log in to save image on Wiki!');
+            }
+        });
+    }
 
     // hook on the image onload event to download image
     // to local file automatically.
