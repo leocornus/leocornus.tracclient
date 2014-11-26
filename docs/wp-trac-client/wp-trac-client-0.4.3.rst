@@ -14,3 +14,5 @@ Stories
   <Project-Management-Design-Story.rst>`_
 - `Create Project Management Plugin 
   <Project-Management-Plugin-Introduction.rst>`_
+- `Introduce Trac Wiki Syntax Settings
+  <Trac-Wiki-Syntax-Settings.rst>`_
