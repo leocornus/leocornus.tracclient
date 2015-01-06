@@ -46,7 +46,7 @@ The entry point for a WordPress Plugin::
          basename(dirname($plugin_file)));
 
   // load the 3rd party libs.
-  require_once(OPSPEDIA_SEARCH_PLUGIN_PATH . '/lib/index.php');
+  require_once(MY_PLUGIN_PATH . '/lib/index.php');
 
 **lib/index.php**
 
