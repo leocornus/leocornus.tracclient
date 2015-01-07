@@ -139,6 +139,8 @@ function wptc_add_buddypress_activity($ticket_id,
     if(!wptc_buddypress_activity_on() or 
        !function_exists('bp_activity_add')) {
         // skip!
+        // this action depends on BuddyPress plugin, if the 
+        // BuddyPress function is not exist, skip.
         return;
     }
 
@@ -176,10 +178,12 @@ function wptc_add_buddypress_activity($ticket_id,
             break;
     }
 
+    // TODO: the component and type should be configurable on
+    // dashboard page.
     bp_activity_add(array(
         'action' => $message,
         'content' => $ticket_attr['summary'],
-        'component' => 'OPSpedia Ticket',
+        'component' => 'Trac Ticket',
         'type' => 'ticket_update'
     ));
 
