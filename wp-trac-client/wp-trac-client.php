@@ -122,6 +122,10 @@ function register_resources() {
     wp_register_script('wptc-firebase',
         plugins_url('wp-trac-client/js/firebase.js'),
         array('wptc-angularjs-core'), '1.0.18');
+    // bootstrap js.
+    wp_register_script('wptc-bootstrap-js',
+        plugins_url('wp-trac-client/js/bootstrap.js'),
+        array('jquery'), '3.3.5');
 
     // Resources for d3
     wp_register_script('wptc-d3',
@@ -130,10 +134,10 @@ function register_resources() {
 
     wp_register_style('wptc-bootstrap', 
         plugins_url('wp-trac-client/css/bootstrap.css'),
-        array(), '2.3.2');
-    wp_register_style('wptc-bootstrap-docs', 
-        plugins_url('wp-trac-client/css/bootstrap.css'),
-        array('wptc-bootstrap'), '2.3.2');
+        array(), '3.3.5');
+    wp_register_style('wptc-bootstrap-theme', 
+        plugins_url('wp-trac-client/css/bootstrap.theme.css'),
+        array('wptc-bootstrap'), '3.3.5');
 }
 
 function get_wptc_client() {
