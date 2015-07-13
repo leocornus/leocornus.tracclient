@@ -1,4 +1,4 @@
-`wp-trac-client Release 0.4.3 <wp-trac-client-0.4.3.rst>`_ >
+`wp-trac-client Release 0.4.3 <README.rst>`_ >
 Mini Task Management App based on AngularJS and using Track as
 backend.
 

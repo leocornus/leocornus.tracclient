@@ -1,4 +1,4 @@
-`wp-trac-client Release 0.4.3 <wp-trac-client-0.4.3.rst>`_
+`wp-trac-client Release 0.4.3 <README.rst>`_
 > Introduce Trac Wiki Syntax Settings
 
 The story is about adding some necessary settings to customize
