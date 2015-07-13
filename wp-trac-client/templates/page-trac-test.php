@@ -155,9 +155,41 @@ jQuery(document).ready(function() {
 
   <canvas height="210" width="500" style="display: none;"></canvas>
   <input type="button" id="save" value="save"/>
+  <input type="button" id="saveText" value="save text"/>
 
 <script type="text/javascript">
 jQuery(document).ready(function($) { 
+  $("#saveText").on("click", function() {
+
+    var data = "{'name':'first name', 'age':'12', 'again':'more content'}";
+    var base64Data = btoa(data);
+    var serial = Math.floor(Math.random() * 100000 + 1);
+    var handler_url = '/wiki/Special:SpecialPlupload';
+    var data = {
+      'action' : 'base64',
+      'desc' : "testing upload text from ticket [[Category:Base64]]",
+      'comment' : "from code, plupload",
+      //'wpDestFile' : 'json'  + serial + '.json',
+      'wpDestFile' : 'Json67120.json',
+      'base64Data' : base64Data
+    };
+    $.post(handler_url, data, function(response) {
+
+        //console.log(response);
+        var si = response.indexOf("{");
+        var ei = response.lastIndexOf("}");
+        var res = JSON.parse(response.substring(si, ei + 1));
+        //console.log(res);
+        if(res.success) {
+            // redirect to the image page
+            window.location.href = res.pageUrl;
+            //alert(res.pageUrl);
+        } else {
+            alert('You need Log in to save image on Wiki!');
+        }
+    });
+  });
+
   $("#save").on("click", function() {
     //alert('hello');
     // Base64 need those attributes to do convertion properly.
