@@ -137,6 +137,8 @@ function wptc_get_tickets_list_m($ids) {
     $tickets = array();
     foreach ($tics as $ticket) {
 
+        // this is the attributes for a ticket.
+        // we will get all of them.
         $row = $ticket[0][3];
         $row['id'] = $ticket[0][0];
         $row['created'] = $ticket[0][1];

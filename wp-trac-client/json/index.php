@@ -16,8 +16,8 @@ add_action('wp_ajax_wptc_trac_tickets',
            'wptc_trac_tickets_cb');
 function wptc_trac_tickets_cb() {
 
-    $milestone = "2.3.0";
-    $version = "2.2.17";
+    $milestone = "opspedia-2.3.0";
+    $version = "opspedia-2.2.17";
 
     $tickets = wptc_get_tickets_m($milestone, $version);
     $output = array();
