@@ -1,6 +1,9 @@
 `wp-trac-client Release 0.4.3 <README.rst>`_ > 
 Project Management Design Story
 
+.. contents:: Table of Contents
+    :depth: 5
+
 Overview
 --------
 
@@ -87,6 +90,17 @@ Here are some initial ideas about Agile project management:
 - widget to generate milestone list
 - widget to list most recent changes
 - widget to autocomplete
+
+Projects Page Template
+----------------------
+
+A simple page to list all projects ans its related staffs.
+
+It will be a WordPress page template.
+It has a header only show the wordpress admin bar.
+
+- bootstrap page.
+- jQuery drive.
 
 .. _Trac: http://trac.edgewall.org/
 .. _AngularJS: https://github.com/angular/angular.js

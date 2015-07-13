@@ -2,6 +2,9 @@
 > Explore the best practice to manage and organize source code 
 of an AngularJS APP in WordPress context
 
+.. contents:: Table of Contents
+    :depth: 5
+
 One AngularJS app is an ONE page app in most of time.
 But there way a lot more components for a software application.
 
@@ -45,6 +48,14 @@ The wp_ajax actions will provide necessary data as the module.
 JavaScript in the js folder will implement all logics as controller.
 HTML files in view folder, stylesheets in css folder and images in **img** folder will 
 offer needed views: data list, forms, dialog, etc.
+
+Deployment Process
+------------------
+
+How to deploy a AngularJS app to WordPress?
+How to automate the deployment process?
+
+Plugin or Page Template?
 
 Important WordPress Technique
 -----------------------------
