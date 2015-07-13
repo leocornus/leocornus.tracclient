@@ -4,6 +4,8 @@ Project Management Design Story
 .. contents:: Table of Contents
     :depth: 5
 
+`The Story of Project <the-story-of-project.rst>`_
+
 Overview
 --------
 
