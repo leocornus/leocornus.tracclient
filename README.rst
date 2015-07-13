@@ -19,6 +19,11 @@ This plugin is using XML-RPC APIs to talk to Trac_ instance.
 - `wp-trac-client Release 0.4.1 
   <docs/wp-trac-client/wp-trac-client-0.4.1.rst>`_
 
+**Backlog**
+
+- `wp-trac-client backlog
+  <docs/wp-trac-client/backlog>`_
+
 LICENSE
 =======
 
