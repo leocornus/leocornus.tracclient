@@ -16,3 +16,5 @@ Stories
   <Project-Management-Plugin-Introduction.rst>`_
 - `Introduce Trac Wiki Syntax Settings
   <Trac-Wiki-Syntax-Settings.rst>`_
+- `WPTC Request Context Story <Trac-Context-Story.rst>`_
+- `Introduce Bootstrap <bootstrap-story.rst>`_
