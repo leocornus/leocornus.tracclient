@@ -136,7 +136,7 @@ function register_resources() {
         plugins_url('wp-trac-client/css/bootstrap.css'),
         array(), '3.3.5');
     wp_register_style('wptc-bootstrap-theme', 
-        plugins_url('wp-trac-client/css/bootstrap.theme.css'),
+        plugins_url('wp-trac-client/css/bootstrap-theme.css'),
         array('wptc-bootstrap'), '3.3.5');
 }
 
