@@ -1,4 +1,77 @@
 <?php
+/**
+ * the clean way to get a http request parameter's value.
+ * a request parameter could be one of the following:
+ *  - $_POST
+ *  - $_GET
+ *  - $_COOKIE
+ */
+function wptc_get_request_param($param) {
+
+    // try to find the selected theme name
+    if (array_key_exists($param, $_POST)) {
+        $value = $_POST[$param];
+    } elseif (array_key_exists($param, $_GET)) {
+        $value = $_GET[$param];
+    } elseif (array_key_exists($param, $_COOKIE)) {
+        // cookie is one of the request in PHP.
+        // check manuel $_REQUEST for details.
+        $value = $_COOKIE[$param];
+    } else {
+        $value = '';
+    }
+
+    if(is_string($value)) {
+        $value = str_replace("\r\n", "\n", stripslashes($value));
+    }
+
+    return $value;
+}
+
+/**
+ * get ready the request context from http request.
+ * it will return an array with the following format for each item.
+ *
+ *  'param' => 'value'
+ */
+function wptc_request_context() {
+
+    $context = array();
+    
+    // collect user information.
+    // current wordpress user will be the tracuser, it could be 
+    // null.
+    if(is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        $context['tracuser'] = $current_user;
+    }
+
+    // collect ticket metadata.
+    // the page slug will be the project name.
+    $version = wptc_get_request_param('version');
+    $milestone = wptc_get_request_param('milestone');
+    // project name.
+    $project = wptc_get_request_param('project');
+    if (!empty($version)) {
+        // get the project name
+        $project = wptc_get_project_name($version);
+    }
+    $context['version'] = $version;
+    $context['milestone'] = $milestone;
+    $context['project'] = $project;
+    
+    return $context;
+}
+
+/**
+ * enqueue resource for porject page.
+ */
+function wptc_enqueue_project_resources() {
+
+    wp_enqueue_style('wptc-bootstrap');
+    wp_enqueue_style('wptc-bootstrap-theme');
+    wp_enqueue_script('wptc-bootstrap-js');
+}
 
 /**
  * generate href link to a commit id.

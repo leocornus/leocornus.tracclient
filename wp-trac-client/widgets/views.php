@@ -183,3 +183,115 @@ EOT;
     return $dt;
 }
 
+/**
+ * project homepage header
+ */
+function wptc_view_project_header($context) {
+
+    $header = <<<EOT
+<div class="page-header" id="project-header">
+  <form class="navbar-form navbar-right" role="search">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-info">Go</button>
+  </form>
+  <h3>OPSpedia Projects / Name of the Project</h3>
+  <p>Brief Description about this project: 
+     Resize this responsive page to see the effect!</p> 
+</div> <!-- project-header -->
+EOT;
+
+    return $header;
+}
+
+/**
+ * project home nav bar .
+ */
+function wptc_view_project_nav($context) {
+
+    $nav = <<<EOT
+<div id="project-nav">
+  <ul class="nav nav-pills">
+    <li><a href="#">Project Home</a></li>
+    <li class="active"><a href="#">Issues</a></li>
+    <li><a href="#">Commits</a></li>
+    <li><a href="#">Wiki</a></li>
+    <li><a href="#">Milestones</a></li>
+    <li><a href="#">Contributors</a></li>
+    <li><a href="#">Profile</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+        Actions<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Report an Issue</a></li>
+        <li role="separator" class="divider"></li>
+        <li class="dropdown-header">My...</li>
+        <li><a href="#">My Tickets</a></li>
+        <li><a href="#">My Watchlist</a></li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- project-nav -->
+EOT;
+
+    return $nav;
+}
+
+/**
+ * project content.
+ */
+function wptc_view_project_content($context) {
+
+    $content = <<<EOT
+<div id="project-content">
+  <div class="alert alert-info">
+  Summary of Issues: Total, closed, assigned, etc.
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr class="success">
+          <th>ID</th>
+          <th>Summary</th>
+          <th>Owner</th>
+          <th>Priority</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr class="success">
+          <th>ID</th>
+          <th>Summary</th>
+          <th>Owner</th>
+          <th>Priority</th>
+          <th>Status</th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <td>1,001</td>
+          <td>Lorem</td>
+          <td>ipsum</td>
+          <td>dolor</td>
+          <td>sit</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- project-content -->
+EOT;
+
+    return $content;
+}
+
+/**
+ * project footer.
+ */
+function wptc_view_project_footer($context) {
+
+    // return empty for now.
+    return '';
+}
