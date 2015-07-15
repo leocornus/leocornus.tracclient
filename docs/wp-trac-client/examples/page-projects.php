@@ -1,8 +1,6 @@
 <?php
 /**
  * Template Name: Trac Projects Page
- *
- * testing the projects prototype.
  */
 
 /**
@@ -22,55 +20,50 @@ add_action('wp_enqueue_scripts', 'enqueue_resources');
 <body>
 
 <div class="container">
-  <div class="jumbotron">
-    <h2>Name of the Project</h2>
+  <div class="page-header">
+    <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-info">Go</button>
+    </form>
+    <h3>OPSpedia Projects / Name of the Project</h3>
     <p>Brief Description about this project: 
        Resize this responsive page to see the effect!</p> 
   </div>
 
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">All Projects</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Issues</a></li>
-          <li><a href="#">Commits</a></li>
-          <li><a href="#">Wiki</a></li>
-          <li><a href="#">Milestones</a></li>
-          <li><a href="#">Contributors</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Report an Issue</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">My...</li>
-              <li><a href="#">My Tickets</a></li>
-              <li><a href="#">My Watchlist</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
-  </nav>
+  <div>
+  <ul class="nav nav-pills">
+    <li><a href="#">Project Home</a></li>
+    <li class="active"><a href="#">Issues</a></li>
+    <li><a href="#">Commits</a></li>
+    <li><a href="#">Wiki</a></li>
+    <li><a href="#">Milestones</a></li>
+    <li><a href="#">Contributors</a></li>
+    <li><a href="#">Profile</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+        Actions<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Report an Issue</a></li>
+        <li role="separator" class="divider"></li>
+        <li class="dropdown-header">My...</li>
+        <li><a href="#">My Tickets</a></li>
+        <li><a href="#">My Watchlist</a></li>
+      </ul>
+    </li>
+  </ul>
+  </div>
 
   <div class="alert alert-info">
   Summary of Issues: Total, closed, assigned, etc.
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
       <thead>
-        <tr>
+        <tr class="success">
           <th>#</th>
           <th>Header</th>
           <th>Header</th>
@@ -79,7 +72,7 @@ add_action('wp_enqueue_scripts', 'enqueue_resources');
         </tr>
       </thead>
       <tfoot>
-        <tr>
+        <tr class="success">
           <th>#</th>
           <th>Header</th>
           <th>Header</th>
@@ -148,7 +141,7 @@ add_action('wp_enqueue_scripts', 'enqueue_resources');
     </table>
   <div>
 
-  <div class="jumbotron"> <!-- Fat Footer -->
+  <div class="well"> <!-- Fat Footer -->
     <div class="row">
       <div class="col-sm-4">
         <h2>Column 1</h2>
