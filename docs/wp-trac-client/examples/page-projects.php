@@ -2,16 +2,7 @@
 /**
  * Template Name: Trac Projects Page
  */
-
-/**
- * enqueue resources.
- */
-function enqueue_resources() {
-    wp_enqueue_style('wptc-bootstrap');
-    wp_enqueue_style('wptc-bootstrap-theme');
-    wp_enqueue_script('wptc-bootstrap-js');
-}
-add_action('wp_enqueue_scripts', 'enqueue_resources');
+add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
 ?>
 <html>
 <head>
@@ -32,30 +23,38 @@ add_action('wp_enqueue_scripts', 'enqueue_resources');
        Resize this responsive page to see the effect!</p> 
   </div>
 
-  <div>
-  <ul class="nav nav-pills">
-    <li><a href="#">Project Home</a></li>
-    <li class="active"><a href="#">Issues</a></li>
-    <li><a href="#">Commits</a></li>
-    <li><a href="#">Wiki</a></li>
-    <li><a href="#">Milestones</a></li>
-    <li><a href="#">Contributors</a></li>
-    <li><a href="#">Profile</a></li>
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-        Actions<span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="#">Report an Issue</a></li>
-        <li role="separator" class="divider"></li>
-        <li class="dropdown-header">My...</li>
-        <li><a href="#">My Tickets</a></li>
-        <li><a href="#">My Watchlist</a></li>
-      </ul>
-    </li>
-  </ul>
+  <div id="project-nav">
+  <!-- ul class="nav nav-pills" -->
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="#">Project Home</a></li>
+      <li class="active"><a href="#">Issues</a></li>
+      <li><a href="#">Commits</a></li>
+      <li><a href="#">Wiki</a></li>
+      <li><a href="#">Milestones</a></li>
+      <li><a href="#">Contributors</a></li>
+      <li><a href="#">Profile</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+          Actions<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Report an Issue</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">My...</li>
+          <li><a href="#">My Tickets</a></li>
+          <li><a href="#">My Watchlist</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
+  </nav>
+  </div> <!-- project-nav -->
 
+  <div id="project-content">
   <div class="alert alert-info">
   Summary of Issues: Total, closed, assigned, etc.
   </div>
@@ -139,7 +138,12 @@ add_action('wp_enqueue_scripts', 'enqueue_resources');
         </tr>
       </tbody>
     </table>
-  <div>
+    <div id="loadmore" class="h4 text-right">
+      Showing 20 of 120 tickets!
+      <a href="#" class="btn btn-success">Load More</a>
+    </div>
+  </div> <!-- table responsive -->
+  </div> <!-- project-content -->
 
   <div class="well"> <!-- Fat Footer -->
     <div class="row">
