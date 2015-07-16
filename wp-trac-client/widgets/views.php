@@ -218,12 +218,12 @@ EOT;
 function wptc_view_project_nav($context) {
 
     $nav = <<<EOT
-<div id="project-nav">
-  <ul class="nav nav-pills">
+<div id="project-nav" class="container-fluid">
+  <ul class="nav nav-tabs">
     <li><a href="#">Project Home</a></li>
     <li class="active"><a href="#">Issues</a></li>
     <li><a href="#">Commits</a></li>
-    <li class="dropdown">
+    <li class="dropdown pull-right">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
         Actions<span class="caret"></span>
       </a>
@@ -280,9 +280,12 @@ EOT;
     $ticket_tr = implode("\n", $trs);
 
     $content = <<<EOT
-<div id="project-content">
-  <div class="alert alert-info">
-  Summary of Issues: Total, closed, assigned, etc.
+<div id="project-content" class="container-fluid">
+  <div class="well">
+    Summary of Issues: Total, closed, assigned, etc.
+    <span class="pull-right">
+     Filter: 
+    </span>
   </div>
 
   <div class="table-responsive">
