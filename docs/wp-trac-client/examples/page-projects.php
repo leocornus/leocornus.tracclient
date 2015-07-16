@@ -59,7 +59,7 @@ add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
     <span>
       Filters:
       <div class="btn-group">
-        <a href="#" class="btn btn-success btn-xs dropdown-toggle"
+        <a href="#" class="btn btn-info btn-xs dropdown-toggle"
                     data-toggle="dropdown">
           Owner<span class="caret"></span>
         </a>
@@ -72,7 +72,7 @@ add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
         </ul>
       </div>
       <div class="btn-group">
-        <a href="#" class="btn btn-success btn-xs dropdown-toggle" 
+        <a href="#" class="btn btn-info btn-xs dropdown-toggle" 
                     data-toggle="dropdown" aria-expanded="false">
           Status <span class="caret"></span>
         </a>
@@ -175,7 +175,7 @@ add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
     </table>
     <div id="loadmore" class="h4 text-right">
       Showing 20 of 120 tickets!
-      <a href="#" class="btn btn-success btn-sm">Load More</a>
+      <a href="#" class="btn btn-success btn-sm disabled">Load More</a>
     </div>
   </div> <!-- table responsive -->
   </div> <!-- project-content -->
