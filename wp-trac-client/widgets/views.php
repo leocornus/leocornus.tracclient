@@ -281,10 +281,42 @@ EOT;
 
     $content = <<<EOT
 <div id="project-content" class="container-fluid">
-  <div class="well">
-    Summary of Issues: Total, closed, assigned, etc.
-    <span class="pull-right">
-     Filter: 
+  <div class="h4" id="summary">
+    <span>
+      Filters:
+      <div class="btn-group">
+        <a href="#" class="btn btn-success btn-xs dropdown-toggle"
+                    data-toggle="dropdown">
+          Owner<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <a href="#" class="btn btn-success btn-xs dropdown-toggle" 
+                    data-toggle="dropdown" aria-expanded="false">
+          Status <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+    </span>
+    <span id="numbers" class="pull-right">
+      Summary:
+      <span class="label label-primary">140 in total</span>
+      <span class="label label-success">10 closed</span>
+      <span class="label label-warning">20 assigned</span>
+      <span class="label label-danger">3 critical</span>
     </span>
   </div>
 
@@ -312,6 +344,10 @@ EOT;
         {$ticket_tr}
       </tbody>
     </table>
+    <div id="item-pager" class="h4 text-right">
+      Showing 20 of 120 tickets!
+      <a href="#" class="btn btn-success btn-sm">Load More</a>
+    </div>
   </div>
 </div> <!-- project-content -->
 EOT;
