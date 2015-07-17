@@ -43,7 +43,7 @@ Contributors View
   source code, ticket, wiki, etc.
 - order by total contributions.
 
-Report
-------
+Reports
+-------
 
 - various report page.

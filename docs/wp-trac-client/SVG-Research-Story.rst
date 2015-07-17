@@ -40,6 +40,11 @@ MathJax
 
 MathJax_ will bring beautiful math in all browsers.
 
+SVG, Image, and Base64
+----------------------
+
+
+
 .. _SVG Reference: http://www.w3schools.com/svg/svg_reference.asp
 .. _SVG Examples: http://www.w3schools.com/svg/svg_examples.asp
 .. _Scalable Vector Graphics: http://en.wikipedia.org/wiki/Scalable_Vector_Graphics

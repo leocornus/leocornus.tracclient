@@ -104,6 +104,24 @@ It has a header only show the wordpress admin bar.
 - bootstrap page.
 - jQuery drive.
 
+page layout::
+
+  -------------------------------------------------------
+  | WordPress ADMIN BAR                                 |
+  -------------------------------------------------------
+  |OPSpedia Projects / Project Name               Search|
+  | Brief description of this project                   |
+  -------------------------------------------------------
+  |Project Home | Issues(20) | Commits(30)       Actions|
+  -------------------------------------------------------
+  | list                                                |
+  | of                                                  |
+  | tickets                                             |
+  | or commits                                          |
+  -------------------------------------------------------
+  |fat fotter for customization.                        |
+  -------------------------------------------------------
+
 .. _Trac: http://trac.edgewall.org/
 .. _AngularJS: https://github.com/angular/angular.js
 .. _angular_ui: https://github.com/angular-ui/ui-utils
