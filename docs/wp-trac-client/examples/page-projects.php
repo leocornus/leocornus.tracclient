@@ -18,7 +18,7 @@ add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
       </div>
       <button type="submit" class="btn btn-info">Go</button>
     </form>
-    <h3>OPSpedia Projects / Name of the Project</h3>
+    <h3>All Projects / Name of the Project</h3>
     <p>Brief Description about this project: 
        Resize this responsive page to see the effect!</p> 
   </div>

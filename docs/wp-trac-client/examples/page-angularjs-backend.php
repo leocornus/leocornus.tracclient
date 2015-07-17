@@ -11,7 +11,7 @@ wp_enqueue_script('wptc-angularjs-resource');
 wp_enqueue_script('wptc-angularjs-route');
 wp_enqueue_script('wptc-angularfire');
 wp_enqueue_script('wptc-firebase');
-//wp_enqueue_style('wptc-bootstrap');
+wp_enqueue_style('wptc-bootstrap');
 
 $ajax_url = admin_url('admin-ajax.php');
 $detail_template = get_stylesheet_directory_uri() . 
