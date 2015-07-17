@@ -1,9 +1,9 @@
-wp-trac-client Release 1.0
+wp-trac-client Release 1.0.0
 
 wp-trac-client release 1.0 will be a overall redesign release
 focused on Agile project management.
 
-Release 1.0 will be a major release with the following changes:
+Release 1.0.0 will be a major release with the following changes:
 
 - introduce Bootstrap page template.
 - introduce request context
@@ -12,7 +12,7 @@ Release 1.0 will be a major release with the following changes:
 Get Started
 -----------
 
-Project Home Page:
+We will get started with project Home Page:
 
 - one page application.
 - cookie driving request context
@@ -20,6 +20,11 @@ Project Home Page:
   following the best practice from bootstrap.
 - basic AJAX call back or JSON endpoint
 - source code re-organize.
+
+Long Term Plan
+--------------
+
+
 
 Transition Strategy
 -------------------
