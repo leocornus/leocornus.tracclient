@@ -202,7 +202,7 @@ function wptc_view_project_header($context) {
     <button type="submit" class="btn btn-success">Go</button>
   </form>
   <h3>
-    <a href="{$projects_url}"> OPSpedia Projects</a> / 
+    <a href="{$projects_url}"> All Projects</a> / 
     <a href="{$project_url}">{$project_name}</a>
   </h3>
   <p>{$project['description']}</p> 
@@ -218,7 +218,7 @@ EOT;
 function wptc_view_project_nav($context) {
 
     $nav = <<<EOT
-<div id="project-nav" class="container-fluid">
+<div id="project-nav" class="container-fluid h4">
   <ul class="nav nav-tabs">
     <li><a href="#">Project Home</a></li>
     <li class="active"><a href="#">Issues</a></li>

@@ -16,8 +16,13 @@ add_action('wp_ajax_wptc_trac_tickets',
            'wptc_trac_tickets_cb');
 function wptc_trac_tickets_cb() {
 
-    $milestone = "opspedia-2.3.0";
-    $version = "opspedia-2.2.17";
+    // get the query infomation from $_POST.
+    if(isset( $_POST['version'])) {
+        $version = $_POST['version'];
+    }
+    if(isset( $_POST['milestone'])) {
+        $milestone= $_POST['milestone'];
+    }
 
     $tickets = wptc_get_tickets_m($milestone, $version);
     $output = array();
