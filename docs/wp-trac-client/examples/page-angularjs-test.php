@@ -7,8 +7,6 @@
 get_header();
 wp_enqueue_script('wptc-angularjs-core');
 wp_enqueue_style('wptc-bootstrap-docs');
-$plugins = get_plugins('/opspedia');
-var_dump($plugins);
 ?>
 
 <script type="text/javascript">

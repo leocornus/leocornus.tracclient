@@ -109,7 +109,7 @@ page layout::
   -------------------------------------------------------
   | WordPress ADMIN BAR                                 |
   -------------------------------------------------------
-  |OPSpedia Projects / Project Name               Search|
+  |All Projects / Project Name                    Search|
   | Brief description of this project                   |
   -------------------------------------------------------
   |Project Home | Issues(20) | Commits(30)       Actions|
