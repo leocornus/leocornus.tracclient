@@ -9,6 +9,19 @@ Release 1.0.0 will be a major release with the following changes:
 - introduce request context
 - using cookie to track stats on js client.
 
+**mics features**:
+
+- ability to change project name.
+  this will require update all ticket under from project name
+  to the new project name.
+  Project is a custom field in trac.
+
+Stories
+-------
+
+- `Transition Strategy <transition-strategy.rst>`_
+  all things about the transition phase..
+
 Get Started
 -----------
 
@@ -24,12 +37,6 @@ We will get started with project Home Page:
 Long Term Plan
 --------------
 
-
-
-Transition Strategy
--------------------
-
-- start from ticket list page
 
 
 Questions and Challenges
