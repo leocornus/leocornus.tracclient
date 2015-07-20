@@ -46,7 +46,7 @@ function wptc_request_context() {
         $context['tracuser'] = $current_user;
     }
 
-    // collect ticket metadata.
+    // collect ticket and project metadata.
     // the page slug will be the project name.
     $version = wptc_get_request_param('version');
     $milestone = wptc_get_request_param('milestone');
@@ -59,7 +59,22 @@ function wptc_request_context() {
     $context['version'] = $version;
     $context['milestone'] = $milestone;
     $context['project'] = $project;
-    
+
+    // collect pagination information.
+    $per_page = wptc_get_request_param('per_page');
+    // items per page, default is 20
+    if(empty($per_page)) {
+        // set to default per_page to 20.
+        $per_page = 20;
+    }
+    // page number, starts from 0.
+    $page_number = wptc_get_request_param('page_number');
+    if (empty($page_number)) {
+        // set to 0 as the default page number.
+        $page_number = 0;
+    }
+    $context['per_page'] = $per_page;
+    $context['page_number'] = $page_number;
     return $context;
 }
 

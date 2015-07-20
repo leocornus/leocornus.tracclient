@@ -254,7 +254,8 @@ function wptc_view_project_content($context) {
     $query = "project={$context['project']}&status!=closed";
     // query tickets and load ticket details
     // will load all qualified tickets at one query.
-    $ids = wptc_ticket_query($query, 0);
+    $ids = wptc_ticket_query($query, $context['per_page'], 
+                             $context['page_number'] + 1);
     $tickets = wptc_get_tickets_list_m($ids);
 
     //get ready rows for table.
@@ -303,10 +304,16 @@ EOT;
           Status <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+          <li>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Checkbox
+              </label>
+            </div>
+          </li>
           <li><a href="#">Action</a></li>
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
           <li><a href="#">Separated link</a></li>
         </ul>
       </div>
