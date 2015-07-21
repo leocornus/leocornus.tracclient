@@ -353,7 +353,9 @@ EOT;
     </table>
     <div id="item-pager" class="h4 text-right">
       Showing 20 of 120 tickets!
-      <a href="#" class="btn btn-success btn-sm">Load More</a>
+      <a href="#" class="btn btn-success btn-sm" 
+         id="project-load-more"
+      >Load More</a>
     </div>
   </div>
 </div> <!-- project-content -->

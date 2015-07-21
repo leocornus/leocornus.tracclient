@@ -97,6 +97,9 @@ function register_resources() {
                       plugins_url('wp-trac-client/css/wptc.css'));
     wp_register_script('wptc-js',
                        plugins_url('wp-trac-client/js/wptc.js'));
+    wp_register_script('wptc-projects',
+                    plugins_url('wp-trac-client/js/wptc-projects.js'),
+                       array('jquery'), '1.0.0');
     // using wp_enqueue_style to load this css.
     // jquery ui dialog style seens not automatically loaded.
     wp_register_style('jquery-ui',
