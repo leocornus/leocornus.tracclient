@@ -75,7 +75,36 @@ function wptc_request_context() {
     }
     $context['per_page'] = $per_page;
     $context['page_number'] = $page_number;
+
+    // TODO: update cookie!
+    wptc_set_cookie_state($context);
+
     return $context;
+}
+
+/**
+ * utilility function to save some states in cookie.
+ * it is specificely for form submint redirect.
+ *
+ * $states provide a array with cookie names and values.
+ * $expire tell how long those state will alive, in seconds.
+ * $clean indicates clean the cookie states or not, default is false
+ */
+function wptc_set_cookie_state($states, $expire=60, $clean=false) {
+
+    if($clean) {
+        foreach($states as $name => $value) {
+            // clean cookie by set the expire time to one hour 
+            // before.
+            setcookie($name, $value, time() - 3600);
+        }
+    } else {
+        foreach($states as $name => $value) {
+            setcookie($name, $value, time() + $expire);
+        }
+    }
+
+    return;
 }
 
 /**
