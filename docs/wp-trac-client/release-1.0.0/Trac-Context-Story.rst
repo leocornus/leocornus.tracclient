@@ -1,4 +1,4 @@
-`wp-trac-client Release 0.4.3 <README.rst>`_
+`wp-trac-client Release 1.0.0 <README.rst>`_
 > Introduce Request Context
 
 Introduce **wptc_request_context** so we could
