@@ -86,6 +86,7 @@ function wptc_enqueue_project_resources() {
     wp_enqueue_style('wptc-bootstrap');
     wp_enqueue_style('wptc-bootstrap-theme');
     wp_enqueue_script('wptc-bootstrap-js');
+    wp_enqueue_script('jquery-cookie');
     wp_enqueue_script('wptc-projects');
 }
 
