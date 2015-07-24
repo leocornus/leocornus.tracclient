@@ -275,3 +275,38 @@ EOT;
 
     return $js;
 }
+
+/**
+ * query tickets.
+ */
+add_action('wp_ajax_nopriv_wptc_query_tickets', 
+           'wptc_query_tickets_cb');
+add_action('wp_ajax_wptc_query_tickets', 'wptc_query_tickets_cb');
+function wptc_query_tickets_cb() {
+
+    // get the request context.
+    $context = wptc_request_context();
+    // the empty blog_id will tell to use the current blog.
+    $blog_path = get_site_url();
+    $ticket_page_slug = "trac/ticket";
+
+    $query = "project={$context['project']}&status!=closed";
+    // query tickets and load ticket details
+    // will load all qualified tickets at one query.
+    $ids = wptc_ticket_query($query, $context['per_page'], 
+                             $context['page_number'] + 1);
+    $tickets = wptc_get_tickets_list_m($ids);
+
+    //get ready rows for table.
+    $response = array();
+    foreach($tickets as $ticket) {
+
+        // adding url and owner href
+        $ticket['ticket_url'] = "{$blog_path}/{$ticket_page_slug}?id={$ticket['id']}";
+        $ticket['owner_href'] = wptc_widget_user_href($ticket['owner']);
+        $response[] = $ticket;
+    }
+
+    echo json_encode($response);
+    exit;
+}

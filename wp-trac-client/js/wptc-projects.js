@@ -24,7 +24,9 @@ jQuery.extend(ProjectRequestContext.prototype, {
 
         // pagination information.
         this.per_page = jQuery.cookie('per_page');
+        // page number, starts from 0.
         this.page_number = jQuery.cookie('page_number');
+        this.total_items = jQuery.cookie('total_items');
     }
 });
 
@@ -33,15 +35,17 @@ function loadMoreTickets() {
 
     // get request context.
     var context = new ProjectRequestContext();
-    var per_page = context.per_page
-    var page_number = context.page_number
+    var per_page = context.per_page;
+    var page_number = context.page_number;
+    var total_items = context.total_items;
+    // AJAX request to get tickets of next page.
+    var items = 
+    var loaded_items = per_page * (page_number + 1) + 
 
     alert(per_page + " " + page_number);
+
+    // update table html.
     // caculate next page. update request context.
-
-    // AJAX request to get tickets of next page.
-
-    // update table.
 }
 
 // add the click event on load more button.
