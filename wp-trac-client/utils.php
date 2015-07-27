@@ -117,6 +117,11 @@ function wptc_enqueue_project_resources() {
     wp_enqueue_script('wptc-bootstrap-js');
     wp_enqueue_script('jquery-cookie');
     wp_enqueue_script('wptc-projects');
+    // set up global variables for wptc-projects.
+    wp_localize_script('wptc-projects', 'wptc_projects', 
+                       array(
+                         'ajax_url' => admin_url('admin-ajax.php')
+                       ));
 }
 
 /**
