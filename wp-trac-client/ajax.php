@@ -289,6 +289,9 @@ function wptc_query_tickets_cb() {
     // the empty blog_id will tell to use the current blog.
     $blog_path = get_site_url();
     $ticket_page_slug = "trac/ticket";
+    wptc_set_cookie_state(array(
+        'page_number' => $context['page_number'] + 1
+    ));
 
     $query = "project={$context['project']}&status!=closed";
     // query tickets and load ticket details

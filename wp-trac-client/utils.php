@@ -76,8 +76,8 @@ function wptc_request_context() {
     $context['per_page'] = $per_page;
     $context['page_number'] = $page_number;
 
-    // TODO: update cookie!
-    wptc_set_cookie_state($context);
+    // TODO: update cookie! in one hour expire time
+    wptc_set_cookie_state($context, 3600);
 
     return $context;
 }

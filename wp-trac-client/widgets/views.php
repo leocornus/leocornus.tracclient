@@ -275,7 +275,7 @@ function wptc_view_project_content($context) {
   <td>{$ticket['status']}</td>
 </tr>
 EOT;
-        $trs[] = $one_tr;
+        //$trs[] = $one_tr;
     }
 
     $ticket_tr = implode("\n", $trs);
@@ -328,7 +328,8 @@ EOT;
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" 
+           id="project-items">
       <thead>
         <tr class="success">
           <th>ID</th>
