@@ -62,6 +62,7 @@ register_activation_hook(WPTC_PLUGIN_PATH . '/' . basename(__FILE__), 'wptc_inst
 
 // try to load the Zend lib.
 require_once(WPTC_PLUGIN_PATH . '/lib/LoadZend.php');
+require_once(WPTC_PLUGIN_PATH . '/lib/index.php');
 // load the tmplate tags function.
 require_once(WPTC_PLUGIN_PATH . '/tags.php');
 require_once(WPTC_PLUGIN_PATH . '/widgets.php');
