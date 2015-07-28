@@ -30,6 +30,7 @@ metadata:
 
 - per_page
 - page_number
+- total_items.
 
 PHP function / class?
 ---------------------
@@ -38,6 +39,15 @@ Introduce **wptc_request_context** so we could
 
 - reuse source code the most,
 - simplify the source code for page template
+
+We will using PHP class for the request context.
+using **namespace** and class loader from **symfony**.
+
+namespace and folder structure::
+
+  lib
+    |- Wptc
+        |- RequestContext.php
 
 JavaScript Class
 ----------------
