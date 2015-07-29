@@ -46,9 +46,9 @@ function loadMoreTickets() {
 
     // preparing the query data for AJAX request.
     var query_data = {
-        'action': 'wptc_query_tickets',
+        'action' : 'wptc_query_tickets',
         'per_page' : per_page,
-        'page_number' : page_number + 1,
+        'page_number' : page_number,
         'project' : context.project
     };
     // update HTML page to indicate user the ruequest is going...
@@ -80,9 +80,9 @@ function loadMoreTickets() {
             '</tr>');
         }
         // calculate loaded item.
-        var loaded_items = per_page * (page_number + 1) + 
-                           items.length;
+        var loaded_items = per_page * page_number + items.length;
         console.log("loaded items: " + loaded_items);
+        jQuery("span[id='loaded-items']").html(loaded_items);
 
         // set total number for loaded items.
         jQuery('html,body').scrollTop(jQuery(window).height());

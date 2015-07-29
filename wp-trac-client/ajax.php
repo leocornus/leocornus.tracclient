@@ -285,19 +285,24 @@ add_action('wp_ajax_wptc_query_tickets', 'wptc_query_tickets_cb');
 function wptc_query_tickets_cb() {
 
     // get the request context.
-    $context = wptc_request_context();
+    $context = new Wptc\RequestContext();
+    $context->init();
+    $per_page = $context->pagerOptions['per_page'];
+    $page_number = $context->pagerOptions['page_number'];
+    $project_name = $context->metadata['project'];
+
     // the empty blog_id will tell to use the current blog.
     $blog_path = get_site_url();
     $ticket_page_slug = "trac/ticket";
     wptc_set_cookie_state(array(
-        'page_number' => $context['page_number'] + 1
+        'page_number' => $page_number + 1
     ));
 
-    $query = "project={$context['project']}&status!=closed";
+    $query = "project={$project_name}&status!=closed";
     // query tickets and load ticket details
     // will load all qualified tickets at one query.
-    $ids = wptc_ticket_query($query, $context['per_page'], 
-                             $context['page_number'] + 1);
+    $ids = wptc_ticket_query($query, $per_page, 
+                             $page_number + 1);
     $tickets = wptc_get_tickets_list_m($ids);
 
     //get ready rows for table.

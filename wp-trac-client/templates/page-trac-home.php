@@ -3,7 +3,9 @@
  * Template Name: Trac Homepage
  */
 add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
-$context = wptc_request_context();
+$context = new Wptc\RequestContext();
+$context->reset();
+$context->init();
 ?>
 <html>
 <head>

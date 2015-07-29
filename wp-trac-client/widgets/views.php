@@ -189,7 +189,7 @@ EOT;
 function wptc_view_project_header($context) {
 
     $projects_url = "/projects";
-    $project_name = $context['project'];
+    $project_name = $context->metadata['project'];
     $project_url = "/projects?project={$project_name}";
     $project = wptc_get_project($project_name);
 
@@ -251,11 +251,14 @@ function wptc_view_project_content($context) {
     $blog_path = get_site_url();
     $ticket_page_slug = "projets/ticket";
 
-    $query = "project={$context['project']}&status!=closed";
+    $project_name = $context->metadata['project'];
+    $query = "project={$project_name}&status!=closed";
     // query tickets and load ticket details
     // will load all qualified tickets at one query.
-    $ids = wptc_ticket_query($query, $context['per_page'], 
-                             $context['page_number'] + 1);
+    $per_page = $context->pagerOptions['per_page'];
+    $page_number = $context->pagerOptions['page_number'];
+    $ids = wptc_ticket_query($query, $per_page, 
+                             $page_number + 1);
     $tickets = wptc_get_tickets_list_m($ids);
 
     //get ready rows for table.
@@ -353,7 +356,8 @@ EOT;
       </tbody>
     </table>
     <div id="item-pager" class="h4 text-right">
-      Showing 20 of 120 tickets!
+      Showing <span id="loaded-items">20</span> of 
+      <span id="total-items">120</span> tickets!
       <a class="btn btn-success btn-sm" 
          id="project-load-more"
       >Load More</a>
