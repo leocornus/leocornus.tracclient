@@ -53,7 +53,7 @@ function loadMoreTickets() {
     };
     // update HTML page to indicate user the ruequest is going...
     // disable load more button and show waiting cursor.
-    jQuery("a[id='project-load-more']").attr('disabled', true);
+    jQuery("a[id='project-load-more']").addClass('disabled');
     jQuery('html,body').css('cursor', 'wait');
     jQuery('a').css('cursor', 'wait');
 
@@ -94,8 +94,7 @@ function loadMoreTickets() {
 
         if(loaded_items < total_items) {
             // only enable the load more if still more items to load.
-            jQuery("a[id='project-load-more']").
-                attr('disabled', false);
+            jQuery("a[id='project-load-more']").removeClass('disabled');
         }
     });
     // update the page number.
