@@ -84,6 +84,9 @@ class RequestContext {
         $this->metadata['milestone'] = $milestone;
         $this->metadata['project'] = $project;
 
+        // === load total items based on metadata.
+        //$total_items = $this->getTotalItems();
+
         // === collect pagination information.
         $per_page = $this->getRequestParam('per_page', $include_cookie);
         // items per page, default is 20
@@ -99,6 +102,7 @@ class RequestContext {
         }
         $this->pagerOptions['per_page'] = $per_page;
         $this->pagerOptions['page_number'] = $page_number;
+        $this->pagerOptions['total_items'] = $total_items;
 
         // TODO: update cookie! in one hour expire time
         $this->setCookieState($this->pagerOptions, 3600);
