@@ -31,6 +31,16 @@ class RequestContext {
     public $filters = array();
 
     /**
+     * the constructor
+     *
+     * @param $include_cookie
+     */
+    public function __construct($include_cookie=true) {
+
+        $this->load($include_cookie);
+    }
+
+    /**
      * reset the request context, 
      * it will be called when user reload page.
      *

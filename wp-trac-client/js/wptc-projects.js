@@ -100,10 +100,12 @@ function loadMoreTickets() {
 
 // add the click event on load more button.
 jQuery(function($) {
+
   // get started.
   loadMoreTickets();
 
   $('#project-load-more').click(function() {
+    // load more when user click the button.
     loadMoreTickets();
   });
 });
