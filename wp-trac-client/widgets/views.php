@@ -322,11 +322,22 @@ EOT;
       </div>
     </span>
     <span id="numbers" class="pull-right">
-      Summary:
-      <span class="label label-primary">140 in total</span>
-      <span class="label label-success">10 closed</span>
-      <span class="label label-warning">20 assigned</span>
-      <span class="label label-danger">3 critical</span>
+      Status:
+      <a href="#" class="btn btn-xs btn-primary" id="status-accepted">
+        <span class="glyphicon glyphicon-check"></span> accepted
+      </a>
+      <a href="#" class="btn btn-xs btn-info" id="status-assigned">
+        <span class="glyphicon glyphicon-check"></span> assigned
+      </a>
+      <a href="#" class="btn btn-xs btn-success" id="status-closed">
+        <span class="glyphicon glyphicon-unchecked"></span> closed
+      </a>
+      <a href="#" class="btn btn-xs btn-danger" id="status-new">
+        <span class="glyphicon glyphicon-check"></span> new 
+      </a>
+      <a href="#" class="btn btn-xs btn-warning" id="status-reopened">
+        <span class="glyphicon glyphicon-check"></span> reopened
+      </a>
     </span>
   </div>
 
