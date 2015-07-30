@@ -80,12 +80,21 @@ class RequestContext {
             // get the project name
             $project = wptc_get_project_name($version);
         }
+        // current query.
+        $current_query = $this->getRequestParam('current_query', 
+                                                $include_cookie);
         $this->metadata['version'] = $version;
         $this->metadata['milestone'] = $milestone;
         $this->metadata['project'] = $project;
+        $this->metadata['current_query'] = $current_query;
 
-        // === load total items based on metadata.
-        //$total_items = $this->getTotalItems();
+        // status.
+        $status = $this->getRequestParam('status', $include_cookie);
+        if (empty($status)) {
+            // set up the default status, none clodes.
+            $status = "accepted,assigned,new,reopned";
+        }
+        $this->filters['status'] = $status;
 
         // === collect pagination information.
         $per_page = $this->getRequestParam('per_page', $include_cookie);
@@ -102,11 +111,28 @@ class RequestContext {
         }
         $this->pagerOptions['per_page'] = $per_page;
         $this->pagerOptions['page_number'] = $page_number;
-        $this->pagerOptions['total_items'] = $total_items;
+
+        // build the query from metedata.
+        $new_query = $this->buildQuery();
+        if(!empty($current_query) && 
+           ($new_query == $current_query)) {
+            // do nothing here as all summary are the same.
+            // the total number should already in cookie.
+        } else {
+            // set current query to new query.
+            $this->metadata['current_query'] = $new_query;
+            // execute query to get brief summary, such as
+            // total items, items by status, etc.
+            // set max=0 to return all items.
+            $ids = wptc_ticket_query($new_query, 0);
+            // === load total items based on metadata.
+            $this->pagerOptions['total_items'] = count($ids);
+        }
 
         // TODO: update cookie! in one hour expire time
         $this->setCookieState($this->pagerOptions, 3600);
         $this->setCookieState($this->metadata, 3600);
+        $this->setCookieState($this->filters, 3600);
     }
 
     /**
@@ -135,6 +161,9 @@ class RequestContext {
         return $value;
     }
 
+    /**
+     * set cookies state.
+     */
     public function setCookieState($states, $expire=60) {
     
         foreach($states as $name => $value) {
@@ -144,6 +173,9 @@ class RequestContext {
         return;
     }
 
+    /**
+     * clean the cookies 
+     */
     public function cleanCookieState($states) {
 
         foreach($states as $name => $value) {
@@ -151,5 +183,29 @@ class RequestContext {
             // before.
             setcookie($name, $value, time() - 3600);
         }
+    }
+
+    /**
+     * build query based on the metadata on context..
+     */
+    public function buildQuery() {
+
+        // analyze the metadata
+        // we will analyze the following fields: project, status
+        $project_name = $this->metadata['project'];
+        // the value for status will be in pattern: 
+        // "new,accepted,reopened"
+        $status = explode(",", $this->filters['status']);
+
+        // starts the query from an empty string.
+        $query = array(); 
+        if (!empty($project_name)) {
+            $query[] = "project={$project_name}";
+        }
+        foreach ($status as $one) {
+            $query[] = "status={$one}";
+        }
+
+        return implode("&", $query);
     }
 }

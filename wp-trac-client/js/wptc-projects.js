@@ -57,7 +57,6 @@ function loadMoreTickets() {
     jQuery('html,body').css('cursor', 'wait');
     jQuery('a').css('cursor', 'wait');
 
-    context.set('page_number', page_number + 1);
     // AJAX request to get tickets of next page.
     // ajax_url is set by using wp_localize_script
     jQuery.post(wptc_projects.ajax_url, 
@@ -82,17 +81,25 @@ function loadMoreTickets() {
         // calculate loaded item.
         var loaded_items = per_page * page_number + items.length;
         console.log("loaded items: " + loaded_items);
-        jQuery("span[id='loaded-items']").html(loaded_items);
-
         // set total number for loaded items.
-        jQuery('html,body').scrollTop(jQuery(window).height());
+        jQuery("span[id='loaded-items']").html(loaded_items);
+        jQuery("span[id='total-items']").html(total_items);
 
         // scroll down to page bottom.
+        jQuery('html,body').scrollTop(jQuery(window).height());
+
         // reset cursor.
-        jQuery("a[id='project-load-more']").attr('disabled', false);
         jQuery('html,body').css('cursor', 'default');
         jQuery('a').css('cursor', 'default');
+
+        if(loaded_items < total_items) {
+            // only enable the load more if still more items to load.
+            jQuery("a[id='project-load-more']").
+                attr('disabled', false);
+        }
     });
+    // update the page number.
+    context.set('page_number', page_number + 1);
 
     // update table html.
     // caculate next page. update request context.
@@ -104,7 +111,9 @@ jQuery(function($) {
   // get started.
   loadMoreTickets();
 
-  $('#project-load-more').click(function() {
+  $('#project-load-more').click(function(event) {
+    // prevent the default herf link event for this button.
+    event.preventDefault();
     // load more when user click the button.
     loadMoreTickets();
   });

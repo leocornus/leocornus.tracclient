@@ -293,11 +293,9 @@ function wptc_query_tickets_cb() {
     // the empty blog_id will tell to use the current blog.
     $blog_path = get_site_url();
     $ticket_page_slug = "trac/ticket";
-    // update page number.
-    $context->setCookieState(array(
-        'page_number' => $page_number + 1), 3600);
 
-    $query = "project={$project_name}&status!=closed";
+    //$query = "project={$project_name}&status!=closed";
+    $query = $context->metadata['current_query'];
     // query tickets and load ticket details
     // will load all qualified tickets at one query.
     $ids = wptc_ticket_query($query, $per_page, 
