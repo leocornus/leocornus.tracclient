@@ -4,7 +4,6 @@
  */
 add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
 $context = new Wptc\RequestContext();
-$context->reset();
 $context->init();
 ?>
 <html>

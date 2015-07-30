@@ -286,7 +286,7 @@ function wptc_query_tickets_cb() {
 
     // get the request context.
     $context = new Wptc\RequestContext();
-    $context->init();
+    $context->load();
     $per_page = $context->pagerOptions['per_page'];
     $page_number = $context->pagerOptions['page_number'];
     $project_name = $context->metadata['project'];

@@ -33,29 +33,39 @@ class RequestContext {
     /**
      * reset the request context, 
      * it will be called when user reload page.
-     */
-    public function reset() {
-        // clean all cookie state.
-        // TODO: only get from POST and GET ignore COOKIE
-        $this->cleanCookieState($this->pagerOptions);
-    }
-
-    /**
      *
+     * this method will serve normal page load or reload.
+     * it will consider as start point for a page.
+     * 
      */
     public function init() {
 
+        // clean all cookie state.
+        // TODO: only get from POST and GET ignore COOKIE
+        //$this->cleanCookieState($this->pagerOptions);
+
+        // load context by ignore cookie. this is the initializing phase.
+        $this->load(false);
+    }
+
+    /**
+     * load context from HTTP request, including POST, GET and COOKIE.
+     */
+    public function load($include_cookie=True) {
+
+        // === collect user information.
+        // this will include user roles.
         if(is_user_logged_in()) {
             $current_user = wp_get_current_user();
             $this->metadata['tracuser'] = $current_user;
         }
 
-        // collect ticket and project metadata.
+        // === collect ticket and project metadata.
         // the page slug will be the project name.
-        $version = wptc_get_request_param('version');
-        $milestone = wptc_get_request_param('milestone');
+        $version = $this->getRequestParam('version', $include_cookie);
+        $milestone = $this->getRequestParam('milestone', $include_cookie);
         // project name.
-        $project = wptc_get_request_param('project');
+        $project = $this->getRequestParam('project', $include_cookie);
         if (!empty($version)) {
             // get the project name
             $project = wptc_get_project_name($version);
@@ -64,15 +74,15 @@ class RequestContext {
         $this->metadata['milestone'] = $milestone;
         $this->metadata['project'] = $project;
 
-        // collect pagination information.
-        $per_page = wptc_get_request_param('per_page');
+        // === collect pagination information.
+        $per_page = $this->getRequestParam('per_page', $include_cookie);
         // items per page, default is 20
         if(empty($per_page)) {
             // set to default per_page to 20.
             $per_page = 10;
         }
         // page number, starts from 0.
-        $page_number = wptc_get_request_param('page_number');
+        $page_number = $this->getRequestParam('page_number', $include_cookie);
         if (empty($page_number)) {
             // set to 0 as the default page number.
             $page_number = 0;
@@ -87,15 +97,16 @@ class RequestContext {
 
     /**
      * get a HTTP request parameter's value.
+     * by default this method will not check cookie.
      */
-    public function getRequestParam($param) {
+    public function getRequestParam($param, $include_cookie=true) {
 
         // try to find the selected theme name
         if (array_key_exists($param, $_POST)) {
             $value = $_POST[$param];
         } elseif (array_key_exists($param, $_GET)) {
             $value = $_GET[$param];
-        } elseif (array_key_exists($param, $_COOKIE)) {
+        } elseif ($include_cookie && array_key_exists($param, $_COOKIE)) {
             // cookie is one of the request in PHP.
             // check manuel $_REQUEST for details.
             $value = $_COOKIE[$param];
