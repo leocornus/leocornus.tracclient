@@ -111,9 +111,28 @@ jQuery(function($) {
   loadMoreTickets();
 
   $('#project-load-more').click(function(event) {
-    // prevent the default herf link event for this button.
-    event.preventDefault();
-    // load more when user click the button.
-    loadMoreTickets();
+      // prevent the default herf link event for this button.
+      event.preventDefault();
+      // load more when user click the button.
+      loadMoreTickets();
+  });
+
+  // handle the click event for all status button.
+  // using the starts with pattern selector.
+  $('a[id^=status-]').click(function(event) {
+      //alert(this.id);
+      // this is the dom element, it could be used as
+      // a jQuery selector.
+      var icon = $(this).children('span');
+      if(icon.hasClass("glyphicon-check")) {
+          icon.removeClass("glyphicon-check");
+          icon.addClass("glyphicon-unchecked");
+      } else if(icon.hasClass("glyphicon-unchecked")) {
+          icon.removeClass("glyphicon-unchecked");
+          icon.addClass("glyphicon-check");
+      }
+      // check all status check/unchecked.
+      // update cookie state "status"
+      // load tickets again, start over by reset everything.
   });
 });
