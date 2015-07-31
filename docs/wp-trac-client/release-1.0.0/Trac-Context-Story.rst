@@ -54,4 +54,16 @@ JavaScript Class
 
 We will use jquery.cookie_ to manipulate cookies.
 
+Workflow
+--------
+
+- server side request context class will be build from each
+  request.
+- all request context states will be return to AJAX client
+- AJAX client will get all context state and store on cookie
+- JavaScript will update cookie as required based on user actions.
+- all cookie states will send back to server side through the 
+  AJAX request. (JavaScript RequestContext class)
+- start over again.
+
 .. _jquery.cookie: https://github.com/carhartl/jquery-cookie
