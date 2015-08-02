@@ -139,8 +139,8 @@ class RequestContext {
         // status.
         $status = $this->getRequestParam('status');
         if (empty($status)) {
-            // set up the default status, none clodes.
-            $status = "accepted,assigned,new,reopned";
+            // set up the default status, none closed.
+            $status = "accepted,assigned,new,reopened";
         }
         $this->states['status'] = $status;
     }
