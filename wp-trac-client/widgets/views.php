@@ -189,7 +189,7 @@ EOT;
 function wptc_view_project_header($context) {
 
     $projects_url = "/projects";
-    $project_name = $context->metadata['project'];
+    $project_name = $context->getState('project');
     $project_url = "/projects?project={$project_name}";
     $project = wptc_get_project($project_name);
 

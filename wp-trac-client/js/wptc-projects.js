@@ -21,17 +21,59 @@ jQuery.extend(ProjectRequestContext.prototype, {
         this.project = jQuery.cookie('project');
         this.milestone = jQuery.cookie('milestone');
         this.version = jQuery.cookie('version');
+        this.current_query = jQuery.cookie('current_query');
 
         // pagination information.
         this.per_page = parseInt(jQuery.cookie('per_page'));
         // page number, starts from 0.
         this.page_number = parseInt(jQuery.cookie('page_number'));
         this.total_items = parseInt(jQuery.cookie('total_items'));
+
+        // filter information.
+        // status has pattern: accepted,assigned,new
+        // TODO: valid values for status.
+        // NOTE: only support default status from trac.
+        this.filter_status = jQuery.cookie('status');
     },
 
     // set the cookie:
-    set: function(name, value) {
+    setState: function(name, value) {
         jQuery.cookie(name, value, {expires: 1});
+    },
+
+    // get the cookie
+    getState: function(name) {
+
+        var value = jQuery.cookie(name);
+        if(name == 'per_page' || name == 'page_number'
+           || name == 'total_items') {
+            value = parseInt(value);
+        }
+
+        return value;
+    },
+
+    // get all states, return as an object.
+    getStates: function() {
+
+        var states = {
+            'per_page' : this.getState('per_page'),
+            'page_number' : this.getState('page_number'),
+            'project' : this.getState('project'),
+            'status' : this.getState('status'),
+            'current_query' : this.getState('current_query')
+        };
+
+        return states;
+    },
+
+    // update cookies.
+    updateCookies: function(states) {
+
+        jQuery.each(states, function(name, value) {
+            this.setState(name, value);
+            //jQuery.cookie(name, value, {expires: 1});
+        });
     }
 });
 
@@ -40,17 +82,11 @@ function loadMoreTickets() {
 
     // get request context.
     var context = new ProjectRequestContext();
-    var per_page = context.per_page;
-    var page_number = context.page_number;
-    var total_items = context.total_items;
 
     // preparing the query data for AJAX request.
-    var query_data = {
-        'action' : 'wptc_query_tickets',
-        'per_page' : per_page,
-        'page_number' : page_number,
-        'project' : context.project
-    };
+    var query_data = context.getStates();
+    query_data['action'] = 'wptc_query_tickets';
+
     // update HTML page to indicate user the ruequest is going...
     // disable load more button and show waiting cursor.
     jQuery("a[id='project-load-more']").addClass('disabled');
@@ -61,7 +97,11 @@ function loadMoreTickets() {
     // ajax_url is set by using wp_localize_script
     jQuery.post(wptc_projects.ajax_url, 
                 query_data, function(response) {
-        var items = JSON.parse(response);
+        var res = JSON.parse(response);
+        var items = res['items'];
+        var states = res['states'];
+        // update cookies based on the states.
+        context.updateCookies(states);
         //console.log(items);
         // append the ticket list table.
         for(i = 0; i < items.length; i++) {
@@ -79,9 +119,13 @@ function loadMoreTickets() {
             '</tr>');
         }
         // calculate loaded item.
-        var loaded_items = per_page * page_number + items.length;
+        var loaded_items = context.getState('per_page') * 
+                           context.getState('page_number') + items.length;
         console.log("loaded items: " + loaded_items);
+        // update the page number.
+        context.setState('page_number', context.getState('page_number') + 1);
         // set total number for loaded items.
+        var total_items = context.getState('total_items');
         jQuery("span[id='loaded-items']").html(loaded_items);
         jQuery("span[id='total-items']").html(total_items);
 
@@ -97,8 +141,6 @@ function loadMoreTickets() {
             jQuery("a[id='project-load-more']").removeClass('disabled');
         }
     });
-    // update the page number.
-    context.set('page_number', page_number + 1);
 
     // update table html.
     // caculate next page. update request context.
@@ -132,7 +174,19 @@ jQuery(function($) {
           icon.addClass("glyphicon-check");
       }
       // check all status check/unchecked.
+      var new_status = [];
+      $.each($('a[id^=status-]'), function(index, btn) {
+          // index and btn jquery object.
+          var check_icon = $(btn).children('span');
+          if(check_icon.hasClass("glyphicon-check")) {
+              var the_status = btn.id.split('-')[1];
+              //alert(the_status);
+              new_status.push(the_status);
+          }
+      });
       // update cookie state "status"
+      $.cookie('status', new_status.join(), {expires:1});
       // load tickets again, start over by reset everything.
+      loadMoreTickets();
   });
 });

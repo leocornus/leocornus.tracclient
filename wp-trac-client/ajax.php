@@ -285,17 +285,17 @@ add_action('wp_ajax_wptc_query_tickets', 'wptc_query_tickets_cb');
 function wptc_query_tickets_cb() {
 
     // get the request context.
-    $context = new Wptc\RequestContext(true);
-    $per_page = $context->pagerOptions['per_page'];
-    $page_number = $context->pagerOptions['page_number'];
-    $project_name = $context->metadata['project'];
+    $context = new Wptc\RequestContext();
+    $per_page = $context->getState('per_page');
+    $page_number = $context->getState('page_number');
+    $project_name = $context->getState('project');
 
     // the empty blog_id will tell to use the current blog.
     $blog_path = get_site_url();
     $ticket_page_slug = "trac/ticket";
 
     //$query = "project={$project_name}&status!=closed";
-    $query = $context->metadata['current_query'];
+    $query = $context->getState('current_query');
     // query tickets and load ticket details
     // will load all qualified tickets at one query.
     $ids = wptc_ticket_query($query, $per_page, 
@@ -303,14 +303,19 @@ function wptc_query_tickets_cb() {
     $tickets = wptc_get_tickets_list_m($ids);
 
     //get ready rows for table.
-    $response = array();
+    $items = array();
     foreach($tickets as $ticket) {
 
         // adding url and owner href
         $ticket['ticket_url'] = "{$blog_path}/{$ticket_page_slug}?id={$ticket['id']}";
         $ticket['owner_href'] = wptc_widget_user_href($ticket['owner']);
-        $response[] = $ticket;
+        $items[] = $ticket;
     }
+
+    $response = array(
+        'items' => $items,
+        'states' => $context->getStates()
+    );
 
     echo json_encode($response);
     exit;
