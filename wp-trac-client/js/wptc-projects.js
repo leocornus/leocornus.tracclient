@@ -70,10 +70,9 @@ jQuery.extend(ProjectRequestContext.prototype, {
     // update cookies.
     updateCookies: function(states) {
 
-        jQuery.each(states, function(name, value) {
-            this.setState(name, value);
-            //jQuery.cookie(name, value, {expires: 1});
-        });
+        for(var name in states) {
+            this.setState(name, states[name]);
+        }
     }
 });
 
@@ -103,6 +102,10 @@ function loadMoreTickets() {
         // update cookies based on the states.
         context.updateCookies(states);
         //console.log(items);
+        // clean table if page_number < 1
+        if (context.getState('page_number') < 1) {
+            jQuery("table[id='project-items'] > tbody").html("");
+        }
         // append the ticket list table.
         for(i = 0; i < items.length; i++) {
             var log = items[i];
