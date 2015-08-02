@@ -11,33 +11,55 @@ namespace Wptc;
 class RequestContext {
 
     /**
-     * options for pager, we will provide default value here.
+     * the constructor
      */
-    public $pagerOptions = array(
+    public function __construct() {
+
+        $this->init();
+    }
+
+    /**
+     * states for the request context.
+     * it will have the following data structure.
+     * $states = array(
+     *     'state_name' => 'state value',
+     *     'state_name_one' => 'state value one'
+     * );
+     */
+    protected $states = array(
+        // default value for number of items for a page.
         'per_page' => 10,
-        // page number starts from 0,
+        // page number starts from 0.
         'page_number' => 0
     );
 
     /**
-     * project metadata, project name, version, milestone, etc.
+     * return all states.
      */
-    public $metadata = array();
+    public function getStates() {
+
+        return $this->states;
+    }
 
     /**
-     * filters for a project, by different fields: status
-     * type, owner,
+     * return the state value for a given state name.
+     * if the the state name is not exist, it will return null.
      */
-    public $filters = array();
+    public function getState($state_name) {
+
+        if(array_key_exists($state_name, $this->states)) {
+            return $this->states[$state_name];
+        } else {
+            return null;
+        }
+    }
 
     /**
-     * the constructor
-     *
-     * @param $include_cookie
+     * set value for the given state name.
      */
-    public function __construct($include_cookie=true) {
+    public function setState($state_name, $value) {
 
-        $this->load($include_cookie);
+        $this->states[$state_name] = $value;
     }
 
     /**
@@ -50,12 +72,119 @@ class RequestContext {
      */
     public function init() {
 
+        // load trac user information.
+        $this->loadTracUser();
+
+        // load filters.
+        $this->loadFilters();
+
+        // load metadata
+        $this->loadMetadata();
+
+        // load pager states: per_page, page_number, total_items.
+        // this should be the last one to load, as it depends on 
+        // metadata and filters.
+        $this->loadPagerStates();
+
         // clean all cookie state.
         // TODO: only get from POST and GET ignore COOKIE
         //$this->cleanCookieState($this->pagerOptions);
 
         // load context by ignore cookie. this is the initializing phase.
-        $this->load(false);
+        //$this->load(false);
+    }
+
+    /**
+     * load user information.
+     */
+    public function loadTracUser() {
+
+        // === collect user information.
+        // this will include user roles.
+        if(is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            $this->states['tracuser'] = $current_user;
+        }
+    }
+
+    /**
+     * load metadata states.
+     */
+    public function loadMetadata() {
+
+        // === collect ticket and project metadata.
+        // the page slug will be the project name.
+        $version = $this->getRequestParam('version');
+        $milestone = $this->getRequestParam('milestone');
+        // project name.
+        $project = $this->getRequestParam('project');
+        if (!empty($version)) {
+            // get the project name
+            $project = wptc_get_project_name($version);
+        }
+        // current query.
+        $current_query = $this->getRequestParam('current_query');
+
+        $this->states['version'] = $version;
+        $this->states['milestone'] = $milestone;
+        $this->states['project'] = $project;
+        $this->states['current_query'] = $current_query;
+    }
+
+    /**
+     * load filter states
+     */
+    public function loadFilters() {
+
+        // status.
+        $status = $this->getRequestParam('status');
+        if (empty($status)) {
+            // set up the default status, none clodes.
+            $status = "accepted,assigned,new,reopned";
+        }
+        $this->states['status'] = $status;
+    }
+
+    /**
+     * load pager states.
+     */
+    public function loadPagerStates() {
+
+        // === collect pagination information.
+        $per_page = $this->getRequestParam('per_page');
+        // items per page, default is 20
+        if(empty($per_page)) {
+            // set to default per_page to 20.
+            $per_page = 10;
+        }
+        // page number, starts from 0.
+        $page_number = $this->getRequestParam('page_number');
+        if (empty($page_number)) {
+            // set to 0 as the default page number.
+            $page_number = 0;
+        }
+        $this->states['per_page'] = $per_page;
+        $this->states['page_number'] = $page_number;
+
+        // build the query from metedata.
+        $current_query = $this->getState('current_query');
+        $new_query = $this->buildQuery();
+        if(!empty($current_query) && 
+           ($new_query == $current_query)) {
+            // do nothing here as all summary are the same.
+            // the total number should already in cookie.
+        } else {
+            // set current query to new query.
+            $this->setState('current_query', $new_query);
+            // execute query to get brief summary, such as
+            // total items, items by status, etc.
+            // set max=0 to return all items.
+            $ids = wptc_ticket_query($new_query, 0);
+            // === load total items based on metadata.
+            $this->setState('total_items', count($ids));
+            // reset pager number to 0.
+            $this->setState('page_number', 0);
+        }
     }
 
     /**
@@ -104,7 +233,8 @@ class RequestContext {
             $per_page = 10;
         }
         // page number, starts from 0.
-        $page_number = $this->getRequestParam('page_number', $include_cookie);
+        $page_number = $this->getRequestParam('page_number', 
+                                              $include_cookie);
         if (empty($page_number)) {
             // set to 0 as the default page number.
             $page_number = 0;
@@ -127,6 +257,7 @@ class RequestContext {
             $ids = wptc_ticket_query($new_query, 0);
             // === load total items based on metadata.
             $this->pagerOptions['total_items'] = count($ids);
+            // reset pager infor.
         }
 
         // TODO: update cookie! in one hour expire time
@@ -137,9 +268,9 @@ class RequestContext {
 
     /**
      * get a HTTP request parameter's value.
-     * by default this method will not check cookie.
+     * by default this method will not check COOKIE.
      */
-    public function getRequestParam($param, $include_cookie=true) {
+    public function getRequestParam($param, $include_cookie=false) {
 
         // try to find the selected theme name
         if (array_key_exists($param, $_POST)) {
@@ -159,6 +290,16 @@ class RequestContext {
         }
 
         return $value;
+    }
+
+    /**
+     * set whole states to cookie.
+     */
+    public function setCookieStates($expire=60) {
+    
+        foreach($this->states as $name => $value) {
+            setcookie($name, $value, time() + $expire);
+        }
     }
 
     /**
@@ -192,10 +333,10 @@ class RequestContext {
 
         // analyze the metadata
         // we will analyze the following fields: project, status
-        $project_name = $this->metadata['project'];
+        $project_name = $this->getState('project');
         // the value for status will be in pattern: 
         // "new,accepted,reopened"
-        $status = explode(",", $this->filters['status']);
+        $status = explode(",", $this->getState('status'));
 
         // starts the query from an empty string.
         $query = array(); 
