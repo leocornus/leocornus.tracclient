@@ -125,10 +125,10 @@ class RequestContext {
         // current query.
         $current_query = $this->getRequestParam('current_query');
 
-        $this->states['version'] = $version;
-        $this->states['milestone'] = $milestone;
-        $this->states['project'] = $project;
-        $this->states['current_query'] = $current_query;
+        $this->setState('version', $version);
+        $this->setState('milestone', $milestone);
+        $this->setState('project', $project);
+        $this->setState('current_query', $current_query);
     }
 
     /**
@@ -142,7 +142,7 @@ class RequestContext {
             // set up the default status, none closed.
             $status = "accepted,assigned,new,reopened";
         }
-        $this->states['status'] = $status;
+        $this->setState('status', $status);
     }
 
     /**
@@ -163,8 +163,8 @@ class RequestContext {
             // set to 0 as the default page number.
             $page_number = 0;
         }
-        $this->states['per_page'] = $per_page;
-        $this->states['page_number'] = $page_number;
+        $this->setState('per_page', $per_page);
+        $this->setState('page_number', $page_number);
 
         // build the query from metedata.
         $current_query = $this->getState('current_query');
@@ -185,85 +185,6 @@ class RequestContext {
             // reset pager number to 0.
             $this->setState('page_number', 0);
         }
-    }
-
-    /**
-     * load context from HTTP request, including POST, GET and COOKIE.
-     */
-    public function load($include_cookie=True) {
-
-        // === collect user information.
-        // this will include user roles.
-        if(is_user_logged_in()) {
-            $current_user = wp_get_current_user();
-            $this->metadata['tracuser'] = $current_user;
-        }
-
-        // === collect ticket and project metadata.
-        // the page slug will be the project name.
-        $version = $this->getRequestParam('version', $include_cookie);
-        $milestone = $this->getRequestParam('milestone', $include_cookie);
-        // project name.
-        $project = $this->getRequestParam('project', $include_cookie);
-        if (!empty($version)) {
-            // get the project name
-            $project = wptc_get_project_name($version);
-        }
-        // current query.
-        $current_query = $this->getRequestParam('current_query', 
-                                                $include_cookie);
-        $this->metadata['version'] = $version;
-        $this->metadata['milestone'] = $milestone;
-        $this->metadata['project'] = $project;
-        $this->metadata['current_query'] = $current_query;
-
-        // status.
-        $status = $this->getRequestParam('status', $include_cookie);
-        if (empty($status)) {
-            // set up the default status, none clodes.
-            $status = "accepted,assigned,new,reopned";
-        }
-        $this->filters['status'] = $status;
-
-        // === collect pagination information.
-        $per_page = $this->getRequestParam('per_page', $include_cookie);
-        // items per page, default is 20
-        if(empty($per_page)) {
-            // set to default per_page to 20.
-            $per_page = 10;
-        }
-        // page number, starts from 0.
-        $page_number = $this->getRequestParam('page_number', 
-                                              $include_cookie);
-        if (empty($page_number)) {
-            // set to 0 as the default page number.
-            $page_number = 0;
-        }
-        $this->pagerOptions['per_page'] = $per_page;
-        $this->pagerOptions['page_number'] = $page_number;
-
-        // build the query from metedata.
-        $new_query = $this->buildQuery();
-        if(!empty($current_query) && 
-           ($new_query == $current_query)) {
-            // do nothing here as all summary are the same.
-            // the total number should already in cookie.
-        } else {
-            // set current query to new query.
-            $this->metadata['current_query'] = $new_query;
-            // execute query to get brief summary, such as
-            // total items, items by status, etc.
-            // set max=0 to return all items.
-            $ids = wptc_ticket_query($new_query, 0);
-            // === load total items based on metadata.
-            $this->pagerOptions['total_items'] = count($ids);
-            // reset pager infor.
-        }
-
-        // TODO: update cookie! in one hour expire time
-        $this->setCookieState($this->pagerOptions, 3600);
-        $this->setCookieState($this->metadata, 3600);
-        $this->setCookieState($this->filters, 3600);
     }
 
     /**

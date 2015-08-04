@@ -3,7 +3,7 @@
  */
 
 // create the ProjectRequestContext class.
-// NOTE; this function itself will be the constructor!
+// NOTE: this function itself will be the constructor for thi class.
 function ProjectRequestContext() {
 
     // call the init method to construct the object.
@@ -16,24 +16,6 @@ jQuery.extend(ProjectRequestContext.prototype, {
     init: function() {
         // get value from cookie...
         // NOTE: assume all variables will be set on server side.
-
-        // Project metadata.
-        this.project = jQuery.cookie('project');
-        this.milestone = jQuery.cookie('milestone');
-        this.version = jQuery.cookie('version');
-        this.current_query = jQuery.cookie('current_query');
-
-        // pagination information.
-        this.per_page = parseInt(jQuery.cookie('per_page'));
-        // page number, starts from 0.
-        this.page_number = parseInt(jQuery.cookie('page_number'));
-        this.total_items = parseInt(jQuery.cookie('total_items'));
-
-        // filter information.
-        // status has pattern: accepted,assigned,new
-        // TODO: valid values for status.
-        // NOTE: only support default status from trac.
-        this.filter_status = jQuery.cookie('status');
     },
 
     // set the cookie:
@@ -123,10 +105,12 @@ function loadMoreTickets() {
         }
         // calculate loaded item.
         var loaded_items = context.getState('per_page') * 
-                           context.getState('page_number') + items.length;
+                           context.getState('page_number') + 
+                           items.length;
         console.log("loaded items: " + loaded_items);
         // update the page number.
-        context.setState('page_number', context.getState('page_number') + 1);
+        context.setState('page_number', 
+                         context.getState('page_number') + 1);
         // set total number for loaded items.
         var total_items = context.getState('total_items');
         jQuery("span[id='loaded-items']").html(loaded_items);
