@@ -349,7 +349,6 @@ function wptc_view_project_content($context) {
         </tr>
       </tfoot>
       <tbody>
-        {$ticket_tr}
       </tbody>
     </table>
     <div id="item-pager" class="h4 text-right">
