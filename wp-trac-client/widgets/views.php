@@ -254,42 +254,6 @@ EOT;
  */
 function wptc_view_project_content($context) {
 
-    // the empty blog_id will tell to use the current blog.
-    $blog_path = get_site_url();
-    $ticket_page_slug = "projets/ticket";
-
-    $project_name = $context->metadata['project'];
-    $query = "project={$project_name}&status!=closed";
-    // query tickets and load ticket details
-    // will load all qualified tickets at one query.
-    $per_page = $context->pagerOptions['per_page'];
-    $page_number = $context->pagerOptions['page_number'];
-    $ids = wptc_ticket_query($query, $per_page, 
-                             $page_number + 1);
-    $tickets = wptc_get_tickets_list_m($ids);
-
-    //get ready rows for table.
-    $trs = array();
-    foreach($tickets as $ticket) {
-
-        $ticket_url = "{$blog_path}/{$ticket_page_slug}?id={$ticket['id']}";
-        $owner_href = wptc_widget_user_href($ticket['owner']);
-        $one_tr = <<<EOT
-<tr>
-  <td><a href="{$ticket_url}" class="{$ticket['status']}">
-    {$ticket['id']}</a>
-  </td>
-  <td><a href="{$ticket_url}">{$ticket['summary']}</a></td>
-  <td>{$owner_href}</td>
-  <td>{$ticket['priority']}</td>
-  <td>{$ticket['status']}</td>
-</tr>
-EOT;
-        //$trs[] = $one_tr;
-    }
-
-    $ticket_tr = implode("\n", $trs);
-
     $content = <<<EOT
 <div id="project-content" class="container-fluid">
   <div class="h4" id="summary">
