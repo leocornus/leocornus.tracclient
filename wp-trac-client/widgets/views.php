@@ -309,20 +309,31 @@ EOT;
       <div class="btn-group">
         <a href="#" class="btn btn-success btn-xs dropdown-toggle" 
                     data-toggle="dropdown" aria-expanded="false">
-          Status <span class="caret"></span>
+          Priority <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">
-          <li>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Checkbox
-              </label>
-            </div>
-          </li>
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li><a href="#">Separated link</a></li>
+        <ul class="dropdown-menu" style="padding-left:3px">
+          <li> <span class="text-nowrap">
+            <a href="#" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-check"></span>
+              blocker
+            </a>
+            <a href="#" class="btn btn-warning btn-xs">
+              <span class="glyphicon glyphicon-check"></span>
+              critical
+            </a>
+            <a href="#" class="btn btn-primary btn-xs">
+              <span class="glyphicon glyphicon-check"></span>
+              major
+            </a>
+            <a href="#" class="btn btn-info btn-xs">
+              <span class="glyphicon glyphicon-check"></span>
+              minor
+            </a>
+            <a href="#" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-check"></span>
+              trivial
+            </a>
+          </span> </li>
         </ul>
       </div>
     </span>
