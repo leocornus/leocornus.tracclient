@@ -43,7 +43,7 @@ jQuery.extend(ProjectRequestContext.prototype, {
             'page_number' : this.getState('page_number'),
             'project' : this.getState('project'),
             'status' : this.getState('status'),
-            'priority' : this.getState('priority');
+            'priority' : this.getState('priority'),
             'current_query' : this.getState('current_query')
         };
 
@@ -60,14 +60,14 @@ jQuery.extend(ProjectRequestContext.prototype, {
 });
 
 /**
- * toggle the status filter.
+ * toggle the filter.
  */
-function toggleStatus(statusBtn) {
+function toggleFilter(filter, type) {
 
       //alert(this.id);
       // this is the dom element, it could be used as
       // a jQuery selector.
-      var icon = jQuery(statusBtn).children('span');
+      var icon = jQuery(filter).children('span');
       if(icon.hasClass("glyphicon-check")) {
           icon.removeClass("glyphicon-check");
           icon.addClass("glyphicon-unchecked");
@@ -77,20 +77,21 @@ function toggleStatus(statusBtn) {
       }
 
       // check all status check/unchecked.
-      var new_status = [];
-      jQuery.each(jQuery('a[id^=status-]'), function(index, btn) {
+      var newFilters= [];
+      var selector = 'a[id^=' + type + '-]';
+      jQuery.each(jQuery(selector), function(index, btn) {
           // index and btn jquery object.
           var check_icon = jQuery(btn).children('span');
           if(check_icon.hasClass("glyphicon-check")) {
               // button id will follow pattern: status-[STATUS NAME]
-              var the_status = btn.id.split('-')[1];
+              var theFilter= btn.id.split('-')[1];
               //alert(the_status);
-              new_status.push(the_status);
+              newFilters.push(theFilter);
           }
       });
       // update cookie state "status"
       var context = new ProjectRequestContext();
-      context.setState('status', new_status.join());
+      context.setState(type, newFilters.join());
 }
 
 // function to load more tickets.
@@ -185,7 +186,14 @@ jQuery(function($) {
   // using the starts with pattern selector.
   $('a[id^=status-]').click(function(event) {
 
-      toggleStatus(this);
+      toggleFilter(this, 'status');
+      // load tickets again, start over by reset everything.
+      loadMoreTickets();
+  });
+
+  $('a[id^=priority-]').click(function(event) {
+
+      toggleFilter(this, 'priority');
       // load tickets again, start over by reset everything.
       loadMoreTickets();
   });
