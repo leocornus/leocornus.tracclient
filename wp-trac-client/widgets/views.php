@@ -227,7 +227,9 @@ function wptc_view_project_nav($context) {
     <li class="active"><a href="#">
       <span class="badge">{$total}</span> Tickets</a>
     </li>
-    <li><a href="#">Commits</a></li>
+    <li><a href="#">
+      <span class="badge"></span> Commits
+    </a></li>
     <li class="dropdown pull-right">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
         Actions<span class="caret"></span>
@@ -313,25 +315,29 @@ EOT;
         </a>
         <ul class="dropdown-menu" style="padding-left:3px">
           <li> <span class="text-nowrap">
-            <a href="#" class="btn btn-danger btn-xs">
+            <a href="#" class="btn btn-danger btn-xs" id="priority-blocker">
               <span class="glyphicon glyphicon-check"></span>
               blocker
             </a>
-            <a href="#" class="btn btn-warning btn-xs">
+            <a href="#" class="btn btn-warning btn-xs" id="priority-critical">
               <span class="glyphicon glyphicon-check"></span>
               critical
             </a>
-            <a href="#" class="btn btn-primary btn-xs">
+            <a href="#" class="btn btn-primary btn-xs" id="priority-major">
               <span class="glyphicon glyphicon-check"></span>
               major
             </a>
-            <a href="#" class="btn btn-info btn-xs">
+            <a href="#" class="btn btn-info btn-xs" id="priority-minor">
               <span class="glyphicon glyphicon-check"></span>
               minor
             </a>
-            <a href="#" class="btn btn-default btn-xs">
+            <a href="#" class="btn btn-default btn-xs" id="priority-trivial">
               <span class="glyphicon glyphicon-check"></span>
               trivial
+            </a>
+            <a href="#" class="btn btn-default btn-xs" id="priority-none">
+              <span class="glyphicon glyphicon-check"></span>
+              none
             </a>
           </span> </li>
         </ul>

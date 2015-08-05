@@ -150,6 +150,14 @@ class RequestContext {
             $status = "accepted,assigned,new,reopened";
         }
         $this->setState('status', $status);
+
+        // Priority
+        $priority = $this->getRequestParam('priority');
+        if (empty($priority)) {
+            // default will include all priorities.
+            $priority = "blocker,critical,major,minor,trivial,none";
+        }
+        $this->setState('priority', $priority);
     }
 
     /**
@@ -265,14 +273,25 @@ class RequestContext {
         // the value for status will be in pattern: 
         // "new,accepted,reopened"
         $status = explode(",", $this->getState('status'));
+        // priority
+        $priority = explode(",", $this->getState('priority'));
 
         // starts the query from an empty string.
         $query = array(); 
         if (!empty($project_name)) {
             $query[] = "project={$project_name}";
         }
+        // all status.
         foreach ($status as $one) {
             $query[] = "status={$one}";
+        }
+        // all priority.
+        foreach ($priority as $p) {
+            if($p == 'none') {
+                $query[] = "priority=";
+            } else {
+                $query[] = "priority={$p}";
+            }
         }
 
         return implode("&", $query);
