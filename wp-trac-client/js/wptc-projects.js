@@ -58,6 +58,40 @@ jQuery.extend(ProjectRequestContext.prototype, {
     }
 });
 
+/**
+ * toggle the status filter.
+ */
+function toggleStatus(statusBtn) {
+
+      //alert(this.id);
+      // this is the dom element, it could be used as
+      // a jQuery selector.
+      var icon = jQuery(statusBtn).children('span');
+      if(icon.hasClass("glyphicon-check")) {
+          icon.removeClass("glyphicon-check");
+          icon.addClass("glyphicon-unchecked");
+      } else if(icon.hasClass("glyphicon-unchecked")) {
+          icon.removeClass("glyphicon-unchecked");
+          icon.addClass("glyphicon-check");
+      }
+
+      // check all status check/unchecked.
+      var new_status = [];
+      jQuery.each(jQuery('a[id^=status-]'), function(index, btn) {
+          // index and btn jquery object.
+          var check_icon = jQuery(btn).children('span');
+          if(check_icon.hasClass("glyphicon-check")) {
+              // button id will follow pattern: status-[STATUS NAME]
+              var the_status = btn.id.split('-')[1];
+              //alert(the_status);
+              new_status.push(the_status);
+          }
+      });
+      // update cookie state "status"
+      var context = new ProjectRequestContext();
+      context.setState('status', new_status.join());
+}
+
 // function to load more tickets.
 function loadMoreTickets() {
 
@@ -149,30 +183,8 @@ jQuery(function($) {
   // handle the click event for all status button.
   // using the starts with pattern selector.
   $('a[id^=status-]').click(function(event) {
-      //alert(this.id);
-      // this is the dom element, it could be used as
-      // a jQuery selector.
-      var icon = $(this).children('span');
-      if(icon.hasClass("glyphicon-check")) {
-          icon.removeClass("glyphicon-check");
-          icon.addClass("glyphicon-unchecked");
-      } else if(icon.hasClass("glyphicon-unchecked")) {
-          icon.removeClass("glyphicon-unchecked");
-          icon.addClass("glyphicon-check");
-      }
-      // check all status check/unchecked.
-      var new_status = [];
-      $.each($('a[id^=status-]'), function(index, btn) {
-          // index and btn jquery object.
-          var check_icon = $(btn).children('span');
-          if(check_icon.hasClass("glyphicon-check")) {
-              var the_status = btn.id.split('-')[1];
-              //alert(the_status);
-              new_status.push(the_status);
-          }
-      });
-      // update cookie state "status"
-      $.cookie('status', new_status.join(), {expires:1});
+
+      toggleStatus(this);
       // load tickets again, start over by reset everything.
       loadMoreTickets();
   });
