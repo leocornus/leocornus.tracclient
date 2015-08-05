@@ -217,11 +217,16 @@ EOT;
  */
 function wptc_view_project_nav($context) {
 
+    $ids = wptc_ticket_query($context->buildMainQuery(), 0);
+    $total = count($ids);
+
     $nav = <<<EOT
 <div id="project-nav" class="container-fluid h4">
   <ul class="nav nav-tabs">
     <li><a href="#">Project Home</a></li>
-    <li class="active"><a href="#">Issues</a></li>
+    <li class="active"><a href="#">
+      <span class="badge">{$total}</span> Tickets</a>
+    </li>
     <li><a href="#">Commits</a></li>
     <li class="dropdown pull-right">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">

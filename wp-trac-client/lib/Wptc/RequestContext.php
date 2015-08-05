@@ -108,7 +108,10 @@ class RequestContext {
     }
 
     /**
-     * load metadata states.
+     * load metadata states, including:
+     *  - project
+     *  - milestone
+     *  - version / sprint
      */
     public function loadMetadata() {
 
@@ -132,7 +135,11 @@ class RequestContext {
     }
 
     /**
-     * load filter states
+     * load filter states, which will include:
+     *  - status
+     *  - owner
+     *  - type
+     *  - priority
      */
     public function loadFilters() {
 
@@ -146,7 +153,7 @@ class RequestContext {
     }
 
     /**
-     * load pager states.
+     * load pager states: per_page, page_number, and total_items.
      */
     public function loadPagerStates() {
 
@@ -248,7 +255,7 @@ class RequestContext {
     }
 
     /**
-     * build query based on the metadata on context..
+     * build query based on the metadata and filters. on context..
      */
     public function buildQuery() {
 
@@ -269,5 +276,16 @@ class RequestContext {
         }
 
         return implode("&", $query);
+    }
+
+    /**
+     * build the main query, which is only based on the metadata
+     * states.
+     */
+    public function buildMainQuery() {
+
+        // we only have project for now.
+        $project_name = $this->getState('project');
+        return "project={$project_name}";
     }
 }
