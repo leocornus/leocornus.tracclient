@@ -95,7 +95,11 @@ function toggleFilter(filter, type) {
 }
 
 // function to load more tickets.
-function loadMoreTickets() {
+function loadMoreTickets(scroll2Bottom) {
+
+    // by default, NOT scroll to bottom.
+    scroll2Bottom = typeof scroll2Bottom !== 'undefined' ?
+                    scroll2Bottom : false;
 
     // get request context.
     var context = new ProjectRequestContext();
@@ -153,7 +157,9 @@ function loadMoreTickets() {
         jQuery("span[id='total-items']").html(total_items);
 
         // scroll down to page bottom.
-        jQuery('html,body').scrollTop(jQuery(window).height());
+        if(scroll2Bottom) { 
+            jQuery('html,body').scrollTop(jQuery(window).height());
+        }
 
         // reset cursor.
         jQuery('html,body').css('cursor', 'default');
@@ -179,7 +185,7 @@ jQuery(function($) {
       // prevent the default herf link event for this button.
       event.preventDefault();
       // load more when user click the button.
-      loadMoreTickets();
+      loadMoreTickets(true);
   });
 
   // handle the click event for all status button.
