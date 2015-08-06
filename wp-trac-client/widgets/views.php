@@ -262,14 +262,21 @@ function wptc_view_project_content($context) {
       <div class="btn-group">
         <a href="#" class="btn btn-success btn-xs dropdown-toggle"
                     data-toggle="dropdown">
-          Owner<span class="caret"></span>
+          Owner <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
+          <li><a href="#">
+             <span class="glyphicon glyphicon-check"></span>
+             Action</a></li>
+          <li><a href="#">
+             <span class="glyphicon glyphicon-check"></span>
+             Another action</a></li>
+          <li><a href="#">
+             <span class="glyphicon glyphicon-check"></span>
+             Something else here</a></li>
+          <li><a href="#">
+             <span class="glyphicon glyphicon-unchecked"></span>
+             Separated link</a></li>
         </ul>
       </div>
       <div class="btn-group">
