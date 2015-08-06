@@ -347,17 +347,21 @@ function wptc_view_project_content($context) {
           <th>Priority</th>
           <th>Status</th>
         </tr>
+        <tr class="success">
+          <th colspan="6" class="text-right">
+    <div id="item-pager">
+      Showing <span id="loaded-items">20</span> of 
+      <span id="total-items">120</span> tickets!
+      <a class="btn btn-success btn-xs" 
+         id="project-load-more"
+      >Load More</a>
+    </div>
+          </th>
+        </tr>
       </tfoot>
       <tbody>
       </tbody>
     </table>
-    <div id="item-pager" class="h4 text-right">
-      Showing <span id="loaded-items">20</span> of 
-      <span id="total-items">120</span> tickets!
-      <a class="btn btn-success btn-sm" 
-         id="project-load-more"
-      >Load More</a>
-    </div>
   </div>
 </div> <!-- project-content -->
 EOT;
