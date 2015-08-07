@@ -21,6 +21,8 @@ Stories
 
 - `Transition Strategy <transition-strategy.rst>`_
   all things about the transition phase..
+- associate project to a Git repository.
+- `Homepages for all projects <homepage-for-all-projects.rst>`_
 
 Get Started
 -----------
