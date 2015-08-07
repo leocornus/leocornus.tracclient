@@ -384,3 +384,22 @@ function wptc_view_project_footer($context) {
     // return empty for now.
     return '';
 }
+
+/**
+ * view generator.
+ * 
+ * @param $context Wptc\RequestContext
+ */
+function wptc_view_generator($context) {
+
+    $project = $context->getState('project');
+    if(empty($project)) {
+        $projectsHome = new Wptc\View\ProjectsHome($context);
+        echo $projectsHome->renderPage();
+    } else {
+        echo wptc_view_project_header($context);
+        echo wptc_view_project_nav($context);
+        echo wptc_view_project_content($context);
+        echo wptc_view_project_footer($context);
+    }
+}

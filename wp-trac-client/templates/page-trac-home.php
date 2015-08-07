@@ -14,10 +14,7 @@ $context->setCookieStates(3600);
 <body>
   <div class="container">
     <?php
-    echo wptc_view_project_header($context);
-    echo wptc_view_project_nav($context);
-    echo wptc_view_project_content($context);
-    echo wptc_view_project_footer($context);
+    wptc_view_generator($context);
     ?>
 
     <div class="well" id="local-project-footer">
