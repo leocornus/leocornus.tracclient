@@ -175,11 +175,29 @@ function loadMoreTickets(scroll2Bottom) {
     // caculate next page. update request context.
 }
 
+// function to load more projects.
+function loadMoreProjects(scroll2Bottom) {
+
+    // by default, NOT scroll to bottom.
+    scroll2Bottom = typeof scroll2Bottom !== 'undefined' ?
+                    scroll2Bottom : false;
+    
+}
+
 // add the click event on load more button.
 jQuery(function($) {
 
-  // get started.
-  loadMoreTickets();
+  // get request context.
+  var context = new ProjectRequestContext();
+  var projectName = context.getState('project');
+  //console.log('Project Name: ' + projectName);
+  if(typeof projectName == 'undefined') {
+    // load homepage for all projects.
+    loadMoreProjects();
+  } else {
+    // load the homepage for a project..
+    loadMoreTickets();
+  }
 
   $('#project-load-more').click(function(event) {
       // prevent the default herf link event for this button.
