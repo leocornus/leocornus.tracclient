@@ -21,11 +21,10 @@ class ProjectsHome {
      */
     public function renderPage($echo=false) {
 
+        $header = $this->buildProjectsHeader();
+
         $content = <<<EOT
-<div id="projects-header" class="jumbotron">
-  <h1>WP Trac Projects</h1>
-  <p>Open Source, Open Mind, Project Management in Agile</p>
-</div>
+{$header}
 <div id="projects-list" class="container-fluid">
   <div class="row">
     <div class="col-sm-4">
@@ -78,6 +77,30 @@ class ProjectsHome {
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
     </div>
   </div>
+  
+  <div class="alert alert-info text-right h4" id="projects-pager">
+    Showing <span id="loaded-items" class="badge">20</span> of 
+    <span id="loaded-items" class="badge">120</span> Projects 
+    <button type="button" class="btn btn-success"
+     id="projects-load-more">
+      Load More...
+    </button>
+  </div>
+</div>
+EOT;
+
+        return $content;
+    }
+
+    /**
+     * build header for the homepage.
+     */
+    public function buildProjectsHeader() {
+
+        $content = <<<EOT
+<div id="projects-header" class="jumbotron">
+  <h1>WP Trac Projects</h1>
+  <p>Open Source, Open Mind, Project Management in Agile</p>
 </div>
 EOT;
 
