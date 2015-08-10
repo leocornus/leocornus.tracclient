@@ -9,6 +9,8 @@ Create homepage to list all projects by what criteria?
 Design Ideas
 ------------
 
+- bootstrap Jumbotron to highligh WP Trac Projects
+- Slogan: Open Soure, Open Mind, Project Management in Agile.
 - boostrap grid to divide the screen to 3 column
 - using bootstrap panel to show snapshot of a project.
 - a snapshot will have some summary and / or highlight of a project
