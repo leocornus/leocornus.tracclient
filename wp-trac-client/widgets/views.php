@@ -357,11 +357,11 @@ function wptc_view_project_content($context) {
         <tr class="success">
           <th colspan="6" class="text-right">
     <div id="item-pager">
-      Showing <span id="loaded-items">20</span> of 
-      <span id="total-items">120</span> tickets!
+      Showing <span id="loaded-items" class="badge">20</span> of 
+      <span id="total-items" class="badge">120</span> tickets!
       <a class="btn btn-success btn-xs" 
          id="project-load-more"
-      >Load More</a>
+      >Load More...</a>
     </div>
           </th>
         </tr>
