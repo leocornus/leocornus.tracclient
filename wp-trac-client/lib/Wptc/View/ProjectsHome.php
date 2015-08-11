@@ -29,6 +29,7 @@ class ProjectsHome {
   <div class="row">
     <div class="col-sm-4">
       <h2><a href="?project=TracCore">TracCore</a></h2>
+      <p>The core module for WP Trac Projects</p>
       <p>
         <button type="button" class="btn btn-xs btn-danger">
           <span class="badge">809</span> Tickets
@@ -46,7 +47,6 @@ class ProjectsHome {
           <span class="badge">80</span> Blog Posts
         </button>
       </p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
     </div>
     <div class="col-sm-4">
       <h2>Column 1.2</h2>
