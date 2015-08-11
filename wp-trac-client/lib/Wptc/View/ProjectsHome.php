@@ -80,11 +80,11 @@ class ProjectsHome {
   
   <div class="alert alert-info text-right h4" id="projects-pager">
     Showing <span id="loaded-items" class="badge">20</span> of 
-    <span id="loaded-items" class="badge">120</span> Projects 
-    <button type="button" class="btn btn-success"
+    <span id="loaded-items" class="badge">120</span> Projects
+    <a class="btn btn-success"
      id="projects-load-more">
       Load More...
-    </button>
+    </a>
   </div>
 </div>
 EOT;
@@ -99,8 +99,8 @@ EOT;
 
         $content = <<<EOT
 <div id="projects-header" class="jumbotron">
-  <h1>WP Trac Projects</h1>
-  <p>Open Source, Open Mind, Project Management in Agile</p>
+  <h1><span class="text-success">WP Trac Projects</span></h1>
+  <p class="text-info">Open Source, Open Mind, Project Management in Agile</p>
 </div>
 EOT;
 
