@@ -90,10 +90,40 @@ Here is markup for a project::
     </p>
   </div>
 
+Project Popularity Algorithm
+----------------------------
+
+Try to find a reasonable way to decide the popularity for a project.
+Here are facts we should consider:
+
+- total number of tickets
+- total number of commits
+- total number of wiki page
+- age of the last change (from search)
+
+ideas for algorithm:
+
+- search ticket system to find the most recent modified tickets.
+
+wp_ajax callback function
+-------------------------
+
+specs:
+
+- ajax action name: wptc_projects
+- callback function name: wptc_projects_cb
+
+Idealy, the projects list should return in the order of popularity.
+However, we don't have a good algorithm to calculate a project's 
+popularity.
+For the first releae, we will just return the list of projects 
+directly from database.
+
 jQuery Tricks
 -------------
 
-
+- go to the last row?
+- append to last of the row.
 
 Mics
 ----
