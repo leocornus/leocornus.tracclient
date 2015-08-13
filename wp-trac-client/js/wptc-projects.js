@@ -207,7 +207,7 @@ function loadMoreProjects(scroll2Bottom) {
         var states = res['states'];
         // update cookies based on the states.
         context.updateCookies(states);
-        console.log(items);
+        //console.log(items);
         // clean table if page_number < 1
         if (context.getState('page_number') < 1) {
             jQuery("div[id='projects-list']").html("");
@@ -280,6 +280,13 @@ jQuery(function($) {
       event.preventDefault();
       // load more when user click the button.
       loadMoreTickets(true);
+  });
+
+  $('#projects-load-more').click(function(event) {
+      // prevent the default herf link event for this button.
+      event.preventDefault();
+      // load more when user click the button.
+      loadMoreProjects(true);
   });
 
   // handle the click event for all status button.

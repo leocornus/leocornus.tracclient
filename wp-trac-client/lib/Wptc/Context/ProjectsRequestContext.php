@@ -75,21 +75,10 @@ class ProjectsRequestContext extends RequestContext {
         $this->setState('per_page', $per_page);
         $this->setState('page_number', $page_number);
 
-        // calculate the total items.
-        // build the query from metedata.
-        $current_query = $this->getState('current_query');
-        $new_query = $this->buildQuery();
-        if(!empty($current_query) && 
-           ($new_query == $current_query)) {
-            // do nothing here as all summary are the same.
-            // the total number should already in cookie.
-        } else {
+        if($page_number == 0) {
             // this is all projects list page.
             $projects = wptc_get_projects();
             $this->setState('total_items', count($projects));
-
-            // reset pager number to 0.
-            $this->setState('page_number', 0);
         }
     }
 

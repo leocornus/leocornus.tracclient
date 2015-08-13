@@ -83,8 +83,7 @@ class ProjectsHome {
   <div class="alert alert-info text-right h4" id="projects-pager">
     Showing <span id="loaded-items" class="badge">20</span> of 
     <span id="total-items" class="badge">120</span> Projects
-    <a class="btn btn-success"
-     id="projects-load-more">
+    <a class="btn btn-success" id="projects-load-more">
       Load More...
     </a>
   </div>
