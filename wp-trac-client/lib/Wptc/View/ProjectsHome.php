@@ -77,10 +77,12 @@ class ProjectsHome {
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
     </div>
   </div>
-  
+</div>
+
+<div class="container-fluid">
   <div class="alert alert-info text-right h4" id="projects-pager">
     Showing <span id="loaded-items" class="badge">20</span> of 
-    <span id="loaded-items" class="badge">120</span> Projects
+    <span id="total-items" class="badge">120</span> Projects
     <a class="btn btn-success"
      id="projects-load-more">
       Load More...
