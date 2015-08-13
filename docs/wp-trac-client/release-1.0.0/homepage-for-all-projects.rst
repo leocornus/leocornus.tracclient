@@ -119,11 +119,30 @@ popularity.
 For the first releae, we will just return the list of projects 
 directly from database.
 
+Steps
+
+#. get all projects page by page.
+   Just project title with href link to project page 
+   and project desctiption for each project. 
+#. load summary for each project: tickets, contributors, 
+   commits total number will depends on the new table to 
+   associate projects with repositor.
+
+
 jQuery Tricks
 -------------
 
 - go to the last row?
 - append to last of the row.
+
+SQL Tricks
+----------
+
+- using **LIMIT** to query db page by page.
+
+Example::
+
+  SELECT * FROM wptc_project LIMIT 0, 10;
 
 Mics
 ----
