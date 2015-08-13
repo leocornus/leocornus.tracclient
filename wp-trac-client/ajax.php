@@ -329,7 +329,7 @@ add_action('wp_ajax_wptc_projects', 'wptc_projects_cb');
 function wptc_projects_cb() {
 
     // get the request context.
-    $context = new Wptc\Context\RequestContext();
+    $context = new Wptc\Context\ProjectsRequestContext();
     $per_page = $context->getState('per_page');
     // page number starts from 0
     $page_number = $context->getState('page_number');

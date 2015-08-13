@@ -386,9 +386,26 @@ function wptc_view_project_footer($context) {
 }
 
 /**
- * view generator.
+ * create request context 
+ */
+function wptc_context_factory() {
+
+    $context = new Wptc\Context\RequestContext();
+    $project = $context->getState('project');
+    if(empty($project)) {
+        // this is the projects list page.
+        // clean the cookies.
+        $context->setCookieStates(-3600);
+        $context = new Wptc\Context\ProjectsRequestContext();
+    }
+
+    return $context;
+}
+
+/**
+ * view generator based on context.
  * 
- * @param $context Wptc\RequestContext
+ * @param $context Wptc\Context\RequestContext
  */
 function wptc_view_generator($context) {
 

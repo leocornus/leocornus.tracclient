@@ -181,7 +181,83 @@ function loadMoreProjects(scroll2Bottom) {
     // by default, NOT scroll to bottom.
     scroll2Bottom = typeof scroll2Bottom !== 'undefined' ?
                     scroll2Bottom : false;
-    
+
+    // get request context.
+    var context = new ProjectRequestContext();
+
+    // preparing the query data for AJAX request.
+    // we shall only have per_page and page_number for now.
+    var query_data = {};
+    query_data['action'] = 'wptc_projects';
+    query_data['per_page'] = context.getState('per_page');
+    query_data['page_number'] = context.getState('page_number');
+
+    // update HTML page to indicate user the ruequest is going...
+    // disable load more button and show waiting cursor.
+    jQuery("a[id='projects-load-more']").addClass('disabled');
+    jQuery('html,body').css('cursor', 'wait');
+    jQuery('a').css('cursor', 'wait');
+
+    // AJAX request to get tickets of next page.
+    // ajax_url is set by using wp_localize_script
+    jQuery.post(wptc_projects.ajax_url, 
+                query_data, function(response) {
+        var res = JSON.parse(response);
+        var items = res['items'];
+        var states = res['states'];
+        // update cookies based on the states.
+        context.updateCookies(states);
+        console.log(items);
+        // clean table if page_number < 1
+        if (context.getState('page_number') < 1) {
+            jQuery("div[id='projects-list']").html("");
+        }
+        // append the projects row....
+        // 1. find the last row.
+        // 2. append 3 projects for each row.
+        for(i = 0; i < items.length; i++) {
+            var project = items[i];
+            // append to table id = project-items.
+            var last = jQuery("#projects-list");
+            last.append('<div class="row">' +
+              '<div class="col-sm-4">' + 
+              '<h2><a href="' + project['project_url'] + '">' +
+              project['name'] + '</a></h2>' +
+              '<p>' + project['description'] + '</p>' + 
+              '<p>' + 
+                '<button type="button" class="btn btn-xs btn-danger">' + 
+                '  <span class="badge">809</span> Tickets' +
+                '</button>' +
+              '</p>' +
+              '</div>' +
+            '</div>');
+        }
+        // calculate loaded item.
+        var loaded_items = context.getState('per_page') * 
+                           context.getState('page_number') + 
+                           items.length;
+        console.log("loaded items: " + loaded_items);
+        // update the page number.
+        context.setState('page_number', 
+                         context.getState('page_number') + 1);
+        // set total number for loaded items.
+        var total_items = context.getState('total_items');
+        jQuery("span[id='loaded-items']").html(loaded_items);
+        jQuery("span[id='total-items']").html(total_items);
+
+        // scroll down to page bottom.
+        if(scroll2Bottom) { 
+            jQuery('html,body').scrollTop(jQuery(window).height());
+        }
+        // reset cursor.
+        jQuery('html,body').css('cursor', 'default');
+        jQuery('a').css('cursor', 'default');
+
+        if(loaded_items < total_items) {
+            // only enable the load more if still more items to load.
+            jQuery("a[id='projects-load-more']").removeClass('disabled');
+        }
+    });
 }
 
 // add the click event on load more button.

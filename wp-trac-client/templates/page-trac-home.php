@@ -4,7 +4,7 @@
  */
 add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
 // initializing to not include cookie
-$context = new Wptc\Context\RequestContext();
+$context = wptc_context_factory();
 $context->setCookieStates(3600);
 ?>
 <html>
