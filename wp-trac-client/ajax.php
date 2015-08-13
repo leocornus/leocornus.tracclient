@@ -285,7 +285,7 @@ add_action('wp_ajax_wptc_query_tickets', 'wptc_query_tickets_cb');
 function wptc_query_tickets_cb() {
 
     // get the request context.
-    $context = new Wptc\RequestContext();
+    $context = new Wptc\Context\RequestContext();
     $per_page = $context->getState('per_page');
     $page_number = $context->getState('page_number');
     $project_name = $context->getState('project');
@@ -310,6 +310,36 @@ function wptc_query_tickets_cb() {
         $ticket['ticket_url'] = "{$blog_path}/{$ticket_page_slug}?id={$ticket['id']}";
         $ticket['owner_href'] = wptc_widget_user_href($ticket['owner']);
         $items[] = $ticket;
+    }
+
+    $response = array(
+        'items' => $items,
+        'states' => $context->getStates()
+    );
+
+    echo json_encode($response);
+    exit;
+}
+
+/**
+ * wptc projects.
+ */
+add_action('wp_ajax_nopriv_wptc_projects', 'wptc_projects_cb');
+add_action('wp_ajax_wptc_projects', 'wptc_projects_cb');
+function wptc_projects_cb() {
+
+    // get the request context.
+    $context = new Wptc\Context\RequestContext();
+    $per_page = $context->getState('per_page');
+    // page number starts from 0
+    $page_number = $context->getState('page_number');
+
+    $projects = wptc_get_projects($page_number, $per_page);
+    $items = array();
+    foreach($projects as $project) {
+        // add the URL to project homepage.
+        $project['project_url'] = "/projects/?project={$project['name']}";
+        $items[] = $project;
     }
 
     $response = array(

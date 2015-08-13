@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Wptc;
+namespace Wptc\Context;
 
 /**
  * this clss will provide a easy way to manage the request context
@@ -189,14 +189,21 @@ class RequestContext {
             // do nothing here as all summary are the same.
             // the total number should already in cookie.
         } else {
-            // set current query to new query.
-            $this->setState('current_query', $new_query);
-            // execute query to get brief summary, such as
-            // total items, items by status, etc.
-            // set max=0 to return all items.
-            $ids = wptc_ticket_query($new_query, 0);
-            // === load total items based on metadata.
-            $this->setState('total_items', count($ids));
+            if(empty($new_query) || $new_query == "") {
+                // this is all projects list page.
+                $projects = wptc_get_projects();
+                $this->setState('total_items', count($projects));
+            } else {
+                // set current query to new query.
+                $this->setState('current_query', $new_query);
+                // execute query to get brief summary, such as
+                // total items, items by status, etc.
+                // set max=0 to return all items.
+                $ids = wptc_ticket_query($new_query, 0);
+                // === load total items based on metadata.
+                $this->setState('total_items', count($ids));
+            }
+
             // reset pager number to 0.
             $this->setState('page_number', 0);
         }
