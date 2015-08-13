@@ -135,6 +135,12 @@ jQuery Tricks
 - go to the last row?
 - append to last of the row.
 
+::
+
+  var lastRow = jQuery("div#projects-list > div.row:last");
+  var columnArray = lastRow.children("div.col-sm-4");
+  var columnCount = columnArray.length;
+
 SQL Tricks
 ----------
 
