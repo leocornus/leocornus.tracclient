@@ -181,12 +181,18 @@ function buildProjectPanel(project) {
     var panel = '<div class="col-sm-4">' + 
         '<h2><a href="' + project['project_url'] + '">' +
         project['name'] + '</a></h2>' +
-        '<p>' + project['description'] + '</p>' + 
         '<p>' + 
           '<button type="button" class="btn btn-xs btn-danger">' + 
-          '  <span class="badge">80</span> Tickets' +
+          '  <span class="badge">' + project['total_tickets'] + 
+          '</span> Tickets' +
+          '</button>' +
+          ' ' +
+          '<button type="button" class="btn btn-xs btn-success">' + 
+          '  <span class="badge">' + 20 + 
+          '</span> Contributors' +
           '</button>' +
         '</p>' +
+        '<p>' + project['description'] + '</p>' + 
         '</div>';
     return panel;
 }
