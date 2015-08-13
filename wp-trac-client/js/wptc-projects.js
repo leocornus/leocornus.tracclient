@@ -175,6 +175,22 @@ function loadMoreTickets(scroll2Bottom) {
     // caculate next page. update request context.
 }
 
+// utility function to build the panel for a project.
+function buildProjectPanel(project) {
+
+    var panel = '<div class="col-sm-4">' + 
+        '<h2><a href="' + project['project_url'] + '">' +
+        project['name'] + '</a></h2>' +
+        '<p>' + project['description'] + '</p>' + 
+        '<p>' + 
+          '<button type="button" class="btn btn-xs btn-danger">' + 
+          '  <span class="badge">80</span> Tickets' +
+          '</button>' +
+        '</p>' +
+        '</div>';
+    return panel;
+}
+
 // function to load more projects.
 function loadMoreProjects(scroll2Bottom) {
 
@@ -214,23 +230,32 @@ function loadMoreProjects(scroll2Bottom) {
         }
         // append the projects row....
         // 1. find the last row.
+        //var lastRow = jQuery("div#projects-list > div.row:last");
+        var projectsList = jQuery("#projects-list");
+        var colQueue = [];
         // 2. append 3 projects for each row.
         for(i = 0; i < items.length; i++) {
             var project = items[i];
             // append to table id = project-items.
-            var last = jQuery("#projects-list");
-            last.append('<div class="row">' +
-              '<div class="col-sm-4">' + 
-              '<h2><a href="' + project['project_url'] + '">' +
-              project['name'] + '</a></h2>' +
-              '<p>' + project['description'] + '</p>' + 
-              '<p>' + 
-                '<button type="button" class="btn btn-xs btn-danger">' + 
-                '  <span class="badge">809</span> Tickets' +
-                '</button>' +
-              '</p>' +
-              '</div>' +
-            '</div>');
+            var panel = buildProjectPanel(project);
+            colQueue.push(panel);
+            var ready2Row = (i + 1) % 3;
+            if(ready2Row == 0) {
+                // append the div.row and reset the panel queue
+                projectsList.append('<div class="row">' +
+                    colQueue.join(" ") +
+                    '</div>');
+                // reset the queue.
+                colQueue = [];
+            }
+        }
+        // check if we missed anything...
+        if(colQueue.length > 0) {
+
+            // append to the last row.
+            projectsList.append('<div class="row">' +
+                colQueue.join(" ") +
+                '</div>');
         }
         // calculate loaded item.
         var loaded_items = context.getState('per_page') * 
