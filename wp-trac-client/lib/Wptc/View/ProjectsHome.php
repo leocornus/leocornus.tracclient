@@ -26,57 +26,7 @@ class ProjectsHome {
         $content = <<<EOT
 {$header}
 <div id="projects-list" class="container-fluid">
-  <div class="row">
-    <div class="col-sm-4">
-      <h2><a href="?project=TracCore">TracCore</a></h2>
-      <p>The core module for WP Trac Projects</p>
-      <p>
-        <button type="button" class="btn btn-xs btn-danger">
-          <span class="badge">809</span> Tickets
-        </button>
-        <button type="button" class="btn btn-xs btn-primary">
-          <span class="badge">1002</span> Commits 
-        </button>
-        <button type="button" class="btn btn-xs btn-success">
-          <span class="badge">15</span> Contributors 
-        </button>
-        <button type="button" class="btn btn-xs btn-warning">
-          <span class="badge">200</span> Wiki Pages 
-        </button>
-        <button type="button" class="btn btn-xs btn-info">
-          <span class="badge">80</span> Blog Posts
-        </button>
-      </p>
-    </div>
-    <div class="col-sm-4">
-      <h2>Column 1.2</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h2>Column 1.3</h2> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-4">
-      <h2>Column 1.1</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h2>Column 1.2</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h2>Column 1.3</h2> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-  </div>
+  <h2 class="text-center">Loading ...</h2>
 </div>
 
 <div class="container-fluid">
