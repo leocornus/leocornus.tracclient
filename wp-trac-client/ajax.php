@@ -339,10 +339,13 @@ function wptc_projects_cb() {
     foreach($projects as $project) {
         // add the URL to project homepage.
         $project['project_url'] = "/projects/?project={$project['name']}";
-        // get total number of tickets.
-        $query = "project={$project['name']}";
-        $ids = wptc_ticket_query($query, 0);
-        $project['total_tickets'] = count($ids);
+        $helper = new Wptc\Helper\ProjectHelper($project['name']);
+        $summary = $helper->getTotalSumary();
+        $project['total_tickets'] = $summary['total_tickets'];
+        $project['total_contributors'] = 
+            $summary['total_contributors'];
+        $project['total_commits'] = 
+            $summary['total_commits'];
 
         $items[] = $project;
     }
