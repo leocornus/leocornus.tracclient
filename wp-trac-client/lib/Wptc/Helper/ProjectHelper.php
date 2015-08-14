@@ -25,7 +25,7 @@ class ProjectHelper {
         $summary = array(
             'total_tickets' => $this->getTicketTotal(),
             'total_contributors' => $this->getContributorTotal(),
-            'total_commits' => $this->getContributorTotal()
+            'total_commits' => $this->getCommitTotal()
         );
 
         return $summary;

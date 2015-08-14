@@ -187,8 +187,13 @@ function buildProjectPanel(project) {
           '</span> Tickets' +
           '</button>' +
           ' ' +
+          '<button type="button" class="btn btn-xs btn-default">' + 
+          '  <span class="badge">' + project['total_commits'] + 
+          '</span> Commits' +
+          '</button>' +
+          ' ' +
           '<button type="button" class="btn btn-xs btn-success">' + 
-          '  <span class="badge">' + 20 + 
+          '  <span class="badge">' + project['total_contributors'] + 
           '</span> Contributors' +
           '</button>' +
         '</p>' +
