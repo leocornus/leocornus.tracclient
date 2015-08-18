@@ -30,13 +30,22 @@ class ProjectsHome {
 </div>
 
 <div class="container-fluid">
-  <div class="alert alert-info text-right h4" id="projects-pager">
-    Showing <span id="loaded-items" class="badge">20</span> of 
-    <span id="total-items" class="badge">120</span> Projects
-    <a class="btn btn-success" id="projects-load-more">
-      Load More...
-    </a>
-  </div>
+  <div class="alert alert-info h4"><div class="row">
+    <div class="form-inline col-sm-6">
+      <div class="form-group">
+        <label for="project-search">Search:</label>
+        <input type="text" class="form-control" id="project-search"
+               placeholder="Search Project">
+      </div>
+    </div>
+    <div class="text-right col-sm-6" id="projects-pager">
+      Showing <span id="loaded-items" class="badge">20</span> of 
+      <span id="total-items" class="badge">120</span> Projects
+      <a class="btn btn-success" id="projects-load-more">
+        Load More...
+      </a>
+    </div>
+  </div></div>
 </div>
 EOT;
 
