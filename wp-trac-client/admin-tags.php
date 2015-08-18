@@ -54,12 +54,20 @@ function wptc_create_tables($force=false) {
  *        default id -1, return all records.
  * @param $per_page, default is 10
  */
-function wptc_get_projects($page_number=-1, $per_page=10) {
+function wptc_get_projects($term="", $page_number=-1, 
+                           $per_page=10) {
 
     global $wpdb;
 
     // here are the default query.
     $query = "select * from " . WPTC_PROJECT;
+
+    // check the where condition.
+    if(!empty($term) && ($term!= "")) {
+        $query = "{$query} WHERE name like '%{$term}%' OR description like '%{$term}%'";
+    }
+
+    // check the pagination.
     if($page_number >= 0) {
         $starts_from = $page_number * $per_page;
         $query = "{$query} LIMIT {$starts_from}, {$per_page}";
