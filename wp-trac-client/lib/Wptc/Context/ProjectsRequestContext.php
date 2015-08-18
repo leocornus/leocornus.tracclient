@@ -43,14 +43,22 @@ class ProjectsRequestContext extends RequestContext {
 
     /**
      * load filter states, which will include:
-     *  - status
-     *  - owner
-     *  - type
-     *  - priority
+     * - peroject search term.
      */
     public function loadFilters() {
 
-        // do nothing for now.
+        $search_term = $this->getRequestParam('search_term');
+        if(empty($search_term)) {
+            // default will be empty string.
+            $search_term = "";
+        }
+        $this->setState('search_term', $search_term);
+
+        $current_query = $this->getRequestParam('current_query');
+        if(empty($current_query)) {
+            $current_query = "";
+        }
+        $this->setState('current_query', $current_query);
     }
 
     /**
@@ -75,10 +83,21 @@ class ProjectsRequestContext extends RequestContext {
         $this->setState('per_page', $per_page);
         $this->setState('page_number', $page_number);
 
-        if($page_number == 0) {
-            // this is all projects list page.
-            $projects = wptc_get_projects();
+        $current_query = $this->getState('current_query');
+        $new_query = $this->buildQuery();
+        if(!empty($current_query) && 
+           ($new_query == $current_query)) {
+            // do nothing here as all summary are the same.
+            // the total number should already in cookie.
+        } else {
+            // set current query.
+            $this->setState('current_query', $new_query);
+            // calculate the total items for new query.
+            $projects = wptc_get_projects($this->getState('search_term'));
             $this->setState('total_items', count($projects));
+
+            // reset page number to 0
+            $this->setState('page_number', 0);
         }
     }
 
@@ -88,6 +107,10 @@ class ProjectsRequestContext extends RequestContext {
     public function buildQuery() {
 
         // return empty string for now.
-        return "";
+        $query = $this->getState('search_term'); 
+        if(empty($query)) {
+            $query = 'ALL_PROJECTS';
+        }
+        return $query;
     }
 }
