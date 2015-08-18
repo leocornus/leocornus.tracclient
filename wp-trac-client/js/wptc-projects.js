@@ -44,6 +44,7 @@ jQuery.extend(ProjectRequestContext.prototype, {
             'project' : this.getState('project'),
             'status' : this.getState('status'),
             'priority' : this.getState('priority'),
+            'search_term' : this.getState('search_term'),
             'current_query' : this.getState('current_query')
         };
 
@@ -187,7 +188,7 @@ function buildProjectPanel(project) {
           '</span> Tickets' +
           '</button>' +
           ' ' +
-          '<button type="button" class="btn btn-xs btn-default">' + 
+          '<button type="button" class="btn btn-xs btn-primary">' + 
           '  <span class="badge">' + project['total_commits'] + 
           '</span> Commits' +
           '</button>' +
@@ -214,10 +215,8 @@ function loadMoreProjects(scroll2Bottom) {
 
     // preparing the query data for AJAX request.
     // we shall only have per_page and page_number for now.
-    var query_data = {};
+    var query_data = context.getStates();
     query_data['action'] = 'wptc_projects';
-    query_data['per_page'] = context.getState('per_page');
-    query_data['page_number'] = context.getState('page_number');
 
     // update HTML page to indicate user the ruequest is going...
     // disable load more button and show waiting cursor.
@@ -340,4 +339,17 @@ jQuery(function($) {
       // load tickets again, start over by reset everything.
       loadMoreTickets();
   });
+
+  // keyboard keypress event for the project search input box.
+  $('#project-search').keyup(function(event) {
+      //console.log(event);
+      // get what user is typing
+      var term = $(this).val();
+      if(term.length > 2 || term.length ==0) {
+          var context = new ProjectRequestContext();
+          context.setState('search_term', term);
+          loadMoreProjects();
+      }
+  });
+
 });

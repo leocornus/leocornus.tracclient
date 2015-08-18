@@ -333,8 +333,10 @@ function wptc_projects_cb() {
     $per_page = $context->getState('per_page');
     // page number starts from 0
     $page_number = $context->getState('page_number');
+    $search_term = $context->getState('search_term');
 
-    $projects = wptc_get_projects($page_number, $per_page);
+    $projects = wptc_get_projects($search_term, 
+                                  $page_number, $per_page);
     $items = array();
     foreach($projects as $project) {
         // add the URL to project homepage.
