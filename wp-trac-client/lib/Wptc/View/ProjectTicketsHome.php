@@ -194,8 +194,8 @@ EOT;
     </span>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-striped table-hover" 
+  <div>
+    <table class="table table-striped table-hover table-responsive" 
            id="project-items">
       <thead>
         <tr class="success">
@@ -219,7 +219,7 @@ EOT;
   <div class="row">
     <div class="form-inline col-sm-6">
       <div class="form-group">
-        <label for="ticket-search">Search:</label>
+        <label for="ticket-search">Filter by Search:</label>
         <input type="text" class="form-control input-sm" 
                id="ticket-search"
                placeholder="Search Tickets">
