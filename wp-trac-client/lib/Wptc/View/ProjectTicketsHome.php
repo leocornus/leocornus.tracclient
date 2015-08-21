@@ -220,7 +220,8 @@ EOT;
     <div class="form-inline col-sm-6">
       <div class="form-group">
         <label for="ticket-search">Search:</label>
-        <input type="text" class="form-control" id="ticket-search"
+        <input type="text" class="form-control input-sm" 
+               id="ticket-search"
                placeholder="Search Tickets">
       </div>
     </div>

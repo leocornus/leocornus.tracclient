@@ -158,6 +158,13 @@ class RequestContext {
             $priority = "blocker,critical,major,minor,trivial,none";
         }
         $this->setState('priority', $priority);
+
+        $search_term = $this->getRequestParam('search_term');
+        if(empty($search_term)) {
+            // default will be empty string.
+            $search_term = "";
+        }
+        $this->setState('search_term', $search_term);
     }
 
     /**
@@ -276,10 +283,12 @@ class RequestContext {
         $status = explode(",", $this->getState('status'));
         // priority
         $priority = explode(",", $this->getState('priority'));
+        // search term.
+        $search_term = $this->getState('search_term');
 
         // starts the query from an empty string.
         $query = array(); 
-        if (!empty($project_name)) {
+        if(!empty($project_name)) {
             $query[] = "project={$project_name}";
         }
         // all status.
@@ -293,6 +302,13 @@ class RequestContext {
             } else {
                 $query[] = "priority={$p}";
             }
+        }
+        // search term.
+        if(!empty($search_term)) {
+            // we will search fields: description, summary,
+            // =~ is for contain 
+            $query[] = "description=~{$search_term}";
+            $query[] = "summary=~{$search_term}";
         }
 
         return implode("&", $query);

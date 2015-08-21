@@ -352,4 +352,15 @@ jQuery(function($) {
       }
   });
 
+  // keyboard keypress event for the ticket search input box.
+  $('#ticket-search').keyup(function(event) {
+      //console.log(event);
+      // get what user is typing
+      var term = $(this).val();
+      if(term.length > 2 || term.length ==0) {
+          var context = new ProjectRequestContext();
+          context.setState('search_term', term);
+          loadMoreTickets();
+      }
+  });
 });
