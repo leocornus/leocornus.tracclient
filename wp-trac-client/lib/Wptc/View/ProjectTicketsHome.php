@@ -26,10 +26,10 @@ class ProjectTicketsHome {
      */
     public function renderPage() {
 
-        $header = $this->buildProjectHeader();
-        $navbar = $this->buildProjectNavbar();
-        $content = $this->buildProjectContent();
-        $footer = $this->buildProjectFooter();
+        $header = $this->buildHeader();
+        $navbar = $this->buildNavbar();
+        $content = $this->buildContent();
+        $footer = $this->buildFooter();
 
         $page_view = <<<VIEW
 {$header}
@@ -44,7 +44,7 @@ VIEW;
     /**
      * build header
      */
-    public function buildProjectHeader() {
+    public function buildHeader() {
 
         $projects_url = "/projects";
         $project_name = $this->context->getState('project');
@@ -73,7 +73,7 @@ EOT;
     /**
      * build nav bar.
      */
-    public function buildProjectNavbar() {
+    public function buildNavbar() {
 
         // main query to get the total number.
         $main_query = $this->context->buildMainQuery();
@@ -112,7 +112,7 @@ EOT;
     /**
      * build content.
      */
-    public function buildProjectContent() {
+    public function buildContent() {
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
@@ -239,7 +239,7 @@ EOT;
     /**
      * build footer.
      */
-    public function buildProjectFooter() {
+    public function buildFooter() {
 
         // return empty for now.
         return '';
