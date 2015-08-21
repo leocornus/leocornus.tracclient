@@ -215,14 +215,23 @@ EOT;
           <th>Status</th>
         </tr>
         <tr class="success">
-          <th colspan="6" class="text-right">
-    <div id="item-pager">
+          <th colspan="6">
+  <div class="row">
+    <div class="form-inline col-sm-6">
+      <div class="form-group">
+        <label for="ticket-search">Search:</label>
+        <input type="text" class="form-control" id="ticket-search"
+               placeholder="Search Tickets">
+      </div>
+    </div>
+    <div class="text-right col-sm-6" id="item-pager">
       Showing <span id="loaded-items" class="badge">20</span> of 
       <span id="total-items" class="badge">120</span> tickets!
       <a class="btn btn-success btn-xs" 
          id="project-load-more"
       >Load More...</a>
     </div>
+  </div>
           </th>
         </tr>
       </tfoot>
