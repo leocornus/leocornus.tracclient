@@ -303,15 +303,21 @@ class RequestContext {
                 $query[] = "priority={$p}";
             }
         }
+
         // search term.
         if(!empty($search_term)) {
-            // we will search fields: description, summary,
-            // =~ is for contain 
-            $query[] = "description=~{$search_term}";
-            $query[] = "summary=~{$search_term}";
+            // we will search 2 fields: description and summary
+            // =~ is for contains
+            $desc = array_merge($query, array("description=~{$search_term}"));
+            $sum = array_merge($query, array("summary=~{$search_term}"));
+            $desc = implode("&", $desc);
+            $sum = implode("&", $sum);
+            $the_query = "{$desc}&or&{$sum}";
+        } else {
+            $the_query = implode("&", $query);
         }
 
-        return implode("&", $query);
+        return $the_query;
     }
 
     /**

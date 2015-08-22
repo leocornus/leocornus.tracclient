@@ -357,7 +357,7 @@ jQuery(function($) {
       //console.log(event);
       // get what user is typing
       var term = $(this).val();
-      if(term.length > 2 || term.length ==0) {
+      if(term.length > 1 || term.length ==0) {
           var context = new ProjectRequestContext();
           context.setState('search_term', term);
           loadMoreTickets();
