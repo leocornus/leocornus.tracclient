@@ -310,9 +310,11 @@ class RequestContext {
             // =~ is for contains
             $desc = array_merge($query, array("description=~{$search_term}"));
             $sum = array_merge($query, array("summary=~{$search_term}"));
+            $owner = array_merge($query, array("owner=~{$search_term}"));
             $desc = implode("&", $desc);
             $sum = implode("&", $sum);
-            $the_query = "{$desc}&or&{$sum}";
+            $owner = implode("&", $owner);
+            $the_query = "{$desc}&or&{$sum}&or&{$owner}";
         } else {
             $the_query = implode("&", $query);
         }
