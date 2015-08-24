@@ -222,7 +222,7 @@ EOT;
         <label for="ticket-search">Filter by Search:</label>
         <input type="text" class="form-control input-sm" 
                id="ticket-search"
-               placeholder="Search Tickets">
+               placeholder="description summary owner">
       </div>
     </div>
     <div class="text-right col-sm-6" id="item-pager">
