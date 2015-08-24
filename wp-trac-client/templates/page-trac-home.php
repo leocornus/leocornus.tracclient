@@ -16,26 +16,6 @@ $context->setCookieStates(3600);
     <?php
     wptc_view_generator($context);
     ?>
-
-    <div class="well" id="local-project-footer">
-      <div class="row">
-        <div class="col-sm-4">
-          <h2>Column 1</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-        <div class="col-sm-4">
-          <h2>Column 2</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-        <div class="col-sm-4">
-          <h2>Column 3</h2> 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-      </div>
-    </div> <!-- local-project-footer -->
   </div> <!-- container -->
 
   <?php 

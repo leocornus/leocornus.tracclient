@@ -4,27 +4,21 @@
  */
 namespace Wptc\View;
 
+use Wptc\View\ProjectViewBase;
+
 /**
  * the projects main class.
  */
-class ProjectsHome {
-
-    /**
-     * constructor
-     */
-    public function __construct($context) {
-
-    }
+class ProjectsHome extends ProjectViewBase {
 
     /**
      * render the page.
      */
-    public function renderPage($echo=false) {
+    public function renderPage() {
 
-        $header = $this->buildProjectsHeader();
+        $header = $this->buildHeader();
 
         $content = <<<EOT
-{$header}
 <div id="projects-list" class="container-fluid">
   <h2 class="text-center">Loading ...</h2>
 </div>
@@ -49,13 +43,22 @@ class ProjectsHome {
 </div>
 EOT;
 
-        return $content;
+        // footer.
+        $footer = $this->buildFooter();
+
+        $the_view = <<<VIEW
+{$header}
+{$content}
+{$footer}
+VIEW;
+
+        return $the_view;
     }
 
     /**
      * build header for the homepage.
      */
-    public function buildProjectsHeader() {
+    public function buildHeader() {
 
         $content = <<<EOT
 <div id="projects-header" class="jumbotron">

@@ -143,7 +143,35 @@ EOT;
      */
     public function buildFooter() {
 
-        // return empty for now.
-        return '';
+        // here is a sample footer:
+        // a 3-column row in a well class.
+        $footer = <<<EOT
+<div class="well" id="local-project-footer">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Column 1</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h2>Column 2</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h2>Column 3</h2> 
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+  </div>
+</div> <!-- local-project-footer -->
+EOT;
+
+        if(has_filter('wptc_project_view_footer')) {
+            $footer = apply_filters('wptc_project_view_footer',
+                                    $footer);
+        }
+
+        return $footer; 
     }
 }
