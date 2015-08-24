@@ -174,4 +174,44 @@ EOT;
 
         return $footer; 
     }
+
+    // =====================
+    // some mics components / setcions.
+    // =====================
+
+    /**
+     * this one will build a dropdown with a list owner's name
+     * by default it implemented as dropdown menu.
+     *
+     * NOTE:
+     * This is just a markup for now.
+     * we should pass a list user names
+     */
+    public function buildFilterOwner() {
+
+        $owners = <<<OWNER
+<div class="btn-group">
+  <a href="#" class="btn btn-success btn-xs dropdown-toggle"
+              data-toggle="dropdown">
+    Owner <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#">
+       <span class="glyphicon glyphicon-check"></span>
+       Action</a></li>
+    <li><a href="#">
+       <span class="glyphicon glyphicon-check"></span>
+       Another action</a></li>
+    <li><a href="#">
+       <span class="glyphicon glyphicon-check"></span>
+       Something else here</a></li>
+    <li><a href="#">
+       <span class="glyphicon glyphicon-unchecked"></span>
+       Separated link</a></li>
+  </ul>
+</div>
+OWNER;
+
+        return $owners;
+    }
 }

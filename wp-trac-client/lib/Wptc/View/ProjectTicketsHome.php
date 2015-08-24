@@ -23,26 +23,6 @@ class ProjectTicketsHome extends ProjectViewBase {
     <span>
       Filters:
       <div class="btn-group">
-        <a href="#" class="btn btn-success btn-xs dropdown-toggle"
-                    data-toggle="dropdown">
-          Owner <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="#">
-             <span class="glyphicon glyphicon-check"></span>
-             Action</a></li>
-          <li><a href="#">
-             <span class="glyphicon glyphicon-check"></span>
-             Another action</a></li>
-          <li><a href="#">
-             <span class="glyphicon glyphicon-check"></span>
-             Something else here</a></li>
-          <li><a href="#">
-             <span class="glyphicon glyphicon-unchecked"></span>
-             Separated link</a></li>
-        </ul>
-      </div>
-      <div class="btn-group">
         <a href="#" class="btn btn-success btn-xs dropdown-toggle" 
                     data-toggle="dropdown" aria-expanded="false">
           Priority <span class="caret"></span>
