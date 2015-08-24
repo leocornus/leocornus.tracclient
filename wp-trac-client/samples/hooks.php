@@ -36,3 +36,47 @@ function temp_project_href($href) {
     return $thehref;
 }
 
+// wptc_project_contributor_total filter.
+add_filter('wptc_project_contributor_total', 
+           'project_contributor_total', 10, 2);
+function project_contributor_total($total, $project_name) {
+
+    // adding 100 more for quick example.
+    $total = $total + 100;
+
+    return $total;
+}
+
+add_filter('wptc_project_commit_total', 
+           'project_commit_total', 10, 2);
+function project_commit_total($total, $project_name) {
+
+    $total = $total + strlen($project_name);
+    return $total;
+}
+
+add_filter('wptc_project_view_footer', 
+           'project_view_footer', 10, 1);
+function project_view_footer($footer) {
+
+    // opspedia footer:
+    $footer = <<<EOT
+<div class="well well-inverse" id="local-project-footer">
+  <div class="row success">
+    <div class="col-sm-4">
+      <h3 class="header">About Trac</h3>
+      <p><a href="http://trac.edgewall.org/">The Trac Project</a></p>
+    </div>
+    <div class="col-sm-4">
+      <h3 class="header">About WordPress</h3>
+      <p><a href="http://wordpress.org">WordPress Homepage</a></p>
+    </div>
+    <div class="col-sm-4">
+      <h3 class="header">About WordPress Trac Client</h3>
+      <p><a href="https://github.com/leocornus/leocornus.tracclient">Trac Client Project</a></p>
+    </div>
+</div> <!-- local-project-footer -->
+EOT;
+
+    return $footer;
+}
