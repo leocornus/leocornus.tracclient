@@ -9,7 +9,7 @@ use Wptc\View\ProjectViewBase;
 /**
  * the projects main class.
  */
-class ProjectsHome extends ProjectViewBase {
+class AllProjectsHome extends ProjectViewBase {
 
     /**
      * render the page.

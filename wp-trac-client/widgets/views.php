@@ -209,7 +209,7 @@ function wptc_view_generator($context) {
 
     $project = $context->getState('project');
     if(empty($project)) {
-        $projectsHome = new Wptc\View\ProjectsHome($context);
+        $projectsHome = new Wptc\View\AllProjectsHome($context);
         echo $projectsHome->renderPage();
     } else {
         $ticketHome = new Wptc\View\ProjectTicketsHome($context);
