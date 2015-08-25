@@ -5,6 +5,7 @@
 namespace Wptc\View;
 
 use Wptc\View\ProjectViewBase;
+use Wptc\Helper\ProjectHelper;
 
 /**
  * the projects main class.
@@ -17,6 +18,78 @@ class AllProjectsHome extends ProjectViewBase {
     public function renderPage() {
 
         $header = $this->buildHeader();
+        $navbar = $this->buildNavbar();
+        $content = $this->buildContent();
+        // footer.
+        $footer = $this->buildFooter();
+
+        $the_view = <<<VIEW
+{$header}
+{$navbar}
+{$content}
+{$footer}
+VIEW;
+
+        return $the_view;
+    }
+
+    /**
+     * build header for the homepage.
+     */
+    public function buildHeader() {
+
+        $content = <<<EOT
+<div id="projects-header" class="jumbotron">
+  <h1><span class="text-success">WP Trac Projects</span></h1>
+  <p class="text-info">Open Source, Open Mind, Project Management in Agile</p>
+</div>
+EOT;
+
+        return $content;
+    }
+
+    /**
+     * build nav bar for all projects page.
+     */
+    public function buildNavbar() {
+
+        $helper = new ProjectHelper();
+        $total_projects = $helper->getAllProjectsTotal();
+
+        $nav = <<<EOT
+<div id="project-nav" class="container-fluid h4">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">
+      <span class="badge">{$total_projects}</span> Projects</a></li>
+    <li><a href="#">
+      <span class="badge">{$total_tickets}</span> Tickets</a>
+    </li>
+    <li><a href="#">
+      <span class="badge">{$total_commits}</span> Commits
+    </a></li>
+    <li class="dropdown pull-right">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+        Actions<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Create Project</a></li>
+        <li role="separator" class="divider"></li>
+        <li class="dropdown-header">My...</li>
+        <li><a href="#">My Tickets</a></li>
+        <li><a href="#">My Watchlist</a></li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- project-nav -->
+EOT;
+
+        return $nav;
+    }
+
+    /**
+     * build content section for all projects list.
+     */
+    public function buildContent() {
 
         $content = <<<EOT
 <div id="projects-list" class="container-fluid">
@@ -40,30 +113,6 @@ class AllProjectsHome extends ProjectViewBase {
       </a>
     </div>
   </div></div>
-</div>
-EOT;
-
-        // footer.
-        $footer = $this->buildFooter();
-
-        $the_view = <<<VIEW
-{$header}
-{$content}
-{$footer}
-VIEW;
-
-        return $the_view;
-    }
-
-    /**
-     * build header for the homepage.
-     */
-    public function buildHeader() {
-
-        $content = <<<EOT
-<div id="projects-header" class="jumbotron">
-  <h1><span class="text-success">WP Trac Projects</span></h1>
-  <p class="text-info">Open Source, Open Mind, Project Management in Agile</p>
 </div>
 EOT;
 

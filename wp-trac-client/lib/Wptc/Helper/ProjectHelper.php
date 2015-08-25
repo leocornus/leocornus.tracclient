@@ -18,6 +18,17 @@ class ProjectHelper {
     }
 
     /**
+     * return total number of projects.
+     */
+    public function getAllProjectsTotal() {
+
+        // pass no param, it will reall all projects.
+        $projects = wptc_get_projects();
+
+        return count($projects);
+    }
+
+    /**
      * return the summary of total numbers.
      */
     public function getTotalSumary() {
