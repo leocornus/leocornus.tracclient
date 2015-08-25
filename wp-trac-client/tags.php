@@ -178,7 +178,13 @@ function wptc_build_query($milestone, $version=null, $max=25, $page=1) {
 function wptc_ticket_query($query, $max=25, $page=1) {
 
     $proxy = get_wptc_client()->getProxy('ticket');
-    $query = $query . '&max=' . $max . '&page=' . $page;
+
+    if(empty($query)) {
+        $query = "max={$max}&page={$page}";
+    } else {
+        $query = $query . '&max=' . $max . '&page=' . $page;
+    }
+
     $ids = $proxy->query($query);
     return $ids;
 }

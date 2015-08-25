@@ -29,6 +29,16 @@ class ProjectHelper {
     }
 
     /**
+     * return total number of all tickets.
+     */
+    public function getAllTicketsTotal() {
+
+        // set query to null to return all tickets.
+        $ids = wptc_ticket_query(null, 0);
+        return count($ids);
+    }
+
+    /**
      * return the summary of total numbers.
      */
     public function getTotalSumary() {
