@@ -4,7 +4,9 @@
  */
 add_action('wp_enqueue_scripts', 'wptc_enqueue_project_resources');
 // initializing to not include cookie
-$context = wptc_context_factory();
+//$context = wptc_context_factory();
+$factory = new Wptc\Helper\ViewFactory();
+$context = $factory->createContext();
 $context->setCookieStates(3600);
 ?>
 <html>
@@ -14,7 +16,7 @@ $context->setCookieStates(3600);
 <body>
   <div class="container">
     <?php
-    wptc_view_generator($context);
+    $factory->generateView($context);
     ?>
   </div> <!-- container -->
 
