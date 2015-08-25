@@ -56,6 +56,7 @@ EOT;
         $helper = new ProjectHelper();
         $total_projects = $helper->getAllProjectsTotal();
         $total_tickets = $helper->getAllTicketsTotal();
+        $total_commits = $helper->getAllCommitsTotal();
 
         $nav = <<<EOT
 <div id="project-nav" class="container-fluid h4">

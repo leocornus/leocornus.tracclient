@@ -24,8 +24,15 @@ class ProjectHelper {
 
         // pass no param, it will reall all projects.
         $projects = wptc_get_projects();
+        $total = count($projects);
 
-        return count($projects);
+        // intorduce the filter hook.
+        if(has_filter('wptc_all_projects_total')) {
+            $total = apply_filters('wptc_all_projects_total',
+                                   $total);
+        }
+
+        return $total;
     }
 
     /**
@@ -35,7 +42,31 @@ class ProjectHelper {
 
         // set query to null to return all tickets.
         $ids = wptc_ticket_query(null, 0);
-        return count($ids);
+        $total = count($ids);
+
+        // intorduce the filter hook.
+        if(has_filter('wptc_all_tickets_total')) {
+            $total = apply_filters('wptc_all_tickets_total',
+                                   $total);
+        }
+
+        return $total;
+    }
+
+    public function getAllCommitsTotal() {
+
+        //
+        if(function_exists(wpg_get_log_count)) {
+            $total = wpg_get_log_count(getcwd());
+        }
+
+        // intorduce the filter hook.
+        if(has_filter('wptc_all_commits_total')) {
+            $total = apply_filters('wptc_all_commits_total',
+                                   $total);
+        }
+
+        return $total;
     }
 
     /**
