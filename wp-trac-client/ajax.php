@@ -285,7 +285,8 @@ add_action('wp_ajax_wptc_query_tickets', 'wptc_query_tickets_cb');
 function wptc_query_tickets_cb() {
 
     // get the request context.
-    $context = new Wptc\Context\RequestContext();
+    $factory = new Wptc\Helper\ContextFactory();
+    $context = $factory->createContext();
     $per_page = $context->getState('per_page');
     $page_number = $context->getState('page_number');
     $project_name = $context->getState('project');
