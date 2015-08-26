@@ -30,6 +30,20 @@ class RequestContext {
      * );
      */
     protected $states = array(
+        'page_number' => 0,
+        'per_page' => 20,
+        'project' => "",
+        'milestone' => "",
+        'version' => "",
+        'tab' => "",
+        'priority' => "",
+        'status' => ""
+    );
+
+    /**
+     * default value for states.
+     */
+    protected $defaults = array(
         // default value for number of items for a page.
         'per_page' => 10,
         // page number starts from 0.
@@ -146,6 +160,25 @@ class RequestContext {
      */
     public function loadFilters() {
 
+        $this->loadTicketFilters();
+
+        $search_term = $this->getRequestParam('search_term');
+        if(empty($search_term)) {
+            // default will be empty string.
+            $search_term = "";
+        }
+        $this->setState('search_term', $search_term);
+    }
+
+    /**
+     * load ticket filter states, which will include:
+     *  - status
+     *  - owner
+     *  - type
+     *  - priority
+     */
+    public function loadTicketFilters() {
+
         // status.
         $status = $this->getRequestParam('status');
         if (empty($status)) {
@@ -161,13 +194,6 @@ class RequestContext {
             $priority = "blocker,critical,major,minor,trivial,none";
         }
         $this->setState('priority', $priority);
-
-        $search_term = $this->getRequestParam('search_term');
-        if(empty($search_term)) {
-            // default will be empty string.
-            $search_term = "";
-        }
-        $this->setState('search_term', $search_term);
     }
 
     /**
@@ -177,10 +203,11 @@ class RequestContext {
 
         // === collect pagination information.
         $per_page = $this->getRequestParam('per_page');
-        // items per page, default is 20
+        // items per page, default is 9
+        // as the projects list page is 3-column rows.
         if(empty($per_page)) {
-            // set to default per_page to 20.
-            $per_page = 10;
+            // set to defaultper_page to 9,
+            $per_page = $this->defaults['per_page'];
         }
         // page number, starts from 0.
         $page_number = $this->getRequestParam('page_number');
@@ -191,7 +218,6 @@ class RequestContext {
         $this->setState('per_page', $per_page);
         $this->setState('page_number', $page_number);
 
-        // build the query from metedata.
         $current_query = $this->getState('current_query');
         $new_query = $this->buildQuery();
         if(!empty($current_query) && 
@@ -199,18 +225,35 @@ class RequestContext {
             // do nothing here as all summary are the same.
             // the total number should already in cookie.
         } else {
-            // set current query to new query.
+            // set current query.
             $this->setState('current_query', $new_query);
-            // execute query to get brief summary, such as
-            // total items, items by status, etc.
-            // set max=0 to return all items.
-            $ids = wptc_ticket_query($new_query, 0);
-            // === load total items based on metadata.
-            $this->setState('total_items', count($ids));
+            // calculate the total items for new query.
+            $total = $this->calculateTotal($new_query);
+            $this->setState('total_items', $total);
 
-            // reset pager number to 0.
+            // reset page number to 0
             $this->setState('page_number', 0);
         }
+    }
+
+    /**
+     * calculate total items for differtne states.
+     */
+    public function calculateTotal($query) {
+
+        return strlen($query);
+    }
+
+    /**
+     * calculate tickets total.
+     */
+    public function calcTicketsTotal($query) {
+
+        // execute query to get brief summary, such as
+        // total items, items by status, etc.
+        // set max=0 to return all items.
+        $ids = wptc_ticket_query($query, 0);
+        return count($ids);
     }
 
     /**
@@ -245,9 +288,31 @@ class RequestContext {
      */
     public function setCookieStates($expire=60) {
     
+        $this->cleanCookies();
         foreach($this->states as $name => $value) {
             $cookie_name = $this->before . $name;
             setcookie($cookie_name, $value, time() + $expire);
+        }
+    }
+
+    /**
+     * clean cookies with wptc_ prefix.
+     */
+    public function cleanCookies() {
+
+        foreach($_COOKIE as $name=>$value) {
+            $pos = strpos($name, $this->before);
+            if ($pos == false) {
+                // not find the prefix.
+                // skip...
+            } else {
+                if ($pos == 0) {
+                    // at the beginning of the name.
+                    // set to expire now.
+                    setcookie($name, "", time() - 3600);
+                }
+            }
+
         }
     }
 
