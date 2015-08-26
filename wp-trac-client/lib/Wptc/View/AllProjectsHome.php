@@ -63,10 +63,10 @@ EOT;
   <ul class="nav nav-tabs">
     <li class="active"><a href="#">
       <span class="badge">{$total_projects}</span> Projects</a></li>
-    <li><a href="#">
+    <li><a href="?tab=tickets">
       <span class="badge">{$total_tickets}</span> Tickets</a>
     </li>
-    <li><a href="#">
+    <li><a href="?tab=commits">
       <span class="badge">{$total_commits}</span> Commits
     </a></li>
     <li class="dropdown pull-right">
