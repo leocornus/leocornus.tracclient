@@ -29,6 +29,14 @@ class ProjectsRequestContext extends RequestContext {
      */
     public function init() {
 
+        // get the tab name
+        $tab_name = $this->getRequestParam('tab');
+        if(empty($tab_name)) {
+            $this->cleanCookieState(array('tab'));
+        } else {
+            $this->setState('tab', $tab_name);
+        }
+
         // load trac user information.
         $this->loadTracUser();
 
@@ -93,8 +101,8 @@ class ProjectsRequestContext extends RequestContext {
             // set current query.
             $this->setState('current_query', $new_query);
             // calculate the total items for new query.
-            $projects = wptc_get_projects($this->getState('search_term'));
-            $this->setState('total_items', count($projects));
+            $total = $this->calculateTotal();
+            $this->setState('total_items', $total);
 
             // reset page number to 0
             $this->setState('page_number', 0);
@@ -112,5 +120,14 @@ class ProjectsRequestContext extends RequestContext {
             $query = 'ALL_PROJECTS';
         }
         return $query;
+    }
+
+    /**
+     * function to calculate the total items for different state.
+     */
+    public function calculateTotal() {
+
+        $projects = wptc_get_projects($this->getState('search_term'));
+        return count($projects);
     }
 }
