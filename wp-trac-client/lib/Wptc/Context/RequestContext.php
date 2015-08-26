@@ -18,6 +18,9 @@ class RequestContext {
         $this->init();
     }
 
+    // set up the prefix for cookies.
+    protected $before = "wptc_";
+
     /**
      * states for the request context.
      * it will have the following data structure.
@@ -224,7 +227,8 @@ class RequestContext {
         } elseif ($include_cookie && array_key_exists($param, $_COOKIE)) {
             // cookie is one of the request in PHP.
             // check manuel $_REQUEST for details.
-            $value = $_COOKIE[$param];
+            $cookie_name = $this->before . $param;
+            $value = $_COOKIE[$cookie_name];
         } else {
             $value = '';
         }
@@ -242,7 +246,8 @@ class RequestContext {
     public function setCookieStates($expire=60) {
     
         foreach($this->states as $name => $value) {
-            setcookie($name, $value, time() + $expire);
+            $cookie_name = $this->before . $name;
+            setcookie($cookie_name, $value, time() + $expire);
         }
     }
 
@@ -263,10 +268,10 @@ class RequestContext {
      */
     public function cleanCookieState($states) {
 
-        foreach($states as $name => $value) {
+        foreach($states as $name) {
             // clean cookie by set the expire time to one hour 
             // before.
-            setcookie($name, $value, time() - 3600);
+            setcookie($name, "", time() - 3600);
         }
     }
 
@@ -274,6 +279,14 @@ class RequestContext {
      * build query based on the metadata and filters. on context..
      */
     public function buildQuery() {
+
+        return $this->buildTicketQuery();
+    }
+
+    /**
+     * build query based on the metadata and filters. on context..
+     */
+    public function buildTicketQuery() {
 
         // analyze the metadata
         // we will analyze the following fields: project, status
@@ -330,6 +343,7 @@ class RequestContext {
 
         // we only have project for now.
         $project_name = $this->getState('project');
+
         return "project={$project_name}";
     }
 }

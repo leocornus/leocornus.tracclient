@@ -20,13 +20,15 @@ jQuery.extend(ProjectRequestContext.prototype, {
 
     // set the cookie:
     setState: function(name, value) {
-        jQuery.cookie(name, value, {expires: 1});
+        var cookieName = 'wptc_' + name;
+        jQuery.cookie(cookieName, value, {expires: 1});
     },
 
     // get the cookie
     getState: function(name) {
 
-        var value = jQuery.cookie(name);
+        var cookieName = 'wptc_' + name;
+        var value = jQuery.cookie(cookieName);
         if(name == 'per_page' || name == 'page_number'
            || name == 'total_items') {
             value = parseInt(value);
