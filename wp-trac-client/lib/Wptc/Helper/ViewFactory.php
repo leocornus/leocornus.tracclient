@@ -4,9 +4,8 @@
  */
 namespace Wptc\Helper;
 
-use Wptc\Context\RequestContext;
+use Wptc\Context\ProjectRequestContext;
 use Wptc\Context\AllProjectsRequestContext;
-//use Wptc\Context\AllTicketsRequestContext;
 use Wptc\View\AllProjectsHome;
 use Wptc\View\AllTicketsHome;
 use Wptc\View\ProjectTicketsHome;
@@ -34,10 +33,11 @@ class ViewFactory {
      */
     public function createContext() {
 
-        $context = new RequestContext();
         if(empty($this->project_name)) {
             // all projects page
             $context = new AllProjectsRequestContext();
+        } else {
+            $context = new ProjectRequestContext();
         }
 
         return $context;

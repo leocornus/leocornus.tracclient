@@ -4,9 +4,8 @@
  */
 namespace Wptc\Helper;
 
-use Wptc\Context\RequestContext;
+use Wptc\Context\ProjectRequestContext;
 use Wptc\Context\AllProjectsRequestContext;
-//use Wptc\Context\AllTicketsRequestContext;
 
 /**
  * helper class to create request context 
@@ -30,10 +29,11 @@ class ContextFactory {
      */
     public function createContext() {
 
-        $context = new RequestContext();
         if(empty($this->project_name)) {
             // all projects page
             $context = new AllProjectsRequestContext();
+        } else {
+            $context = new ProjectRequestContext();
         }
 
         return $context;
