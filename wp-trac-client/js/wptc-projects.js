@@ -41,6 +41,7 @@ jQuery.extend(ProjectRequestContext.prototype, {
     getStates: function() {
 
         var states = {
+            'tab' : this.getState('tab'),
             'per_page' : this.getState('per_page'),
             'page_number' : this.getState('page_number'),
             'project' : this.getState('project'),
@@ -303,10 +304,15 @@ jQuery(function($) {
   // get request context.
   var context = new ProjectRequestContext();
   var projectName = context.getState('project');
+  var tabName = context.getState('tab');
   //console.log('Project Name: ' + projectName);
   if(typeof projectName == 'undefined') {
+    if(typeof tabName == 'undefined') {
     // load homepage for all projects.
-    loadMoreProjects();
+      loadMoreProjects();
+    } else {
+      loadMoreTickets();
+    }
   } else {
     // load the homepage for a project..
     loadMoreTickets();

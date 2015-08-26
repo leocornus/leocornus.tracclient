@@ -16,6 +16,9 @@ class AllProjectsRequestContext extends RequestContext {
      */
     public function __construct() {
 
+        // update the default states.
+        $this->defaults['per_page'] = 9;
+
         $this->init();
     }
 
@@ -31,10 +34,9 @@ class AllProjectsRequestContext extends RequestContext {
 
         // get the tab name
         $tab_name = $this->getRequestParam('tab');
-        if(empty($tab_name)) {
-            $this->cleanCookieState(array('tab'));
-        } else {
+        if(!empty($tab_name)) {
             $this->setState('tab', $tab_name);
+            $this->defaults['per_page'] = 10;
         }
 
         // load trac user information.
@@ -55,6 +57,16 @@ class AllProjectsRequestContext extends RequestContext {
      */
     public function loadFilters() {
 
+        // load filter based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $this->loadTicketFilters();
+                    break;
+            }
+        }
+
         $search_term = $this->getRequestParam('search_term');
         if(empty($search_term)) {
             // default will be empty string.
@@ -70,54 +82,23 @@ class AllProjectsRequestContext extends RequestContext {
     }
 
     /**
-     * load pager states: per_page, page_number, and total_items.
-     */
-    public function loadPagerStates() {
-
-        // === collect pagination information.
-        $per_page = $this->getRequestParam('per_page');
-        // items per page, default is 9
-        // as the projects list page is 3-column rows.
-        if(empty($per_page)) {
-            // set to default per_page to 9,
-            $per_page = 9;
-        }
-        // page number, starts from 0.
-        $page_number = $this->getRequestParam('page_number');
-        if (empty($page_number)) {
-            // set to 0 as the default page number.
-            $page_number = 0;
-        }
-        $this->setState('per_page', $per_page);
-        $this->setState('page_number', $page_number);
-
-        $current_query = $this->getState('current_query');
-        $new_query = $this->buildQuery();
-        if(!empty($current_query) && 
-           ($new_query == $current_query)) {
-            // do nothing here as all summary are the same.
-            // the total number should already in cookie.
-        } else {
-            // set current query.
-            $this->setState('current_query', $new_query);
-            // calculate the total items for new query.
-            $total = $this->calculateTotal();
-            $this->setState('total_items', $total);
-
-            // reset page number to 0
-            $this->setState('page_number', 0);
-        }
-    }
-
-    /**
      * build query based on the metadata and filters. on context..
      */
     public function buildQuery() {
 
-        // return empty string for now.
-        $query = $this->getState('search_term'); 
-        if(empty($query)) {
-            $query = 'ALL_PROJECTS';
+        // build query based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $query = $this->buildTicketQuery();
+                    break;
+            }
+        } else {
+            $query = $this->getState('search_term'); 
+            if(empty($query)) {
+                $query = 'ALL_PROJECTS';
+            }
         }
         return $query;
     }
@@ -125,7 +106,27 @@ class AllProjectsRequestContext extends RequestContext {
     /**
      * function to calculate the total items for different state.
      */
-    public function calculateTotal() {
+    public function calculateTotal($query) {
+
+        //calculate total based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $total = $this->calcTicketsTotal($query);
+                    break;
+            }
+        } else {
+            $total = $this->calcProjectsTotal();
+        }
+
+        return $total;
+    }
+
+    /**
+     * calculate projects total.
+     */
+    public function calcProjectsTotal() {
 
         $projects = wptc_get_projects($this->getState('search_term'));
         return count($projects);
