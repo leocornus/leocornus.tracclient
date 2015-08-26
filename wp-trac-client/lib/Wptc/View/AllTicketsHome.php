@@ -109,8 +109,8 @@ class AllTicketsHome extends AllProjectsHome {
       </div>
     </div>
     <div class="text-right col-sm-6" id="item-pager">
-      Showing <span id="loaded-items" class="badge">20</span> of 
-      <span id="total-items" class="badge">120</span> tickets!
+      Showing <span id="loaded-items" class="badge">0</span> of 
+      <span id="total-items" class="badge">0</span> tickets!
       <a class="btn btn-success btn-xs" 
          id="project-load-more"
       >Load More...</a>

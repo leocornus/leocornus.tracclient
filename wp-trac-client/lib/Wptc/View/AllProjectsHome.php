@@ -53,6 +53,21 @@ EOT;
      */
     public function buildNavbar() {
 
+        $base_url = "/projects";
+        $tab = $this->context->getState('tab');
+        if(empty($tab)) {
+            $home_active = ' class="active"';
+        } else {
+            switch($tab) {
+                case 'tickets':
+                    $tickets_active = ' class="active"';
+                    break;
+                case 'commits':
+                    $commits_active = ' class="active"';
+                    break;
+            }
+        }
+
         $helper = new ProjectHelper();
         $total_projects = $helper->getAllProjectsTotal();
         $total_tickets = $helper->getAllTicketsTotal();
@@ -61,12 +76,12 @@ EOT;
         $nav = <<<EOT
 <div id="project-nav" class="container-fluid h4">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#">
+    <li {$home_active}><a href="{$base_url}">
       <span class="badge">{$total_projects}</span> Projects</a></li>
-    <li><a href="?tab=tickets">
+    <li {$tickets_active}><a href="{$base_url}?tab=tickets">
       <span class="badge">{$total_tickets}</span> Tickets</a>
     </li>
-    <li><a href="?tab=commits">
+    <li {$commits_active}><a nohref="{$base_url}?tab=commits">
       <span class="badge">{$total_commits}</span> Commits
     </a></li>
     <li class="dropdown pull-right">
@@ -108,8 +123,8 @@ EOT;
       </div>
     </div>
     <div class="text-right col-sm-6" id="projects-pager">
-      Showing <span id="loaded-items" class="badge">20</span> of 
-      <span id="total-items" class="badge">120</span> Projects
+      Showing <span id="loaded-items" class="badge">0</span> of 
+      <span id="total-items" class="badge">0</span> Projects
       <a class="btn btn-success" id="projects-load-more">
         Load More...
       </a>
