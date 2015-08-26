@@ -13,6 +13,8 @@ use Wptc\View\ProjectTicketsHome;
 
 /**
  * helper class to create request context and generate views.
+ * It will be used in the following cases:
+ * - reload page.
  */
 class ViewFactory {
 
@@ -34,7 +36,6 @@ class ViewFactory {
 
         $context = new RequestContext();
         if(empty($this->project_name)) {
-            $context->setCookieStates(-3600);
             // all projects page
             $context = new AllProjectsRequestContext();
         }
