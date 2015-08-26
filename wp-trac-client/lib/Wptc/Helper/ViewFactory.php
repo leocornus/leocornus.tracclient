@@ -5,8 +5,10 @@
 namespace Wptc\Helper;
 
 use Wptc\Context\RequestContext;
-use Wptc\Context\ProjectsRequestContext;
+use Wptc\Context\AllProjectsRequestContext;
+//use Wptc\Context\AllTicketsRequestContext;
 use Wptc\View\AllProjectsHome;
+use Wptc\View\AllTicketsHome;
 use Wptc\View\ProjectTicketsHome;
 
 /**
@@ -33,7 +35,8 @@ class ViewFactory {
         $context = new RequestContext();
         if(empty($this->project_name)) {
             $context->setCookieStates(-3600);
-            $context = new ProjectsRequestContext();
+            // all projects page
+            $context = new AllProjectsRequestContext();
         }
 
         return $context;
@@ -45,9 +48,18 @@ class ViewFactory {
     public function generateView($context) {
 
         if(empty($this->project_name)) {
-            // all projects list homepage.
-            $projectsHome = new AllProjectsHome($context);
-            echo $projectsHome->renderPage();
+            if(!empty($this->tab_name)) {
+                switch($this->tab_name) {
+                    case 'tickets':
+                        $the_page = new AllTicketsHome($context);
+                        break;
+                }
+            }
+            if(empty($the_page)){
+                // default is the all projects homepage.
+                $the_page = new AllProjectsHome($context);
+            }
+            echo $the_page->renderPage();
         } else {
             $projectHome = new ProjectTicketsHome($context);
             echo $projectHome->renderPage();

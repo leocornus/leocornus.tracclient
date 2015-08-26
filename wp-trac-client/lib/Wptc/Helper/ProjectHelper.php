@@ -12,7 +12,7 @@ class ProjectHelper {
     /**
      * constructor.
      */
-    public function __construct($project_name) {
+    public function __construct($project_name=null) {
 
         $this->project_name = $project_name;
     }

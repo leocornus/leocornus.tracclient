@@ -9,7 +9,7 @@ use Wptc\Context\RequestContext;
 /**
  * request context for all projects list page.
  */
-class ProjectsRequestContext extends RequestContext {
+class AllProjectsRequestContext extends RequestContext {
 
     /**
      * the constructor
