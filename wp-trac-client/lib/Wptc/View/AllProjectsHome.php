@@ -171,7 +171,7 @@ EOT;
       </div>
 
       <div class="modal-body">
-<form class="form-horizontal">
+<div class="form-horizontal">
   <fieldset>
     <div class="form-group">
       <label for="inputName" class="col-lg-4 control-label">Project Name</label>
@@ -197,7 +197,7 @@ EOT;
       </div>
     </div>
   </fieldset>
-</form>
+</div>
       </div>
 
       <div class="modal-footer">
