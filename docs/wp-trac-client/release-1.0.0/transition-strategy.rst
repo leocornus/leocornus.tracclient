@@ -29,4 +29,7 @@ Introduce Classes?
 - PHP class convention?
 - PHP class loader. using the Symfony ClassLoader class.
 
+JavaScript npm modules
+----------------------
 
+using npm modules to manage JavaScript compoents.
