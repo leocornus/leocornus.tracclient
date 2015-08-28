@@ -178,6 +178,7 @@ EOT;
       <div class="col-lg-8">
         <input type="text" class="form-control" id="inputName" placeholder="set name for your project">
         <span class="help-block">Using only letter and number for project name. NO whitespaces and special chareters</span>
+        <span class="form-control-feedback"></span>
       </div>
     </div>
     <div class="form-group">

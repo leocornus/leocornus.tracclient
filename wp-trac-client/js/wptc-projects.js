@@ -298,6 +298,26 @@ function loadMoreProjects(scroll2Bottom) {
     });
 }
 
+/**
+ * Project name input field, check project name available or not.
+ *
+ * @param thename the name input jQuery object.
+ */
+function projectNameValidate(thename) {
+
+    // query the project name from database.
+    // name exist, show the error feedback
+    var iconhtml = '<span class="glyphicon glyphicon-remove form-control-feedback"></span>';
+    // if not available, toggle the error style.
+    var parentDivs = thename.parentsUntil('fieldset');
+    // for input column.
+    jQuery(parentDivs[0]).append(iconhtml);
+    // for the form group div.
+    jQuery(parentDivs[1]).addClass('has-feedback has-error');
+
+    // otherwise show the success feedback.
+}
+
 // add the click event on load more button.
 jQuery(function($) {
 
@@ -370,5 +390,18 @@ jQuery(function($) {
           context.setState('search_term', term);
           loadMoreTickets();
       }
+  });
+
+  // validate the project name.
+  $('#inputName').blur(function(event) {
+      var projectName = $(this).val();
+      // check if the project name is still available?
+      // if not available, toggle the error style.
+      var parentDivs = $(this).parentsUntil('fieldset');
+      // for input column.
+      $(parentDivs[0]).append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+      // for the form group div.
+      $(parentDivs[1]).addClass('has-feedback');
+      $(parentDivs[1]).addClass('has-error');
   });
 });
