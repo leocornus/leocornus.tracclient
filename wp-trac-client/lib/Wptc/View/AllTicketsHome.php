@@ -25,6 +25,13 @@ class AllTicketsHome extends AllProjectsHome {
 <div id="project-content" class="container-fluid">
   <div class="h4" id="summary">
     <span>
+      Order by:
+      <select class="success" id="order">
+        <option>Priority</option>
+        <option>Last Modified Date</option>
+      </select>
+    </span>
+    <span>
       Filters:
       {$priority_filter}
     </span>
