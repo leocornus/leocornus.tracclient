@@ -214,4 +214,76 @@ OWNER;
 
         return $owners;
     }
+
+    /**
+     * build the priority filter. this is based on the default
+     * trac priorities.
+     */
+    public function buildFilterPriority() {
+
+        $priority = <<<PRIO
+<div class="btn-group">
+  <a href="#" class="btn btn-success btn-xs dropdown-toggle" 
+              data-toggle="dropdown" aria-expanded="false">
+    Priority <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" style="padding-left:3px">
+    <li> <span class="text-nowrap">
+      <a href="#" class="btn btn-danger btn-xs" id="priority-blocker">
+        <span class="glyphicon glyphicon-check"></span>
+        blocker
+      </a>
+      <a href="#" class="btn btn-warning btn-xs" id="priority-critical">
+        <span class="glyphicon glyphicon-check"></span>
+        critical
+      </a>
+      <a href="#" class="btn btn-primary btn-xs" id="priority-major">
+        <span class="glyphicon glyphicon-check"></span>
+        major
+      </a>
+      <a href="#" class="btn btn-info btn-xs" id="priority-minor">
+        <span class="glyphicon glyphicon-check"></span>
+        minor
+      </a>
+      <a href="#" class="btn btn-default btn-xs" id="priority-trivial">
+        <span class="glyphicon glyphicon-check"></span>
+        trivial
+      </a>
+      <a href="#" class="btn btn-default btn-xs" id="priority-none">
+        <span class="glyphicon glyphicon-check"></span>
+        none
+      </a>
+    </span> </li>
+  </ul>
+</div>
+PRIO;
+
+        return $priority;
+    }
+
+    /**
+     * build status checkbox, based on the default trac status.
+     */
+    public function buildCheckboxStatus() {
+
+        $status = <<<STATUS
+<a href="#" class="btn btn-xs btn-primary" id="status-accepted">
+  <span class="glyphicon glyphicon-check"></span> accepted
+</a>
+<a href="#" class="btn btn-xs btn-info" id="status-assigned">
+  <span class="glyphicon glyphicon-check"></span> assigned
+</a>
+<a href="#" class="btn btn-xs btn-success" id="status-closed">
+  <span class="glyphicon glyphicon-unchecked"></span> closed
+</a>
+<a href="#" class="btn btn-xs btn-danger" id="status-new">
+  <span class="glyphicon glyphicon-check"></span> new 
+</a>
+<a href="#" class="btn btn-xs btn-warning" id="status-reopened">
+  <span class="glyphicon glyphicon-check"></span> reopened
+</a>
+STATUS;
+
+        return $status;
+    }
 }
