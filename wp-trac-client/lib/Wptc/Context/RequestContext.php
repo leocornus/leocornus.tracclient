@@ -406,6 +406,12 @@ class RequestContext {
                 // last modified shows at first.
                 $query[] = 'desc=1';
                 break;
+            case 'id':
+                // sort by last modified time.
+                $query[] = 'order=id';
+                // last modified shows at first.
+                $query[] = 'desc=1';
+                break;
             default:
                 $query[] = 'order=priority';
                 break;

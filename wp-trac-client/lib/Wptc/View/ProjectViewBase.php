@@ -296,6 +296,7 @@ STATUS;
 <select class="success" id="order">
   <option value="priority">Priority</option>
   <option value="changetime">Last Modified Date</option>
+  <option value="id">Ticket ID</option>
 </select>
 ORDER;
 
