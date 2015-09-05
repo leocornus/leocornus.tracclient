@@ -286,4 +286,19 @@ STATUS;
 
         return $status;
     }
+
+    /**
+     * build the select options for sorting order.
+     */
+    public function buildSelectOrder() {
+
+        $order = <<<ORDER
+<select class="success" id="order">
+  <option value="priority">Priority</option>
+  <option value="changetime">Last Modified Date</option>
+</select>
+ORDER;
+
+        return $order;
+    }
 }

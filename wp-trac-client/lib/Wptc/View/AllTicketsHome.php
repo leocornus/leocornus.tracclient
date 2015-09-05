@@ -20,16 +20,14 @@ class AllTicketsHome extends AllProjectsHome {
         // build the filter for priority.
         $priority_filter = $this->buildFilterPriority();
         $status_checkbox = $this->buildCheckboxStatus();
+        $order_select = $this->buildSelectOrder();
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
   <div class="h4" id="summary">
     <span>
       Order by:
-      <select class="success" id="order">
-        <option value="priority">Priority</option>
-        <option value="changetime">Last Modified Date</option>
-      </select>
+      {$order_select}
     </span>
     <span>
       Filters:
