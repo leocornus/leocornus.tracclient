@@ -44,6 +44,7 @@ jQuery.extend(ProjectRequestContext.prototype, {
             'tab' : this.getState('tab'),
             'per_page' : this.getState('per_page'),
             'page_number' : this.getState('page_number'),
+            'order' : this.getState('order'),
             'project' : this.getState('project'),
             'status' : this.getState('status'),
             'priority' : this.getState('priority'),
@@ -350,6 +351,13 @@ jQuery(function($) {
       event.preventDefault();
       // load more when user click the button.
       loadMoreProjects(true);
+  });
+
+  // the sorting order.
+  $('#order').change(function(event) {
+      var order = $(this).val();
+      context.setState('order', order);
+      loadMoreTickets();
   });
 
   // handle the click event for all status button.
