@@ -20,10 +20,15 @@ class ProjectTicketsHome extends ProjectViewBase {
         // build the filter for priority.
         $priority_filter = $this->buildFilterPriority();
         $status_checkbox = $this->buildCheckboxStatus();
+        $order_select = $this->buildSelectOrder();
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
   <div class="h4" id="summary">
+    <span>
+      Order by:
+      {$order_select}
+    </span>
     <span>
       Filters:
       {$priority_filter}
