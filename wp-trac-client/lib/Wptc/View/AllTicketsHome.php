@@ -27,8 +27,8 @@ class AllTicketsHome extends AllProjectsHome {
     <span>
       Order by:
       <select class="success" id="order">
-        <option>Priority</option>
-        <option>Last Modified Date</option>
+        <option value="priority">Priority</option>
+        <option value="changetime">Last Modified Date</option>
       </select>
     </span>
     <span>
