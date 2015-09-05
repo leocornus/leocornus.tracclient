@@ -32,6 +32,7 @@ class RequestContext {
     protected $states = array(
         'page_number' => 0,
         'per_page' => 20,
+        'order' => 'priority',
         'project' => "",
         'milestone' => "",
         'version' => "",
@@ -176,8 +177,17 @@ class RequestContext {
      *  - owner
      *  - type
      *  - priority
+     *  - order
      */
     public function loadTicketFilters() {
+
+        // order.
+        $order = $this->getRequestParam('order');
+        if (empty($order)) {
+            // set up the default sort order, by priority.
+            $order = "priority";
+        }
+        $this->setState('order', $order);
 
         // status.
         $status = $this->getRequestParam('status');
@@ -380,6 +390,25 @@ class RequestContext {
             } else {
                 $query[] = "priority={$p}";
             }
+        }
+
+        // sort order
+        $order = $this->getState('order');
+        // query string for sort order
+        switch($order) {
+            case 'priority':
+                // default sort order
+                $query[] = 'order=priority';
+                break;
+            case 'changetime':
+                // sort by last modified time.
+                $query[] = 'order=changetime';
+                // last modified shows at first.
+                $query[] = 'desc=1';
+                break;
+            default:
+                $query[] = 'order=priority';
+                break;
         }
 
         // search term.
