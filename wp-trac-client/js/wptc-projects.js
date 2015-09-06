@@ -146,6 +146,7 @@ function loadMoreTickets(scroll2Bottom) {
               '<td>' + log['owner_href'] + '</td>' +
               '<td>' + log['priority'] + '</td>' +
               '<td>' + log['status'] + '</td>' +
+              '<td>' + log['modified_age'] + '</td>' +
             '</tr>');
         }
         // calculate loaded item.

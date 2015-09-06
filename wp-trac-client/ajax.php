@@ -310,6 +310,7 @@ function wptc_query_tickets_cb() {
         // adding url and owner href
         $ticket['ticket_url'] = "{$blog_path}/{$ticket_page_slug}?id={$ticket['id']}";
         $ticket['owner_href'] = wptc_widget_user_href($ticket['owner']);
+        $ticket['modified_age'] = wptc_widget_time_age($ticket['modified']);
         $items[] = $ticket;
     }
 

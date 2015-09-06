@@ -49,6 +49,7 @@ class ProjectTicketsHome extends ProjectViewBase {
           <th>Owner</th>
           <th>Priority</th>
           <th>Status</th>
+          <th>Modified</th>
         </tr>
       </thead>
       <tfoot>
@@ -58,9 +59,10 @@ class ProjectTicketsHome extends ProjectViewBase {
           <th>Owner</th>
           <th>Priority</th>
           <th>Status</th>
+          <th>Modified</th>
         </tr>
         <tr class="success">
-          <th colspan="6">
+          <th colspan="7">
   <div class="row">
     <div class="form-inline col-sm-6">
       <div class="form-group">
