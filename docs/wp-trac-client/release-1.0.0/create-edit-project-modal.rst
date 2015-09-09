@@ -13,3 +13,11 @@ SPECS:
 
 - wp ajax action names.
 - 
+
+Bootstrap form falidation
+-------------------------
+
+some github projects:
+
+- bootstrap validator
+
