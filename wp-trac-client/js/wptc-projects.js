@@ -222,7 +222,7 @@ function loadMoreCommits(scroll2Bottom) {
         for(i = 0; i < items.length; i++) {
             var log = items[i];
             // get the current date from the last tr[id='logdate']:last > td:last
-            var lastLogDate = jQuery("table[id='project-items'] > tbody > tr[id='logdate']:last > td:last > span");
+            var lastLogDate = jQuery("table[id='project-items'] > tbody > tr[id='logdate']:last > td:last > span:last");
             var currentDate = null;
             if (lastLogDate != null) {
                 // get the current date
@@ -235,7 +235,8 @@ function loadMoreCommits(scroll2Bottom) {
                // this will be the first logdate or a new date.
                // append an extra log date row.
                tbody.append('<tr id="logdate">' +
-                 '<td colspan="3" class="h5 bg-info">Commits on ' + 
+                 '<td colspan="3" class="h5 bg-info text-muted">' + 
+                 '<span class="glyphicon glyphicon-list"></span> Commits on ' + 
                  '<span>' + log['date'] + '</span></td>' +
                  '</tr>');
             }
