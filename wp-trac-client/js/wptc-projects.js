@@ -217,11 +217,30 @@ function loadMoreCommits(scroll2Bottom) {
             jQuery("table[id='project-items'] > tbody").html("");
         }
         // append the ticket list table.
+        // append to table id = project-items.
+        var tbody = jQuery("table[id='project-items'] > tbody:last");
         for(i = 0; i < items.length; i++) {
             var log = items[i];
-            // append to table id = project-items.
-            var last = jQuery("table[id='project-items'] > tbody:last");
-            last.append('<tr id="log">' +
+            // get the current date from the last tr[id='logdate']:last > td:last
+            var lastLogDate = jQuery("table[id='project-items'] > tbody > tr[id='logdate']:last > td:last");
+            var currentDate = null;
+            if (lastLogDate != null) {
+                // get the current date
+                currentDate = lastLogDate.html();
+            }
+
+            if ((currentDate != null) && (currentDate == log['date'])) {
+                // still in the save date, do nothing!
+            } else {
+               // this will be the first logdate or a new date.
+               // append an extra log date row.
+               tbody.append('<tr id="logdate">' +
+                 '<td colspan="4" class="h4 bg-info">' + log['date'] + '</td>' +
+                 '</tr>');
+            }
+
+            // append the log info.
+            tbody.append('<tr id="log">' +
               '<td><a href="' + 
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['date'] + '</td>' +
