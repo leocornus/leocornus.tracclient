@@ -83,7 +83,7 @@ EOT;
     <li {$tickets_active}><a href="{$base_url}?tab=tickets">
       <span class="badge">{$total_tickets}</span> Tickets</a>
     </li>
-    <li {$commits_active}><a nohref="{$base_url}?tab=commits">
+    <li {$commits_active}><a href="{$base_url}?tab=commits">
       <span class="badge">{$total_commits}</span> Commits
     </a></li>
     <li {$media_active}><a nohref="{$base_url}?tab=media">
