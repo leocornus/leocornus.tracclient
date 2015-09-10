@@ -227,10 +227,10 @@ function loadMoreCommits(scroll2Bottom) {
               '<td>' + log['date'] + '</td>' +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
-              '<td id="uat-' + log['id'] + 
-                '"><span></span></td>' +
-              '<td id="prod-' + log['id'] + 
-                '"><span></span></td>' +
+              //'<td id="uat-' + log['id'] + 
+              //  '"><span></span></td>' +
+              //'<td id="prod-' + log['id'] + 
+              //  '"><span></span></td>' +
             '</tr>');
         }
         // calculate loaded item.
