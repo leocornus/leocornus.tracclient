@@ -34,11 +34,11 @@ class ProjectRequestContext extends RequestContext {
         // load trac user information.
         $this->loadTracUser();
 
-        // load filters.
-        $this->loadFilters();
-
         // load metadata
         $this->loadMetadata();
+
+        // load filters.
+        $this->loadFilters();
 
         // load pager states: per_page, page_number, total_items.
         // this should be the last one to load, as it depends on 
