@@ -37,7 +37,6 @@ class AllCommitsHome extends AllProjectsHome {
       <thead>
         <tr class="success">
           <th class="col-md-1">Commit</th>
-          <th class="NONEcol-md-2">Date</th>
           <th class="NONEcol-md-7">Comment</th>
           <th class="col-md-2">Author</th>
         </tr>
@@ -45,12 +44,11 @@ class AllCommitsHome extends AllProjectsHome {
       <tfoot>
         <tr class="success">
           <th>Commit</th>
-          <th>Date</th>
           <th>Comment</th>
           <th>Author</th>
         </tr>
         <tr class="success">
-          <th colspan="4">
+          <th colspan="3">
   <div class="row">
     <div class="form-inline col-sm-6">
       <div class="form-group">
