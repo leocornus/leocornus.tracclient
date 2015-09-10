@@ -49,7 +49,8 @@ jQuery.extend(ProjectRequestContext.prototype, {
             'status' : this.getState('status'),
             'priority' : this.getState('priority'),
             'search_term' : this.getState('search_term'),
-            'current_query' : this.getState('current_query')
+            'current_query' : this.getState('current_query'),
+            'repo_path' : this.getState('repo_path')
         };
 
         return states;
@@ -174,6 +175,89 @@ function loadMoreTickets(scroll2Bottom) {
         if(loaded_items < total_items) {
             // only enable the load more if still more items to load.
             jQuery("a[id='project-load-more']").removeClass('disabled');
+        }
+    });
+
+    // update table html.
+    // caculate next page. update request context.
+}
+
+// function to load more tickets.
+function loadMoreCommits(scroll2Bottom) {
+
+    // by default, NOT scroll to bottom.
+    scroll2Bottom = typeof scroll2Bottom !== 'undefined' ?
+                    scroll2Bottom : false;
+
+    // get request context.
+    var context = new ProjectRequestContext();
+
+    // preparing the query data for AJAX request.
+    var query_data = context.getStates();
+    query_data['action'] = 'wptc_get_log_list';
+
+    // update HTML page to indicate user the ruequest is going...
+    // disable load more button and show waiting cursor.
+    jQuery("a[id='load-more-commits']").addClass('disabled');
+    jQuery('html,body').css('cursor', 'wait');
+    jQuery('a').css('cursor', 'wait');
+
+    // AJAX request to get tickets of next page.
+    // ajax_url is set by using wp_localize_script
+    jQuery.post(wptc_projects.ajax_url, 
+                query_data, function(response) {
+        var res = JSON.parse(response);
+        var items = res['items'];
+        var states = res['states'];
+        // update cookies based on the states.
+        context.updateCookies(states);
+        //console.log(items);
+        // clean table if page_number < 1
+        if (context.getState('page_number') < 1) {
+            jQuery("table[id='project-items'] > tbody").html("");
+        }
+        // append the ticket list table.
+        for(i = 0; i < items.length; i++) {
+            var log = items[i];
+            // append to table id = project-items.
+            var last = jQuery("table[id='project-items'] > tbody:last");
+            last.append('<tr id="log">' +
+              '<td><a href="' + 
+                log['url'] + '">' + log['id'] + "</a></td>" +
+              '<td>' + log['date'] + '</td>' +
+              '<td>' + log['comment'] + '</td>' +
+              '<td>' + log['email'] + '</td>' +
+              '<td id="uat-' + log['id'] + 
+                '"><span></span></td>' +
+              '<td id="prod-' + log['id'] + 
+                '"><span></span></td>' +
+            '</tr>');
+        }
+        // calculate loaded item.
+        var loaded_items = context.getState('per_page') * 
+                           context.getState('page_number') + 
+                           items.length;
+        console.log("loaded items: " + loaded_items);
+        // update the page number.
+        context.setState('page_number', 
+                         context.getState('page_number') + 1);
+        // set total number for loaded items.
+        var total_items = context.getState('total_items');
+        jQuery("span[id='loaded-items']").html(loaded_items);
+        jQuery("span[id='total-items']").html(total_items);
+
+        // scroll down to page bottom.
+        if(scroll2Bottom) { 
+            jQuery('html,body').scrollTop(jQuery(window).height());
+        }
+
+        // reset cursor.
+        jQuery('html,body').css('cursor', 'default');
+        jQuery('a').css('cursor', 'default');
+
+        if(loaded_items < total_items) {
+            // only enable the load more if still more items to load.
+            jQuery("a[id='load-more-commits']").removeClass('disabled');
         }
     });
 
@@ -329,12 +413,19 @@ jQuery(function($) {
   var tabName = context.getState('tab');
   //console.log('Project Name: ' + projectName);
   if(typeof projectName == 'undefined') {
-    if(typeof tabName == 'undefined') {
-    // load homepage for all projects.
-      loadMoreProjects();
-    } else {
-      loadMoreTickets();
-    }
+      if(typeof tabName == 'undefined') {
+          // load homepage for all projects.
+          loadMoreProjects();
+      } else {
+          switch(tabName) {
+          case "tickets":
+              loadMoreTickets();
+              break;
+          case "commits":
+              loadMoreCommits();
+              break;
+          }
+      }
   } else {
     // load the homepage for a project..
     loadMoreTickets();
@@ -345,6 +436,13 @@ jQuery(function($) {
       event.preventDefault();
       // load more when user click the button.
       loadMoreTickets(true);
+  });
+
+  $('#load-more-commits').click(function(event) {
+      // prevent the default herf link event for this button.
+      event.preventDefault();
+      // load more when user click the button.
+      loadMoreCommits(true);
   });
 
   $('#projects-load-more').click(function(event) {
@@ -408,9 +506,10 @@ jQuery(function($) {
       // if not available, toggle the error style.
       var parentDivs = $(this).parentsUntil('fieldset');
       // for input column.
-      $(parentDivs[0]).append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+      $(parentDivs[0]).append('<span class="glyphicon glyphicon-refresh form-control-feedback"></span>');
       // for the form group div.
       $(parentDivs[1]).addClass('has-feedback');
-      $(parentDivs[1]).addClass('has-error');
+      //$(parentDivs[1]).addClass('has-error');
+      $(parentDivs[1]).addClass('has-success');
   });
 });
