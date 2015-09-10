@@ -30,13 +30,18 @@ class RequestContext {
      * );
      */
     protected $states = array(
+        'tab' => "",
+        // general states for pager
         'page_number' => 0,
         'per_page' => 20,
-        'order' => 'priority',
+        // project metadata.
         'project' => "",
         'milestone' => "",
         'version' => "",
-        'tab' => "",
+        // git repos metadata, this should associate with project
+        'repo_path' => "",
+        // general filters for ticket
+        'order' => "",
         'priority' => "",
         'status' => ""
     );
@@ -207,6 +212,19 @@ class RequestContext {
     }
 
     /**
+     * load commit filters
+     */
+    public function loadCommitFilters() {
+
+        // set the repo path.
+        $repo_path = $this->getRequestParam('repo_path');
+        if (empty($repo_path)) {
+            $repo_path = "/usr/opspedia/xampp";
+        }
+        $this->setState('repo_path', $repo_path);
+    }
+
+    /**
      * load pager states: per_page, page_number, and total_items.
      */
     public function loadPagerStates() {
@@ -264,6 +282,17 @@ class RequestContext {
         // set max=0 to return all items.
         $ids = wptc_ticket_query($query, 0);
         return count($ids);
+    }
+
+    /**
+     * calculate commits total.
+     */
+    public function calcCommitsTotal($query) {
+
+        // return everything for now.
+        $repo_path = $this->getState('repo_path');
+
+        return wpg_get_log_count($repo_path);
     }
 
     /**
@@ -445,5 +474,14 @@ class RequestContext {
         $project_name = $this->getState('project');
 
         return "project={$project_name}";
+    }
+
+    /**
+     * build the query for search commits.
+     */
+    public function buildCommitQuery() {
+
+        // nothing for now...
+        return "ALL-COMMITS";
     }
 }
