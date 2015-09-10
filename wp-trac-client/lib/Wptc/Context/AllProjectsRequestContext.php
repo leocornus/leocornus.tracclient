@@ -64,6 +64,9 @@ class AllProjectsRequestContext extends RequestContext {
                 case "tickets":
                     $this->loadTicketFilters();
                     break;
+                case "commits":
+                    $this->loadCommitFilters();
+                    break;
             }
         }
 
@@ -93,6 +96,9 @@ class AllProjectsRequestContext extends RequestContext {
                 case "tickets":
                     $query = $this->buildTicketQuery();
                     break;
+                case "commits":
+                    $query = $this->buildCommitQuery();
+                    break;
             }
         } else {
             $query = $this->getState('search_term'); 
@@ -114,6 +120,9 @@ class AllProjectsRequestContext extends RequestContext {
             switch($tab_name) {
                 case "tickets":
                     $total = $this->calcTicketsTotal($query);
+                    break;
+                case "commits":
+                    $total = $this->calcCommitsTotal($query);
                     break;
             }
         } else {
