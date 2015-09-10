@@ -362,3 +362,29 @@ function wptc_projects_cb() {
     echo json_encode($response);
     exit;
 }
+
+/**
+ * WordPress AJAX callback for check change logs.
+ */
+add_action('wp_ajax_nopriv_wptc_get_log_list', 'wptc_get_log_list_cb');
+add_action('wp_ajax_wptc_get_log_list', 'wptc_get_log_list_cb');
+function wptc_get_log_list_cb() {
+
+    // get the request context.
+    $factory = new Wptc\Helper\ContextFactory();
+    $context = $factory->createContext();
+
+    $per_page = $context->getState('per_page');
+    $page_number = $context->getState('page_number');
+    $repo_path = $context->getState('repo_path');
+
+    $logs = wpg_get_log_list($repo_path, $page_number, $per_page);
+
+    $response = array(
+        'items' => $logs,
+        'states' => $context->getStates()
+    );
+
+    echo json_encode($response);
+    exit;
+}
