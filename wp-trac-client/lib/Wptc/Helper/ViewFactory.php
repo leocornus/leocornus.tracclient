@@ -8,6 +8,7 @@ use Wptc\Context\ProjectRequestContext;
 use Wptc\Context\AllProjectsRequestContext;
 use Wptc\View\AllProjectsHome;
 use Wptc\View\AllTicketsHome;
+use Wptc\View\AllCommitsHome;
 use Wptc\View\ProjectTicketsHome;
 
 /**
@@ -53,6 +54,9 @@ class ViewFactory {
                 switch($this->tab_name) {
                     case 'tickets':
                         $the_page = new AllTicketsHome($context);
+                        break;
+                    case 'commits':
+                        $the_page = new AllCommitsHome($context);
                         break;
                 }
             }
