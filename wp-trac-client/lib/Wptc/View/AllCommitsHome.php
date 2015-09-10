@@ -24,13 +24,6 @@ class AllCommitsHome extends AllProjectsHome {
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
-  <div class="h4" id="summary">
-    <span>
-      Authors:
-      {$priority_filter}
-    </span>
-  </div>
-
   <div>
     <table class="table table-striped table-hover table-responsive" 
            id="project-items">
@@ -71,7 +64,7 @@ class AllCommitsHome extends AllProjectsHome {
       </tfoot>
       <tbody>
         <tr>
-          <td colspan="4" class="bg-info">Today</td>
+          <td colspan="3" class="bg-info h3 text-center">Loading ...</td>
         </tr>
       </tbody>
     </table>
