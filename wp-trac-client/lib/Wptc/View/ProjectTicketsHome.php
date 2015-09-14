@@ -5,12 +5,12 @@
 namespace Wptc\View;
 
 // use the parent class.
-use Wptc\View\ProjectViewBase;
+use Wptc\View\ProjectHome;
 
 /**
  * the page for project tickets main class.
  */
-class ProjectTicketsHome extends ProjectViewBase {
+class ProjectTicketsHome extends ProjectHome {
 
     /**
      * build content main for tickets list.

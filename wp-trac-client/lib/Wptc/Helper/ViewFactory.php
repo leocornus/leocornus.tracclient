@@ -67,8 +67,21 @@ class ViewFactory {
             }
             echo $the_page->renderPage();
         } else {
-            $projectHome = new ProjectHome($context);
-            echo $projectHome->renderPage();
+            if(!empty($this->tab_name)) {
+                switch($this->tab_name) {
+                    case 'tickets':
+                        $the_page = new ProjectTicketsHome($context);
+                        break;
+                    case 'commits':
+                        $the_page = new ProjectCommitsHome($context);
+                        break;
+                }
+            }
+            if(empty($the_page)){
+                // default is the all projects homepage.
+                $the_page = new ProjectHome($context);
+            }
+            echo $the_page->renderPage();
         }
     }
 

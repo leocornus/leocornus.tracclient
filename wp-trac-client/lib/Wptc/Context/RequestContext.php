@@ -15,6 +15,12 @@ class RequestContext {
      */
     public function __construct() {
 
+        // get the tab name
+        $tab_name = $this->getRequestParam('tab');
+        if(!empty($tab_name)) {
+            $this->setState('tab', $tab_name);
+        }
+
         $this->init();
     }
 

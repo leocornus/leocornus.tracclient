@@ -18,6 +18,11 @@ class ProjectRequestContext extends RequestContext {
     public function __construct() {
 
         $this->defaults['per_page'] = 10;
+        // get the tab name
+        $tab_name = $this->getRequestParam('tab');
+        if(!empty($tab_name)) {
+            $this->setState('tab', $tab_name);
+        }
         $this->init();
     }
 
