@@ -9,6 +9,7 @@ use Wptc\Context\AllProjectsRequestContext;
 use Wptc\View\AllProjectsHome;
 use Wptc\View\AllTicketsHome;
 use Wptc\View\AllCommitsHome;
+use Wptc\View\ProjectHome;
 use Wptc\View\ProjectTicketsHome;
 
 /**
@@ -66,7 +67,7 @@ class ViewFactory {
             }
             echo $the_page->renderPage();
         } else {
-            $projectHome = new ProjectTicketsHome($context);
+            $projectHome = new ProjectHome($context);
             echo $projectHome->renderPage();
         }
     }
