@@ -432,23 +432,19 @@ jQuery(function($) {
   var projectName = context.getState('project');
   var tabName = context.getState('tab');
   //console.log('Project Name: ' + projectName);
-  if(typeof projectName == 'undefined') {
-      if(typeof tabName == 'undefined') {
+  if((typeof projectName == 'undefined') &&  
+     (typeof tabName == 'undefined')) {
           // load homepage for all projects.
           loadMoreProjects();
-      } else {
-          switch(tabName) {
-          case "tickets":
-              loadMoreTickets();
-              break;
-          case "commits":
-              loadMoreCommits();
-              break;
-          }
-      }
   } else {
-    // load the homepage for a project..
-    loadMoreTickets();
+      switch(tabName) {
+      case "tickets":
+          loadMoreTickets();
+          break;
+      case "commits":
+          loadMoreCommits();
+          break;
+      }
   }
 
   $('#project-load-more').click(function(event) {

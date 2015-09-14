@@ -11,6 +11,7 @@ use Wptc\View\AllTicketsHome;
 use Wptc\View\AllCommitsHome;
 use Wptc\View\ProjectHome;
 use Wptc\View\ProjectTicketsHome;
+use Wptc\View\ProjectCommitsHome;
 
 /**
  * helper class to create request context and generate views.

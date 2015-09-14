@@ -94,7 +94,18 @@ class ProjectRequestContext extends RequestContext {
      */
     public function loadFilters() {
 
-        $this->loadTicketFilters();
+        // load filter based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $this->loadTicketFilters();
+                    break;
+                case "commits":
+                    $this->loadCommitFilters();
+                    break;
+            }
+        }
 
         $this->setState('search_term', $search_term);
 
@@ -111,7 +122,23 @@ class ProjectRequestContext extends RequestContext {
      */
     public function calculateTotal($query) {
 
-        return $this->calcTicketsTotal($query);
+        //calculate total based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $total = $this->calcTicketsTotal($query);
+                    break;
+                case "commits":
+                    $total = $this->calcCommitsTotal($query);
+                    break;
+            }
+        } else {
+            // this is project home page.
+            $total = 0;
+        }
+
+        return $total;
     }
 
     /**
@@ -119,7 +146,22 @@ class ProjectRequestContext extends RequestContext {
      */
     public function buildQuery() {
 
-        return $this->buildTicketQuery();
+        // build query based on the tab.
+        $tab_name = $this->getState('tab');
+        if(!empty($tab_name)) {
+            switch($tab_name) {
+                case "tickets":
+                    $query = $this->buildTicketQuery();
+                    break;
+                case "commits":
+                    $query = $this->buildCommitQuery();
+                    break;
+            }
+         } else {
+            $query = 'PROJECT_HOME';
+         }
+
+         return $query;
     }
 
     /**
