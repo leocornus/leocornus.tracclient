@@ -59,7 +59,7 @@ add_filter('wptc_project_view_footer',
            'project_view_footer', 10, 1);
 function project_view_footer($footer) {
 
-    // opspedia footer:
+    // demo the footer:
     $footer = <<<EOT
 <div class="well well-inverse" id="local-project-footer">
   <div class="row success">
@@ -79,4 +79,28 @@ function project_view_footer($footer) {
 EOT;
 
     return $footer;
+}
+
+/**
+ * sample function to demo the usage of filter.
+ */
+add_filter('wptc_project_repo_pathes', 'project_repo_pathes', 10, 2);
+function project_repo_pathes($pathes, $project_name) {
+
+    $project_repos = array(
+        'CoreModule' => '/usr/path/to/core/module',
+        'TrainingPlugin' => '/usr/projects/training-plugin'
+    );
+
+    $repos = [];
+    if ($project_name == null) {
+        // the root repo path.
+        $repos[] = '/usr/root/repo';
+    } else {
+        if (array_key_exists($project_name, $project_repos)) {
+            $repos[] = $project_repos[$project_name];
+        }
+    }
+
+    return $repos;
 }
