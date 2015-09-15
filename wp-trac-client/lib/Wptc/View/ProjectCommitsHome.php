@@ -29,6 +29,7 @@ class ProjectCommitsHome extends ProjectHome {
           <th class="col-md-1">Commit</th>
           <th class="NONEcol-md-7">Comment</th>
           <th class="col-md-2">Author</th>
+          <th><span class="text-warning glyphicon glyphicon-dashboard"><span></th>
         </tr>
       </thead>
       <tfoot>
@@ -36,9 +37,10 @@ class ProjectCommitsHome extends ProjectHome {
           <th>Commit</th>
           <th>Comment</th>
           <th>Author</th>
+          <th><span class="text-warning glyphicon glyphicon-dashboard"><span></th>
         </tr>
         <tr class="success">
-          <th colspan="3">
+          <th colspan="4">
   <div class="row">
     <div class="form-inline col-sm-6">
       <div class="form-group">
@@ -61,7 +63,7 @@ class ProjectCommitsHome extends ProjectHome {
       </tfoot>
       <tbody>
         <tr>
-          <td colspan="3" class="bg-info h3 text-center">Loading ...</td>
+          <td colspan="4" class="bg-info h3 text-center">Loading ...</td>
         </tr>
       </tbody>
     </table>

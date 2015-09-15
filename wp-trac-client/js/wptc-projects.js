@@ -235,8 +235,8 @@ function loadMoreCommits(scroll2Bottom) {
                // this will be the first logdate or a new date.
                // append an extra log date row.
                tbody.append('<tr id="logdate">' +
-                 '<td colspan="3" class="h5 bg-info text-muted">' + 
-                 '<span class="glyphicon glyphicon-list"></span> Commits on ' + 
+                 '<td colspan="4" class="h5 bg-info text-muted">' + 
+                 '<span class="text-primary glyphicon glyphicon-list"></span> Commits on ' + 
                  '<span>' + log['date'] + '</span></td>' +
                  '</tr>');
             }
@@ -247,6 +247,7 @@ function loadMoreCommits(scroll2Bottom) {
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
+              '<td><span class="text-warning glyphicon glyphicon-download"></span></td>' +
               //'<td id="uat-' + log['id'] + 
               //  '"><span></span></td>' +
               //'<td id="prod-' + log['id'] + 
