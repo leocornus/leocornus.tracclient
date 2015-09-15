@@ -4,6 +4,8 @@
  */
 namespace Wptc\Context;
 
+use Wptc\Helper\ProjectHelper;
+
 /**
  * this clss will provide a easy way to manage the request context
  * for the wp-trac-client.
@@ -225,7 +227,12 @@ class RequestContext {
         // set the repo path.
         $repo_path = $this->getRequestParam('repo_path');
         if (empty($repo_path)) {
-            $repo_path = "/usr/opspedia/xampp";
+            // what's the better way to fin the repository path
+            // for a project?
+            $helper = new ProjectHelper($this->getState('project'));
+            $pathes = $helper->getRepoPathes();
+            // one get the first one for now.
+            $repo_path = $pathes[0];
         }
         $this->setState('repo_path', $repo_path);
     }

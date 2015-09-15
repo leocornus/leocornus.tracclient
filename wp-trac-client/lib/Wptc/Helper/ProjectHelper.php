@@ -11,6 +11,8 @@ class ProjectHelper {
 
     /**
      * constructor.
+     * if the project name is null, we will return the 
+     * properties for root
      */
     public function __construct($project_name=null) {
 
@@ -133,5 +135,21 @@ class ProjectHelper {
         }
 
         return $total;
+    }
+
+    /**
+     * return all repo bathes for this project.
+     * one project may have more than one repositories.
+     */
+    public function getRepoPathes() {
+
+        $pathes = [];
+        // introduce the filter for user to tweak.
+        if (has_filter('wptc_project_repo_pathes')) {
+            $pathes = apply_filters('wptc_project_repo_pathes',
+                                    $pathes, $this->project_name);
+        }
+
+        return $pathes;
     }
 }

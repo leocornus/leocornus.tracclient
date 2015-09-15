@@ -60,6 +60,7 @@ EOT;
         $main_query = $this->context->buildMainQuery();
         $ids = wptc_ticket_query($main_query, 0);
         $total_tickets = count($ids);
+        $total_commits = $this->context->calcCommitsTotal('');
 
         $nav = <<<EOT
 <div id="project-nav" class="container-fluid h4">
@@ -69,7 +70,7 @@ EOT;
       <span class="badge">{$total_tickets}</span> Tickets</a>
     </li>
     <li {$commits_active}><a href="{$base_url}&tab=commits">
-      <span class="badge"></span> Commits
+      <span class="badge">{$total_commits}</span> Commits
     </a></li>
     <li class="dropdown pull-right">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">

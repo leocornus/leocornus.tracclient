@@ -15,6 +15,7 @@ namespace Wptc\View;
 class ProjectViewBase {
 
     /**
+     * request context for a view
      */
     protected $context = null;
 
