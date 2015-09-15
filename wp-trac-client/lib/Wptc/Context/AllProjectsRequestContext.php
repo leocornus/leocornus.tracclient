@@ -42,6 +42,9 @@ class AllProjectsRequestContext extends RequestContext {
         // load trac user information.
         $this->loadTracUser();
 
+        // repo path is part of metadata now.
+        $this->loadMetadata();
+
         // load filters.
         $this->loadFilters();
 
