@@ -146,23 +146,21 @@ class RequestContext {
      */
     public function loadMetadata() {
 
-        // === collect ticket and project metadata.
-        // the page slug will be the project name.
-        $version = $this->getRequestParam('version');
-        $milestone = $this->getRequestParam('milestone');
         // project name.
         $project = $this->getRequestParam('project');
-        if (!empty($version)) {
-            // get the project name
-            $project = wptc_get_project_name($version);
-        }
-        // current query.
-        $current_query = $this->getRequestParam('current_query');
-
-        $this->setState('version', $version);
-        $this->setState('milestone', $milestone);
         $this->setState('project', $project);
-        $this->setState('current_query', $current_query);
+
+        // set the repo path.
+        $repo_path = $this->getRequestParam('repo_path');
+        if (empty($repo_path)) {
+            // what's the better way to fin the repository path
+            // for a project?
+            $helper = new ProjectHelper($this->getState('project'));
+            $pathes = $helper->getRepoPathes();
+            // one get the first one for now.
+            $repo_path = $pathes[0];
+        }
+        $this->setState('repo_path', $repo_path);
     }
 
     /**
@@ -224,17 +222,6 @@ class RequestContext {
      */
     public function loadCommitFilters() {
 
-        // set the repo path.
-        $repo_path = $this->getRequestParam('repo_path');
-        if (empty($repo_path)) {
-            // what's the better way to fin the repository path
-            // for a project?
-            $helper = new ProjectHelper($this->getState('project'));
-            $pathes = $helper->getRepoPathes();
-            // one get the first one for now.
-            $repo_path = $pathes[0];
-        }
-        $this->setState('repo_path', $repo_path);
     }
 
     /**

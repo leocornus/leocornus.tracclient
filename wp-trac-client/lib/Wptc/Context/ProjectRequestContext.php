@@ -66,6 +66,9 @@ class ProjectRequestContext extends RequestContext {
      */
     public function loadMetadata() {
 
+        // call the parent method first.
+        parent::loadMetadata();
+
         // === collect ticket and project metadata.
         // the page slug will be the project name.
         $version = $this->getRequestParam('version');
