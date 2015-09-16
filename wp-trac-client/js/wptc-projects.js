@@ -247,7 +247,7 @@ function loadMoreCommits(scroll2Bottom) {
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
-              '<td><span class="text-warning glyphicon glyphicon-download"></span></td>' +
+              '<td><button class="btn btn-sm btn-warning" id="download-' + log['id'] + '"><span class="text-danger glyphicon glyphicon-download"></span></button></td>' +
               //'<td id="uat-' + log['id'] + 
               //  '"><span></span></td>' +
               //'<td id="prod-' + log['id'] + 
@@ -426,7 +426,7 @@ function projectNameValidate(thename) {
 }
 
 // add the click event on load more button.
-jQuery(function($) {
+jQuery(document).ready(function($) {
 
   // get request context.
   var context = new ProjectRequestContext();
@@ -528,5 +528,12 @@ jQuery(function($) {
       $(parentDivs[1]).addClass('has-feedback');
       //$(parentDivs[1]).addClass('has-error');
       $(parentDivs[1]).addClass('has-success');
+  });
+
+  // the download icon.
+  $('tbody').on('click', 'button[id^=download-]', function(event) {
+      // this will be the button which is clicked.
+      var commitId = this.id;
+      alert(this.id);
   });
 });
