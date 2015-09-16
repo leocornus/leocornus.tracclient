@@ -247,7 +247,7 @@ function loadMoreCommits(scroll2Bottom) {
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
-              '<td><button class="btn btn-sm btn-warning" id="download-' + log['id'] + '"><span class="text-danger glyphicon glyphicon-download"></span></button></td>' +
+              '<td><button class="btn btn-sm btn-warning" id="download-' + log['id'] + '"><span class="text-primary glyphicon glyphicon-download"></span></button></td>' +
               //'<td id="uat-' + log['id'] + 
               //  '"><span></span></td>' +
               //'<td id="prod-' + log['id'] + 
@@ -534,6 +534,26 @@ jQuery(document).ready(function($) {
   $('tbody').on('click', 'button[id^=download-]', function(event) {
       // this will be the button which is clicked.
       var commitId = this.id;
-      alert(this.id);
+      var ids = commitId.split('-');
+      var context = new ProjectRequestContext();
+      var path = context.getState('repo_path');
+      // call dowload function.
+      downloadGitArchive(path, ids[1]);
   });
 });
+
+// download commit as zip file.
+function downloadGitArchive(path, commit) {
+
+    // query data has to be a object.
+    var query_data = {};
+    query_data['action'] = 'wptc_git_archive';
+    query_data['repo_path'] = path;
+    query_data['commit_id'] = commit;
+    jQuery.post(wptc_projects.ajax_url,
+                query_data, function(resp) {
+        var res = JSON.parse(resp);
+        var url = res['download_url'];
+        alert(url);
+    });
+}

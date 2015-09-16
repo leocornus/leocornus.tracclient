@@ -388,3 +388,37 @@ function wptc_get_log_list_cb() {
     echo json_encode($response);
     exit;
 }
+
+/**
+ * wp ajax call back to handle git archive.
+ *
+ * git archive -o folder-[DATE]-[COMMIT ID].zip [COMMIT ID] folder
+ */
+add_action('wp_ajax_nopriv_wptc_git_archive',
+           'wptc_git_archive_cb');
+add_action('wp_ajax_wptc_git_archive',
+           'wptc_git_archive_cb');
+function wptc_git_archive_cb() {
+
+    // get the request context.
+    $factory = new Wptc\Helper\ContextFactory();
+    $context = $factory->createContext();
+
+    $repo_path = $context->getRequestParam('repo_path');
+    $commit_id = $context->getRequestParam('commit_id');
+
+    // get details about commit.
+    $helper = new Wptc\Helper\GitCommitHelper($repo_path, 
+                                              $commit_id);
+    $url = $helper->getDownloadFormat();
+    // get base dir of repo path
+    // cd repo path
+    // git archive to generate zip file.
+    // return the URL to download archive file.
+    $response = array(
+        'download_url' => $url
+    );
+
+    echo json_encode($response);
+    exit;
+}
