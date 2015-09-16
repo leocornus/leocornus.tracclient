@@ -554,6 +554,6 @@ function downloadGitArchive(path, commit) {
                 query_data, function(resp) {
         var res = JSON.parse(resp);
         var url = res['download_url'];
-        alert(url);
+        window.location=url;
     });
 }

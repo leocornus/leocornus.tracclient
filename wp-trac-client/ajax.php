@@ -410,13 +410,14 @@ function wptc_git_archive_cb() {
     // get details about commit.
     $helper = new Wptc\Helper\GitCommitHelper($repo_path, 
                                               $commit_id);
-    $url = $helper->getDownloadFormat();
+    $url = $helper->getArchive();
     // get base dir of repo path
     // cd repo path
     // git archive to generate zip file.
     // return the URL to download archive file.
+    // /download.php?archive=
     $response = array(
-        'download_url' => $url
+        'download_url' => "/download.php?archive={$url}"
     );
 
     echo json_encode($response);
