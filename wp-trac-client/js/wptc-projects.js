@@ -545,6 +545,11 @@ jQuery(document).ready(function($) {
 // download commit as zip file.
 function downloadGitArchive(path, commit) {
 
+    //jQuery("[id='ect-load-more']").addClass('disabled');
+    jQuery('html,body').css('cursor', 'wait');
+    jQuery('button').css('cursor', 'wait');
+    jQuery('a').css('cursor', 'wait');
+
     // query data has to be a object.
     var query_data = {};
     query_data['action'] = 'wptc_git_archive';
@@ -555,5 +560,9 @@ function downloadGitArchive(path, commit) {
         var res = JSON.parse(resp);
         var url = res['download_url'];
         window.location=url;
-    });
+        // reset cursor.
+       jQuery('html,body').css('cursor', 'default');
+       jQuery('button').css('cursor', 'default');
+       jQuery('a').css('cursor', 'default');
+   });
 }
