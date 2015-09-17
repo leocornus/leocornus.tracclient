@@ -218,24 +218,46 @@ function loadMoreCommits(scroll2Bottom) {
         }
         // append the ticket list table.
         // append to table id = project-items.
+        var projectName = context.getState('project');
         var tbody = jQuery("table[id='project-items'] > tbody:last");
         for(i = 0; i < items.length; i++) {
             var log = items[i];
-            // get the current date from the last tr[id='logdate']:last > td:last
+
+            // we need decide show download column or not!
+            // only show the download column for project page.
+            var colspan = 3;
+            var downloadTD = '';
+            if ((typeof projectName == 'undefined') ||
+                (projectName == '')) {
+                // now project name, it is in all commits page.
+                // we will using the default colspan and
+                // download TD.
+            } else {
+                colspan = 4;
+                downloadTD = 
+                  '<td><button class="btn btn-sm btn-warning" id="download-' + 
+                  log['id'] + 
+                  '"><span class="text-primary glyphicon glyphicon-download"></span></button></td>';
+            }
+
+            // get the current date from the last 
+            // tr[id='logdate']:last > td:last
             var lastLogDate = jQuery("table[id='project-items'] > tbody > tr[id='logdate']:last > td:last > span:last");
             var currentDate = null;
             if (lastLogDate != null) {
-                // get the current date
+                // get the current date. the last log date.
                 currentDate = lastLogDate.html();
             }
 
-            if ((currentDate != null) && (currentDate == log['date'])) {
+            if ((currentDate != null) && 
+                (currentDate == log['date'])) {
                 // still in the save date, do nothing!
             } else {
                // this will be the first logdate or a new date.
                // append an extra log date row.
                tbody.append('<tr id="logdate">' +
-                 '<td colspan="4" class="h5 bg-info text-muted">' + 
+                 '<td colspan="' + colspan + 
+                      '" class="h5 bg-info text-muted">' + 
                  '<span class="text-primary glyphicon glyphicon-list"></span> Commits on ' + 
                  '<span>' + log['date'] + '</span></td>' +
                  '</tr>');
@@ -247,7 +269,7 @@ function loadMoreCommits(scroll2Bottom) {
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
-              '<td><button class="btn btn-sm btn-warning" id="download-' + log['id'] + '"><span class="text-primary glyphicon glyphicon-download"></span></button></td>' +
+              downloadTD +
               //'<td id="uat-' + log['id'] + 
               //  '"><span></span></td>' +
               //'<td id="prod-' + log['id'] + 
