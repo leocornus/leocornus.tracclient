@@ -24,8 +24,128 @@ class ProjectHome extends ProjectViewBase {
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
-  <h2 class="bg-success text-center">Loading Project Home ...</h2>
-  <h3 class="bg-success text-center">Comming Soon...</h3>
+  <!--h2 class="bg-info text-center">Loading ...</h3 -->
+  <div class="row">
+    <div class="col-sm-6" id="sprint-list">
+      <!-- list of sprints, sort by date desc -->
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <span class="panel-title">Current Sprint</span>
+          <span class="pull-right">12 closed in 15 total tickets</span>
+        </div>
+        <div class="panel-body">
+panel body brief description.
+        </div> <!-- panel-body -->
+<ul class="list-group"
+    style="min-height:210; max-height:210; overflow-y: auto;"
+>
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+  <li class="list-group-item">
+    <span class="badge">2</span>
+    Dapibus ac facilisis in
+  </li>
+  <li class="list-group-item">
+    <span class="badge">1</span>
+    Morbi leo risus
+  </li>
+</ul>
+        <div class="panel-footer">
+          <span>Panel footer</span>
+        </div>
+      </div>
+
+      <!-- done sprint. -->
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <span class="panel-title">Last Closed Sprint</span>
+          <span class="pull-right">18 closed tickets</span>
+        </div>
+        <div class="panel-body">
+some brief overview.
+        </div> <!-- panel-body -->
+<ul class="list-group"
+    style="min-height:210; max-height:210; overflow-y: auto;"
+>
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+  <li class="list-group-item">
+    <span class="badge">2</span>
+    Dapibus ac facilisis in
+  </li>
+  <li class="list-group-item">
+    <span class="badge">1</span>
+    Morbi leo risus
+  </li>
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+  <li class="list-group-item">
+    <span class="badge">2</span>
+    Dapibus ac facilisis in
+  </li>
+  <li class="list-group-item">
+    <span class="badge">1</span>
+    Morbi leo risus
+  </li>
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+  <li class="list-group-item">
+    <span class="badge">2</span>
+    Dapibus ac facilisis in
+  </li>
+  <li class="list-group-item">
+    <span class="badge">1</span>
+    Morbi leo risus
+  </li>
+</ul>
+        <div class="panel-footer">
+          <span>Panel footer</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-6" id="open-tickets-list">
+      <!-- list of open tickets, sort by priority -->
+      <!-- backlog, open tickets.. -->
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <span class="panel-title">Backlog</span>
+          <span class="pull-right">34 tickets</span>
+        </div>
+        <div class="panel-body">
+list of open tickets, in backlog.
+        </div> <!-- panel-body -->
+<ul class="list-group"
+    style="min-height:550; overflow-y: auto;"
+>
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+  <li class="list-group-item">
+    <span class="badge">2</span>
+    Dapibus ac facilisis in
+  </li>
+  <li class="list-group-item">
+    <span class="badge">1</span>
+    Morbi leo risus
+  </li>
+</ul>
+        <div class="panel-footer">
+panel footer will have buttons and search
+        </div> <!-- panel-footer-->
+      </div>
+    </div>
+  </div>
 </div> <!-- project-content -->
 EOT;
 
