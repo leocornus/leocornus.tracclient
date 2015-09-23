@@ -36,25 +36,88 @@ class ProjectHome extends ProjectViewBase {
         <div class="panel-body">
 panel body brief description.
         </div> <!-- panel-body -->
-<ul class="list-group"
-    style="min-height:210; max-height:210; overflow-y: auto;"
+<div class="list-group"
+    style="min-height:210; max-height:310; overflow-y: auto;
+          overflow-x: hidden;"
 >
-  <li class="list-group-item">
-    <span class="badge">14</span>
-    Cras justo odio
-  </li>
-  <li class="list-group-item">
-    <span class="badge">2</span>
-    Dapibus ac facilisis in
-  </li>
-  <li class="list-group-item">
-    <span class="badge">1</span>
-    Morbi leo risus
-  </li>
-</ul>
-        <div class="panel-footer">
-          <span>Panel footer</span>
-        </div>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">ticket id</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-danger">blocker</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-danger">critical</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-default">minor</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-danger">blocker</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+</div>
       </div>
 
       <!-- done sprint. -->
@@ -63,49 +126,77 @@ panel body brief description.
           <span class="panel-title">Last Closed Sprint</span>
           <span class="pull-right">18 closed tickets</span>
         </div>
-        <div class="panel-body">
-some brief overview.
-        </div> <!-- panel-body -->
-<ul class="list-group"
-    style="min-height:210; max-height:210; overflow-y: auto;"
+<div class="list-group"
+    style="min-height:210; max-height:210; overflow-y: auto;
+          overflow-x: hidden;"
 >
-  <li class="list-group-item">
-    <span class="badge">14</span>
-    Cras justo odio
-  </li>
-  <li class="list-group-item">
-    <span class="badge">2</span>
-    Dapibus ac facilisis in
-  </li>
-  <li class="list-group-item">
-    <span class="badge">1</span>
-    Morbi leo risus
-  </li>
-  <li class="list-group-item">
-    <span class="badge">14</span>
-    Cras justo odio
-  </li>
-  <li class="list-group-item">
-    <span class="badge">2</span>
-    Dapibus ac facilisis in
-  </li>
-  <li class="list-group-item">
-    <span class="badge">1</span>
-    Morbi leo risus
-  </li>
-  <li class="list-group-item">
-    <span class="badge">14</span>
-    Cras justo odio
-  </li>
-  <li class="list-group-item">
-    <span class="badge">2</span>
-    Dapibus ac facilisis in
-  </li>
-  <li class="list-group-item">
-    <span class="badge">1</span>
-    Morbi leo risus
-  </li>
-</ul>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-danger">critical</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-danger">blocker</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+</div>
         <div class="panel-footer">
           <span>Panel footer</span>
         </div>
@@ -121,28 +212,127 @@ some brief overview.
           <span class="panel-title">Backlog</span>
           <span class="pull-right">34 tickets</span>
         </div>
-        <div class="panel-body">
-list of open tickets, in backlog.
+        <div class="panel-body bg-info">
+what we should put here on panel body?
+how about leave it empty?
         </div> <!-- panel-body -->
-<ul class="list-group"
-    style="min-height:550; overflow-y: auto;"
+<div class="list-group"
+    style="max-height:550; overflow-y: auto;"
 >
-  <li class="list-group-item">
-    <span class="badge">14</span>
-    Cras justo odio
-  </li>
-  <li class="list-group-item">
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item clearfix">
+    <span class="badge">1347</span>
+    Cras justo odio more summary more and more
+    Cras justo odio more summary more and more
+    <br/>
+    <div class="pull-right">
+      <span class="label label-warning">major</span>
+      <span class="label label-primary">assigned</span> to 
+      <span class="label label-info">Sean Chen</span>
+    </div>
+  </a>
+  <a href="#" class="list-group-item">
     <span class="badge">2</span>
     Dapibus ac facilisis in
-  </li>
-  <li class="list-group-item">
+  </a>
+  <a href="#" class="list-group-item">
     <span class="badge">1</span>
     Morbi leo risus
-  </li>
-</ul>
-        <div class="panel-footer">
-panel footer will have buttons and search
-        </div> <!-- panel-footer-->
+  </a>
+</div>
       </div>
     </div>
   </div>
