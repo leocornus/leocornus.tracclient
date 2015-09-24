@@ -33,13 +33,12 @@ class ProjectHome extends ProjectViewBase {
           <span class="panel-title">Current Sprint</span>
           <span class="pull-right">12 closed in 15 total tickets</span>
         </div>
-        <div class="panel-body">
-panel body brief description.
+        <div class="panel-body bg-info">
+panel-body could be located before and after list-group.
         </div> <!-- panel-body -->
-<div class="list-group"
-    style="min-height:210; max-height:310; overflow-y: auto;
-          overflow-x: hidden;"
->
+<div class="list-group">
+    <!-- style="min-height:210; max-height:310; overflow-y: auto;
+          overflow-x: hidden;" -->
   <a href="#" class="list-group-item clearfix">
     <span class="badge">ticket id</span>
     Cras justo odio more summary more and more
@@ -118,6 +117,9 @@ panel body brief description.
     </div>
   </a>
 </div>
+        <div class="panel-body bg-danger">
+panel body brief description.
+        </div> <!-- panel-body -->
       </div>
 
       <!-- done sprint. -->
@@ -126,10 +128,9 @@ panel body brief description.
           <span class="panel-title">Last Closed Sprint</span>
           <span class="pull-right">18 closed tickets</span>
         </div>
-<div class="list-group"
-    style="min-height:210; max-height:210; overflow-y: auto;
-          overflow-x: hidden;"
->
+<div class="list-group">
+    <!-- style="min-height:210; max-height:210; overflow-y: auto;
+          overflow-x: hidden;" -->
   <a href="#" class="list-group-item clearfix">
     <span class="badge">1347</span>
     Cras justo odio more summary more and more
@@ -216,9 +217,8 @@ panel body brief description.
 what we should put here on panel body?
 how about leave it empty?
         </div> <!-- panel-body -->
-<div class="list-group"
-    style="max-height:550; overflow-y: auto;"
->
+<div class="list-group">
+   <!-- style="max-height:550; overflow-y: auto;" -->
   <a href="#" class="list-group-item clearfix">
     <span class="badge">1347</span>
     Cras justo odio more summary more and more
