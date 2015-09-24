@@ -43,18 +43,21 @@ One sprint will have the follwing contents::
       <span class="panel-title">Sprint Name</span>
       <span class="pull-right">tickets summary</span>
     </div>
+    
     <!-- panel body for a sprint.-->
     <div class="panel-body">
       some brief description for this sprint,
       how about time range for this sprint?
     </div>
 
+    <!-- we could use list group directly in panel. -->
     <!-- list group with linked items for ticket list. -->
     <div class="list-group"
          style="min-height:300; max-height:350; overflow-y:auto;
                 overflow-x:hidden;"
     >
       <a href="#" class="list-group-item clearfix">
+      <!-- we need clearfix for multiple lines, the br element -->
         <span class="badge">ticket id</span>
         ticket summary more summary more and more
         Cras justo this will be long summary 
@@ -70,4 +73,40 @@ One sprint will have the follwing contents::
         </div>
       </a>
     </div>
+
+    <!-- panel body for a sprint.-->
+    <div class="panel-footer">
+      panel footer didn't inherit background color from
+      panel heading. It is also hard to change the bg color.
+    </div>
   </div>
+
+**Highlights**
+
+- using badge for ticket id, TODO: will use points in the future.
+- using label for ticket status, priority, and owner.
+- TODO: will use icon for each ticket, 
+- panel-body might used as panel footer. 
+  panel-footer is hard to change bg color and it does NOT inherit
+  background color from heading.
+- the min-height and max-height will be used to control the height
+  of a listgroup. We will not have this for first release.
+
+Example of height and scroll bar for list-group::
+
+  style="min-height:300; max-height:350; overflow-y:auto;
+         overflow-x:hidden;"
+
+JavaScript Client
+-----------------
+
+design of the js client for 
+
+wp AJAX call back
+-----------------
+
+What we need:
+
+- callback function to return available sprints.
+- query tickets by sprint (the version custom field)!
+
