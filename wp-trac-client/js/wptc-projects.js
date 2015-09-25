@@ -458,7 +458,7 @@ function loadProjectSprints() {
     var query_data = context.getStates();
     //alert(query_data['project']);
     query_data['version'] = 'BACKLOG';
-    query_data['per_page'] = 1000;
+    query_data['per_page'] = 0;
     query_data['action'] = 'wptc_query_tickets';
 
     // set cursor to waiting.
@@ -472,7 +472,8 @@ function loadProjectSprints() {
         // finteh backlog panel.
         var listgroup = jQuery("div[id='panel-backlog-list-group']");
         // set the sprint summary.
-        jQuery("span[id='panel-backlog-summary']").html(items.length);
+        var summary = items.length + " tickets";
+        jQuery("span[id='panel-backlog-summary']").html(summary);
         // ticket list group.
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];

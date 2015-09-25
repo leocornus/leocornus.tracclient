@@ -216,8 +216,7 @@ panel body brief description.
           </span>
         </div>
         <div class="panel-body bg-info">
-what we should put here on panel body?
-how about leave it empty?
+          Tickets which have not been assigned to any sprint.
         </div> <!-- panel-body -->
 <div class="list-group" id="panel-backlog-list-group">
 </div>
