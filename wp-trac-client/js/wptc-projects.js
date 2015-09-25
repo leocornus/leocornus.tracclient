@@ -453,10 +453,13 @@ function projectNameValidate(thename) {
 function loadProjectSprints() {
 
     // find all sprint panel by search pattern for id
-    // sprint-[SPRINT NAME]
-
-    // load sprint panel for each sprint.
-    loadSprintPanel('BACKLOG');
+    // sprint-[SPRINT NAME] and class is panel.
+    var sprintSelector = 'div[id^=sprint-].panel';
+    jQuery.each(jQuery(sprintSelector), function(index, panel) {
+        var sprintName = panel.id.split('sprint-')[1];
+        alert(sprintName);
+        loadSprintPanel(sprintName);
+    });
 }
 
 function loadSprintPanel(sprintName) {
