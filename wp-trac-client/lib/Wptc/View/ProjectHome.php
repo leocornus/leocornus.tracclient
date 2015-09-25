@@ -6,6 +6,7 @@ namespace Wptc\View;
 
 // use the parent class.
 use Wptc\View\ProjectViewBase;
+use Wptc\Helper\ProjectHelper;
 
 /**
  * the page for project homepage main class.
@@ -22,6 +23,21 @@ class ProjectHome extends ProjectViewBase {
         $status_checkbox = $this->buildCheckboxStatus();
         $order_select = $this->buildSelectOrder();
 
+        $project_name = $this->context->getState('project');
+        // get project running sprints.
+        $project = wptc_get_project($project_name);
+        $panels = array();
+        foreach($project['meta'] as $version) {
+            if($version['type'] == 'version') {
+                $panels[] = $this->buildSprintPanel($version['name'],
+                                                    'danger');
+            }
+            if(count($panels) > 1) {
+                break;
+            }
+        }
+
+        $sprint_panels = implode(" ", $panels);
         $backlog_panel = $this->buildSprintPanel('BACKLOG', 'primary');
 
         $content = <<<EOT
@@ -30,181 +46,7 @@ class ProjectHome extends ProjectViewBase {
   <div class="row">
     <div class="col-sm-6" id="sprint-list">
       <!-- list of sprints, sort by date desc -->
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <span class="panel-title">Current Sprint</span>
-          <span class="pull-right">12 closed in 15 total tickets</span>
-        </div>
-        <div class="panel-body bg-info">
-panel-body could be located before and after list-group.
-        </div> <!-- panel-body -->
-<div class="list-group">
-    <!-- style="min-height:210; max-height:310; overflow-y: auto;
-          overflow-x: hidden;" -->
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">ticket id</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-danger">blocker</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-danger">critical</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-default">minor</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-danger">blocker</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-</div>
-        <div class="panel-body bg-danger">
-panel body brief description.
-        </div> <!-- panel-body -->
-      </div>
-
-      <!-- done sprint. -->
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <span class="panel-title">Last Closed Sprint</span>
-          <span class="pull-right">18 closed tickets</span>
-        </div>
-<div class="list-group">
-    <!-- style="min-height:210; max-height:210; overflow-y: auto;
-          overflow-x: hidden;" -->
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-danger">critical</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-danger">blocker</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-</div>
-        <div class="panel-footer">
-          <span>Panel footer</span>
-        </div>
-      </div>
-
+      {$sprint_panels}
     </div>
 
     <div class="col-sm-6" id="backlog-column">
@@ -243,7 +85,6 @@ EOT;
 <div class="list-group" id="sprint-{$sprint_name}-list-group">
 </div>
       </div>
-    </div>
 PANEL;
 
         return $panel;
