@@ -29,8 +29,10 @@ class ProjectHome extends ProjectViewBase {
         $panels = array();
         foreach($project['meta'] as $version) {
             if($version['type'] == 'version') {
+                $desc = "Sprint due on: {$version['due_date']}";
                 $panels[] = $this->buildSprintPanel($version['name'],
-                                                    'danger');
+                                                    'danger',
+                                                    $desc);
             }
             if(count($panels) > 1) {
                 break;
@@ -38,7 +40,8 @@ class ProjectHome extends ProjectViewBase {
         }
 
         $sprint_panels = implode(" ", $panels);
-        $backlog_panel = $this->buildSprintPanel('BACKLOG', 'primary');
+        $backlog_panel = 
+            $this->buildSprintPanel('BACKLOG', 'primary');
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
@@ -65,7 +68,12 @@ EOT;
      * build the column for backlog,
      * backlog is special
      */
-    public function buildSprintPanel($sprint_name, $panel_color) {
+    public function buildSprintPanel($sprint_name, $panel_color,
+                                     $panel_desc=null) {
+
+        if($panel_desc == null) {
+            $panel_desc = "Tickets which have not been assigned to any sprint.";
+        }
 
         $panel = <<<PANEL
       <div class="panel panel-{$panel_color}" 
@@ -80,7 +88,7 @@ EOT;
         <div class="panel-body bg-info" 
              id="sprint-{$sprint_name}-body"
         >
-          Tickets which have not been assigned to any sprint.
+          {$panel_desc}
         </div> <!-- panel-body -->
 <div class="list-group" id="sprint-{$sprint_name}-list-group">
 </div>
