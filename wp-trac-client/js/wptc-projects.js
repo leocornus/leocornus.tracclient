@@ -447,6 +447,44 @@ function projectNameValidate(thename) {
     // otherwise show the success feedback.
 }
 
+/**
+ * load the sprint panel for the project homepage.
+ */
+function loadProjectSprints() {
+
+    // load the backlog first.
+    // will use the context states plus the backlog special word.
+    var context = new ProjectRequestContext();
+    var query_data = context.getStates();
+    //alert(query_data['project']);
+    query_data['version'] = 'BACKLOG';
+    query_data['per_page'] = 1000;
+    query_data['action'] = 'wptc_query_tickets';
+
+    // set cursor to waiting.
+
+    // send request.
+    jQuery.post(wptc_projects.ajax_url,
+                query_data, function(response) {
+        var res = JSON.parse(response);
+        var items = res['items'];
+        var states = res['states'];
+        // finteh backlog panel.
+        var listgroup = jQuery("div[id='panel-backlog-list-group']");
+        // set the sprint summary.
+        jQuery("span[id='panel-backlog-summary']").html(items.length);
+        // ticket list group.
+        for(i = 0; i < items.length; i++) {
+            var ticket = items[i];
+            listgroup.append('<a href="' + ticket['ticket_url'] +
+              '" class="list-group-item clearfix bg-primary">' +
+              '<span class="badge">' + ticket['id'] + '</span>' +
+              '#' + ticket['id'] + ' ' + ticket['summary'] + 
+              '</a>');
+        }
+    });
+}
+
 // add the click event on load more button.
 jQuery(document).ready(function($) {
 
@@ -460,13 +498,18 @@ jQuery(document).ready(function($) {
           // load homepage for all projects.
           loadMoreProjects();
   } else {
-      switch(tabName) {
-      case "tickets":
-          loadMoreTickets();
-          break;
-      case "commits":
-          loadMoreCommits();
-          break;
+      if ((typeof tabName) == 'undefined') {
+          // project homepage, load sprints.
+          loadProjectSprints();
+      } else {
+          switch(tabName) {
+          case "tickets":
+              loadMoreTickets();
+              break;
+          case "commits":
+              loadMoreCommits();
+              break;
+          }
       }
   }
 

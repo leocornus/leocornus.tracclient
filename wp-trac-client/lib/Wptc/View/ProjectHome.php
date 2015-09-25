@@ -205,133 +205,21 @@ panel body brief description.
 
     </div>
 
-    <div class="col-sm-6" id="open-tickets-list">
+    <div class="col-sm-6" id="backlog-column">
       <!-- list of open tickets, sort by priority -->
       <!-- backlog, open tickets.. -->
-      <div class="panel panel-primary">
+      <div class="panel panel-primary" id="panel-backlog">
         <div class="panel-heading">
           <span class="panel-title">Backlog</span>
-          <span class="pull-right">34 tickets</span>
+          <span class="pull-right" id="panel-backlog-summary"
+            34 tickets
+          </span>
         </div>
         <div class="panel-body bg-info">
 what we should put here on panel body?
 how about leave it empty?
         </div> <!-- panel-body -->
-<div class="list-group">
-   <!-- style="max-height:550; overflow-y: auto;" -->
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item clearfix">
-    <span class="badge">1347</span>
-    Cras justo odio more summary more and more
-    Cras justo odio more summary more and more
-    <br/>
-    <div class="pull-right">
-      <span class="label label-warning">major</span>
-      <span class="label label-primary">assigned</span> to 
-      <span class="label label-info">Sean Chen</span>
-    </div>
-  </a>
-  <a href="#" class="list-group-item">
-    <span class="badge">2</span>
-    Dapibus ac facilisis in
-  </a>
-  <a href="#" class="list-group-item">
-    <span class="badge">1</span>
-    Morbi leo risus
-  </a>
+<div class="list-group" id="panel-backlog-list-group">
 </div>
       </div>
     </div>
