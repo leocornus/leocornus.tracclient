@@ -233,7 +233,9 @@ class RequestContext {
         $per_page = $this->getRequestParam('per_page');
         // items per page, default is 9
         // as the projects list page is 3-column rows.
-        if(empty($per_page)) {
+        // the value 0 is considerd as empty!
+        // we need set per_page to 0 to get all result.
+        if(($per_page != 0) && empty($per_page)) {
             // set to defaultper_page to 9,
             $per_page = $this->defaults['per_page'];
         }
@@ -412,14 +414,14 @@ class RequestContext {
         // handle the version query.
         if(!empty($version)) {
             if($version == 'BACKLOG') {
-                //$v_none = array_merge($query, array('version='));
-                //$v_backlog = array_merge($query, 
-                //                         array('version=~backlog'));
-                //$v_none = implode("&", $v_none);
-                //$v_backlog = implode("&", $v_backlog);
-                $query[] = "version=";
-                //$the_query = "{$v_none}&or&{$v_backlog}";
-                $the_query = implode("&", $query);
+                $v_none = array_merge($query, array('version='));
+                $v_backlog = array_merge($query, 
+                                         array('version=~backlog'));
+                $v_none = implode("&", $v_none);
+                $v_backlog = implode("&", $v_backlog);
+                //$query[] = "version=";
+                $the_query = "{$v_none}&or&{$v_backlog}";
+                //$the_query = implode("&", $query);
             } else {
                 $query[] = "version={$version}";
                 $the_query = implode("&", $query);
