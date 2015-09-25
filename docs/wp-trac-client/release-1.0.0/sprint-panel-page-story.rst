@@ -8,9 +8,21 @@ Sprint panel page for a project will be 2 columns page.
     <div class="row">
       <div class="col-sm-6" id="sprint-list">
         <!-- list of sprints, sort by date desc -->
+        <div class="panel panel-warning" id="sprint-[SPRINT NAME]">
+          <div class="panel-headding">
+            <span class="panel-title">Sprint Name</span>
+            <span class="pull-right">tickets summary</span>
+          </div>
+        </div>
       </div>
       <div class="col-sm-6" id="open-tickets-list">
         <!-- list of open tickets, sort by priority -->
+        <div class="panel panel-primary" id="sprint-backlog">
+          <div class="panel-headding">
+            <span class="panel-title">Backlog</span>
+            <span class="pull-right">tickets summary</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -96,6 +108,16 @@ Example of height and scroll bar for list-group::
 
   style="min-height:300; max-height:350; overflow-y:auto;
          overflow-x:hidden;"
+
+Process flow
+------------
+
+simple idea about process flow:
+
+- PHP class to load current sprint, the most recent sprint.
+- 
+- backlog will have special tweak: combine tickets for
+  versions ends with backlog and tickets with no version at all.
 
 JavaScript Client
 -----------------
