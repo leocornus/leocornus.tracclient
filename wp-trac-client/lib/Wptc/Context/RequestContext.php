@@ -395,6 +395,7 @@ class RequestContext {
         // analyze the metadata
         // we will analyze the following fields: project, status
         $project_name = $this->getState('project');
+        $version = $this->getState('version');
         // the value for status will be in pattern: 
         // "new,accepted,reopened"
         $status = explode(",", $this->getState('status'));
@@ -408,6 +409,25 @@ class RequestContext {
         if(!empty($project_name)) {
             $query[] = "project={$project_name}";
         }
+        // handle the version query.
+        if(!empty($version)) {
+            if($version == 'BACKLOG') {
+                //$v_none = array_merge($query, array('version='));
+                //$v_backlog = array_merge($query, 
+                //                         array('version=~backlog'));
+                //$v_none = implode("&", $v_none);
+                //$v_backlog = implode("&", $v_backlog);
+                $query[] = "version=";
+                //$the_query = "{$v_none}&or&{$v_backlog}";
+                $the_query = implode("&", $query);
+            } else {
+                $query[] = "version={$version}";
+                $the_query = implode("&", $query);
+            }
+
+            return $the_query;
+        }
+
         // all status.
         foreach ($status as $one) {
             $query[] = "status={$one}";

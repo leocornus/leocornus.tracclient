@@ -75,10 +75,10 @@ class ProjectRequestContext extends RequestContext {
         $milestone = $this->getRequestParam('milestone');
         // project name.
         $project = $this->getRequestParam('project');
-        if (!empty($version)) {
-            // get the project name
-            $project = wptc_get_project_name($version);
-        }
+        //if (!empty($version)) {
+        //    // get the project name
+        //    $project = wptc_get_project_name($version);
+        //}
         // current query.
         $current_query = $this->getRequestParam('current_query');
 
@@ -161,7 +161,8 @@ class ProjectRequestContext extends RequestContext {
                     break;
             }
          } else {
-            $query = 'PROJECT_HOME';
+            //$query = 'PROJECT_HOME';
+            $query = $this->buildTicketQuery();
          }
 
          return $query;
