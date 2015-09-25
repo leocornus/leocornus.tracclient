@@ -494,6 +494,11 @@ function loadSprintPanel(sprintName) {
         // ticket list group.
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];
+            // find the full name of owner
+            var ownerHref = ticket['owner_href'];
+            var ownerName = 
+              ownerHref.substring(ownerHref.indexOf('>') + 1, 
+                                  ownerHref.indexOf('</a>'));
             // priority label, 
             // decide the color based on the priority
             switch(ticket['priority']) {
@@ -530,7 +535,7 @@ function loadSprintPanel(sprintName) {
               '<br/>' + 
               '<div class="pull-right">' +
               pLabel + ' ' + sLabel + ' ' + 
-              '<span class="label label-info">' + ticket['owner'] + '</span>' +
+              '<span class="label label-info">' + ownerName + '</span>' +
               '</div></a>');
         }
     });
