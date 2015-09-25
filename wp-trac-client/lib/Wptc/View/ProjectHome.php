@@ -22,6 +22,8 @@ class ProjectHome extends ProjectViewBase {
         $status_checkbox = $this->buildCheckboxStatus();
         $order_select = $this->buildSelectOrder();
 
+        $backlog_panel = $this->buildSprintPanel('BACKLOG', 'primary');
+
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
   <!--h2 class="bg-info text-center">Loading ...</h3 -->
@@ -208,25 +210,43 @@ panel body brief description.
     <div class="col-sm-6" id="backlog-column">
       <!-- list of open tickets, sort by priority -->
       <!-- backlog, open tickets.. -->
-      <div class="panel panel-primary" id="sprint-backlog">
-        <div class="panel-heading">
-          <span class="panel-title">Backlog</span>
-          <span class="pull-right" id="sprint-backlog-summary"
-            34 tickets
-          </span>
-        </div>
-        <div class="panel-body bg-info" id="sprint-backlog-body">
-          Tickets which have not been assigned to any sprint.
-        </div> <!-- panel-body -->
-<div class="list-group" id="sprint-backlog-list-group">
-</div>
-      </div>
+      {$backlog_panel}
     </div>
   </div>
 </div> <!-- project-content -->
 EOT;
 
         return $content;
+    }
+
+    /**
+     * build the column for backlog,
+     * backlog is special
+     */
+    public function buildSprintPanel($sprint_name, $panel_color) {
+
+        $panel = <<<PANEL
+      <div class="panel panel-{$panel_color}" 
+           id="sprint-{$sprint_name}"
+      >
+        <div class="panel-heading">
+          <span class="panel-title">{$sprint_name}</span>
+          <span class="pull-right" id="sprint-{$sprint_name}-summary"
+            34 tickets
+          </span>
+        </div>
+        <div class="panel-body bg-info" 
+             id="sprint-{$sprint_name}-body"
+        >
+          Tickets which have not been assigned to any sprint.
+        </div> <!-- panel-body -->
+<div class="list-group" id="sprint-{$sprint_name}-list-group">
+</div>
+      </div>
+    </div>
+PANEL;
+
+        return $panel;
     }
 
     /**
