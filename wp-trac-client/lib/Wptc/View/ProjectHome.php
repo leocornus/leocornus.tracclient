@@ -208,17 +208,17 @@ panel body brief description.
     <div class="col-sm-6" id="backlog-column">
       <!-- list of open tickets, sort by priority -->
       <!-- backlog, open tickets.. -->
-      <div class="panel panel-primary" id="panel-backlog">
+      <div class="panel panel-primary" id="sprint-backlog">
         <div class="panel-heading">
           <span class="panel-title">Backlog</span>
-          <span class="pull-right" id="panel-backlog-summary"
+          <span class="pull-right" id="sprint-backlog-summary"
             34 tickets
           </span>
         </div>
-        <div class="panel-body bg-info">
+        <div class="panel-body bg-info" id="sprint-backlog-body">
           Tickets which have not been assigned to any sprint.
         </div> <!-- panel-body -->
-<div class="list-group" id="panel-backlog-list-group">
+<div class="list-group" id="sprint-backlog-list-group">
 </div>
       </div>
     </div>

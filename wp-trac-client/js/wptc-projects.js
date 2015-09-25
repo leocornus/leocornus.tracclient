@@ -470,10 +470,10 @@ function loadProjectSprints() {
         var items = res['items'];
         var states = res['states'];
         // finteh backlog panel.
-        var listgroup = jQuery("div[id='panel-backlog-list-group']");
+        var listgroup = jQuery("div[id='sprint-backlog-list-group']");
         // set the sprint summary.
         var summary = items.length + " tickets";
-        jQuery("span[id='panel-backlog-summary']").html(summary);
+        jQuery("span[id='sprint-backlog-summary']").html(summary);
         // ticket list group.
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];
