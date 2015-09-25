@@ -476,11 +476,44 @@ function loadProjectSprints() {
         // ticket list group.
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];
+            // priority label, 
+            // decide the color based on the priority
+            switch(ticket['priority']) {
+            case 'blocker':
+            case 'critical':
+                labelColor = 'label-danger';
+                break;
+            case 'major':
+                labelColor = 'label-warning';
+                break;
+            case 'minor':
+            case 'trivial':
+                labelColor = 'label-default';
+                break;
+            default: // minor and trival
+                ticket['priority'] = 'NONE';
+                labelColor = 'label-default';
+                break;
+            }
+            var pLabel = '<span class="label ' + labelColor +
+                '">' + ticket['priority'] + '</span>';
+            // status label
+            if (ticket['status'] == 'closed') {
+                labelColor = 'label-success';
+            } else {
+                labelColor = 'label-primary';
+            }
+            var sLabel = '<span class="label ' + labelColor +
+                '">' + ticket['status'] + '</span>';
             listgroup.append('<a href="' + ticket['ticket_url'] +
               '" class="list-group-item clearfix bg-primary">' +
               '<span class="badge">' + ticket['id'] + '</span>' +
               '#' + ticket['id'] + ' ' + ticket['summary'] + 
-              '</a>');
+              '<br/>' + 
+              '<div class="pull-right">' +
+              pLabel + ' ' + sLabel + ' ' + 
+              '<span class="label label-info">' + ticket['owner'] + '</span>' +
+              '</div></a>');
         }
     });
 }
