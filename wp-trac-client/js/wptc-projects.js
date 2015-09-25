@@ -452,14 +452,25 @@ function projectNameValidate(thename) {
  */
 function loadProjectSprints() {
 
+    // find all sprint panel by search pattern for id
+    // sprint-[SPRINT NAME]
+
+    // load sprint panel for each sprint.
+    loadSprintPanel('BACKLOG');
+}
+
+function loadSprintPanel(sprintName) {
+
     // load the backlog first.
     // will use the context states plus the backlog special word.
     var context = new ProjectRequestContext();
     var query_data = context.getStates();
     //alert(query_data['project']);
-    query_data['version'] = 'BACKLOG';
     query_data['per_page'] = 0;
     query_data['action'] = 'wptc_query_tickets';
+
+    // decide the version, sprint name will be the version,
+    query_data['version'] = sprintName;
 
     // set cursor to waiting.
 
@@ -470,10 +481,13 @@ function loadProjectSprints() {
         var items = res['items'];
         var states = res['states'];
         // finteh backlog panel.
-        var listgroup = jQuery("div[id='sprint-backlog-list-group']");
+        var selectId = "div[id='sprint-" + sprintName + 
+                            "-list-group']";
+        var listgroup = jQuery(selectId);
         // set the sprint summary.
         var summary = items.length + " tickets";
-        jQuery("span[id='sprint-backlog-summary']").html(summary);
+        selectId = "span[id='sprint-" + sprintName + "-summary']"
+        jQuery(selectId).html(summary);
         // ticket list group.
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];
