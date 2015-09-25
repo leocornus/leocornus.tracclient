@@ -235,7 +235,9 @@ class RequestContext {
         // as the projects list page is 3-column rows.
         // the value 0 is considerd as empty!
         // we need set per_page to 0 to get all result.
-        if(($per_page != 0) && empty($per_page)) {
+        if($per_page < 0) {
+            $per_page = 0;
+        } else if(empty($per_page)) {
             // set to defaultper_page to 9,
             $per_page = $this->defaults['per_page'];
         }

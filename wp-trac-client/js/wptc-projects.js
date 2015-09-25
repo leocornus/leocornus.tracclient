@@ -457,7 +457,7 @@ function loadProjectSprints() {
     var sprintSelector = 'div[id^=sprint-].panel';
     jQuery.each(jQuery(sprintSelector), function(index, panel) {
         var sprintName = panel.id.split('sprint-')[1];
-        alert(sprintName);
+        //alert(sprintName);
         loadSprintPanel(sprintName);
     });
 }
@@ -469,7 +469,7 @@ function loadSprintPanel(sprintName) {
     var context = new ProjectRequestContext();
     var query_data = context.getStates();
     //alert(query_data['project']);
-    query_data['per_page'] = 0;
+    query_data['per_page'] = -1;
     query_data['action'] = 'wptc_query_tickets';
 
     // decide the version, sprint name will be the version,
