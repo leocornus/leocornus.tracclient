@@ -76,7 +76,8 @@ EOT;
 
         //$status_checkbox = $this->buildCheckboxStatus();
         $status_checkbox = <<<CHECK
-<a href="#" class="btn btn-xs btn-success" id="sprint-status-closed"
+<a href="#" class="btn btn-xs btn-success" 
+   id="sprint-{$sprint_name}-status-closed"
    data-toggle="tooltip" title="Show/Hide Closed Tickets"
 >
   <span class="glyphicon glyphicon-unchecked"></span> closed
