@@ -108,6 +108,9 @@ class ProjectRequestContext extends RequestContext {
                     $this->loadCommitFilters();
                     break;
             }
+        } else {
+            // load filter fir the project home page.
+            $this->loadTicketFilters();
         }
 
         $this->setState('search_term', $search_term);
@@ -162,6 +165,7 @@ class ProjectRequestContext extends RequestContext {
             }
          } else {
             //$query = 'PROJECT_HOME';
+            // this is for the project home page.
             $query = $this->buildTicketQuery();
          }
 

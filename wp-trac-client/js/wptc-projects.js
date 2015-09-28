@@ -470,8 +470,8 @@ function loadSprintPanel(sprintName) {
     var query_data = context.getStates();
     //alert(query_data['project']);
     query_data['per_page'] = -1;
+    // this will be one time query.
     query_data['action'] = 'wptc_query_tickets';
-
     // decide the version, sprint name will be the version,
     query_data['version'] = sprintName;
 
@@ -483,6 +483,7 @@ function loadSprintPanel(sprintName) {
         var res = JSON.parse(response);
         var items = res['items'];
         var states = res['states'];
+        //console.log(states);
         // finteh backlog panel.
         var selectId = "div[id='sprint-" + sprintName + 
                             "-list-group']";
