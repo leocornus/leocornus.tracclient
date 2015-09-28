@@ -20,7 +20,6 @@ class ProjectHome extends ProjectViewBase {
 
         // build the filter for priority.
         $priority_filter = $this->buildFilterPriority();
-        $status_checkbox = $this->buildCheckboxStatus();
         $order_select = $this->buildSelectOrder();
 
         $project_name = $this->context->getState('project');
@@ -75,6 +74,13 @@ EOT;
             $panel_desc = "Tickets which have not been assigned to any sprint.";
         }
 
+        //$status_checkbox = $this->buildCheckboxStatus();
+        $status_checkbox = <<<CHECK
+<a href="#" class="btn btn-xs btn-success" id="sprint-status-closed">
+  <span class="glyphicon glyphicon-unchecked"></span> closed
+</a>
+CHECK;
+
         $panel = <<<PANEL
       <div class="panel panel-{$panel_color}" 
            id="sprint-{$sprint_name}"
@@ -89,6 +95,7 @@ EOT;
              id="sprint-{$sprint_name}-body"
         >
           {$panel_desc}
+          <span class="pull-right">{$status_checkbox}</span>
         </div> <!-- panel-body -->
 <div class="list-group" id="sprint-{$sprint_name}-list-group">
 </div>
