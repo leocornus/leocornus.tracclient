@@ -697,7 +697,9 @@ jQuery(document).ready(function($) {
 
       // reload the list-group again.
       // clean the list group
-      jQuery('#sprint-' + sprintName + '-list-group').html('');
+      var selector = 'div[id="sprint-' + sprintName + 
+                     '-list-group"]';
+      jQuery(selector).html('');
       // load again.
       loadSprintPanel(sprintName);
   });
