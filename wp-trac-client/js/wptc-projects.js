@@ -97,6 +97,7 @@ function toggleFilter(filter, type) {
       });
       // update cookie state "status"
       var context = new ProjectRequestContext();
+      // the default separator for join method is ','
       context.setState(type, newFilters.join());
 }
 
@@ -661,6 +662,44 @@ jQuery(document).ready(function($) {
       var path = context.getState('repo_path');
       // call dowload function.
       downloadGitArchive(path, ids[1]);
+  });
+
+  // list group sprint panel list group click.
+  $('div.panel').on('click', 'a[id$=status-closed]', 
+                    function(event) {
+      //alert(this.id);
+      // find the sprint name.
+      var sprintName = 
+          this.id.substring(this.id.indexOf('sprint-') + 7, 
+                            this.id.indexOf('-status-closed'));
+      console.log('Spring Name: ' + sprintName);
+      // toggle the check and uncheck icon.
+      var icon = jQuery(this).children('span');
+      if(icon.hasClass("glyphicon-check")) {
+          icon.removeClass("glyphicon-check");
+          icon.addClass("glyphicon-unchecked");
+      } else if(icon.hasClass("glyphicon-unchecked")) {
+          icon.removeClass("glyphicon-unchecked");
+          icon.addClass("glyphicon-check");
+      }
+      // check the status of check and uncheck.
+      console.log(icon.hasClass("glyphicon-check"));
+      var context = new ProjectRequestContext();
+
+      if(icon.hasClass('glyphicon-check')) {
+          // show closed tickets.
+          context.setState('status', 
+                           'accepted,assigned,closed,new,reopened');
+      } else {
+          context.setState('status',
+                           'accepted,assigned,new,reopened');
+      }
+
+      // reload the list-group again.
+      // clean the list group
+      jQuery('#sprint-' + sprintName + '-list-group').html('');
+      // load again.
+      loadSprintPanel(sprintName);
   });
 });
 
