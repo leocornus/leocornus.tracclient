@@ -32,6 +32,9 @@ Left column will be a list of tickets / stories,
 which don't assign to any sprint.
 Tickets will be sorted by priority.
 
+.. contents:: Table of Contents
+  :depth: 5
+
 Simple Rules
 ------------
 
@@ -108,6 +111,33 @@ Example of height and scroll bar for list-group::
 
   style="min-height:300; max-height:350; overflow-y:auto;
          overflow-x:hidden;"
+
+Query for backlog
+-----------------
+
+the criterial for backlog will be either version is empty or
+version ends with backlog.
+
+here is one of the proposal::
+
+  // handle the version query.
+  if(!empty($version)) {
+      if($version == 'BACKLOG') {
+          $v_none = array_merge($query, array('version='));
+          $v_backlog = array_merge($query, 
+                                   array('version=~backlog'));
+          $v_none = implode("&", $v_none);
+          $v_backlog = implode("&", $v_backlog);
+          //$query[] = "version=";
+          $the_query = "{$v_none}&or&{$v_backlog}";
+          //$the_query = implode("&", $query);
+      } else {
+          $query[] = "version={$version}";
+          $the_query = implode("&", $query);
+      }
+
+      return $the_query;
+  }
 
 Process flow
 ------------
