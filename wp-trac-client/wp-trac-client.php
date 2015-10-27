@@ -105,6 +105,8 @@ function register_resources() {
     // jquery ui dialog style seens not automatically loaded.
     wp_register_style('jquery-ui',
                       'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+    wp_register_style('jquery-ui-bootstrap',
+                       plugins_url('wp-trac-client/css/jquery.ui.theme.css'));
     // js lib for jQuery masonry.
     wp_register_script('jquery-masonry',
                        plugins_url('wp-trac-client/js/jquery.masonry.min.js'),

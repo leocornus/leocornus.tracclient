@@ -114,9 +114,13 @@ function wptc_enqueue_project_resources() {
 
     wp_enqueue_style('wptc-bootstrap');
     wp_enqueue_style('wptc-bootstrap-theme');
+    wp_enqueue_style('jquery-ui-bootstrap');
+
     wp_enqueue_script('wptc-bootstrap-js');
     wp_enqueue_script('jquery-cookie');
     wp_enqueue_script('wptc-projects');
+    // enqueue jquery ui autocomplete, registered by WordPress core.
+    wp_enqueue_script('jquery-ui-autocomplete');
     // set up global variables for wptc-projects.
     wp_localize_script('wptc-projects', 'wptc_projects', 
                        array(
