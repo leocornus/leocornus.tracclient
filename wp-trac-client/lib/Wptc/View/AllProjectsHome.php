@@ -161,7 +161,7 @@ EOT;
 
         $modals = <<<MODAL
 <div id="newProject" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog" id="projectDialog">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -192,8 +192,9 @@ EOT;
       <label for="inputOwners" class="col-lg-4 control-label">
         Project Owners
       </label>
-      <div class="col-lg-8">
-        <input type="text" class="form-control" id="inputOwners" placeholder="set project owners">
+      <div class="col-lg-8" id="owners-col">
+        <input type="text" class="form-control" id="inputOwners" 
+               name="inputOwners" placeholder="set project owners">
         <span class="help-block">Multiple owners are separated by ','</span>
       </div>
     </div>

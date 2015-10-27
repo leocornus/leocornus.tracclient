@@ -703,6 +703,9 @@ jQuery(document).ready(function($) {
       // load again.
       loadSprintPanel(sprintName);
   });
+
+  // hook the auto complete.
+  jQuery('#inputOwners').autocomplete(ownerAcData);
 });
 
 // download commit as zip file.
@@ -729,3 +732,50 @@ function downloadGitArchive(path, commit) {
        jQuery('a').css('cursor', 'default');
    });
 }
+
+/**
+ * ============================================
+ * get ready the multi-value auto complete for project owner.
+ */
+
+// utility function to extract last value from the given string.
+function extractLast(term) {
+
+    return term.split(/,\s*/).pop();
+} 
+
+// preparing the user name auto complete action data.
+var ownerAcData = {
+    source: function(request, response) {
+        jQuery.getJSON(wptc_projects.ajax_url + '?callback=?&action='
+                       + 'wptc_username_autocomplete',
+                       // only search the last term.
+                       {term: request.term.split(/,\s*/).pop()}, 
+                       response);
+    },
+    select: function(event, ui) {
+        // get ready an array for the terms.
+        var terms = this.value.split(/,\s*/);
+        // pop out the last one.
+        terms.pop(); 
+        // adding the select one from the suggestion list.
+        terms.push(ui.item.value);
+        // adding the empty string to get ready next search.
+        terms.push("");
+        // reset the value for input field.
+        this.value = terms.join(", ");
+        return false;
+    },
+    search: function() {
+        // pop the last item to calculate the length.
+        var term = this.value.split(/,\s*/).pop();
+        if(term.length < 2) {
+            // skip search.
+            return false;
+        }
+    },
+    focus: function() {
+        return false;
+    },
+    appendTo: '#owners-col'
+};
