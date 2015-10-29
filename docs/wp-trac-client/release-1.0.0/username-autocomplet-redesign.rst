@@ -19,11 +19,13 @@ we have the user name auto complete on
 Using the jquery-ui-bootstrap
 -----------------------------
 
-the jquery-ui-bootstrap will be used for the jquery ui suggestion
+the `jquery-ui-bootstrap <http://jquery-ui-bootstrap.github.io/jquery-ui-bootstrap>`_ will be used for the jquery ui suggestion
 box.
 
 Multi values support
 --------------------
+
+Basically adding customization around the input values.
 
 jQuery UI autocomplete does not support multiple values by default.
 We need customize source, select, and search options to support 
@@ -36,8 +38,19 @@ The **appendTo** option will attach the suggestion box to the
 parent element.
 The suggestion box will be tailored to fit in th parent element.
 
+Turn on/off the loading icon
+----------------------------
+
+to turn on/off the loading icon for autocomplete::
+
+
+  /* auto complete loading */
+  .ui-autocomplete-loading {
+    background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+
 Use cases
 ---------
 
 - project owners will be multi value auto complete.
-- 
+-  
