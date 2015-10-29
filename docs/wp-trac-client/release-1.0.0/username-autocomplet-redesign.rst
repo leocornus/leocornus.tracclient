@@ -31,6 +31,9 @@ jQuery UI autocomplete does not support multiple values by default.
 We need customize source, select, and search options to support 
 multi-values capability.
 
+we could use **textarea** instead of **input** for an autocomplete
+field.
+
 How to work with modal (dialog)
 -------------------------------
 
