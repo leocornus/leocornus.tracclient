@@ -781,6 +781,11 @@
 	cursor: default;
 }
 
+/* auto complete loading */
+.ui-autocomplete-loading {
+  background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
 
 /*
  * jQuery UI Button 1.10.3
