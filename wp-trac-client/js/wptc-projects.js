@@ -705,7 +705,7 @@ jQuery(document).ready(function($) {
   });
 
   // hook the auto complete.
-  jQuery('#inputOwners').autocomplete(ownerAcData);
+  jQuery('#projectOwners').autocomplete(ownerAcData);
 });
 
 // download commit as zip file.

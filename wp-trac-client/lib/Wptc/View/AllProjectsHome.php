@@ -193,8 +193,8 @@ EOT;
         Project Owners
       </label>
       <div class="col-lg-8" id="owners-col">
-        <input type="text" class="form-control" id="inputOwners" 
-               name="inputOwners" placeholder="set project owners">
+        <textarea class="form-control" id="projectOwners" rows="2"
+                placeholder="set project owners"></textarea>
         <span class="help-block">Find user by typing user's full name or login name.</span>
       </div>
     </div>
