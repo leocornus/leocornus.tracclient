@@ -138,12 +138,16 @@ function loadMoreTickets(scroll2Bottom) {
         // append the ticket list table.
         for(i = 0; i < items.length; i++) {
             var log = items[i];
+            // get the icon for this ticket.
+            var itemIcon = buildTypeIcon(log['type']);
+
             // append to table id = project-items.
             var last = jQuery("table[id='project-items'] > tbody:last");
             last.append('<tr id="ticket">' +
               '<td><a href="' + log['ticket_url'] + '">' + 
               log['id'] + "</a></td>" +
               '<td><a href="' + log['ticket_url'] + '">' + 
+              itemIcon + ' ' +
               log['summary'] + "</a></td>" +
               '<td>' + log['owner_href'] + '</td>' +
               '<td>' + log['priority'] + '</td>' +
