@@ -146,6 +146,11 @@ function register_resources() {
         plugins_url('wp-trac-client/js/bootstrap.js'),
         array('jquery'), '3.3.5');
 
+    // font-awesome framework.
+    wp_register_style('wptc-font-awesome',
+        plugins_url('wp-trac-client/css/font-awesome/css/font-awesome.css'),
+        array(), '4.4.0');
+
     // resources for jquery.cookie
     wp_register_script('jquery-cookie',
         plugins_url('wp-trac-client/js/jquery.cookie.js'),

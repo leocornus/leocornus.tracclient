@@ -115,6 +115,7 @@ function wptc_enqueue_project_resources() {
     wp_enqueue_style('wptc-bootstrap');
     wp_enqueue_style('wptc-bootstrap-theme');
     wp_enqueue_style('jquery-ui-bootstrap');
+    wp_enqueue_style('wptc-font-awesome');
 
     wp_enqueue_script('wptc-bootstrap-js');
     wp_enqueue_script('jquery-cookie');
