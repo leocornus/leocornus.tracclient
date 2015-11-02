@@ -570,7 +570,7 @@ function buildTypeIcon(type) {
             iconClass = 'fa-object-group text-success';
             break;
         default:
-            iconClass = 'fa-list-alt text-primary';
+            iconClass = 'fa-list text-primary';
             break;
     }
     var itemIcon = '<i class="fa ' + iconClass + '"></i>';
