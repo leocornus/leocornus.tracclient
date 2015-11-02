@@ -156,9 +156,14 @@ jQuery(document).ready(function() {
   <canvas height="210" width="500" style="display: none;"></canvas>
   <input type="button" id="save" value="save"/>
   <input type="button" id="saveText" value="save text"/>
+  <input type="button" id="saveTextLocal" value="save text desktop"/>
 
 <script type="text/javascript">
 jQuery(document).ready(function($) { 
+  $("#saveTextLocal").on("click", function() {
+      window.location = '/download.php';
+  });
+
   $("#saveText").on("click", function() {
 
     var data = "{'name':'first name', 'age':'12', 'again':'more content'}";

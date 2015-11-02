@@ -463,6 +463,7 @@ function loadProjectSprints() {
     });
 }
 
+// function the build the sprint panel.
 function loadSprintPanel(sprintName) {
 
     // load the backlog first.
@@ -503,20 +504,7 @@ function loadSprintPanel(sprintName) {
                                   ownerHref.indexOf('</a>'));
 
             // decide the icon based on the type.
-            var iconClass = '';
-            switch(ticket['type']) {
-                case 'defect':
-                case 'bug':
-                    iconClass = 'fa-bug text-danger';
-                    break;
-                case 'story':
-                    iconClass = 'fa-object-group text-success';
-                    break;
-                default:
-                    iconClass = 'fa-list-alt text-primary';
-                    break;
-            }
-            var itemIcon = '<i class="fa ' + iconClass + '"></i>';
+            var itemIcon = buildTypeIcon(ticket['type']);
 
             // priority label, 
             // decide the color based on the priority
@@ -562,6 +550,27 @@ function loadSprintPanel(sprintName) {
               '</div></a>');
         }
     });
+}
+
+// utility function to build font-awesome icon from a ticket.
+function buildTypeIcon(type) {
+
+    // decide the icon based on the type.
+    var iconClass = '';
+    switch(type) {
+        case 'defect':
+        case 'bug':
+            iconClass = 'fa-bug text-danger';
+            break;
+        case 'story':
+            iconClass = 'fa-object-group text-success';
+            break;
+        default:
+            iconClass = 'fa-list-alt text-primary';
+            break;
+    }
+    var itemIcon = '<i class="fa ' + iconClass + '"></i>';
+    return itemIcon;
 }
 
 // add the click event on load more button.

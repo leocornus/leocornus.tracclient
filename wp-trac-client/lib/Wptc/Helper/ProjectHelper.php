@@ -152,4 +152,14 @@ class ProjectHelper {
 
         return $pathes;
     }
+
+    /**
+     * return sprints for this project
+     */
+    public function getSprints() {
+
+        $project = wptc_get_project($this->project_name);
+        $meta = $project['meta'];
+        return $meta;
+    }
 }
