@@ -501,6 +501,23 @@ function loadSprintPanel(sprintName) {
             var ownerName = 
               ownerHref.substring(ownerHref.indexOf('>') + 1, 
                                   ownerHref.indexOf('</a>'));
+
+            // decide the icon based on the type.
+            var iconClass = '';
+            switch(ticket['type']) {
+                case 'defect':
+                case 'bug':
+                    iconClass = 'fa-bug text-danger';
+                    break;
+                case 'story':
+                    iconClass = 'fa-object-group text-success';
+                    break;
+                default:
+                    iconClass = 'fa-list-alt text-primary';
+                    break;
+            }
+            var itemIcon = '<i class="fa ' + iconClass + '"></i>';
+
             // priority label, 
             // decide the color based on the priority
             switch(ticket['priority']) {
@@ -520,8 +537,10 @@ function loadSprintPanel(sprintName) {
                 labelColor = 'label-default';
                 break;
             }
-            var pLabel = '<span class="label ' + labelColor +
-                '">' + ticket['priority'] + '</span>';
+            var pLabel = '<span class="label ' + labelColor + '">' + 
+                //itemIcon + ' ' + 
+                ticket['priority'] + '</span>';
+
             // status label
             if (ticket['status'] == 'closed') {
                 labelColor = 'label-success';
@@ -530,11 +549,13 @@ function loadSprintPanel(sprintName) {
             }
             var sLabel = '<span class="label ' + labelColor +
                 '">' + ticket['status'] + '</span>';
+
             listgroup.append('<a href="' + ticket['ticket_url'] +
               '" class="list-group-item clearfix bg-primary">' +
               '<span class="badge">' + ticket['id'] + '</span>' +
-              '#' + ticket['id'] + ' ' + ticket['summary'] + 
-              '<br/>' + 
+              itemIcon + ' ' +
+              '<strong>#' + ticket['id'] + '</strong> ' + 
+              ticket['summary'] + '<br/>' + 
               '<div class="pull-right">' +
               pLabel + ' ' + sLabel + ' ' + 
               '<span class="label label-info">' + ownerName + '</span>' +
