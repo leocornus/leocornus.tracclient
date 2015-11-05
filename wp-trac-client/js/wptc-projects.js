@@ -738,8 +738,12 @@ jQuery(document).ready(function($) {
       loadSprintPanel(sprintName);
   });
 
-  // hook the auto complete.
+  //===============================================
+  //===============================================
+  // hook the auto complete for project owner field..
   jQuery('#projectOwners').autocomplete(ownerAcData);
+
+  // 
 });
 
 // download commit as zip file.
