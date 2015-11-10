@@ -240,9 +240,11 @@ function loadMoreCommits(scroll2Bottom) {
             } else {
                 colspan = 4;
                 downloadTD = 
-                  '<td><button class="btn btn-sm btn-warning" id="download-' + 
-                  log['id'] + 
-                  '"><span class="text-primary glyphicon glyphicon-download"></span></button></td>';
+                  '<td><button class="btn btn-sm btn-warning"' +
+                  ' id="download-' + log['id'] + 
+                  '"><span class="text-primary">' + 
+                  '<i class="fa fa-download"></i>' + 
+                  '</span></button></td>';
             }
 
             // get the current date from the last 
