@@ -102,6 +102,7 @@ class ProjectRequestContext extends RequestContext {
         if(!empty($tab_name)) {
             switch($tab_name) {
                 case "tickets":
+                case "sprints":
                     $this->loadTicketFilters();
                     break;
                 case "commits":
@@ -157,6 +158,7 @@ class ProjectRequestContext extends RequestContext {
         if(!empty($tab_name)) {
             switch($tab_name) {
                 case "tickets":
+                case "sprints":
                     $query = $this->buildTicketQuery();
                     break;
                 case "commits":

@@ -10,6 +10,7 @@ use Wptc\View\AllProjectsHome;
 use Wptc\View\AllTicketsHome;
 use Wptc\View\AllCommitsHome;
 use Wptc\View\ProjectHome;
+use Wptc\View\ProjectSprintsHome;
 use Wptc\View\ProjectTicketsHome;
 use Wptc\View\ProjectCommitsHome;
 
@@ -70,6 +71,9 @@ class ViewFactory {
         } else {
             if(!empty($this->tab_name)) {
                 switch($this->tab_name) {
+                    case 'sprints':
+                        $the_page = new ProjectSprintsHome($context);
+                        break;
                     case 'tickets':
                         $the_page = new ProjectTicketsHome($context);
                         break;

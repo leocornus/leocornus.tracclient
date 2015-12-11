@@ -482,6 +482,7 @@ function loadSprintPanel(sprintName) {
     query_data['action'] = 'wptc_query_tickets';
     // decide the version, sprint name will be the version,
     query_data['version'] = sprintName;
+    //alert(sprintName);
 
     // set cursor to waiting.
 
@@ -594,9 +595,12 @@ jQuery(document).ready(function($) {
   } else {
       if ((typeof tabName) == 'undefined') {
           // project homepage, load sprints.
-          loadProjectSprints();
+          //loadProjectKanban();
       } else {
           switch(tabName) {
+          case "sprints":
+              loadProjectSprints();
+              break;
           case "tickets":
               loadMoreTickets();
               break;
