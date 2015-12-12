@@ -33,15 +33,15 @@ class ProjectHome extends ProjectViewBase {
 <div id="project-content" class="container-fluid">
   <!--h2 class="bg-info text-center">Loading ...</h3 -->
   <div class="row">
-    <div class="col-sm-4" id="kanban-todo">
+    <div class="col-sm-4" id="col-todo">
       {$todo_panel}
     </div>
 
-    <div class="col-sm-4" id="kanban-doing">
+    <div class="col-sm-4" id="col-doing">
       {$doing_panel}
     </div>
 
-    <div class="col-sm-4" id="kanban-done">
+    <div class="col-sm-4" id="col-done">
       <!-- list of open tickets, sort by priority -->
       <!-- backlog, open tickets.. -->
       {$done_panel}

@@ -559,6 +559,104 @@ function loadSprintPanel(sprintName) {
     });
 }
 
+// load project kanban chart.
+function loadProjectKanban() {
+
+    // find all 3 kanban columns.
+    var kanbanSelector = 'div[id^=kanban-].panel';
+    jQuery.each(jQuery(kanbanSelector), function(index, panel) {
+        var kanbanName = panel.id.split('kanban-')[1];
+        loadKanbanPanel(kanbanName);
+    });
+}
+
+// build kanban panel.
+// name should be one of TODO, DOING, DONE
+function loadKanbanPanel(kanbanName) {
+
+    var context = new ProjectRequestContext();
+    var query_data = context.getStates();
+    // will set limit for DONE kanban
+    query_data['per_page'] = -1;
+    query_data['action'] = 'wptc_query_tickets';
+    // status will depend on kanban name.
+    switch(kanbanName) {
+    case 'TODO':
+        query_data['status'] = 'new,reopened';
+        break;
+    case 'DOING':
+        query_data['status'] = 'accepted,assigned';
+        break;
+    case 'DONE':
+        query_data['status'] = 'closed';
+        break;
+    }
+    var selectId = "div[id='kanban-" + kanbanName + 
+                        "-list-group']";
+    var listgroup = jQuery(selectId);
+    
+    jQuery.post(wptc_projects.ajax_url,
+                query_data, function(response) {
+        var res = JSON.parse(response);
+        var items = res['items'];
+        var states = res['states'];
+        for(i = 0; i < items.length; i++) {
+            var ticket = items[i];
+            // find the full name of owner
+            var ownerHref = ticket['owner_href'];
+            var ownerName = 
+              ownerHref.substring(ownerHref.indexOf('>') + 1, 
+                                  ownerHref.indexOf('</a>'));
+
+            // decide the icon based on the type.
+            var itemIcon = buildTypeIcon(ticket['type']);
+
+            // priority label, 
+            // decide the color based on the priority
+            switch(ticket['priority']) {
+            case 'blocker':
+            case 'critical':
+                labelColor = 'label-danger';
+                break;
+            case 'major':
+                labelColor = 'label-warning';
+                break;
+            case 'minor':
+            case 'trivial':
+                labelColor = 'label-default';
+                break;
+            default: // minor and trival
+                ticket['priority'] = 'NONE';
+                labelColor = 'label-default';
+                break;
+            }
+            var pLabel = '<span class="label ' + labelColor + '">' + 
+                //itemIcon + ' ' + 
+                ticket['priority'] + '</span>';
+
+            // status label
+            if (ticket['status'] == 'closed') {
+                labelColor = 'label-success';
+            } else {
+                labelColor = 'label-primary';
+            }
+            var sLabel = '<span class="label ' + labelColor +
+                '">' + ticket['status'] + '</span>';
+
+            listgroup.append('<a href="' + ticket['ticket_url'] +
+              '" class="list-group-item clearfix bg-primary">' +
+              '<span class="badge">' + ticket['id'] + '</span>' +
+              itemIcon + ' ' +
+              '<strong>#' + ticket['id'] + '</strong> ' + 
+              ticket['summary'] + '<br/>' + 
+              '<div class="pull-right">' +
+              pLabel + ' ' + sLabel + ' ' + 
+              '<span class="label label-info">' + ownerName + '</span>' +
+              '</div></a>');
+        }
+    });
+}
+
 // utility function to build font-awesome icon from a ticket.
 function buildTypeIcon(type) {
 
@@ -595,7 +693,7 @@ jQuery(document).ready(function($) {
   } else {
       if ((typeof tabName) == 'undefined') {
           // project homepage, load sprints.
-          //loadProjectKanban();
+          loadProjectKanban();
       } else {
           switch(tabName) {
           case "sprints":
