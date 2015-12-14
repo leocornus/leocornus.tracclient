@@ -75,7 +75,7 @@ EOT;
   <span class="glyphicon glyphicon-unchecked"></span> closed
 </a>
 CHECK;
-
+        // <i class="fa fa-chevron-left fa-border"></i><i class="fa fa-chevron-right fa-border"></i>
         $panel = <<<PANEL
       <div class="panel panel-{$panel_color}" 
            id="kanban-{$kanban_name}"
@@ -83,8 +83,14 @@ CHECK;
         <div class="panel-heading">
           <span class="panel-title">
             <i class="fa fa-th-large"></i> {$kanban_name}
-            <span class="pull-right badge" id="kanban-{$kanban_name}-summary">
-              34 tickets
+            <span class="pull-right" id="kanban-{$kanban_name}-summary">
+            <small>
+              1-34 of 120
+              <div class="btn-group">
+                <a class="btn btn-xs btn-{$panel_color}" href="#"><i class="fa fa-chevron-left"></i></a>
+                <a class="btn btn-xs btn-{$panel_color}" href="#"><i class="fa fa-chevron-right"></i></a> 
+              </div>
+            </small>
             </span>
           </span>
         </div>
