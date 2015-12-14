@@ -23,11 +23,14 @@ class ProjectHome extends ProjectViewBase {
         $order_select = $this->buildSelectOrder();
 
         $todo_panel = 
-            $this->buildKanbanPanel('TODO', 'danger');
+            $this->buildKanbanPanel('TODO', 'danger',
+                   'Tickets with status <span class="label label-danger">new</span> and <span class="label label-danger">reopened</span>');
         $doing_panel = 
-            $this->buildKanbanPanel('DOING', 'primary');
+            $this->buildKanbanPanel('DOING', 'primary',
+                   'Tickets with status <span class="label label-primary">assigned</span> and <span class="label label-primary">accepted</span>');
         $done_panel = 
-            $this->buildKanbanPanel('DONE', 'success');
+            $this->buildKanbanPanel('DONE', 'success',
+                   'Tickets with status <span class="label label-success">closed</span>');
 
         $content = <<<EOT
 <div id="project-content" class="container-fluid">
@@ -78,16 +81,17 @@ CHECK;
            id="kanban-{$kanban_name}"
       >
         <div class="panel-heading">
-          <span class="panel-title">{$kanban_name}</span>
-          <span class="pull-right" id="kanban-{$kanban_name}-summary"
-            34 tickets
+          <span class="panel-title">
+            <i class="fa fa-th-large"></i> {$kanban_name}
+            <span class="pull-right badge" id="kanban-{$kanban_name}-summary">
+              34 tickets
+            </span>
           </span>
         </div>
         <div class="panel-body bg-info" 
              id="kanban-{$kanban_name}-body"
         >
           {$panel_desc}
-          <span class="pull-right">{$status_checkbox}</span>
         </div> <!-- panel-body -->
 <div class="list-group" id="kanban-{$kanban_name}-list-group">
 </div>
