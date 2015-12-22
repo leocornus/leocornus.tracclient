@@ -82,13 +82,22 @@ CHECK;
       >
         <div class="panel-heading">
           <span class="panel-title">
-            <i class="fa fa-th-large"></i> {$kanban_name}
+            <i class="fa fa-th-large fa-lg"></i> {$kanban_name}
             <span class="pull-right" id="kanban-{$kanban_name}-summary">
             <small>
-              1-34 of 120
+              <span class="btn-group">
+                <span id="start">1</span>-<span id="end"></span> 
+                of <strong><span id="total"></span></strong>
+              </span>
               <div class="btn-group">
-                <a class="btn btn-xs btn-{$panel_color}" href="#"><i class="fa fa-chevron-left"></i></a>
-                <a class="btn btn-xs btn-{$panel_color}" href="#"><i class="fa fa-chevron-right"></i></a> 
+                <a class="btn btn-xs btn-{$panel_color}" 
+                   id="previous">
+                  <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="btn btn-xs btn-{$panel_color}" 
+                   id="next">
+                  <i class="fa fa-chevron-right"></i>
+                </a> 
               </div>
             </small>
             </span>
