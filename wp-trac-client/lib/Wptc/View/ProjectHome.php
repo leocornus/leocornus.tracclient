@@ -22,6 +22,16 @@ class ProjectHome extends ProjectViewBase {
         $priority_filter = $this->buildFilterPriority();
         $order_select = $this->buildSelectOrder();
 
+        $kanbanContent = $this->buildKanbanContent();
+
+        return $kanbanContent;
+    }
+
+    /**
+     * build the 3 column kanban page.
+     */
+    public function buildKanbanContent() {
+
         $todo_panel = 
             $this->buildKanbanPanel('TODO', 'danger',
                    'Tickets with status <span class="label label-danger">new</span> and <span class="label label-danger">reopened</span>');
