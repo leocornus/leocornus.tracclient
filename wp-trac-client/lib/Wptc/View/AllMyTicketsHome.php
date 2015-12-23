@@ -21,8 +21,18 @@ class AllMyTicketsHome extends AllProjectsHome {
         $priority_filter = $this->buildFilterPriority();
         $order_select = $this->buildSelectOrder();
 
-        // TODO: check if use logged in.
-        $content = $this->buildKanbanContent();
+        if(is_user_logged_in()) {
+            // TODO: check if use logged in.
+            $content = $this->buildKanbanContent();
+        } else {
+            $content = <<<LOGIN
+<div class="alert alert-warning h3" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Please log in to view <strong>My Tickets</strong>
+</div>
+LOGIN;
+        }
         return $content;
     }
 }
