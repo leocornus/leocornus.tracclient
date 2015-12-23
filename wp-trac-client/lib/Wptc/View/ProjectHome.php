@@ -26,7 +26,7 @@ class ProjectHome extends ProjectViewBase {
             $this->buildKanbanPanel('TODO', 'danger',
                    'Tickets with status <span class="label label-danger">new</span> and <span class="label label-danger">reopened</span>');
         $doing_panel = 
-            $this->buildKanbanPanel('DOING', 'primary',
+            $this->buildKanbanPanel('DOING', 'warning',
                    'Tickets with status <span class="label label-primary">assigned</span> and <span class="label label-primary">accepted</span>');
         $done_panel = 
             $this->buildKanbanPanel('DONE', 'success',

@@ -1039,6 +1039,9 @@ var ownerAcData = {
          */
         getStartFrom: function() {
 
+            if(this.total < 1) {
+                return 0;
+            }
             var selector = '.pull-right #start';
             var start = this.$element.find(selector).html();
             return parseInt(start);
@@ -1071,6 +1074,7 @@ var ownerAcData = {
                 this.toggleButton('next', false);
             }
 
+            this.$element.find('.pull-right #start').html(start);
             this.$element.find('.pull-right #end').html(end);
             this.$element.find('.pull-right #total').html(this.total);
         },
