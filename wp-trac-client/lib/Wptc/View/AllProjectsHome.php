@@ -64,6 +64,9 @@ EOT;
                 case 'tickets':
                     $tickets_active = ' class="active"';
                     break;
+                case 'mytickets':
+                    $mytickets_active = ' class="active"';
+                    break;
                 case 'commits':
                     $commits_active = ' class="active"';
                     break;
@@ -86,8 +89,8 @@ EOT;
     <li {$commits_active}><a href="{$base_url}?tab=commits">
       <span class="badge">{$total_commits}</span> Commits
     </a></li>
-    <li {$media_active}><a nohref="{$base_url}?tab=media">
-      <span class="badge">{$total_media}</span> Media
+    <li {$mytickets_active}><a href="{$base_url}?tab=mytickets">
+      <span class="badge">{$total_media}</span> My Tickets 
     </a></li>
     <li class="dropdown pull-right">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">

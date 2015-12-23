@@ -481,6 +481,22 @@ class RequestContext {
     }
 
     /**
+     * build query for My Tickets page.
+     */
+    public function buildMyTicketQuery() {
+
+        $the_query = $this->buildTicketQuery();
+        if (is_user_logged_in()) {
+            // current user.
+            $current_user = wp_get_current_user();
+            $owner = $current_user->user_login;
+            $the_query = "{$the_query}&owner={$owner}";
+        }
+
+        return $the_query;
+    }
+
+    /**
      * build the main query, which is only based on the metadata
      * states.
      */

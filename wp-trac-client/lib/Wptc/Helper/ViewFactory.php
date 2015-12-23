@@ -7,6 +7,7 @@ namespace Wptc\Helper;
 use Wptc\Context\ProjectRequestContext;
 use Wptc\Context\AllProjectsRequestContext;
 use Wptc\View\AllProjectsHome;
+use Wptc\View\AllMyTicketsHome;
 use Wptc\View\AllTicketsHome;
 use Wptc\View\AllCommitsHome;
 use Wptc\View\ProjectHome;
@@ -57,6 +58,9 @@ class ViewFactory {
                 switch($this->tab_name) {
                     case 'tickets':
                         $the_page = new AllTicketsHome($context);
+                        break;
+                    case 'mytickets':
+                        $the_page = new AllMyTicketsHome($context);
                         break;
                     case 'commits':
                         $the_page = new AllCommitsHome($context);

@@ -602,7 +602,7 @@ function loadKanbanPanel(kanbanName) {
         var res = JSON.parse(response);
         var items = res['items'];
         var states = res['states'];
-        //console.log(states);
+        console.log(states);
         for(i = 0; i < items.length; i++) {
             var ticket = items[i];
             // find the full name of owner
@@ -707,6 +707,9 @@ jQuery(document).ready(function($) {
               break;
           case "tickets":
               loadMoreTickets();
+              break;
+          case "mytickets":
+              loadProjectKanban();
               break;
           case "commits":
               loadMoreCommits();
