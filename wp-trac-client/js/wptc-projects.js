@@ -1085,7 +1085,7 @@ var ownerAcData = {
         /**
          * toggle buttons enable or disable.
          */
-        toggleButton(what, enable) {
+        toggleButton: function(what, enable) {
 
             var selector = '';
             switch(what) {
