@@ -136,6 +136,10 @@ class RequestContext {
             $current_user = wp_get_current_user();
             $this->states['tracuser'] = $current_user;
         }
+
+        // includ owner parameter, this mainly for query.
+        $owner = $this->getRequestParam('owner');
+        $this->setState('owner', $owner);
     }
 
     /**
@@ -485,8 +489,14 @@ class RequestContext {
      */
     public function buildMyTicketQuery() {
 
+        // build the ticket query.
         $the_query = $this->buildTicketQuery();
-        if (is_user_logged_in()) {
+
+        // try to find the owner to filter the query.
+        $owner = $this->getState('owner');
+        if ($owner != '') {
+            $the_query = "{$the_query}&owner={$owner}";
+        } else if (is_user_logged_in()) {
             // current user.
             $current_user = wp_get_current_user();
             $owner = $current_user->user_login;

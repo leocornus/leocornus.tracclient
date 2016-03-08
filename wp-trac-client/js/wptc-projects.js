@@ -46,6 +46,7 @@ jQuery.extend(ProjectRequestContext.prototype, {
             'page_number' : this.getState('page_number'),
             'order' : this.getState('order'),
             'project' : this.getState('project'),
+            'owner' : this.getState('owner'),
             'status' : this.getState('status'),
             'priority' : this.getState('priority'),
             'search_term' : this.getState('search_term'),

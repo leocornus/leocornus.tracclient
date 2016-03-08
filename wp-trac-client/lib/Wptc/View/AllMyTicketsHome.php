@@ -22,8 +22,9 @@ class AllMyTicketsHome extends AllProjectsHome {
         $order_select = $this->buildSelectOrder();
 
         if(is_user_logged_in()) {
-            // TODO: check if use logged in.
             $content = $this->buildKanbanContent();
+            // JavaScript client will call server side to verify
+            // user information.
         } else {
             $content = <<<LOGIN
 <div class="alert alert-warning h3" role="alert">
