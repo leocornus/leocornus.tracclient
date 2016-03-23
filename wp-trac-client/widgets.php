@@ -1180,7 +1180,7 @@ function wptc_widget_trac_homepage() {
 function wptc_widget_trac_timeline() {
 
     // using 2 weeks time range as the default.
-    $from = date('m/d/Y', strtotime("-2 Weeks"));
+    $from = date('m/d/Y', strtotime("-50 Weeks"));
     $timeline = wptc_get_tickets_timeline($from);
     $timeline_dts = "";
     foreach($timeline as $change_time => $aline) {
