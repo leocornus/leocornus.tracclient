@@ -61,9 +61,10 @@ VIEW;
 <div class="page-header" id="project-header">
   <form class="navbar-form navbar-right" role="search">
     <div class="form-group">
+      <div class="input-group">
       <input type="text" class="form-control" placeholder="Search">
+      </div>
     </div>
-    <button type="submit" class="btn btn-success">Go</button>
   </form>
   <h3>
     <a href="{$projects_url}"> All Projects</a> / 

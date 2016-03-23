@@ -61,6 +61,9 @@ EOT;
             $home_active = ' class="active"';
         } else {
             switch($tab) {
+                case 'projects':
+                    $projects_active = ' class="active"';
+                    break;
                 case 'tickets':
                     $tickets_active = ' class="active"';
                     break;
@@ -82,6 +85,8 @@ EOT;
 <div id="project-nav" class="container-fluid h4">
   <ul class="nav nav-tabs">
     <li {$home_active}><a href="{$base_url}">
+      Timeline</a></li>
+    <li {$projects_active}><a href="{$base_url}?tab=projects">
       <span class="badge">{$total_projects}</span> Projects</a></li>
     <li {$tickets_active}><a href="{$base_url}?tab=tickets">
       <span class="badge">{$total_tickets}</span> Tickets</a>

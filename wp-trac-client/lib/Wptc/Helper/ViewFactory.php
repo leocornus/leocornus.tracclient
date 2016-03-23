@@ -10,6 +10,7 @@ use Wptc\View\AllProjectsHome;
 use Wptc\View\AllMyTicketsHome;
 use Wptc\View\AllTicketsHome;
 use Wptc\View\AllCommitsHome;
+use Wptc\View\AllTimelineHome;
 use Wptc\View\ProjectHome;
 use Wptc\View\ProjectSprintsHome;
 use Wptc\View\ProjectTicketsHome;
@@ -56,6 +57,9 @@ class ViewFactory {
         if(empty($this->project_name)) {
             if(!empty($this->tab_name)) {
                 switch($this->tab_name) {
+                    case 'projects':
+                        $the_page = new AllProjectsHome($context);
+                        break;
                     case 'tickets':
                         $the_page = new AllTicketsHome($context);
                         break;
@@ -69,7 +73,7 @@ class ViewFactory {
             }
             if(empty($the_page)){
                 // default is the all projects homepage.
-                $the_page = new AllProjectsHome($context);
+                $the_page = new AllTimelineHome($context);
             }
             echo $the_page->renderPage();
         } else {

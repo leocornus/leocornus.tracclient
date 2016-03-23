@@ -36,7 +36,9 @@ class AllProjectsRequestContext extends RequestContext {
         $tab_name = $this->getRequestParam('tab');
         if(!empty($tab_name)) {
             $this->setState('tab', $tab_name);
-            $this->defaults['per_page'] = 10;
+            if(!$tab_name == 'projects') {
+                $this->defaults['per_page'] = 10;
+            }
         }
 
         // load trac user information.
@@ -99,6 +101,12 @@ class AllProjectsRequestContext extends RequestContext {
         $tab_name = $this->getState('tab');
         if(!empty($tab_name)) {
             switch($tab_name) {
+                case "projects":
+                    $query = $this->getState('search_term'); 
+                    if(empty($query)) {
+                        $query = 'ALL_PROJECTS';
+                    }
+                    break;
                 case "tickets":
                     $query = $this->buildTicketQuery();
                     break;
@@ -110,10 +118,10 @@ class AllProjectsRequestContext extends RequestContext {
                     break;
             }
         } else {
-            $query = $this->getState('search_term'); 
-            if(empty($query)) {
-                $query = 'ALL_PROJECTS';
-            }
+            //$query = $this->getState('search_term'); 
+            //if(empty($query)) {
+            //    $query = 'ALL_PROJECTS';
+            //}
         }
         return $query;
     }
@@ -127,6 +135,9 @@ class AllProjectsRequestContext extends RequestContext {
         $tab_name = $this->getState('tab');
         if(!empty($tab_name)) {
             switch($tab_name) {
+                case "projects":
+                    $total = $this->calcProjectsTotal($query);
+                    break;
                 case "tickets":
                     $total = $this->calcTicketsTotal($query);
                     break;

@@ -703,6 +703,9 @@ jQuery(document).ready(function($) {
           loadProjectKanban();
       } else {
           switch(tabName) {
+          case "projects":
+              loadMoreProjects();
+              break;
           case "sprints":
               loadProjectSprints();
               break;
