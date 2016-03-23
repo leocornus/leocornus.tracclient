@@ -257,6 +257,7 @@ function wptc_get_tickets_timeline($from, $to=null) {
                 'id' => $id,
                 'title' => $ticket['summary'],
                 'author' => $ticket['reporter'],
+                'project' => $ticket['project'],
                 // action will be one of created, accepted, assigned,
                 // reopened, closed, and updated.
                 // basically it will 
@@ -291,6 +292,7 @@ function wptc_get_tickets_timeline($from, $to=null) {
                 'id' => $id,
                 'title' => $ticket['summary'],
                 'author' => $change['author'],
+                'project' => $ticket['project'],
                 'action' => 'updated',
             );
             if(array_key_exists('comment', $change)) {
