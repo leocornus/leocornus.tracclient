@@ -97,24 +97,31 @@ EOT;
         $content = <<<CONTENT
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
+    <div class="panel panel-info">
       <div class="panel-heading text-center">
-        <span class="panel-title"><strong>Summary</strong></span>
+        <span class="panel-title"><strong>
+          <i class="fa fa-newspaper-o fa-lg"></i>
+          Summary
+        </strong></span>
       </div>
       <div class="panel-body bg-info">
-        Activity summary in past 2 weeks.
+        <i class="fa fa-chain-broken text-danger"></i>
+        <span class="text-muted">Activity summary in past 2 weeks.</span>
       </div>
       <ul class="list-group">
-        <li class="list-group-item">Total number for Projects</li>
-        <li class="list-group-item">Total number for Tickets</li>
-        <li class="list-group-item">Total number for Authors</li>
+        <li class="list-group-item text-muted">Total number for Projects</li>
+        <li class="list-group-item text-muted">Total number for Tickets</li>
+        <li class="list-group-item text-muted">Total number for Authors</li>
       </ul>
     </div>
   </div>
   <div class="col-md-8">
-    <div class="panel panel-info">
+    <div class="panel panel-success">
       <div class="panel-heading text-center">
-        <span class="panel-title"><strong>Activity</strong></span>
+        <span class="panel-title"><strong>
+          <i class="fa fa-heartbeat fa-lg"></i>
+          Activity
+        </strong></span>
       </div>
       <ul class="list-group">
         {$timeline_dts}
