@@ -357,20 +357,23 @@ function mergeStatus(commitId, uatBranch, prodBranch) {
       //console.log(status);
       var uatTd = jQuery("td[id='uat-" + commitId + "']")
       var textClass = "text-success";
+      var textIcon = '<i class="fa fa-check-circle" aria-hidden="true"></i>';
       if(mergeStatus[uatBranch] == 'Pending') {
           textClass = "text-danger";
+          textIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
       }
       uatTd.html('<span class="' + textClass + '">' +
-                     mergeStatus[uatBranch] + '</span>');
+                    textIcon + mergeStatus[uatBranch] + 
+                 '</span>');
 
       var prodTd = jQuery("td[id='prod-" + commitId + "']")
       textClass = "text-success";
       if(mergeStatus[prodBranch] == 'Pending') {
-         textClass = "text-danger"; 
-         //textIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
+          textClass = "text-danger"; 
+          textIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
       }
       prodTd.html('<span class="' + textClass + '">' +
-                     mergeStatus[prodBranch] + 
+                     textIcon + mergeStatus[prodBranch] + 
                   '</span>');
   });
 }
