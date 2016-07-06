@@ -231,13 +231,27 @@ function loadMoreCommits(scroll2Bottom) {
 
             // we need decide show download column or not!
             // only show the download column for project page.
-            var colspan = 3;
+            var colspan = 5;
             var downloadTD = '';
+            var statusTDs = '';
             if ((typeof projectName == 'undefined') ||
                 (projectName == '')) {
                 // now project name, it is in all commits page.
                 // we will using the default colspan and
                 // download TD.
+                statusTDs = 
+                  '<td id="uat-' + log['id'] + '">' +
+                    '<span class="text-warning">' + 
+                       '<i class="fa fa-spinner fa-pulse" ' +
+                           'aria-hidden="true"></i>' +
+                    '</span>' +
+                  '</td>' +
+                  '<td id="prod-' + log['id'] + '">' +
+                    '<span class="text-warning">' + 
+                       '<i class="fa fa-spinner fa-pulse" ' +
+                           'aria-hidden="true"></i>' +
+                    '</span>' +
+                  '</td>';
             } else {
                 colspan = 4;
                 downloadTD = 
@@ -278,10 +292,7 @@ function loadMoreCommits(scroll2Bottom) {
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
               downloadTD +
-              //'<td id="uat-' + log['id'] + 
-              //  '"><span></span></td>' +
-              //'<td id="prod-' + log['id'] + 
-              //  '"><span></span></td>' +
+              statusTDs +
             '</tr>');
         }
         // calculate loaded item.
