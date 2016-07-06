@@ -208,6 +208,9 @@ function loadMoreCommits(scroll2Bottom) {
     jQuery('html,body').css('cursor', 'wait');
     jQuery('a').css('cursor', 'wait');
 
+    // the id to tell that these commits need check status.
+    var statusSelector = 'commits-';
+
     // AJAX request to get tickets of next page.
     // ajax_url is set by using wp_localize_script
     jQuery.post(wptc_projects.ajax_url, 
@@ -219,7 +222,9 @@ function loadMoreCommits(scroll2Bottom) {
         context.updateCookies(states);
         //console.log(items);
         // clean table if page_number < 1
-        if (context.getState('page_number') < 1) {
+        var pageNumber = context.getState('page_number');
+        statusSelector = statusSelector + pageNumber;
+        if (pageNumber < 1) {
             jQuery("table[id='project-items'] > tbody").html("");
         }
         // append the ticket list table.
@@ -287,7 +292,7 @@ function loadMoreCommits(scroll2Bottom) {
 
             // append the log info.
             tbody.append('<tr id="log">' +
-              '<td><a href="' + 
+              '<td><a id="' + statusSelector + '" href="' + 
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
@@ -321,10 +326,53 @@ function loadMoreCommits(scroll2Bottom) {
             // only enable the load more if still more items to load.
             jQuery("a[id='load-more-commits']").removeClass('disabled');
         }
+
+        // triger the merge status checking process.
+        var selector = 'a[id="' + statusSelector + '"]';
+        jQuery(selector).each(function(index) {
+             var commitId = jQuery(this).html();
+             mergeStatus(commitId, 'master-uat', 'master');
+        });
     });
 
     // update table html.
     // caculate next page. update request context.
+}
+
+/**
+ * check the merge status for a given commit.
+ */
+function mergeStatus(commitId, uatBranch, prodBranch) {
+
+  // query merge status.
+  var data = {
+      "action" : "wpg_get_merge_status",
+      "commit_id" : commitId
+  };
+  // ajax_url will be set up by wp_localize_script
+  jQuery.post(wptc_projects.ajax_url, 
+              data, function(response) {
+
+      var mergeStatus = JSON.parse(response);
+      //console.log(status);
+      var uatTd = jQuery("td[id='uat-" + commitId + "']")
+      var textClass = "text-success";
+      if(mergeStatus[uatBranch] == 'Pending') {
+          textClass = "text-danger";
+      }
+      uatTd.html('<span class="' + textClass + '">' +
+                     mergeStatus[uatBranch] + '</span>');
+
+      var prodTd = jQuery("td[id='prod-" + commitId + "']")
+      textClass = "text-success";
+      if(mergeStatus[prodBranch] == 'Pending') {
+         textClass = "text-danger"; 
+         //textIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
+      }
+      prodTd.html('<span class="' + textClass + '">' +
+                     mergeStatus[prodBranch] + 
+                  '</span>');
+  });
 }
 
 // utility function to build the panel for a project.

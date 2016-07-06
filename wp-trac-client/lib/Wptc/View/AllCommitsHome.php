@@ -68,7 +68,7 @@ class AllCommitsHome extends AllProjectsHome {
       </tfoot>
       <tbody>
         <tr>
-          <td colspan="3" class="bg-info h3 text-center">Loading ...</td>
+          <td colspan="5" class="bg-info h3 text-center">Loading ...</td>
         </tr>
       </tbody>
     </table>
