@@ -238,27 +238,26 @@ function loadMoreCommits(scroll2Bottom) {
             // only show the download column for project page.
             var colspan = 5;
             var downloadTD = '';
-            var statusTDs = '';
+            var statusTDs = 
+              '<td id="uat-' + log['id'] + '">' +
+                '<span class="text-warning">' + 
+                   '<i class="fa fa-spinner fa-pulse" ' +
+                       'aria-hidden="true"></i>' +
+                '</span>' +
+              '</td>' +
+              '<td id="prod-' + log['id'] + '">' +
+                '<span class="text-warning">' + 
+                   '<i class="fa fa-spinner fa-pulse" ' +
+                       'aria-hidden="true"></i>' +
+                '</span>' +
+              '</td>';
             if ((typeof projectName == 'undefined') ||
                 (projectName == '')) {
                 // now project name, it is in all commits page.
                 // we will using the default colspan and
                 // download TD.
-                statusTDs = 
-                  '<td id="uat-' + log['id'] + '">' +
-                    '<span class="text-warning">' + 
-                       '<i class="fa fa-spinner fa-pulse" ' +
-                           'aria-hidden="true"></i>' +
-                    '</span>' +
-                  '</td>' +
-                  '<td id="prod-' + log['id'] + '">' +
-                    '<span class="text-warning">' + 
-                       '<i class="fa fa-spinner fa-pulse" ' +
-                           'aria-hidden="true"></i>' +
-                    '</span>' +
-                  '</td>';
             } else {
-                colspan = 4;
+                colspan = 6;
                 downloadTD = 
                   '<td><button class="btn btn-sm btn-warning"' +
                   ' id="download-' + log['id'] + 
@@ -296,8 +295,8 @@ function loadMoreCommits(scroll2Bottom) {
                 log['url'] + '">' + log['id'] + "</a></td>" +
               '<td>' + log['comment'] + '</td>' +
               '<td>' + log['email'] + '</td>' +
-              downloadTD +
               statusTDs +
+              downloadTD +
             '</tr>');
         }
         // calculate loaded item.
@@ -331,6 +330,8 @@ function loadMoreCommits(scroll2Bottom) {
         var selector = 'a[id="' + statusSelector + '"]';
         jQuery(selector).each(function(index) {
              var commitId = jQuery(this).html();
+             // TODO: Need get the branch name from settings,
+             // instead of hard-coded.
              mergeStatus(commitId, 'master-uat', 'master');
         });
     });
