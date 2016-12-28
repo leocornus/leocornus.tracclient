@@ -18,4 +18,3 @@ wp_register_style( 'custom-toolbar',
 wp_enqueue_style( 'custom-toolbar' );
 
 require_once(WPTC_PLUGIN_PATH . '/toolbar/custom-toolbar.php');
-

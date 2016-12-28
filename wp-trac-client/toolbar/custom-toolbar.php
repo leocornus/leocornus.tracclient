@@ -12,7 +12,7 @@ function add_projects_toolbar_menu() {
     // HTML way to use dashicons.
     //$icon = '<span class="dashicons dashicons-portfolio"></span>';
 
-    // add Projects menu for logged in users.
+    // add Projects menu for all users.
     $wp_admin_bar->add_menu( array(
         'id' => 'projects',
         'parent' => 'top-secondary',
@@ -23,6 +23,7 @@ function add_projects_toolbar_menu() {
 
     if ( is_user_logged_in() ) {
     
+        // add Projects sub menu for logged in users.
         add_sub_menu( 'My Tickets', '/projects?tab=mytickets', 
                       'projects');
         add_sub_menu( 'GitWeb', '/gitweb', 'projects');
