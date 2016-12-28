@@ -47,6 +47,7 @@ require_once(WPTC_PLUGIN_PATH . '/admin/index.php');
 require_once(WPTC_PLUGIN_PATH . '/admin/init.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-tags.php');
 require_once(WPTC_PLUGIN_PATH . '/admin-widgets.php');
+require_once(WPTC_PLUGIN_PATH . '/toolbar/index.php');
 
 // activation hook has to be in main php file.
 function wptc_install() {
