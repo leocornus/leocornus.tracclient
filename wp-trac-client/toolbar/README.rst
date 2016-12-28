@@ -1,5 +1,11 @@
 Hooks and filters to tweak toolbar (admin bar) for wp track client plugin.
 
+top-secondary
+=============
+
+Using the **top-secondary** as the parent will move the nw menu 
+to right side of admin bar, which is beside the user project menu.
+
 A little history
 ================
 
