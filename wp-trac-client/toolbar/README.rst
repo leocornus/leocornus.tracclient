@@ -1,5 +1,14 @@
 Hooks and filters to tweak toolbar (admin bar) for wp track client plugin.
 
+dashicons
+=========
+
+Some resources about dashicons_:
+
+* http://jespervanengelen.com/snippets/use-wordpress-dashicons-frontend/
+
+.. _dashicons: https://developer.wordpress.org/resource/dashicons
+
 top-secondary
 =============
 
