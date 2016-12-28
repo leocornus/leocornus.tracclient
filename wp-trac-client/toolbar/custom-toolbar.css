@@ -1,0 +1,3 @@
+#wp-admin-bar-projects .ab-item .ab-icon:before{
+    content: "\f322" !important;
+}
